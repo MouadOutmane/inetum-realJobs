@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import world.inetum.realdolmen.inetumrealJobs.model.User;
+import world.inetum.realdolmen.inetumrealJobs.jpa.User;
 import world.inetum.realdolmen.inetumrealJobs.repositories.UserRepository;
 
 import javax.transaction.Transactional;

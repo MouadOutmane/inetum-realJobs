@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import world.inetum.realdolmen.inetumrealJobs.model.ERole;
-import world.inetum.realdolmen.inetumrealJobs.model.Role;
-import world.inetum.realdolmen.inetumrealJobs.model.User;
+import world.inetum.realdolmen.inetumrealJobs.jpa.ERole;
+import world.inetum.realdolmen.inetumrealJobs.jpa.Role;
+import world.inetum.realdolmen.inetumrealJobs.jpa.User;
 import world.inetum.realdolmen.inetumrealJobs.payload.request.LoginRequest;
 import world.inetum.realdolmen.inetumrealJobs.payload.request.SignupRequest;
 import world.inetum.realdolmen.inetumrealJobs.payload.response.JwtResponse;
@@ -35,8 +35,8 @@ import javax.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
-public class LoginController {
+@RequestMapping("/authentication")
+public class AuthenticationController {
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -53,8 +53,8 @@ public class LoginController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -74,8 +74,8 @@ public class LoginController {
                 roles));
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    @PostMapping("/signUp")
+    public ResponseEntity<?> signUp(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()

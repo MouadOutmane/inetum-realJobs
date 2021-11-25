@@ -1,16 +1,20 @@
 package world.inetum.realdolmen.inetumrealJobs.payload.request;
 
-
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 
 public class SignupRequest {
+
     private String username;
 
+    @Email
     private String email;
 
     private Set<String> role;
 
+    @NotNull
     private String password;
 
     public String getUsername() {

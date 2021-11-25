@@ -1,10 +1,11 @@
 package world.inetum.realdolmen.inetumrealJobs.payload.request;
 
+import javax.validation.constraints.NotNull;
+
 public class LoginRequest {
 
     private String username;
-
-
+    @NotNull
     private String password;
 
     public String getUsername() {

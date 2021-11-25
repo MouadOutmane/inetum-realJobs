@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.inetumrealJobs.model;
+package world.inetum.realdolmen.inetumrealJobs.jpa;
 
 
 import javax.persistence.*;
@@ -17,9 +17,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     private String username;
-
     @Email
     private String email;
 

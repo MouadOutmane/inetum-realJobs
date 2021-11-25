@@ -10,7 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import world.inetum.realdolmen.inetumrealJobs.model.User;
+import world.inetum.realdolmen.inetumrealJobs.jpa.User;
 
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
