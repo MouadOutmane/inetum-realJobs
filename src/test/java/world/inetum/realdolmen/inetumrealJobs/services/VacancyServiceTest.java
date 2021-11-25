@@ -50,7 +50,7 @@ public class VacancyServiceTest {
 
         Vacancy Vacancy = vacancyService.addVacancy(vacancy);
 
-        Optional<Vacancy> foundEntity = vacancyService.findVacancy(Vacancy.getId());
+        Optional<Vacancy> foundEntity = vacancyService.findVacancyById(Vacancy.getId());
 
         assertTrue(foundEntity.isPresent());
         assertEquals(Vacancy.getCity(), (foundEntity.orElse(null)).getCity());
