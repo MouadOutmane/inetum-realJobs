@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.inetumrealJobs.jpa;
+package world.inetum.realdolmen.inetumrealJobs.entities;
 
 
 import lombok.AllArgsConstructor;
@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 
 @Builder
 @NoArgsConstructor

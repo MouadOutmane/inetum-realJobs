@@ -1,9 +1,7 @@
-package world.inetum.realdolmen.inetumrealJobs.jpa;
+package world.inetum.realdolmen.inetumrealJobs.entities;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import world.inetum.realdolmen.inetumrealJobs.jpa.Vacancy;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
