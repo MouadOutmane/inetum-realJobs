@@ -9,7 +9,7 @@ import world.inetum.realdolmen.inetumrealJobs.services.VacancyService;
 
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/vacancies")
 public class VacancySearchController {
@@ -22,7 +22,7 @@ public class VacancySearchController {
         this.vacancyService = vacancyService;
     }
 
-    @GetMapping("/filter/")
+    @GetMapping("/")
     ResponseEntity<List<Vacancy>> findAllVacanciesWithFilter(@RequestParam String functionTitle, @RequestParam String contractType, @RequestParam String country, @RequestParam String industry, @RequestParam String requiredYearsOfExperience) {
 
         List<Vacancy> results = vacancyService.findVacancyWithFilter(functionTitle, contractType, country, industry, Integer.parseInt(requiredYearsOfExperience));

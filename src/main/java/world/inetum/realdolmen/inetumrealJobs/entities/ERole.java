@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.inetumrealJobs.jpa;
+package world.inetum.realdolmen.inetumrealJobs.entities;
 
 public enum ERole {
     ROLE_JOB_SEEKER,
