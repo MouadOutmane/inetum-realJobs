@@ -1,6 +1,8 @@
 package world.inetum.realdolmen.inetumrealJobs.entities;
 
 
+import lombok.Builder;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -50,9 +52,8 @@ public class User {
     @NotBlank
     @Column(name = "city")
     private String city;
-    @NotNull
     @Column(name = "postal_code")
-    private int postalCode;
+    private String postalCode;
     @Column(name = "country")
     @NotBlank
     private String country;
@@ -71,8 +72,9 @@ public class User {
     public User() {
     }
 
-    public User( String email, String password) {
-        this.email = email;
+    @Builder
+    public User( String user, String password) {
+        this.username = user;
         this.password = password;
     }
 
@@ -180,11 +182,11 @@ public class User {
         this.city = city;
     }
 
-    public int getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(int postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
