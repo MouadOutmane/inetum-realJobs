@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -14,6 +15,8 @@ import world.inetum.realdolmen.inetumrealJobs.InetumRealJobsApplication;
 import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 
 @AutoConfigureMockMvc
@@ -35,11 +38,35 @@ public class VacancyControllerTest {
 
 
     @Test
+    public void findAllVacanciesWithFilter_GETInexistantVacancy_Fail() throws Exception{
+
+        MvcResult m = mockMvc.perform(get("/api/vacancies/?functionTitle=&contractType=&industry=&country=Chili&requiredYearsOfExperience=0"))
+                .andExpect(status().isNoContent())
+                .andReturn();
+    }
+
+    @Test
+    public void findAllVacanciesWithFilter_GETBelgium3YearsOfExpVacancy_Success() throws Exception{
+
+        MvcResult m = mockMvc.perform(get("/api/vacancies/?functionTitle=&contractType=&industry=&country=Belgium&requiredYearsOfExperience=3"))
+                .andExpect(status().isOk())
+                .andReturn();
+    }
+
+    @Test
+    public void findAllVacancies_GET_Success() throws Exception{
+
+        mockMvc.perform(get("/api/vacancies/all"))
+                .andExpect(status().isOk());
+    }
+
+
+    @Test
     public void addVacancy_POSTEmptyVacancy_Fail() throws Exception {
 
         Vacancy vacancy = new Vacancy();
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/vacancies/create")
+        mockMvc.perform(post("/api/vacancies/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(vacancy.toJson()))
                 .andExpect(status().is4xxClientError());
