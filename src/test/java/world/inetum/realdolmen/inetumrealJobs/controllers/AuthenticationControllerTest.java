@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import world.inetum.realdolmen.inetumrealJobs.InetumRealJobsApplication;
+import world.inetum.realdolmen.inetumrealJobs.entities.User;
 import world.inetum.realdolmen.inetumrealJobs.payload.request.LoginRequest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,4 +66,10 @@ class AuthenticationControllerTest {
         assertEquals(expectedMessage, actualMessage);
     }
 
+    @Test
+    void when_UserRegisterWithRoleSelected_VerifyAcceptanceCriteria(){
+        User user = new User("user", "pword");
+
+
+    }
 }

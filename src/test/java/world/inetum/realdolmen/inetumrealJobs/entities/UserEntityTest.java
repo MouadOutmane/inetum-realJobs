@@ -14,7 +14,6 @@ class UserEntityTest {
 
         user.setUsername("user");
         user.setPassword("password");
-        user.setEmail("email");
         user.setGender("male");
         user.setFirstName("firstName");
         user.setLastName("lastName");
@@ -30,7 +29,6 @@ class UserEntityTest {
 
         assertNotNull(user.getUsername());
         assertNotNull(user.getPassword());
-        assertNotNull(user.getEmail());
         assertNotNull(user.getGender());
         assertNotNull(user.getFirstName());
         assertNotNull(user.getLastName());

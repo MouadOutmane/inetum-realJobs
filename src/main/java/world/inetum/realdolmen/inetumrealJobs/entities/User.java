@@ -1,22 +1,20 @@
 package world.inetum.realdolmen.inetumrealJobs.entities;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(	name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
-                @UniqueConstraint(columnNames = "email")
         })
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +22,6 @@ public class User {
     @NotBlank
     @Column(name = "username")
     private String username;
-    @Email
-    private String email;
     @NotBlank
     @Column(name = "password")
     private String password;
@@ -52,6 +48,7 @@ public class User {
     @NotBlank
     @Column(name = "city")
     private String city;
+    @NotBlank
     @Column(name = "postal_code")
     private String postalCode;
     @Column(name = "country")
@@ -59,15 +56,12 @@ public class User {
     private String country;
     @Column(name = "mobile_phone")
     private String mobilePhone;
-    @NotBlank
     @Column(name = "profile_picture")
     private String profilePicture;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    @Column(name ="role")
+    @Enumerated(EnumType.STRING)
+    private ERole role;
 
     public User() {
     }
@@ -76,6 +70,26 @@ public class User {
     public User( String user, String password) {
         this.username = user;
         this.password = password;
+    }
+
+    public User(String username, String password, String gender, String firstName, String lastName,
+                Date dateOfBirth, String streetName, String houseNumber, String box, String city, String postalCode,
+                String country, String mobilePhone, String profilePicture, ERole role) {
+        this.username = username;
+        this.password = password;
+        this.gender = gender;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.streetName = streetName;
+        this.houseNumber = houseNumber;
+        this.box = box;
+        this.city = city;
+        this.postalCode = postalCode;
+        this.country = country;
+        this.mobilePhone = mobilePhone;
+        this.profilePicture = profilePicture;
+        this.role = role;
     }
 
     public Long getId() {
@@ -94,14 +108,6 @@ public class User {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -110,12 +116,12 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public ERole getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(ERole roles) {
+        this.role = roles;
     }
 
     public String getGender() {

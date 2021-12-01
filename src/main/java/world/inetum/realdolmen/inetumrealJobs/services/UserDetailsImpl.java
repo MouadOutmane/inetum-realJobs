@@ -1,6 +1,7 @@
 package world.inetum.realdolmen.inetumrealJobs.services;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -19,31 +20,26 @@ public class UserDetailsImpl implements UserDetails {
 
     private String username;
 
-    private String email;
-
     @JsonIgnore
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String username, String email, String password,
+    public UserDetailsImpl(Long id, String username, String password,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
-        this.email = email;
         this.password = password;
         this.authorities = authorities;
     }
 
     public static UserDetailsImpl build(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-                .collect(Collectors.toList());
+        List<GrantedAuthority> authorities = Collections.singletonList(
+                new SimpleGrantedAuthority(user.getRole().toString()));
 
         return new UserDetailsImpl(
                 user.getId(),
                 user.getUsername(),
-                user.getEmail(),
                 user.getPassword(),
                 authorities);
     }
@@ -55,10 +51,6 @@ public class UserDetailsImpl implements UserDetails {
 
     public Long getId() {
         return id;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     @Override
@@ -89,6 +81,14 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
     }
 
     @Override

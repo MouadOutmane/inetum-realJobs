@@ -23,9 +23,14 @@ public class VacancySearchController {
     }
 
     @GetMapping("/")
-    ResponseEntity<List<Vacancy>> findAllVacanciesWithFilter(@RequestParam String functionTitle, @RequestParam String contractType, @RequestParam String country, @RequestParam String industry, @RequestParam String requiredYearsOfExperience) {
+    ResponseEntity<List<Vacancy>> findAllVacanciesWithFilter(@RequestParam String functionTitle,
+                                                             @RequestParam String contractType,
+                                                             @RequestParam String country,
+                                                             @RequestParam String industry,
+                                                             @RequestParam String requiredYearsOfExperience) {
 
-        List<Vacancy> results = vacancyService.findVacancyWithFilter(functionTitle, contractType, country, industry, Integer.parseInt(requiredYearsOfExperience));
+        List<Vacancy> results = vacancyService.findVacancyWithFilter(functionTitle, contractType, country, industry,
+                Integer.parseInt(requiredYearsOfExperience));
 
         return new ResponseEntity<>(results, HttpStatus.OK);
 

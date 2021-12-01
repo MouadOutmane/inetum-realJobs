@@ -22,7 +22,6 @@ public class VacancyService {
         this.vacancyRepository = vacancyRepository;
     }
 
-
     public Vacancy addVacancy(Vacancy vacancy){
         return vacancyRepository.save(vacancy);
     }
