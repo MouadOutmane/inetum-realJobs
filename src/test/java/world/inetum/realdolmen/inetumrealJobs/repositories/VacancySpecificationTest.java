@@ -1,9 +1,9 @@
 package world.inetum.realdolmen.inetumrealJobs.repositories;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
 
 import java.util.List;
@@ -13,16 +13,23 @@ import static org.springframework.data.jpa.domain.Specification.where;
 import static world.inetum.realdolmen.inetumrealJobs.repositories.VacancySpecification.*;
 
 
-@ActiveProfiles("test")
-@SpringBootTest
+@DataJpaTest
 public class VacancySpecificationTest {
 
 
     @Autowired
     VacancyRepository vacancyRepository;
 
+    @BeforeEach
+    void setUp(){
+        vacancyRepository.save(new Vacancy("junior java consultant", "full-time", "java programming", "Inetum", "IT", "Italy", "Rome", 10122, "avenue de la liberte",  33,  0, "1k/month"));
+        vacancyRepository.save(new Vacancy("senior java consultant", "full-time", "java programming", "Realdolmen", "IT", "Italy", "Milan", 10123, "avenue de l'espoir",  34,  3, "2k/month"));
+        vacancyRepository.save(new Vacancy("burger flipper", "full-time", "flipping burgers", "McDonald's", "IT", "USA", "Washington", 10124, "avenue de la force",  35,  3, "3k/month"));
+
+    }
+
     @Test
-    void findFullTimeVacanciesInItalyWith3MinYearsOfExperience(){
+    void findAll_FullTimeItaly3YearsOfExperienceVacancies_True(){
         String contractType= "Full-Time";
         String country = "italy";
         Integer requiredYearsOfExperience = 3;
@@ -51,7 +58,7 @@ public class VacancySpecificationTest {
     }
 
     @Test
-    void testWithNullFuctionTitle(){
+    void testWithNullFunctionTitle(){
         List<Vacancy> results = vacancyRepository.findAll(where(withFunctionTitle(null)));
         assertFalse(results.isEmpty());
     }
