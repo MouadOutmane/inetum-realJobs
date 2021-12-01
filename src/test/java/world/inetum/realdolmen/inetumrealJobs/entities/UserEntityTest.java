@@ -14,7 +14,7 @@ class UserEntityTest {
 
         user.setUsername("user");
         user.setPassword("password");
-        user.setEmail("email");
+        user.setEmail("email@email.com");
         user.setGender("male");
         user.setFirstName("firstName");
         user.setLastName("lastName");

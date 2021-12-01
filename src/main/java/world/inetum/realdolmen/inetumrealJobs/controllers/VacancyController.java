@@ -26,7 +26,6 @@ public class VacancyController {
     @GetMapping("/")
     ResponseEntity<List<Vacancy>> findAllVacanciesWithFilter(@RequestParam String functionTitle, @RequestParam String contractType, @RequestParam String country, @RequestParam String industry, @RequestParam String requiredYearsOfExperience) {
 
-
         List<Vacancy> results = vacancyService.findVacancyWithFilter(functionTitle, contractType, country, industry, Integer.parseInt(requiredYearsOfExperience));
         if(results.isEmpty()){
             return new ResponseEntity<>(results, HttpStatus.NO_CONTENT);
@@ -47,6 +46,7 @@ public class VacancyController {
 
     @PostMapping("/create")
     Vacancy newVacancy(@Valid @RequestBody Vacancy newVacancy) {
+        System.out.println(newVacancy.getContractType());
         return vacancyService.addVacancy(newVacancy);
     }
 }

@@ -4,12 +4,14 @@ package world.inetum.realdolmen.inetumrealJobs.entities;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.ApplicationArguments;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -80,6 +82,9 @@ public class Vacancy {
     @Column(name = "offer")
     @NotEmpty(message = "Please provide an offer")
     private String offer;
+
+    @OneToMany(mappedBy = "vacancy", fetch = FetchType.LAZY)
+    private List<Application> applications;
 
     public Vacancy(String functionTitle, String contractType, String functionDescription, String companyName, String industry, String country, String city, Integer postalCode, String streetName, Integer nr, Integer requiredYearsOfExperience, String offer) {
         this.functionTitle = functionTitle;
@@ -222,6 +227,14 @@ public class Vacancy {
 
     public void setOffer(String offer) {
         this.offer = offer;
+    }
+
+    public List<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(List<Application> applications) {
+        this.applications = applications;
     }
 
     public String toJson() {
