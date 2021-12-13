@@ -6,18 +6,22 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.WebApplicationContext;
 import world.inetum.realdolmen.inetumrealJobs.InetumRealJobsApplication;
-import world.inetum.realdolmen.inetumrealJobs.entities.User;
+import world.inetum.realdolmen.inetumrealJobs.entities.ERole;
 import world.inetum.realdolmen.inetumrealJobs.payload.request.LoginRequest;
+import world.inetum.realdolmen.inetumrealJobs.payload.request.SignupRequest;
+import world.inetum.realdolmen.inetumrealJobs.payload.response.MessageResponse;
+
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -67,9 +71,22 @@ class AuthenticationControllerTest {
     }
 
     @Test
-    void when_UserRegisterWithRoleSelected_VerifyAcceptanceCriteria(){
-        User user = new User("user", "pword");
+    void when_UserRegisterWithRoleSelected_VerifyAcceptanceCriteria() throws Exception {
+        SignupRequest request = new SignupRequest("user1", ERole.ROLE_JOB_SEEKER, "male", "reda",
+                "saada", new Date(), "rue", "11", "1", "brussels", "1000",
+                "belgium", "+3223456789", "", "1234");
+        mockMvc.perform(post("/authentication/signUp").contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(request))).andExpect(status().isOk());
+    }
 
-
+    @Test
+    void when_UserRegisterWithUsedUsername_VerifyError() throws Exception {
+        SignupRequest request = new SignupRequest("user", ERole.ROLE_JOB_SEEKER, "male", "reda",
+                "saada", new Date(), "rue", "11", "1", "brussels", "1000",
+                "belgium", "+3223456789", "", "password");
+        String expectedMessage = "Error: Username is already taken!";
+        MessageResponse messageResponse = (MessageResponse) authenticationController.signUp(request).getBody();
+        String actualMessage = messageResponse.getMessage();
+        assertEquals(expectedMessage, actualMessage);
     }
 }
