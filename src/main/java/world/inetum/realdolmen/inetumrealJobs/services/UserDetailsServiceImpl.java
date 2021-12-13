@@ -24,4 +24,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return UserDetailsImpl.build(user);
     }
+
+    public User getById(Long id){
+        return userRepository.getById(id);
+    }
 }

@@ -27,7 +27,7 @@ public class VacancyService {
         return vacancyRepository.save(vacancy);
     }
 
-    public Optional<Vacancy> findVacancyById(Long id){
+    public Optional<Vacancy> getById(Long id){
         return vacancyRepository.findById(id);
     }
 

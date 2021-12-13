@@ -46,7 +46,6 @@ public class VacancyController {
 
     @PostMapping("/create")
     Vacancy newVacancy(@Valid @RequestBody Vacancy newVacancy) {
-        System.out.println(newVacancy.getContractType());
         return vacancyService.addVacancy(newVacancy);
     }
 }
