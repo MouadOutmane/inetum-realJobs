@@ -7,7 +7,3 @@ import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
 public interface VacancyRepository extends JpaRepository<Vacancy, Long>, JpaSpecificationExecutor<Vacancy> {
 
 }
-
-
-
-

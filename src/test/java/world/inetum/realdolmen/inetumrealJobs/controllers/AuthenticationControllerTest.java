@@ -6,10 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,7 +18,7 @@ import world.inetum.realdolmen.inetumrealJobs.payload.request.LoginRequest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,29 +38,27 @@ class AuthenticationControllerTest {
 
     @BeforeEach
     void setUp() {
-
         mapper = new ObjectMapper();
-
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-
     }
 
     @Test
     void loginWithExistingCredentialsReturning200() throws Exception {
         LoginRequest request = new LoginRequest("user", "password");
-        mockMvc.perform(post("/authentication/login").contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(request))).andExpect(status().isOk());
+        mockMvc.perform(
+                        post("/authentication/login")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(request))
+                )
+                .andExpect(status().isOk());
     }
 
     @Test
-    void loginWithExistingCredentialsReturning401() throws Exception {
+    void loginWithExistingCredentialsReturning401() {
         LoginRequest request = new LoginRequest("user", "p");
-        Exception exception = assertThrows(BadCredentialsException.class, () -> {
-            authenticationController.login(request);
-        });
-        String expectedMessage = "Bad credentials";
-        String actualMessage = exception.getMessage();
-        assertEquals(expectedMessage, actualMessage);
-    }
 
+        Exception exception = assertThrows(BadCredentialsException.class, () -> authenticationController.login(request));
+
+        assertEquals("Bad credentials", exception.getMessage());
+    }
 }
