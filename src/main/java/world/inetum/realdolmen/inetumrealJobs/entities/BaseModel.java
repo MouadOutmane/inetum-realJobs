@@ -4,11 +4,13 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BaseModel {
 
     @Id
@@ -16,23 +18,23 @@ public abstract class BaseModel {
     private Long id;
 
     @Version
-    @Column(name = "VERSION", nullable = false)
+    @Column(name = "version", nullable = false)
     private int version;
 
     @CreatedBy
-    @Column(name = "CREATED_BY", updatable = false)
+    @Column(name = "created_by", updatable = false)
     private String createdBy;
 
     @CreatedDate
-    @Column(name = "CREATED_ON", updatable = false)
+    @Column(name = "created_on", updatable = false)
     private LocalDateTime createdOn;
 
     @LastModifiedBy
-    @Column(name = "CHANGED_BY")
+    @Column(name = "changed_by")
     private String changedBy;
 
     @LastModifiedDate
-    @Column(name = "CHANGED_ON")
+    @Column(name = "changed_on")
     private LocalDateTime changedOn;
 
     public Long getId() {
