@@ -68,11 +68,23 @@ public class AuthenticationController {
         }
 
         // Create new user's account
-        User user = new User(signUpRequest.getUsername(),
-                encoder.encode(signUpRequest.getPassword()),signUpRequest.getGender(), signUpRequest.getFirstName(),
-                signUpRequest.getLastName(), signUpRequest.getDateOfBirth(), signUpRequest.getStreetName(), signUpRequest.getHouseNumber(),
-                signUpRequest.getBox(), signUpRequest.getCity(), signUpRequest.getPostalCode(), signUpRequest.getCountry(),
-                signUpRequest.getMobilePhone(), signUpRequest.getProfilePicture(), signUpRequest.getRole());
+        User user = User.builder()
+                .username(signUpRequest.getUsername())
+                .password(encoder.encode(signUpRequest.getPassword()))
+                .gender(signUpRequest.getGender())
+                .firstName(signUpRequest.getFirstName())
+                .lastName(signUpRequest.getLastName())
+                .dateOfBirth(signUpRequest.getDateOfBirth())
+                .streetName(signUpRequest.getStreetName())
+                .houseNumber(signUpRequest.getHouseNumber())
+                .box(signUpRequest.getBox())
+                .city(signUpRequest.getCity())
+                .postalCode(signUpRequest.getPostalCode())
+                .country(signUpRequest.getCountry())
+                .mobilePhone(signUpRequest.getMobilePhone())
+                .profilePicture(signUpRequest.getProfilePicture())
+                .role(signUpRequest.getRole())
+                .build();
 
         userRepository.save(user);
 

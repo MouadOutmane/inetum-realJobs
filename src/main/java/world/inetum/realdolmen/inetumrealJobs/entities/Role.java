@@ -1,6 +1,6 @@
 package world.inetum.realdolmen.inetumrealJobs.entities;
 
-public enum ERole {
+public enum Role {
     ROLE_JOB_SEEKER,
     ROLE_RECRUITER
 }
