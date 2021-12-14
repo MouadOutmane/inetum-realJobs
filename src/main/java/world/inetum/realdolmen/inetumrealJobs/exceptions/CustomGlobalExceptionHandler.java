@@ -21,8 +21,8 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
     // error handle for @Valid to get personalized messages instead of "Bad Request"
     @Override
-    protected @NonNull
-    ResponseEntity<Object> handleMethodArgumentNotValid(
+    @NonNull
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
             @NonNull HttpHeaders headers,
             HttpStatus status,
