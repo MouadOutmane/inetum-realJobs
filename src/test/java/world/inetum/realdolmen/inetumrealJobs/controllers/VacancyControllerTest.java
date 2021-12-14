@@ -17,12 +17,14 @@ import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @AutoConfigureMockMvc
 @SpringBootTest(classes = InetumRealJobsApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class VacancyControllerTest {
-
 
     private MockMvc mockMvc;
 
@@ -31,35 +33,29 @@ public class VacancyControllerTest {
 
     @BeforeEach
     void setUp() {
-
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-
     }
 
-
     @Test
-    public void findAllVacanciesWithFilter_GETInexistantVacancy_Fail() throws Exception{
+    public void findAllVacanciesWithFilter_GETInexistantVacancy_Fail() throws Exception {
 
-        MvcResult m = mockMvc.perform(get("/api/vacancies/?functionTitle=&contractType=&industry=&country=Chili&requiredYearsOfExperience=0"))
+        mockMvc.perform(get("/api/vacancies/?functionTitle=&contractType=&industry=&country=Chili&requiredYearsOfExperience=0"))
                 .andExpect(status().isNoContent())
                 .andReturn();
     }
 
     @Test
-    public void findAllVacanciesWithFilter_GETBelgium3YearsOfExpVacancy_Success() throws Exception{
-
-        MvcResult m = mockMvc.perform(get("/api/vacancies/?functionTitle=&contractType=&industry=&country=Belgium&requiredYearsOfExperience=3"))
+    public void findAllVacanciesWithFilter_GETBelgium3YearsOfExpVacancy_Success() throws Exception {
+        mockMvc.perform(get("/api/vacancies/?functionTitle=&contractType=&industry=&country=Belgium&requiredYearsOfExperience=3"))
                 .andExpect(status().isOk())
                 .andReturn();
     }
 
     @Test
-    public void findAllVacancies_GET_Success() throws Exception{
-
+    public void findAllVacancies_GET_Success() throws Exception {
         mockMvc.perform(get("/api/vacancies/all"))
                 .andExpect(status().isOk());
     }
-
 
     @Test
     public void addVacancy_POSTEmptyVacancy_Fail() throws Exception {
@@ -68,9 +64,9 @@ public class VacancyControllerTest {
 
         mockMvc.perform(post("/api/vacancies/create")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(vacancy.toJson()))
+                        .content(vacancy.toJson())
+                )
                 .andExpect(status().is4xxClientError());
-
     }
 
     @Test
@@ -92,9 +88,8 @@ public class VacancyControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/vacancies/create")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(vacancy.toJson()))
+                        .content(vacancy.toJson())
+                )
                 .andExpect(status().isOk());
     }
-
-
 }

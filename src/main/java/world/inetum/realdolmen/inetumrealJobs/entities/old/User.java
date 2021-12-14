@@ -1,6 +1,5 @@
 package world.inetum.realdolmen.inetumrealJobs.entities.old;
 
-
 import lombok.Builder;
 
 import javax.persistence.*;
@@ -18,47 +17,63 @@ import java.util.Set;
                 @UniqueConstraint(columnNames = "email")
         })
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank
     @Column(name = "username")
     private String username;
+
     @Email
     private String email;
+
     @NotBlank
     @Column(name = "password")
     private String password;
+
     @NotBlank
     @Column(name = "gender")
     private String gender;
+
     @NotBlank
     @Column(name = "first_name")
     private String firstName;
+
     @NotBlank
     @Column(name = "last_name")
     private String lastName;
+
     @NotNull
     @Column(name = "birth_date")
     private Date dateOfBirth;
+
     @NotBlank
     @Column(name = "street_name")
     private String streetName;
+
     @NotBlank
     @Column(name = "house_number")
     private String houseNumber;
+
     @Column(name = "box")
     private String box;
+
     @NotBlank
     @Column(name = "city")
     private String city;
+
     @Column(name = "postal_code")
     private String postalCode;
+
     @Column(name = "country")
     @NotBlank
     private String country;
+
     @Column(name = "mobile_phone")
     private String mobilePhone;
+
     @NotBlank
     @Column(name = "profile_picture")
     private String profilePicture;
