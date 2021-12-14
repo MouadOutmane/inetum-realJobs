@@ -38,12 +38,6 @@ public class Experience extends BaseModel {
     @Column(name = "description")
     private String description;
 
-    @JoinColumn(
-            name = "resume_id"
-    )
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Resume resume;
-
     public String getJobTitle() {
         return jobTitle;
     }
@@ -106,13 +100,5 @@ public class Experience extends BaseModel {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Resume getResume() {
-        return resume;
-    }
-
-    public void setResume(Resume resume) {
-        this.resume = resume;
     }
 }

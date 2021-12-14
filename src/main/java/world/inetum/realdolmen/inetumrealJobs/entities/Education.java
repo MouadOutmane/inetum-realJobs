@@ -1,6 +1,8 @@
 package world.inetum.realdolmen.inetumrealJobs.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -33,12 +35,6 @@ public class Education extends BaseModel {
 
     @Column(name = "description")
     private String description;
-
-    @JoinColumn(
-            name = "resume_id"
-    )
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Resume resume;
 
     public String getDegree() {
         return degree;
@@ -86,13 +82,5 @@ public class Education extends BaseModel {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Resume getResume() {
-        return resume;
-    }
-
-    public void setResume(Resume resume) {
-        this.resume = resume;
     }
 }

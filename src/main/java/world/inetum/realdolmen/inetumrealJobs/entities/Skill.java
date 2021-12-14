@@ -19,12 +19,6 @@ public class Skill extends BaseModel {
     @Column(name = "program", nullable = false)
     private SkillLevel skillLevel;
 
-    @JoinColumn(
-            name = "resume_id"
-    )
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Resume resume;
-
     public String getSkill() {
         return skill;
     }
@@ -39,13 +33,5 @@ public class Skill extends BaseModel {
 
     public void setSkillLevel(SkillLevel skillLevel) {
         this.skillLevel = skillLevel;
-    }
-
-    public Resume getResume() {
-        return resume;
-    }
-
-    public void setResume(Resume resume) {
-        this.resume = resume;
     }
 }
