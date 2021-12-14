@@ -33,7 +33,6 @@ public class VacancyController {
 
         }
         return new ResponseEntity<>(results, HttpStatus.OK);
-
     }
 
     @GetMapping("/all")

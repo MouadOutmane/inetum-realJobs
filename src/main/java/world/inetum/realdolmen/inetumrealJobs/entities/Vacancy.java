@@ -223,36 +223,4 @@ public class Vacancy {
     public void setOffer(String offer) {
         this.offer = offer;
     }
-
-    public String toJson() {
-
-        return "{\"functionTitle\": \"" +
-                this.functionTitle + "\"" +
-                ",\"contractType\": \"" +
-                this.contractType + "\"" +
-                ",\"offer\": \"" +
-                this.offer + "\"" +
-                ",\"postalCode\": \"" +
-                this.postalCode + "\"" +
-                ",\"requiredYearsOfExperience\": \"" +
-                this.requiredYearsOfExperience + "\"" +
-                ",\"city\": \"" +
-                this.city + "\"" +
-                ",\"country\": \"" +
-                this.country + "\"" +
-                ",\"nr\": \"" +
-                this.nr + "\"" +
-                ",\"streetName\": \"" +
-                this.streetName + "\"" +
-                ",\"requiredExperienceSkillsEducation\": \"" +
-                this.requiredExperienceSkillsEducation + "\"" +
-                ",\"functionDescription\": \"" +
-                this.functionDescription + "\"" +
-                ",\"companyName\": \"" +
-                this.companyName + "\"" +
-                ",\"industry\": \"" +
-                this.industry + "\"" +
-                ",\"box\": \"" +
-                this.box + "\"}";
-    }
 }
