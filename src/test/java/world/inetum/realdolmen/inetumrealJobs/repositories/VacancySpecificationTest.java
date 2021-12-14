@@ -1,36 +1,33 @@
 package world.inetum.realdolmen.inetumrealJobs.repositories;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import world.inetum.realdolmen.inetumrealJobs.BaseRepositoryTest;
 import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.data.jpa.domain.Specification.where;
 import static world.inetum.realdolmen.inetumrealJobs.repositories.VacancySpecification.*;
 
-
 @DataJpaTest
-public class VacancySpecificationTest {
-
-
-    @Autowired
-    VacancyRepository vacancyRepository;
-
-    @BeforeEach
-    void setUp(){
-        vacancyRepository.save(new Vacancy("junior java consultant", "full-time", "java programming", "Inetum", "IT", "Italy", "Rome", 10122, "avenue de la liberte",  33,  0, "1k/month"));
-        vacancyRepository.save(new Vacancy("senior java consultant", "full-time", "java programming", "Realdolmen", "IT", "Italy", "Milan", 10123, "avenue de l'espoir",  34,  3, "2k/month"));
-        vacancyRepository.save(new Vacancy("burger flipper", "full-time", "flipping burgers", "McDonald's", "IT", "USA", "Washington", 10124, "avenue de la force",  35,  3, "3k/month"));
-
-    }
+public class VacancySpecificationTest extends BaseRepositoryTest {
 
     @Test
-    void findAll_FullTimeItaly3YearsOfExperienceVacancies_True(){
-        String contractType= "Full-Time";
+    void findAll_FullTimeItaly3YearsOfExperienceVacancies_True() {
+        persistVacancy("function1", "full-time", "IT", "Belgium", 1);
+        persistVacancy("function2", "part-time", "IT", "Belgium", 3);
+        persistVacancy("function3", "half-time", "Finance", "Italy", 0);
+        persistVacancy("function4", "full-time", "IT", "Italy", 0);
+        persistVacancy("function5", "full-time", "IT", "Italy", 4);
+        persistVacancy("function6", "full-time", "Finance", "Italy", 8);
+        persistVacancy("function6", "full-time", "Finance", "Italy", 3);
+        persistVacancy("function6", "full-time", "IT", "Italy", 8);
+        persistVacancy("function7", "full-time", "Finance", "Belgium", 7);
+        persistVacancy("function8", "full-time", "Public", "Germany", 0);
+
+        String contractType = "Full-Time";
         String country = "italy";
         Integer requiredYearsOfExperience = 3;
         String industry = null;
@@ -41,58 +38,125 @@ public class VacancySpecificationTest {
                 .and(withIndustry(industry)));
 
         assertEquals(2, results.size());
-        assertEquals("Italy", results.get(0).getCountry());
 
+        var firstResult = results.get(0);
+        assertEquals("Italy", firstResult.getCountry());
     }
 
     @Test
-    void testWithNullIndustry(){
+    void testWithNullIndustry() {
+        persistVacancy("function1", "full-time", "IT", "Belgium", 1);
+        persistVacancy("function2", "part-time", "IT", "Belgium", 3);
+        persistVacancy("function3", "half-time", "Finance", "Italy", 0);
+        persistVacancy("function4", "full-time", "Finance", "Belgium", 7);
+        persistVacancy("function5", "full-time", "Public", "Germany", 0);
+
         List<Vacancy> results = vacancyRepository.findAll(where(withIndustry(null)));
-        assertFalse(results.isEmpty());
+
+        assertEquals(5, results.size());
     }
 
     @Test
-    void testWithNullCountry(){
+    void testWithNullCountry() {
+        persistVacancy("function1", "full-time", "IT", "Belgium", 1);
+        persistVacancy("function2", "part-time", "IT", "Belgium", 3);
+        persistVacancy("function3", "half-time", "Finance", "Italy", 0);
+        persistVacancy("function4", "full-time", "Finance", "Belgium", 7);
+        persistVacancy("function5", "full-time", "Public", "Germany", 0);
+
         List<Vacancy> results = vacancyRepository.findAll(where(withCountry(null)));
-        assertFalse(results.isEmpty());
+
+        assertEquals(5, results.size());
     }
 
     @Test
-    void testWithNullFunctionTitle(){
+    void testWithNullFunctionTitle() {
+        persistVacancy("function1", "full-time", "IT", "Belgium", 1);
+        persistVacancy("function2", "part-time", "IT", "Belgium", 3);
+        persistVacancy("function3", "half-time", "Finance", "Italy", 0);
+        persistVacancy("function4", "full-time", "Finance", "Belgium", 7);
+        persistVacancy("function5", "full-time", "Public", "Germany", 0);
+
         List<Vacancy> results = vacancyRepository.findAll(where(withFunctionTitle(null)));
-        assertFalse(results.isEmpty());
+
+        assertEquals(5, results.size());
     }
 
     @Test
-    void testWithNullContractType(){
+    void testWithNullContractType() {
+        persistVacancy("function1", "full-time", "IT", "Belgium", 1);
+        persistVacancy("function2", "part-time", "IT", "Belgium", 3);
+        persistVacancy("function3", "half-time", "Finance", "Italy", 0);
+        persistVacancy("function4", "full-time", "Finance", "Belgium", 7);
+        persistVacancy("function5", "full-time", "Public", "Germany", 0);
+
         List<Vacancy> results = vacancyRepository.findAll(where(withContractType(null)));
-        assertFalse(results.isEmpty());
+
+        assertEquals(5, results.size());
     }
 
     @Test
-    void testWithIndustry(){
+    void testWithIndustry() {
+        persistVacancy("function1", "full-time", "IT", "Belgium", 1);
+        persistVacancy("function2", "part-time", "IT", "Belgium", 3);
+        persistVacancy("function3", "half-time", "Finance", "Italy", 0);
+        persistVacancy("function4", "full-time", "Finance", "Belgium", 7);
+        persistVacancy("function5", "full-time", "Public", "Germany", 0);
+
         List<Vacancy> results = vacancyRepository.findAll(where(withIndustry("IT")));
-        assertEquals("IT", results.get(0).getIndustry());
+
+        assertEquals(2, results.size());
+
+        var firstResult = results.get(0);
+        assertEquals("IT", firstResult.getIndustry());
     }
 
     @Test
-    void testWithCountry(){
+    void testWithCountry() {
+        persistVacancy("function1", "full-time", "IT", "Belgium", 1);
+        persistVacancy("function2", "part-time", "IT", "Belgium", 3);
+        persistVacancy("function3", "half-time", "Finance", "Italy", 0);
+        persistVacancy("function4", "full-time", "Finance", "Belgium", 7);
+        persistVacancy("function5", "full-time", "Public", "Germany", 0);
+
         List<Vacancy> results = vacancyRepository.findAll(where(withCountry("italy")));
-        assertEquals("Italy", results.get(0).getCountry());
+
+        assertEquals(1, results.size());
+
+        var firstResult = results.get(0);
+        assertEquals("Italy", firstResult.getCountry());
     }
 
     @Test
-    void testWithContractType(){
+    void testWithContractType() {
+        persistVacancy("function1", "full-time", "IT", "Belgium", 1);
+        persistVacancy("function2", "part-time", "IT", "Belgium", 3);
+        persistVacancy("function3", "half-time", "Finance", "Italy", 0);
+        persistVacancy("function4", "Full-Time", "Finance", "Belgium", 7);
+        persistVacancy("function5", "full-time", "Public", "Germany", 0);
+
         List<Vacancy> results = vacancyRepository.findAll(where(withContractType("full-time")));
-        assertEquals("Full-Time", results.get(0).getContractType());
+
+        assertEquals(3, results.size());
+
+        var firstResult = results.get(0);
+        assertEquals("full-time", firstResult.getContractType());
     }
 
     @Test
-    void testWithFunctionTitle(){
+    void testWithFunctionTitle() {
+        persistVacancy("function1", "full-time", "IT", "Belgium", 1);
+        persistVacancy("junior java consultant", "part-time", "IT", "Belgium", 3);
+        persistVacancy("function3", "half-time", "Finance", "Italy", 0);
+        persistVacancy("junior java consultant", "Full-Time", "Finance", "Belgium", 7);
+        persistVacancy("function5", "full-time", "Public", "Germany", 0);
+
         List<Vacancy> results = vacancyRepository.findAll(where(withFunctionTitle("junior java consultant")));
-        assertEquals("junior java consultant", results.get(0).getFunctionTitle() );
+
+        assertEquals(2, results.size());
+
+        var firstResult = results.get(0);
+        assertEquals("junior java consultant", firstResult.getFunctionTitle());
     }
-
-
 
 }

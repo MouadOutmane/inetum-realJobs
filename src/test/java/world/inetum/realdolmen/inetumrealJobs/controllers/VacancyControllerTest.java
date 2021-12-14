@@ -11,18 +11,18 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import world.inetum.realdolmen.inetumrealJobs.BaseIntegrationTest;
 import world.inetum.realdolmen.inetumrealJobs.InetumRealJobsApplication;
 import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @AutoConfigureMockMvc
 @SpringBootTest(classes = InetumRealJobsApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class VacancyControllerTest {
-
+public class VacancyControllerTest extends BaseIntegrationTest {
 
     private MockMvc mockMvc;
 
@@ -31,9 +31,7 @@ public class VacancyControllerTest {
 
     @BeforeEach
     void setUp() {
-
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-
     }
 
 
@@ -46,7 +44,15 @@ public class VacancyControllerTest {
     }
 
     @Test
-    public void findAllVacanciesWithFilter_GETBelgium3YearsOfExpVacancy_Success() throws Exception{
+    public void findAllVacanciesWithFilter_GETBelgium3YearsOfExpVacancy_Success() throws Exception {
+        persistVacancy("function1", "full-time", "IT", "Belgium", 1);
+        persistVacancy("function2", "part-time", "IT", "Belgium", 3);
+        persistVacancy("function3", "half-time", "Finance", "Italy", 0);
+        persistVacancy("function4", "full-time", "IT", "Italy", 0);
+        persistVacancy("function5", "full-time", "IT", "Italy", 4);
+        persistVacancy("function6", "full-time", "Finance", "Italy", 8);
+        persistVacancy("function7", "full-time", "Finance", "Belgium", 7);
+        persistVacancy("function8", "full-time", "Public", "Germany", 0);
 
         MvcResult m = mockMvc.perform(get("/api/vacancies/?functionTitle=&contractType=&industry=&country=Belgium&requiredYearsOfExperience=3"))
                 .andExpect(status().isOk())
@@ -68,7 +74,7 @@ public class VacancyControllerTest {
 
         mockMvc.perform(post("/api/vacancies/create")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(vacancy.toJson()))
+                        .content(asJsonString(vacancy)))
                 .andExpect(status().is4xxClientError());
 
     }
@@ -92,7 +98,7 @@ public class VacancyControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/vacancies/create")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(vacancy.toJson()))
+                        .content(asJsonString(vacancy)))
                 .andExpect(status().isOk());
     }
 

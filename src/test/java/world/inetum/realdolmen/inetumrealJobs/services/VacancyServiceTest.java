@@ -3,34 +3,24 @@ package world.inetum.realdolmen.inetumrealJobs.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import world.inetum.realdolmen.inetumrealJobs.BaseRepositoryTest;
 import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
-import world.inetum.realdolmen.inetumrealJobs.repositories.VacancyRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
-public class VacancyServiceTest {
+public class VacancyServiceTest extends BaseRepositoryTest {
 
     VacancyService vacancyService;
 
-    @Autowired
-    VacancyRepository vacancyRepository;
-
-
     @BeforeEach
     void setUp() {
-
         vacancyService = new VacancyService(vacancyRepository);
-        vacancyRepository.save(new Vacancy("junior java consultant", "full-time", "java programming", "Inetum", "IT", "Italy", "Rome", 10122, "avenue de la liberte",  33,  0, "1k/month"));
-        vacancyRepository.save(new Vacancy("senior java consultant", "full-time", "java programming", "Realdolmen", "IT", "Italy", "Milan", 10123, "avenue de l'espoir",  34,  3, "2k/month"));
-        vacancyRepository.save(new Vacancy("burger flipper", "full-time", "flipping burgers", "McDonald's", "IT", "USA", "Washington", 10124, "avenue de la force",  35,  3, "3k/month"));
-
-
     }
 
 
@@ -52,16 +42,20 @@ public class VacancyServiceTest {
     }
 
     @Test
-    public void findVacancyWithFilter_Success(){
-        List<Vacancy> vacancies = vacancyService.findVacancyWithFilter("junior java consultant", "full-time", "Italy", "It", 3);
+    public void findVacancyWithFilter_Success() {
+        persistVacancy("junior java consultant", "part-time", "IT", "Belgium", 0);
+        persistVacancy("senior java consultant", "full-time", "IT", "Italy", 3);
 
-        assertEquals("full-time", vacancies.get(0).getContractType());
-        assertEquals("junior java consultant", vacancies.get(0).getFunctionTitle());
-        assertEquals("Italy", vacancies.get(0).getCountry());
-        assertEquals("IT", vacancies.get(0).getIndustry());
-        assertTrue(3 >= vacancies.get(0).getRequiredYearsOfExperience());
+        List<Vacancy> vacancies = vacancyService.findVacancyWithFilter("senior java consultant", "full-time", "Italy", "It", 3);
 
+        assertEquals(1, vacancies.size(), "Expected a single result.");
 
-
+        Vacancy vacancy = vacancies.get(0);
+        assertEquals("full-time", vacancy.getContractType());
+        assertEquals("senior java consultant", vacancy.getFunctionTitle());
+        assertEquals("Italy", vacancy.getCountry());
+        assertEquals("IT", vacancy.getIndustry());
+        assertTrue(3 >= vacancy.getRequiredYearsOfExperience());
     }
+
 }
