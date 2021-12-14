@@ -5,7 +5,6 @@ import world.inetum.realdolmen.inetumrealJobs.entities.enums.ContractType;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
 @Entity
@@ -48,8 +47,8 @@ public class Vacancy extends BaseModel {
     private Integer requiredYearsOfExperience;
 
     // TODO: 14-Dec-21 what
-    @Column(name = "required_experience_skills_education")
-    private String requiredExperienceSkillsEducation;
+    @Column(name = "requirements")
+    private String requirements;
 
     @NotBlank
     @Column(name = "offer", nullable = false)
@@ -109,12 +108,12 @@ public class Vacancy extends BaseModel {
         this.requiredYearsOfExperience = requiredYearsOfExperience;
     }
 
-    public String getRequiredExperienceSkillsEducation() {
-        return requiredExperienceSkillsEducation;
+    public String getRequirements() {
+        return requirements;
     }
 
-    public void setRequiredExperienceSkillsEducation(String requiredExperienceSkillsEducation) {
-        this.requiredExperienceSkillsEducation = requiredExperienceSkillsEducation;
+    public void setRequirements(String requirements) {
+        this.requirements = requirements;
     }
 
     public String getOffer() {
