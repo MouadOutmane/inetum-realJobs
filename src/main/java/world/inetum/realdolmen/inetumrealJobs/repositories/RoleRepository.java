@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import world.inetum.realdolmen.inetumrealJobs.entities.ERole;
-import world.inetum.realdolmen.inetumrealJobs.entities.Role;
+import world.inetum.realdolmen.inetumrealJobs.entities.old.ERole;
+import world.inetum.realdolmen.inetumrealJobs.entities.old.Role;
 
 
 @Repository

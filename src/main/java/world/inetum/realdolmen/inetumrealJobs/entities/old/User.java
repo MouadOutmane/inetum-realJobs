@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.inetumrealJobs.entities;
+package world.inetum.realdolmen.inetumrealJobs.entities.old;
 
 
 import lombok.Builder;
@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(	name = "users",
+@Table(name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email")
@@ -64,7 +64,7 @@ public class User {
     private String profilePicture;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_roles",
+    @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
@@ -73,7 +73,7 @@ public class User {
     }
 
     @Builder
-    public User( String user, String password) {
+    public User(String user, String password) {
         this.username = user;
         this.password = password;
     }

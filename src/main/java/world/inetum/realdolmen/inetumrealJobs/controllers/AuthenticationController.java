@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import world.inetum.realdolmen.inetumrealJobs.entities.ERole;
-import world.inetum.realdolmen.inetumrealJobs.entities.Role;
-import world.inetum.realdolmen.inetumrealJobs.entities.User;
+import world.inetum.realdolmen.inetumrealJobs.entities.old.ERole;
+import world.inetum.realdolmen.inetumrealJobs.entities.old.Role;
+import world.inetum.realdolmen.inetumrealJobs.entities.old.User;
 import world.inetum.realdolmen.inetumrealJobs.payload.request.LoginRequest;
 import world.inetum.realdolmen.inetumrealJobs.payload.request.SignupRequest;
 import world.inetum.realdolmen.inetumrealJobs.payload.response.JwtResponse;

@@ -1,6 +1,7 @@
 package world.inetum.realdolmen.inetumrealJobs.entities;
 
 import org.junit.jupiter.api.Test;
+import world.inetum.realdolmen.inetumrealJobs.entities.old.User;
 
 import java.util.Date;
 

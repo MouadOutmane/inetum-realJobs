@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.inetumrealJobs.entities;
+package world.inetum.realdolmen.inetumrealJobs.entities.old;
 
 import javax.persistence.*;
 

@@ -2,7 +2,7 @@ package world.inetum.realdolmen.inetumrealJobs.repositories;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
-import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
+import world.inetum.realdolmen.inetumrealJobs.entities.old.Vacancy;
 
 
 public class VacancySpecification {

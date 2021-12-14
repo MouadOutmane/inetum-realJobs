@@ -1,89 +1,77 @@
 package world.inetum.realdolmen.inetumrealJobs.entities;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import world.inetum.realdolmen.inetumrealJobs.entities.enums.ContractType;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "vacancies")
-public class Vacancy {
+@Table(name = "vacancy")
+public class Vacancy extends BaseModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "function_title")
+    @NotBlank
+    @Column(name = "function_title", nullable = false)
     private String functionTitle;
 
-    @Column(name = "contract_type")
-    private String contractType;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "contract_type", nullable = false)
+    private ContractType contractType;
 
-    @Column(name = "function_description")
+    @NotBlank
+    @Column(name = "function_description", nullable = false)
     private String functionDescription;
 
-    @Column(name = "posting_date")
-    private String postingDate;
+    // TODO: 14-Dec-21 use posting company? Could be because of interim companies
+//    @Column(name = "company_name")
+//    private String companyName;
+//
+//    @Column(name = "industry")
+//    private String industry;
 
-    @Column(name = "company_name")
-    private String companyName;
+    @JoinColumn(
+            name = "company_id"
+    )
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Company company;
 
-    @Column(name = "industry")
-    private String industry;
+    @NotNull
+    @Embedded
+    private Address address;
 
-    @Column(name = "country")
-    private String country;
-
-    @Column(name = "city")
-    private String city;
-
-    @Column(name = "postal_code")
-    private Integer postalCode;
-
-    @Column(name = "street_name")
-    private String streetName;
-
-    @Column(name = "nr")
-    private Integer nr;
-
-    @Column(name = "box")
-    private String box;
-
+    @Positive
     @Column(name = "required_years_of_experience")
     private Integer requiredYearsOfExperience;
 
+    // TODO: 14-Dec-21 what
     @Column(name = "required_experience_skills_education")
     private String requiredExperienceSkillsEducation;
 
-    @Column(name = "offer")
+    @NotBlank
+    @Column(name = "offer", nullable = false)
     private String offer;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @JoinColumn(
+            name = "recruiter_id"
+    )
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Recruiter recruiter;
 
     public String getFunctionTitle() {
         return functionTitle;
     }
 
-    public void setFunctionTitle(String functionTilte) {
-        this.functionTitle = functionTilte;
+    public void setFunctionTitle(String functionTitle) {
+        this.functionTitle = functionTitle;
     }
 
-    public String getContractType() {
+    public ContractType getContractType() {
         return contractType;
     }
 
-    public void setContractType(String contractType) {
+    public void setContractType(ContractType contractType) {
         this.contractType = contractType;
     }
 
@@ -95,76 +83,20 @@ public class Vacancy {
         this.functionDescription = functionDescription;
     }
 
-    public String getPostingDate() {
-        return postingDate;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setPostingDate(String postingDate) {
-        this.postingDate = postingDate;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getIndustry() {
-        return industry;
-    }
-
-    public void setIndustry(String industry) {
-        this.industry = industry;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public Integer getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(Integer postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getStreetName() {
-        return streetName;
-    }
-
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
-    }
-
-    public Integer getNr() {
-        return nr;
-    }
-
-    public void setNr(Integer nr) {
-        this.nr = nr;
-    }
-
-    public String getBox() {
-        return box;
-    }
-
-    public void setBox(String box) {
-        this.box = box;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public Integer getRequiredYearsOfExperience() {
@@ -189,5 +121,13 @@ public class Vacancy {
 
     public void setOffer(String offer) {
         this.offer = offer;
+    }
+
+    public Recruiter getRecruiter() {
+        return recruiter;
+    }
+
+    public void setRecruiter(Recruiter recruiter) {
+        this.recruiter = recruiter;
     }
 }

@@ -2,7 +2,7 @@ package world.inetum.realdolmen.inetumrealJobs.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
+import world.inetum.realdolmen.inetumrealJobs.entities.old.Vacancy;
 import world.inetum.realdolmen.inetumrealJobs.repositories.VacancyRepository;
 
 import java.util.List;
