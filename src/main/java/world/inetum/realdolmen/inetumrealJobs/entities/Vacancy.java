@@ -42,8 +42,9 @@ public class Vacancy extends BaseModel {
     @Embedded
     private Address address;
 
+    @NotNull
     @PositiveOrZero
-    @Column(name = "required_years_of_experience")
+    @Column(name = "required_years_of_experience", nullable = false)
     private Integer requiredYearsOfExperience;
 
     // TODO: 14-Dec-21 what
