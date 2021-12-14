@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name = "vacancy")
@@ -41,7 +42,7 @@ public class Vacancy extends BaseModel {
     @Embedded
     private Address address;
 
-    @Positive
+    @PositiveOrZero
     @Column(name = "required_years_of_experience")
     private Integer requiredYearsOfExperience;
 
