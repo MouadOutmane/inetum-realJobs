@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/api/vacancies")
 public class VacancyController {
 
-
     private final VacancyService vacancyService;
 
     @Autowired
@@ -24,24 +23,18 @@ public class VacancyController {
     }
 
     @GetMapping("/")
-    ResponseEntity<List<Vacancy>> findAllVacanciesWithFilter(@RequestParam String functionTitle, @RequestParam String contractType, @RequestParam String country, @RequestParam String industry, @RequestParam String requiredYearsOfExperience) {
-
-
-        List<Vacancy> results = vacancyService.findVacancyWithFilter(functionTitle, contractType, country, industry, Integer.parseInt(requiredYearsOfExperience));
-        if(results.isEmpty()){
+    ResponseEntity<List<Vacancy>> findAllVacanciesWithFilter(@RequestParam String functionTitle, @RequestParam String contractType, @RequestParam Long country_id, @RequestParam String industry, @RequestParam String requiredYearsOfExperience) {
+        List<Vacancy> results = vacancyService.findVacancyWithFilter(functionTitle, contractType, country_id, industry, Integer.parseInt(requiredYearsOfExperience));
+        if (results.isEmpty()) {
             return new ResponseEntity<>(results, HttpStatus.NO_CONTENT);
-
         }
         return new ResponseEntity<>(results, HttpStatus.OK);
     }
 
     @GetMapping("/all")
     ResponseEntity<List<Vacancy>> findAllVacancies() {
-
         List<Vacancy> results = vacancyService.findAll();
-
         return new ResponseEntity<>(results, HttpStatus.OK);
-
     }
 
     @PostMapping("/create")
