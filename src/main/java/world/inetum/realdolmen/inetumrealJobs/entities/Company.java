@@ -21,14 +21,14 @@ public class Company extends BaseModel {
             name = "country_id"
     )
     @ManyToOne(fetch = FetchType.LAZY)
-    private world.inetum.realdolmen.inetumrealJobs.entities.Country country;
+    private Country country;
 
     @NotBlank
     @Column(name = "industry", nullable = false)
     private String industry;
 
     @Column(name = "logo")
-    private String companyLogo;
+    private String logo;
 
     public String getName() {
         return name;
@@ -62,11 +62,11 @@ public class Company extends BaseModel {
         this.industry = industry;
     }
 
-    public String getCompanyLogo() {
-        return companyLogo;
+    public String getLogo() {
+        return logo;
     }
 
-    public void setCompanyLogo(String companyLogo) {
-        this.companyLogo = companyLogo;
+    public void setLogo(String companyLogo) {
+        this.logo = companyLogo;
     }
 }

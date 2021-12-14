@@ -36,9 +36,9 @@ public class UserDetailsImpl implements UserDetails {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         if (user instanceof JobSeeker) {
-            authorities.add(new SimpleGrantedAuthority("JobSeeker"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_JOBSEEKER"));
         } else if (user instanceof Recruiter) {
-            authorities.add(new SimpleGrantedAuthority("Recruiter"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_RECRUITER"));
         } else {
             throw new IllegalArgumentException("User is not of any type");
         }

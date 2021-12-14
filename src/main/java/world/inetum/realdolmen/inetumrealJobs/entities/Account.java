@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "Account")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Account extends BaseModel {
+public abstract class Account extends BaseModel {
 
     @NotBlank
     @Column(name = "username", nullable = false, unique = true)

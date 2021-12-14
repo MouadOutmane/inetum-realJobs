@@ -16,7 +16,7 @@ public class Language extends BaseModel {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "program", nullable = false)
+    @Column(name = "skill_level", nullable = false)
     private SkillLevel skillLevel;
 
     public String getLanguage() {

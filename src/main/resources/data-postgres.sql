@@ -493,7 +493,7 @@ INSERT INTO account (id, changed_by, changed_on, created_by, created_on, version
                      street_name, birth_date, email, first_name, gender, last_name, mobile_phone, password,
                      profile_picture, username, country_id)
 VALUES (1, null, null, null, null, 0, null, 'Brussels', '7', '1000', 'Road', '2021-12-01', 'user@user.user', 'User',
-        'M', 'User', null, '$2a$10$wrvu9zLKCX7zFtaLBFNVKeBh8Y..TLZCuvnzkUcL7N7/OjTD.ximq', '-_-', 'user', 1);
+        'MALE', 'User', null, '$2a$10$wrvu9zLKCX7zFtaLBFNVKeBh8Y..TLZCuvnzkUcL7N7/OjTD.ximq', '-_-', 'user', 1);
 INSERT INTO job_seeker (id, resume_id)
 VALUES (1, null);
 ALTER SEQUENCE account_id_seq RESTART WITH 2;
