@@ -9,7 +9,7 @@ public class VacancyFilterDto {
 
     String industry;
 
-    Integer requiredYearsOfExperience;
+    String requiredYearsOfExperience;
 
     public String getFunctionTitle() {
         return functionTitle;
@@ -43,11 +43,11 @@ public class VacancyFilterDto {
         this.industry = industry;
     }
 
-    public Integer getRequiredYearsOfExperience() {
+    public String getRequiredYearsOfExperience() {
         return requiredYearsOfExperience;
     }
 
-    public void setRequiredYearsOfExperience(Integer requiredYearsOfExperience) {
+    public void setRequiredYearsOfExperience(String requiredYearsOfExperience) {
         this.requiredYearsOfExperience = requiredYearsOfExperience;
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import world.inetum.realdolmen.inetumrealJobs.dtos.VacancyFilterDto;
 import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
 import world.inetum.realdolmen.inetumrealJobs.services.VacancyService;
 
@@ -24,10 +25,8 @@ public class VacancyController {
     }
 
     @GetMapping("/")
-    ResponseEntity<List<Vacancy>> findAllVacanciesWithFilter(@RequestParam String functionTitle, @RequestParam String contractType, @RequestParam String country, @RequestParam String industry, @RequestParam String requiredYearsOfExperience) {
-
-
-        List<Vacancy> results = vacancyService.findVacancyWithFilter(functionTitle, contractType, country, industry, Integer.parseInt(requiredYearsOfExperience));
+    ResponseEntity<List<Vacancy>> findAllVacanciesWithFilter(VacancyFilterDto vacancyFilterDto) {
+        List<Vacancy> results = vacancyService.findVacancyWithFilter(vacancyFilterDto.getFunctionTitle(), vacancyFilterDto.getContractType(), vacancyFilterDto.getCountry(), vacancyFilterDto.getIndustry(), Integer.parseInt(vacancyFilterDto.getRequiredYearsOfExperience()));
         if(results.isEmpty()){
             return new ResponseEntity<>(results, HttpStatus.NO_CONTENT);
 

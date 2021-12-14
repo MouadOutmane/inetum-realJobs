@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import world.inetum.realdolmen.inetumrealJobs.InetumRealJobsApplication;
 import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -26,6 +28,8 @@ public class VacancyControllerTest {
 
     private MockMvc mockMvc;
 
+    private Jsonb jsonb;
+
     @Autowired
     private WebApplicationContext context;
 
@@ -33,6 +37,8 @@ public class VacancyControllerTest {
     void setUp() {
 
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+
+        jsonb = JsonbBuilder.create();
 
     }
 
@@ -66,9 +72,12 @@ public class VacancyControllerTest {
 
         Vacancy vacancy = new Vacancy();
 
+
+        String vacancyJson = jsonb.toJson(vacancy);
+
         mockMvc.perform(post("/api/vacancies/create")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(vacancy.toJson()))
+                        .content(vacancyJson))
                 .andExpect(status().is4xxClientError());
 
     }
@@ -90,9 +99,11 @@ public class VacancyControllerTest {
         vacancy.setFunctionDescription("cash register and shelves");
         vacancy.setCompanyName("Gucci");
 
+        String vacancyJson = jsonb.toJson(vacancy);
+
         mockMvc.perform(MockMvcRequestBuilders.post("/api/vacancies/create")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(vacancy.toJson()))
+                        .content(vacancyJson))
                 .andExpect(status().isOk());
     }
 
