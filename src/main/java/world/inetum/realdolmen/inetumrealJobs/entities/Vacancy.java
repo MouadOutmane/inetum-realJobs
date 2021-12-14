@@ -1,6 +1,5 @@
 package world.inetum.realdolmen.inetumrealJobs.entities;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

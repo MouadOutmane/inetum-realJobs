@@ -1,6 +1,5 @@
 package world.inetum.realdolmen.inetumrealJobs.entities;
 
-
 import lombok.Builder;
 
 import javax.persistence.*;
@@ -12,59 +11,75 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(	name = "users",
+@Table(name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email")
         })
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank
     @Column(name = "username")
     private String username;
+
     @Email
     private String email;
+
     @NotBlank
     @Column(name = "password")
     private String password;
+
     @NotBlank
     @Column(name = "gender")
     private String gender;
+
     @NotBlank
     @Column(name = "first_name")
     private String firstName;
+
     @NotBlank
     @Column(name = "last_name")
     private String lastName;
+
     @NotNull
     @Column(name = "birth_date")
     private Date dateOfBirth;
+
     @NotBlank
     @Column(name = "street_name")
     private String streetName;
+
     @NotBlank
     @Column(name = "house_number")
     private String houseNumber;
+
     @Column(name = "box")
     private String box;
+
     @NotBlank
     @Column(name = "city")
     private String city;
+
     @Column(name = "postal_code")
     private String postalCode;
+
     @Column(name = "country")
     @NotBlank
     private String country;
+
     @Column(name = "mobile_phone")
     private String mobilePhone;
+
     @NotBlank
     @Column(name = "profile_picture")
     private String profilePicture;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_roles",
+    @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
@@ -73,7 +88,7 @@ public class User {
     }
 
     @Builder
-    public User( String user, String password) {
+    public User(String user, String password) {
         this.username = user;
         this.password = password;
     }

@@ -10,7 +10,6 @@ import java.util.Optional;
 
 import static org.springframework.data.jpa.domain.Specification.where;
 import static world.inetum.realdolmen.inetumrealJobs.repositories.VacancySpecification.*;
-import static world.inetum.realdolmen.inetumrealJobs.repositories.VacancySpecification.withRequiredYearsOfExperience;
 
 @Service
 public class VacancyService {
@@ -18,33 +17,28 @@ public class VacancyService {
     private final VacancyRepository vacancyRepository;
 
     @Autowired
-    public VacancyService(VacancyRepository vacancyRepository){
+    public VacancyService(VacancyRepository vacancyRepository) {
         this.vacancyRepository = vacancyRepository;
     }
 
-
-    public Vacancy addVacancy(Vacancy vacancy){
+    public Vacancy addVacancy(Vacancy vacancy) {
         return vacancyRepository.save(vacancy);
     }
 
-    public Optional<Vacancy> findVacancyById(Long id){
+    public Optional<Vacancy> findVacancyById(Long id) {
         return vacancyRepository.findById(id);
     }
 
-    public List<Vacancy> findAll(){
+    public List<Vacancy> findAll() {
         return vacancyRepository.findAll();
     }
 
-    public List<Vacancy> findVacancyWithFilter(String functionTitle, String contractType, String country, String industry, Integer requiredYearsOfExperience){
-
-        List<Vacancy> results = vacancyRepository.findAll(where(withContractType(contractType))
+    public List<Vacancy> findVacancyWithFilter(String functionTitle, String contractType, String country, String industry, Integer requiredYearsOfExperience) {
+        return vacancyRepository.findAll(where(withContractType(contractType))
                 .and(withCountry(country))
                 .and(withRequiredYearsOfExperience(requiredYearsOfExperience))
                 .and(withIndustry(industry))
                 .and(withFunctionTitle(functionTitle))
         );
-
-        return results;
     }
-
 }
