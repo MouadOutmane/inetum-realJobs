@@ -4,7 +4,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
 
-
 public class VacancySpecification {
 
     public static Specification<Vacancy> withFunctionTitle(String functionTitle) {
@@ -21,18 +20,13 @@ public class VacancySpecification {
         }
     }
 
-    public static Specification<Vacancy> withCountry(String country) {
-        if (!StringUtils.hasText(country)) {
-            return ((vacancy, query, builder) -> builder.and());
-        } else {
-            return ((vacancy, query, builder) ->
-                    builder.like(
-                            builder.lower(
-                                    vacancy.get("country")
-                            ), country.toLowerCase()
-                    )
-            );
-        }
+    public static Specification<Vacancy> withCountry(Long country_id) {
+        return ((vacancy, query, builder) ->
+                builder.equal(
+                        vacancy.get("country_id"),
+                        country_id
+                )
+        );
     }
 
     public static Specification<Vacancy> withContractType(String contractType) {
