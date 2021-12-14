@@ -1,7 +1,5 @@
 package world.inetum.realdolmen.inetumrealJobs.entities;
 
-
-import world.inetum.realdolmen.inetumrealJobs.entities.enums.Country;
 import world.inetum.realdolmen.inetumrealJobs.entities.enums.Gender;
 
 import javax.persistence.*;

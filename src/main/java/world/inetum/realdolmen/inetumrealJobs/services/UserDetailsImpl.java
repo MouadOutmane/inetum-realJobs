@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import world.inetum.realdolmen.inetumrealJobs.entities.Account;
+import world.inetum.realdolmen.inetumrealJobs.entities.JobSeeker;
+import world.inetum.realdolmen.inetumrealJobs.entities.Recruiter;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import world.inetum.realdolmen.inetumrealJobs.entities.old.User;
-import world.inetum.realdolmen.inetumrealJobs.entities.User;
-
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -33,11 +33,16 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserDetailsImpl build(User user) {
-        List<GrantedAuthority> authorities = user.getRoles()
-                .stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-                .collect(Collectors.toList());
+    public static UserDetailsImpl build(Account user) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        if (user instanceof JobSeeker) {
+            authorities.add(new SimpleGrantedAuthority("JobSeeker"));
+        } else if (user instanceof Recruiter) {
+            authorities.add(new SimpleGrantedAuthority("Recruiter"));
+        } else {
+            throw new IllegalArgumentException("User is not of any type");
+        }
 
         return new UserDetailsImpl(
                 user.getId(),

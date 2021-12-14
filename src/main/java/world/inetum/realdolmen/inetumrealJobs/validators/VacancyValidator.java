@@ -17,7 +17,7 @@ public class VacancyValidator implements Validator {
     @Override
     public void validate(@NonNull Object target, @NonNull Errors errors) {
         Vacancy vacancy = (Vacancy) target;
-        if (isNullOrEmpty(vacancy.getCity())) {
+        if (isNullOrEmpty(vacancy.getAddress().getCity())) {
             errors.rejectValue("name", "city.empty");
         }
 

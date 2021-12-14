@@ -24,7 +24,7 @@ public abstract class BaseModel {
     private String createdBy;
 
     @CreatedDate
-    @Column(name = "CREATED_ON", nullable = false, updatable = false)
+    @Column(name = "CREATED_ON", updatable = false)
     private LocalDateTime createdOn;
 
     @LastModifiedBy
@@ -34,6 +34,14 @@ public abstract class BaseModel {
     @LastModifiedDate
     @Column(name = "CHANGED_ON")
     private LocalDateTime changedOn;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public int getVersion() {
         return version;

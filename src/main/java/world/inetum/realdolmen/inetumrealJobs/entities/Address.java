@@ -1,9 +1,8 @@
 package world.inetum.realdolmen.inetumrealJobs.entities;
 
-import world.inetum.realdolmen.inetumrealJobs.entities.enums.Country;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class Address {
@@ -24,12 +23,15 @@ public class Address {
     @Column(name = "city", nullable = false)
     private String city;
 
+    @NotBlank
     @Column(name = "postal_code", nullable = false)
     private String postalCode;
 
-    @NotBlank
-    @Enumerated(EnumType.STRING)
-    @Column(name = "country")
+    @NotNull
+    @JoinColumn(
+            name = "country_id"
+    )
+    @ManyToOne(fetch = FetchType.LAZY)
     private Country country;
 
     public String getStreetName() {

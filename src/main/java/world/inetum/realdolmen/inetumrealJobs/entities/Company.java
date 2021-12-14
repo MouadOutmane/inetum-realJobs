@@ -1,7 +1,5 @@
 package world.inetum.realdolmen.inetumrealJobs.entities;
 
-import world.inetum.realdolmen.inetumrealJobs.entities.enums.Country;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,9 +17,11 @@ public class Company extends BaseModel {
     private String city;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "country", nullable = false)
-    private Country country;
+    @JoinColumn(
+            name = "country_id"
+    )
+    @ManyToOne(fetch = FetchType.LAZY)
+    private world.inetum.realdolmen.inetumrealJobs.entities.Country country;
 
     @NotBlank
     @Column(name = "industry", nullable = false)
