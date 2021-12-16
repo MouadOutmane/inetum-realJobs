@@ -28,7 +28,7 @@ public class VacancyServiceTest extends BaseRepositoryTest {
     }
 
     @Test
-    public void givenVacancyRepository_whenSaveAndRetreiveEntity_Success() {
+    public void givenVacancyRepository_whenSaveAndRetrieveEntity_Success() {
         Country country = new Country();
         country.setName("Brazil");
 
