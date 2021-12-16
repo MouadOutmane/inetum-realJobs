@@ -37,7 +37,7 @@ public class VacancyControllerIT extends BaseIntegrationTest {
     }
 
     @Test
-    public void findAllVacanciesWithFilter_GETInexistantVacancy_Fail() throws Exception {
+    public void findAllVacanciesWithFilter_GETVacancyNoMatch_NoContent() throws Exception {
         mockMvc.perform(get("/api/vacancies/?functionTitle=&contractType=&industry=&country=7348&requiredYearsOfExperience=0"))
                 .andExpect(status().isNoContent())
                 .andReturn();
