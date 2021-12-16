@@ -9,8 +9,8 @@ import world.inetum.realdolmen.inetumrealJobs.entities.enums.Gender;
 
 import java.time.LocalDate;
 
-@SuppressWarnings({"SpringJavaAutowiredMembersInspection", "UnusedReturnValue", "SameParameterValue", "unused"})
-public class BaseIntegrationTest extends BaseRepositoryTest {
+@SuppressWarnings({"UnusedReturnValue", "SameParameterValue", "unused"})
+public abstract class BaseIntegrationTest extends BaseRepositoryTest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;

@@ -17,8 +17,8 @@ import world.inetum.realdolmen.inetumrealJobs.repositories.VacancyRepository;
 
 import java.util.Optional;
 
-@SuppressWarnings({"SpringJavaAutowiredMembersInspection", "SameParameterValue"})
-public class BaseRepositoryTest {
+@SuppressWarnings({"SameParameterValue"})
+public abstract class BaseRepositoryTest {
 
     @Autowired
     protected AccountRepository accountRepository;
