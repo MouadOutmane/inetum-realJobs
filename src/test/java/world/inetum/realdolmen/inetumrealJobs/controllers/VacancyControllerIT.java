@@ -39,8 +39,7 @@ public class VacancyControllerIT extends BaseIntegrationTest {
     @Test
     public void findAllVacanciesWithFilter_GETVacancyNoMatch_NoContent() throws Exception {
         mockMvc.perform(get("/api/vacancies/?functionTitle=&contractType=&industry=&country=7348&requiredYearsOfExperience=0"))
-                .andExpect(status().isNoContent())
-                .andReturn();
+                .andExpect(status().isNoContent());
     }
 
     @Test
@@ -66,8 +65,7 @@ public class VacancyControllerIT extends BaseIntegrationTest {
                         get("/api/vacancies/?functionTitle=&contractType=&industry=&country=&requiredYearsOfExperience=3")
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
-                .andExpect(status().isOk())
-                .andReturn();
+                .andExpect(status().isOk());
     }
 
     @Test
