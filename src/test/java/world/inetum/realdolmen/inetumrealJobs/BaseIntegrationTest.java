@@ -4,32 +4,62 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import world.inetum.realdolmen.inetumrealJobs.entities.User;
+import world.inetum.realdolmen.inetumrealJobs.entities.*;
+import world.inetum.realdolmen.inetumrealJobs.entities.enums.Gender;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 
-@SuppressWarnings("SpringJavaAutowiredMembersInspection")
+@SuppressWarnings({"SpringJavaAutowiredMembersInspection", "UnusedReturnValue", "SameParameterValue", "unused"})
 public class BaseIntegrationTest extends BaseRepositoryTest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected User persistUser(String email, String password) {
-        User user = new User(email, passwordEncoder.encode(password));
-        user.setEmail(email);
-        user.setGender("male");
-        user.setProfilePicture("picture");
-        user.setDateOfBirth(new Date(2021, Calendar.DECEMBER, 14));
-        user.setLastName("last name");
-        user.setNr("nr");
-        user.setCountry("country");
-        user.setCity("city");
-        user.setStreetName("street");
-        user.setFirstName("first name");
+    protected Recruiter persistRecruiter(String email, String password, Company company) {
+        Recruiter user = new Recruiter();
+        user.setCompany(company);
 
-        return userRepository.save(user);
+        updateAccount(user, email, password);
+
+        return accountRepository.save(user);
+    }
+
+    protected JobSeeker persistJobSeeker(String email, String password) {
+        return persistJobSeeker(email, password, null);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    protected JobSeeker persistJobSeeker(String email, String password, Resume resume) {
+        JobSeeker user = new JobSeeker();
+        user.setResume(resume);
+
+        updateAccount(user, email, password);
+
+        return accountRepository.save(user);
+    }
+
+    private <T extends Account> void updateAccount(T account, String email, String password) {
+        Country country = persistCountry("country");
+
+        Address address = new Address();
+        address.setStreetName("street");
+        address.setHouseNumber("number");
+        address.setBox(null);
+        address.setCity("city");
+        address.setPostalCode("postal");
+        address.setCountry(country);
+
+        account.setUsername(email);
+        account.setEmail(email);
+        account.setPassword(passwordEncoder.encode(password));
+        account.setGender(Gender.MALE);
+        account.setFirstName("first name");
+        account.setLastName("last name");
+        account.setDateOfBirth(LocalDate.of(2020, 1, 1));
+        account.setAddress(address);
+        account.setMobilePhone(null);
+        account.setProfilePicture("picture");
     }
 
 }

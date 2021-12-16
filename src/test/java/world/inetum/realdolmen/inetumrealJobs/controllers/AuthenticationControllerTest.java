@@ -46,7 +46,7 @@ class AuthenticationControllerTest extends BaseIntegrationTest {
 
     @Test
     void loginWithExistingCredentialsReturning200() throws Exception {
-        persistUser("test@inetum-realdolmen.world", "password");
+        persistJobSeeker("test@inetum-realdolmen.world", "password");
 
         LoginRequest request = new LoginRequest("test@inetum-realdolmen.world", "password");
 
@@ -60,15 +60,13 @@ class AuthenticationControllerTest extends BaseIntegrationTest {
 
     @Test
     void loginWithExistingCredentialsReturning401() {
-        persistUser("test@inetum-realdolmen.world", "password");
+        persistJobSeeker("test@inetum-realdolmen.world", "password");
 
         LoginRequest request = new LoginRequest("test@inetum-realdolmen.world", "p");
-        Exception exception = assertThrows(BadCredentialsException.class, () -> {
-            authenticationController.login(request);
-        });
-        String expectedMessage = "Bad credentials";
-        String actualMessage = exception.getMessage();
-        assertEquals(expectedMessage, actualMessage);
+
+        var exception = assertThrows(BadCredentialsException.class, () -> authenticationController.login(request));
+
+        assertEquals("Bad credentials", exception.getMessage());
     }
 
 }
