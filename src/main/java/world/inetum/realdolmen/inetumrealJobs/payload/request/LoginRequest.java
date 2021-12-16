@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 public class LoginRequest {
 
     private String username;
+
     @NotNull
     private String password;
 

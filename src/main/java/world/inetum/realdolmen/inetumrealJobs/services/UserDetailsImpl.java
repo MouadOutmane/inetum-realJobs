@@ -1,33 +1,30 @@
 package world.inetum.realdolmen.inetumrealJobs.services;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import world.inetum.realdolmen.inetumrealJobs.entities.Account;
+import world.inetum.realdolmen.inetumrealJobs.entities.JobSeeker;
+import world.inetum.realdolmen.inetumrealJobs.entities.Recruiter;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import world.inetum.realdolmen.inetumrealJobs.entities.User;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 public class UserDetailsImpl implements UserDetails {
+
     private static final long serialVersionUID = 1L;
-
-    private Long id;
-
-    private String username;
-
-    private String email;
+    private final Long id;
+    private final String username;
+    private final String email;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     @JsonIgnore
-    private String password;
+    private final String password;
 
-    private Collection<? extends GrantedAuthority> authorities;
-
-    public UserDetailsImpl(Long id, String username, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -35,10 +32,16 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserDetailsImpl build(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-                .collect(Collectors.toList());
+    public static UserDetailsImpl build(Account user) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        if (user instanceof JobSeeker) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_JOBSEEKER"));
+        } else if (user instanceof Recruiter) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_RECRUITER"));
+        } else {
+            throw new IllegalArgumentException("User is not of any type");
+        }
 
         return new UserDetailsImpl(
                 user.getId(),

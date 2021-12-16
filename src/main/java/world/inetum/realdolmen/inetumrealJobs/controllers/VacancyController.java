@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import world.inetum.realdolmen.inetumrealJobs.dtos.VacancyFilterDto;
 import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
 import world.inetum.realdolmen.inetumrealJobs.services.VacancyService;
 
@@ -16,7 +15,6 @@ import java.util.List;
 @RequestMapping("/api/vacancies")
 public class VacancyController {
 
-
     private final VacancyService vacancyService;
 
     @Autowired
@@ -25,22 +23,18 @@ public class VacancyController {
     }
 
     @GetMapping("/")
-    ResponseEntity<List<Vacancy>> findAllVacanciesWithFilter(VacancyFilterDto vacancyFilterDto) {
-        List<Vacancy> results = vacancyService.findVacancyWithFilter(vacancyFilterDto.getFunctionTitle(), vacancyFilterDto.getContractType(), vacancyFilterDto.getCountry(), vacancyFilterDto.getIndustry(), Integer.parseInt(vacancyFilterDto.getRequiredYearsOfExperience()));
-        if(results.isEmpty()){
+    ResponseEntity<List<Vacancy>> findAllVacanciesWithFilter(@RequestParam String functionTitle, @RequestParam String contractType, @RequestParam Long country_id, @RequestParam String industry, @RequestParam String requiredYearsOfExperience) {
+        List<Vacancy> results = vacancyService.findVacancyWithFilter(functionTitle, contractType, country_id, industry, Integer.parseInt(requiredYearsOfExperience));
+        if (results.isEmpty()) {
             return new ResponseEntity<>(results, HttpStatus.NO_CONTENT);
-
         }
         return new ResponseEntity<>(results, HttpStatus.OK);
     }
 
     @GetMapping("/all")
     ResponseEntity<List<Vacancy>> findAllVacancies() {
-
         List<Vacancy> results = vacancyService.findAll();
-
         return new ResponseEntity<>(results, HttpStatus.OK);
-
     }
 
     @PostMapping("/create")
