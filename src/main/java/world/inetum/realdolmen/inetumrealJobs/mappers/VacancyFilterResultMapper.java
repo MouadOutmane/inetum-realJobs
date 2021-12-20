@@ -1,4 +1,5 @@
 package world.inetum.realdolmen.inetumrealJobs.mappers;
+
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import world.inetum.realdolmen.inetumrealJobs.dtos.VacancyFilterResultDto;

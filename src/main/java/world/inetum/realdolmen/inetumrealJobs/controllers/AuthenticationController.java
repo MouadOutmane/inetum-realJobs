@@ -1,7 +1,6 @@
 package world.inetum.realdolmen.inetumrealJobs.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,7 +13,6 @@ import world.inetum.realdolmen.inetumrealJobs.payload.request.SignupRequest;
 import world.inetum.realdolmen.inetumrealJobs.payload.response.JwtResponse;
 import world.inetum.realdolmen.inetumrealJobs.payload.response.MessageResponse;
 import world.inetum.realdolmen.inetumrealJobs.repositories.AccountRepository;
-import world.inetum.realdolmen.inetumrealJobs.repositories.CountryRepository;
 import world.inetum.realdolmen.inetumrealJobs.security.jwt.JwtUtils;
 import world.inetum.realdolmen.inetumrealJobs.services.AccountService;
 import world.inetum.realdolmen.inetumrealJobs.services.UserDetailsImpl;
