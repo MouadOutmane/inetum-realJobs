@@ -1,47 +1,21 @@
-package world.inetum.realdolmen.inetumrealJobs.entities;
+package world.inetum.realdolmen.inetumrealJobs.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Embeddable
-@Builder
-@AllArgsConstructor
-public class Address {
+public class AddressDto {
 
     @NotBlank
-    @Column(name = "street_name", nullable = false)
-    private String streetName;
-
-    // TODO: 14-Dec-21 ???
+    String streetName;
     @NotBlank
-    @Column(name = "house_number", nullable = false)
-    private String houseNumber;
-
-    @Column(name = "box")
-    private String box;
-
+    String houseNumber;
+    String box;
     @NotBlank
-    @Column(name = "city", nullable = false)
-    private String city;
-
+    String city;
     @NotBlank
-    @Column(name = "postal_code", nullable = false)
-    private String postalCode;
-
+    String postalCode;
     @NotNull
-    @JoinColumn(
-            name = "country_id"
-    )
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Country country;
-
-    public Address() {
-
-    }
+    Long country;
 
     public String getStreetName() {
         return streetName;
@@ -83,11 +57,11 @@ public class Address {
         this.postalCode = postalCode;
     }
 
-    public Country getCountry() {
+    public Long getCountry() {
         return country;
     }
 
-    public void setCountry(Country country) {
+    public void setCountry(Long country) {
         this.country = country;
     }
 }

@@ -10,8 +10,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import world.inetum.realdolmen.inetumrealJobs.payload.request.LoginRequest;
+import world.inetum.realdolmen.inetumrealJobs.payload.request.SignupRequest;
 import world.inetum.realdolmen.inetumrealJobs.payload.response.JwtResponse;
+import world.inetum.realdolmen.inetumrealJobs.payload.response.MessageResponse;
+import world.inetum.realdolmen.inetumrealJobs.repositories.AccountRepository;
+import world.inetum.realdolmen.inetumrealJobs.repositories.CountryRepository;
 import world.inetum.realdolmen.inetumrealJobs.security.jwt.JwtUtils;
+import world.inetum.realdolmen.inetumrealJobs.services.AccountService;
 import world.inetum.realdolmen.inetumrealJobs.services.UserDetailsImpl;
 
 import javax.validation.Valid;
@@ -21,25 +26,33 @@ import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/authentication")
+@RequestMapping("/api/authentication")
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder encoder;
     private final JwtUtils jwtUtils;
+    private final AccountRepository accountRepository;
+    private final AccountService accountService;
 
     @Autowired
-    public AuthenticationController(AuthenticationManager authenticationManager, PasswordEncoder encoder, JwtUtils jwtUtils) {
+    public AuthenticationController(AuthenticationManager authenticationManager,
+                                    PasswordEncoder encoder,
+                                    JwtUtils jwtUtils,
+                                    AccountRepository accountRepository,
+                                    AccountService accountService) {
         this.authenticationManager = authenticationManager;
         this.encoder = encoder;
         this.jwtUtils = jwtUtils;
+        this.accountRepository = accountRepository;
+        this.accountService = accountService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
+    public JwtResponse login(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -52,63 +65,17 @@ public class AuthenticationController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(
-                new JwtResponse(jwt,
-                        userDetails.getId(),
-                        userDetails.getUsername(),
-                        userDetails.getEmail(),
-                        roles)
-        );
+        return new JwtResponse(
+                jwt,
+                userDetails.getId(),
+                userDetails.getEmail(),
+                roles);
     }
 
-//    @PostMapping("/signUp")
-//    public ResponseEntity<?> signUp(@Valid @RequestBody SignupRequest signUpRequest) {
-//        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-//            return ResponseEntity
-//                    .badRequest()
-//                    .body(new MessageResponse("Error: Username is already taken!"));
-//        }
-//
-//        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-//            return ResponseEntity
-//                    .badRequest()
-//                    .body(new MessageResponse("Error: Email is already in use!"));
-//        }
-//
-//        User user = new User(
-//                signUpRequest.getEmail(),
-//                encoder.encode(signUpRequest.getPassword())
-//        );
-//
-//        Set<String> strRoles = signUpRequest.getRole();
-//        Set<Role> roles = new HashSet<>();
-//
-//        if (strRoles == null) {
-//            Role userRole = roleRepository
-//                    .findByName(ERole.ROLE_JOB_SEEKER)
-//                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//            roles.add(userRole);
-//        } else {
-//            strRoles.forEach(role -> {
-//                switch (role) {
-//                    case "admin":
-//                        Role recruiterRole = roleRepository
-//                                .findByName(ERole.ROLE_RECRUITER)
-//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//                        roles.add(recruiterRole);
-//                        break;
-//                    default:
-//                        Role jobSeekerRole = roleRepository
-//                                .findByName(ERole.ROLE_JOB_SEEKER)
-//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//                        roles.add(jobSeekerRole);
-//                }
-//            });
-//        }
-//
-//        user.setRoles(roles);
-//        userRepository.save(user);
-//
-//        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
-//    }
+    @PostMapping("/signUp")
+    public MessageResponse signUp(@Valid @RequestBody SignupRequest signUpRequest) {
+        accountService.saveAccount(signUpRequest);
+
+        return new MessageResponse("User registered successfully!");
+    }
 }

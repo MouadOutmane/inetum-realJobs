@@ -14,10 +14,6 @@ import java.time.LocalDate;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Account extends BaseModel {
 
-    @NotBlank
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
-
     @Email
     @NotNull
     @Column(name = "email", nullable = false, unique = true)
@@ -52,19 +48,10 @@ public abstract class Account extends BaseModel {
     @Column(name = "mobile_phone")
     private String mobilePhone;
 
-    @NotBlank
     @Column(name = "profile_picture")
     private String profilePicture;
 
     public Account() {
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {
