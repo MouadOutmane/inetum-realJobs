@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import world.inetum.realdolmen.inetumrealJobs.dtos.VacancyFilterResultDto;
 import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
+import world.inetum.realdolmen.inetumrealJobs.entities.enums.ContractType;
 import world.inetum.realdolmen.inetumrealJobs.services.VacancyService;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -22,23 +25,41 @@ public class VacancyController {
         this.vacancyService = vacancyService;
     }
 
-    @GetMapping("/")
-    ResponseEntity<List<Vacancy>> findAllVacanciesWithFilter(@RequestParam String functionTitle, @RequestParam String contractType, @RequestParam Long country_id, @RequestParam String industry, @RequestParam String requiredYearsOfExperience) {
-        List<Vacancy> results = vacancyService.findVacancyWithFilter(functionTitle, contractType, country_id, industry, Integer.parseInt(requiredYearsOfExperience));
+    @GetMapping
+    @ResponseBody
+    public ResponseEntity<List<VacancyFilterResultDto>> findAllVacanciesWithFilter(@RequestParam String functionTitle,
+                                                                                   @RequestParam(required = false) ContractType contractType,
+                                                                                   @RequestParam(name = "country", required = false) Long country_id,
+                                                                                   @RequestParam String industry,
+                                                                                   @RequestParam(required = false) Integer requiredYearsOfExperience) {
+        List<Vacancy> results = vacancyService.findVacancyWithFilter(functionTitle, contractType, country_id, industry, requiredYearsOfExperience);
         if (results.isEmpty()) {
-            return new ResponseEntity<>(results, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(Collections.emptyList(), HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(results, HttpStatus.OK);
+
+        List<VacancyFilterResultDto> dtos = results
+                .stream()
+                .map((vacancy) -> {
+                    // FIXME - Implement proper mapping.
+                    VacancyFilterResultDto dto = new VacancyFilterResultDto();
+                    dto.setFunctionTitle(vacancy.getFunctionTitle());
+
+                    return dto;
+                })
+                .toList();
+
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    ResponseEntity<List<Vacancy>> findAllVacancies() {
-        List<Vacancy> results = vacancyService.findAll();
-        return new ResponseEntity<>(results, HttpStatus.OK);
+    public List<Vacancy> findAllVacancies() {
+        // FIXME - Implement DTOs.
+        return vacancyService.findAll();
     }
 
     @PostMapping("/create")
-    Vacancy newVacancy(@Valid @RequestBody Vacancy newVacancy) {
+    public Vacancy newVacancy(@Valid @RequestBody Vacancy newVacancy) {
+        // FIXME - Implement DTOs.
         return vacancyService.addVacancy(newVacancy);
     }
 }

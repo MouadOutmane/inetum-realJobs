@@ -3,6 +3,7 @@ package world.inetum.realdolmen.inetumrealJobs.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
+import world.inetum.realdolmen.inetumrealJobs.entities.enums.ContractType;
 import world.inetum.realdolmen.inetumrealJobs.repositories.VacancyRepository;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class VacancyService {
         return vacancyRepository.findAll();
     }
 
-    public List<Vacancy> findVacancyWithFilter(String functionTitle, String contractType, Long country_id, String industry, Integer requiredYearsOfExperience) {
+    public List<Vacancy> findVacancyWithFilter(String functionTitle, ContractType contractType, Long country_id, String industry, Integer requiredYearsOfExperience) {
         return vacancyRepository.findAll(where(withContractType(contractType))
                 .and(withCountry(country_id))
                 .and(withRequiredYearsOfExperience(requiredYearsOfExperience))
