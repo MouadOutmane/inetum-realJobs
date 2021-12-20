@@ -3,12 +3,13 @@ package world.inetum.realdolmen.inetumrealJobs.repositories;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
+import world.inetum.realdolmen.inetumrealJobs.entities.enums.ContractType;
 
 public class VacancySpecification {
 
     public static Specification<Vacancy> withFunctionTitle(String functionTitle) {
         if (!StringUtils.hasText(functionTitle)) {
-            return ((vacancy, query, builder) -> builder.and());
+            return null;
         } else {
             return ((vacancy, query, builder) ->
                     builder.like(
@@ -21,23 +22,26 @@ public class VacancySpecification {
     }
 
     public static Specification<Vacancy> withCountry(Long country_id) {
-        return ((vacancy, query, builder) ->
-                builder.equal(
-                        vacancy.get("country_id"),
-                        country_id
-                )
-        );
-    }
-
-    public static Specification<Vacancy> withContractType(String contractType) {
-        if (!StringUtils.hasText(contractType)) {
-            return ((vacancy, query, builder) -> builder.and());
+        if (country_id == null) {
+            return null;
         } else {
             return ((vacancy, query, builder) ->
-                    builder.like(
-                            builder.lower(
-                                    vacancy.get("contractType")
-                            ), "%" + contractType.toLowerCase() + "%"
+                    builder.equal(
+                            vacancy.get("address").get("country").get("id"),
+                            country_id
+                    )
+            );
+        }
+    }
+
+    public static Specification<Vacancy> withContractType(ContractType contractType) {
+        if (contractType == null) {
+            return null;
+        } else {
+            return ((vacancy, query, builder) ->
+                    builder.equal(
+                            vacancy.get("contractType"),
+                            contractType
                     )
             );
         }
@@ -45,17 +49,29 @@ public class VacancySpecification {
 
     public static Specification<Vacancy> withIndustry(String industry) {
         if (!StringUtils.hasText(industry)) {
-            return ((vacancy, query, builder) -> builder.and());
+            return null;
         } else {
-            return ((vacancy, query, builder) -> builder.like(builder.lower(vacancy.get("industry")), "%" + industry.toLowerCase() + "%"));
+            return ((vacancy, query, builder) ->
+                    builder.like(
+                            builder.lower(
+                                    vacancy.get("company").get("industry")
+                            ),
+                            "%" + industry.toLowerCase() + "%")
+            );
         }
     }
 
     public static Specification<Vacancy> withRequiredYearsOfExperience(Integer requiredYearsOfExperience) {
-        return ((vacancy, query, builder) -> builder.le(
-                vacancy.get("requiredYearsOfExperience"), requiredYearsOfExperience
-        )
-        );
+        if (requiredYearsOfExperience == null) {
+            return null;
+        } else {
+            return ((vacancy, query, builder) ->
+                    builder.le(
+                            vacancy.get("requiredYearsOfExperience"), requiredYearsOfExperience
+                    )
+            );
+        }
     }
+    
 }
 

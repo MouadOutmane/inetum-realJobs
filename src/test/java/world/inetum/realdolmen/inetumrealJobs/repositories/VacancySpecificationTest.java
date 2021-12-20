@@ -1,113 +1,261 @@
-//package world.inetum.realdolmen.inetumrealJobs.repositories;
-//
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-//import world.inetum.realdolmen.inetumrealJobs.entities.Address;
-//import world.inetum.realdolmen.inetumrealJobs.entities.Company;
-//import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
-//import world.inetum.realdolmen.inetumrealJobs.entities.enums.ContractType;
-//import world.inetum.realdolmen.inetumrealJobs.entities.enums.Country;
-//
-//import java.util.List;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertFalse;
-//import static org.springframework.data.jpa.domain.Specification.where;
-//import static world.inetum.realdolmen.inetumrealJobs.repositories.VacancySpecification.*;
-//
-//
-//@DataJpaTest
-//public class VacancySpecificationTest {
-//
-//    @Autowired
-//    VacancyRepository vacancyRepository;
-//
-//    @BeforeEach
-//    void setUp() {
-//        Company c = new Company();
-//        c.setName("Inetum");
-//        c.setCity("Rome");
-//        c.setCountry(Country.ITALY);
-//        c.setCompanyLogo("");
-//        c.setIndustry("IT");
-//
-//        Address address = new Address();
-//        address.setCity("Rome");
-//        address.setCountry(Country.ITALY);
-//        address.setStreetName("A street");
-//        address.setHouseNumber("9");
-//
-//        Vacancy v = new Vacancy();
-//        v.setFunctionTitle("junior java consultant");
-//        v.setContractType(ContractType.FULL_TIME);
-//        v.setFunctionDescription("java programming");
-//        v.setCompany(c);
-//        v.setAddress(address);
-//        v.set
-//        vacancyRepository.save(new Vacancy("junior java consultant", "full-time", "java programming", "Inetum", "IT", "Italy", "Rome", 10122, "avenue de la liberte", 33, 0, "1k/month"));
-//        vacancyRepository.save(new Vacancy("senior java consultant", "full-time", "java programming", "Realdolmen", "IT", "Italy", "Milan", 10123, "avenue de l'espoir", 34, 3, "2k/month"));
-//        vacancyRepository.save(new Vacancy("burger flipper", "full-time", "flipping burgers", "McDonald's", "IT", "USA", "Washington", 10124, "avenue de la force", 35, 3, "3k/month"));
-//
-//    }
-//
-//    @Test
-//    void findAll_FullTimeItaly3YearsOfExperienceVacancies_True() {
-//        List<Vacancy> results = vacancyRepository.findAll(where(withContractType("Full-Time"))
-//                .and(withCountry("italy"))
-//                .and(withRequiredYearsOfExperience(3))
-//                .and(withIndustry(null)));
-//
-//        assertEquals(2, results.size());
-//        assertEquals("Italy", results.get(0).getCountry());
-//    }
-//
-//    @Test
-//    void testWithNullIndustry() {
-//        List<Vacancy> results = vacancyRepository.findAll(where(withIndustry(null)));
-//        assertFalse(results.isEmpty());
-//    }
-//
-//    @Test
-//    void testWithNullCountry() {
-//        List<Vacancy> results = vacancyRepository.findAll(where(withCountry(null)));
-//        assertFalse(results.isEmpty());
-//    }
-//
-//    @Test
-//    void testWithNullFunctionTitle() {
-//        List<Vacancy> results = vacancyRepository.findAll(where(withFunctionTitle(null)));
-//        assertFalse(results.isEmpty());
-//    }
-//
-//    @Test
-//    void testWithNullContractType() {
-//        List<Vacancy> results = vacancyRepository.findAll(where(withContractType(null)));
-//        assertFalse(results.isEmpty());
-//    }
-//
-//    @Test
-//    void testWithIndustry() {
-//        List<Vacancy> results = vacancyRepository.findAll(where(withIndustry("IT")));
-//        assertEquals("IT", results.get(0).getIndustry());
-//    }
-//
-//    @Test
-//    void testWithCountry() {
-//        List<Vacancy> results = vacancyRepository.findAll(where(withCountry("italy")));
-//        assertEquals("Italy", results.get(0).getCountry());
-//    }
-//
-//    @Test
-//    void testWithContractType() {
-//        List<Vacancy> results = vacancyRepository.findAll(where(withContractType("full-time")));
-//        assertEquals("Full-Time", results.get(0).getContractType());
-//    }
-//
-//    @Test
-//    void testWithFunctionTitle() {
-//        List<Vacancy> results = vacancyRepository.findAll(where(withFunctionTitle("junior java consultant")));
-//        assertEquals("junior java consultant", results.get(0).getFunctionTitle());
-//    }
-//}
+package world.inetum.realdolmen.inetumrealJobs.repositories;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import world.inetum.realdolmen.inetumrealJobs.BaseRepositoryTest;
+import world.inetum.realdolmen.inetumrealJobs.entities.Company;
+import world.inetum.realdolmen.inetumrealJobs.entities.Country;
+import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
+import world.inetum.realdolmen.inetumrealJobs.entities.enums.ContractType;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.data.jpa.domain.Specification.where;
+import static world.inetum.realdolmen.inetumrealJobs.repositories.VacancySpecification.*;
+
+@SuppressWarnings("ConstantConditions")
+@DataJpaTest
+public class VacancySpecificationTest extends BaseRepositoryTest {
+
+    @Test
+    void findAll_FullTimeItaly3YearsOfExperienceVacancies_True() {
+        Country country1 = persistCountry("Belgium");
+        Country country2 = persistCountry("France");
+        Country country3 = persistCountry("Germany");
+
+        Company company1 = persistCompany("name1", "industry1", country1);
+        Company company2 = persistCompany("name2", "industry2", country2);
+        Company company3 = persistCompany("name3", "industry3", country3);
+
+        persistVacancy("function1", ContractType.PART_TIME, createAddress(country1), company1, 1);
+        persistVacancy("function2", ContractType.PART_TIME, createAddress(country1), company1, 3);
+        persistVacancy("function3", ContractType.FLEXI, createAddress(country2), company2, 0);
+        persistVacancy("function4", ContractType.FULL_TIME, createAddress(country1), company1, 0);
+        persistVacancy("function5", ContractType.FULL_TIME, createAddress(country2), company2, 4);
+        persistVacancy("function6", ContractType.FULL_TIME, createAddress(country1), company1, 8);
+        persistVacancy("function7", ContractType.FULL_TIME, createAddress(country2), company2, 7);
+        persistVacancy("function8", ContractType.FULL_TIME, createAddress(country3), company3, 0);
+
+
+        Integer requiredYearsOfExperience = 3;
+        String industry = null;
+
+        List<Vacancy> results = vacancyRepository.findAll(
+                where(withContractType(ContractType.FULL_TIME))
+                        .and(withCountry(country1.getId()))
+                        .and(withRequiredYearsOfExperience(requiredYearsOfExperience))
+                        .and(withIndustry(industry))
+        );
+
+        assertEquals(1, results.size());
+
+        var firstResult = results.get(0);
+        assertEquals("Belgium", firstResult.getAddress().getCountry().getName());
+    }
+
+    @Test
+    void testWithNullIndustry() {
+        Country country1 = persistCountry("Belgium");
+        Country country2 = persistCountry("France");
+        Country country3 = persistCountry("Germany");
+
+        Company company1 = persistCompany("name1", "industry1", country1);
+        Company company2 = persistCompany("name2", "industry2", country2);
+        Company company3 = persistCompany("name3", "industry3", country3);
+
+        persistVacancy("function1", ContractType.PART_TIME, createAddress(country1), company1, 1);
+        persistVacancy("function2", ContractType.PART_TIME, createAddress(country1), company1, 3);
+        persistVacancy("function3", ContractType.FLEXI, createAddress(country2), company2, 0);
+        persistVacancy("function4", ContractType.FULL_TIME, createAddress(country1), company1, 0);
+        persistVacancy("function5", ContractType.FULL_TIME, createAddress(country2), company2, 4);
+        persistVacancy("function6", ContractType.FULL_TIME, createAddress(country1), company1, 8);
+        persistVacancy("function7", ContractType.FULL_TIME, createAddress(country2), company2, 7);
+        persistVacancy("function8", ContractType.FULL_TIME, createAddress(country3), company3, 0);
+
+        List<Vacancy> results = vacancyRepository.findAll(where(withIndustry(null)));
+
+        assertEquals(8, results.size());
+    }
+
+    @Test
+    void testWithNullCountry() {
+        Country country1 = persistCountry("Belgium");
+        Country country2 = persistCountry("France");
+        Country country3 = persistCountry("Germany");
+
+        Company company1 = persistCompany("name1", "industry1", country1);
+        Company company2 = persistCompany("name2", "industry2", country2);
+        Company company3 = persistCompany("name3", "industry3", country3);
+
+        persistVacancy("function1", ContractType.PART_TIME, createAddress(country1), company1, 1);
+        persistVacancy("function2", ContractType.PART_TIME, createAddress(country1), company1, 3);
+        persistVacancy("function3", ContractType.FLEXI, createAddress(country2), company2, 0);
+        persistVacancy("function4", ContractType.FULL_TIME, createAddress(country1), company1, 0);
+        persistVacancy("function5", ContractType.FULL_TIME, createAddress(country2), company2, 4);
+        persistVacancy("function6", ContractType.FULL_TIME, createAddress(country1), company1, 8);
+        persistVacancy("function7", ContractType.FULL_TIME, createAddress(country2), company2, 7);
+        persistVacancy("function8", ContractType.FULL_TIME, createAddress(country3), company3, 0);
+
+        List<Vacancy> results = vacancyRepository.findAll(where(withCountry(null)));
+
+        assertEquals(8, results.size());
+    }
+
+    @Test
+    void testWithNullFunctionTitle() {
+        Country country1 = persistCountry("Belgium");
+        Country country2 = persistCountry("France");
+        Country country3 = persistCountry("Germany");
+
+        Company company1 = persistCompany("name1", "industry1", country1);
+        Company company2 = persistCompany("name2", "industry2", country2);
+        Company company3 = persistCompany("name3", "industry3", country3);
+
+        persistVacancy("function1", ContractType.PART_TIME, createAddress(country1), company1, 1);
+        persistVacancy("function2", ContractType.PART_TIME, createAddress(country1), company1, 3);
+        persistVacancy("function3", ContractType.FLEXI, createAddress(country2), company2, 0);
+        persistVacancy("function4", ContractType.FULL_TIME, createAddress(country1), company1, 0);
+        persistVacancy("function5", ContractType.FULL_TIME, createAddress(country2), company2, 4);
+        persistVacancy("function6", ContractType.FULL_TIME, createAddress(country1), company1, 8);
+        persistVacancy("function7", ContractType.FULL_TIME, createAddress(country2), company2, 7);
+        persistVacancy("function8", ContractType.FULL_TIME, createAddress(country3), company3, 0);
+
+        List<Vacancy> results = vacancyRepository.findAll(where(withFunctionTitle(null)));
+
+        assertEquals(8, results.size());
+    }
+
+    @Test
+    void testWithNullContractType() {
+        Country country1 = persistCountry("Belgium");
+        Country country2 = persistCountry("France");
+        Country country3 = persistCountry("Germany");
+
+        Company company1 = persistCompany("name1", "industry1", country1);
+        Company company2 = persistCompany("name2", "industry2", country2);
+        Company company3 = persistCompany("name3", "industry3", country3);
+
+        persistVacancy("function1", ContractType.PART_TIME, createAddress(country1), company1, 1);
+        persistVacancy("function2", ContractType.PART_TIME, createAddress(country1), company1, 3);
+        persistVacancy("function3", ContractType.FLEXI, createAddress(country2), company2, 0);
+        persistVacancy("function4", ContractType.FULL_TIME, createAddress(country1), company1, 0);
+        persistVacancy("function5", ContractType.FULL_TIME, createAddress(country2), company2, 4);
+        persistVacancy("function6", ContractType.FULL_TIME, createAddress(country1), company1, 8);
+        persistVacancy("function7", ContractType.FULL_TIME, createAddress(country2), company2, 7);
+        persistVacancy("function8", ContractType.FULL_TIME, createAddress(country3), company3, 0);
+
+        List<Vacancy> results = vacancyRepository.findAll(where(withContractType(null)));
+
+        assertEquals(8, results.size());
+    }
+
+    @Test
+    void testWithIndustry() {
+        Country country1 = persistCountry("Belgium");
+        Country country2 = persistCountry("France");
+        Country country3 = persistCountry("Germany");
+
+        Company company1 = persistCompany("name1", "industry1", country1);
+        Company company2 = persistCompany("name2", "IT", country2);
+        Company company3 = persistCompany("name3", "industry3", country3);
+
+        persistVacancy("function1", ContractType.PART_TIME, createAddress(country1), company1, 1);
+        persistVacancy("function2", ContractType.PART_TIME, createAddress(country1), company1, 3);
+        persistVacancy("junior java consultant", ContractType.FLEXI, createAddress(country2), company2, 0);
+        persistVacancy("function4", ContractType.FULL_TIME, createAddress(country1), company1, 0);
+        persistVacancy("function5", ContractType.FULL_TIME, createAddress(country2), company2, 4);
+        persistVacancy("junior java consultant", ContractType.FULL_TIME, createAddress(country1), company1, 8);
+        persistVacancy("function7", ContractType.FULL_TIME, createAddress(country2), company2, 7);
+        persistVacancy("function8", ContractType.FULL_TIME, createAddress(country3), company3, 0);
+
+        List<Vacancy> results = vacancyRepository.findAll(where(withIndustry("IT")));
+
+        assertEquals(3, results.size());
+
+        var firstResult = results.get(0);
+        assertEquals("IT", firstResult.getCompany().getIndustry());
+    }
+
+    @Test
+    void testWithCountry() {
+        Country country1 = persistCountry("Belgium");
+        Country country2 = persistCountry("France");
+        Country country3 = persistCountry("Germany");
+
+        Company company1 = persistCompany("name1", "industry1", country1);
+        Company company2 = persistCompany("name2", "industry2", country2);
+        Company company3 = persistCompany("name3", "industry3", country3);
+
+        persistVacancy("function1", ContractType.PART_TIME, createAddress(country1), company1, 1);
+        persistVacancy("function2", ContractType.PART_TIME, createAddress(country1), company1, 3);
+        persistVacancy("junior java consultant", ContractType.FLEXI, createAddress(country2), company2, 0);
+        persistVacancy("function4", ContractType.FULL_TIME, createAddress(country1), company1, 0);
+        persistVacancy("function5", ContractType.FULL_TIME, createAddress(country2), company2, 4);
+        persistVacancy("junior java consultant", ContractType.FULL_TIME, createAddress(country1), company1, 8);
+        persistVacancy("function7", ContractType.FULL_TIME, createAddress(country2), company2, 7);
+        persistVacancy("function8", ContractType.FULL_TIME, createAddress(country3), company3, 0);
+
+        List<Vacancy> results = vacancyRepository.findAll(where(withCountry(country2.getId())));
+
+        assertEquals(3, results.size());
+
+        var firstResult = results.get(0);
+        assertEquals("France", firstResult.getAddress().getCountry().getName());
+    }
+
+    @Test
+    void testWithContractType() {
+        Country country1 = persistCountry("Belgium");
+        Country country2 = persistCountry("France");
+        Country country3 = persistCountry("Germany");
+
+        Company company1 = persistCompany("name1", "industry1", country1);
+        Company company2 = persistCompany("name2", "industry2", country2);
+        Company company3 = persistCompany("name3", "industry3", country3);
+
+        persistVacancy("function1", ContractType.PART_TIME, createAddress(country1), company1, 1);
+        persistVacancy("function2", ContractType.PART_TIME, createAddress(country1), company1, 3);
+        persistVacancy("function3", ContractType.FLEXI, createAddress(country2), company2, 0);
+        persistVacancy("function4", ContractType.FULL_TIME, createAddress(country1), company1, 0);
+        persistVacancy("function5", ContractType.FULL_TIME, createAddress(country2), company2, 4);
+        persistVacancy("function6", ContractType.FULL_TIME, createAddress(country1), company1, 8);
+        persistVacancy("function7", ContractType.FULL_TIME, createAddress(country2), company2, 7);
+        persistVacancy("function8", ContractType.FULL_TIME, createAddress(country3), company3, 0);
+
+        List<Vacancy> results = vacancyRepository.findAll(where(withContractType(ContractType.FULL_TIME)));
+
+        assertEquals(5, results.size());
+
+        var firstResult = results.get(0);
+        assertEquals(ContractType.FULL_TIME, firstResult.getContractType());
+    }
+
+    @Test
+    void testWithFunctionTitle() {
+        Country country1 = persistCountry("Belgium");
+        Country country2 = persistCountry("France");
+        Country country3 = persistCountry("Germany");
+
+        Company company1 = persistCompany("name1", "industry1", country1);
+        Company company2 = persistCompany("name2", "industry2", country2);
+        Company company3 = persistCompany("name3", "industry3", country3);
+
+        persistVacancy("function1", ContractType.PART_TIME, createAddress(country1), company1, 1);
+        persistVacancy("function2", ContractType.PART_TIME, createAddress(country1), company1, 3);
+        persistVacancy("junior java consultant", ContractType.FLEXI, createAddress(country2), company2, 0);
+        persistVacancy("function4", ContractType.FULL_TIME, createAddress(country1), company1, 0);
+        persistVacancy("function5", ContractType.FULL_TIME, createAddress(country2), company2, 4);
+        persistVacancy("junior java consultant", ContractType.FULL_TIME, createAddress(country1), company1, 8);
+        persistVacancy("function7", ContractType.FULL_TIME, createAddress(country2), company2, 7);
+        persistVacancy("function8", ContractType.FULL_TIME, createAddress(country3), company3, 0);
+
+        List<Vacancy> results = vacancyRepository.findAll(where(withFunctionTitle("junior java consultant")));
+
+        assertEquals(2, results.size());
+
+        var firstResult = results.get(0);
+        assertEquals("junior java consultant", firstResult.getFunctionTitle());
+    }
+
+}
