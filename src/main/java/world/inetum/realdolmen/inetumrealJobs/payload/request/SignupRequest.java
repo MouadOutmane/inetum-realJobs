@@ -1,28 +1,36 @@
 package world.inetum.realdolmen.inetumrealJobs.payload.request;
 
+import world.inetum.realdolmen.inetumrealJobs.dtos.AddressDto;
+import world.inetum.realdolmen.inetumrealJobs.entities.enums.Gender;
+import world.inetum.realdolmen.inetumrealJobs.entities.enums.Role;
+
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+import javax.validation.constraints.Past;
+import java.time.LocalDate;
 
 public class SignupRequest {
-
-    private String username;
-
     @Email
+    @NotNull
     private String email;
-
-    private Set<String> role;
-
+    @NotNull
+    private Role role;
     @NotNull
     private String password;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    @NotNull
+    private Gender gender;
+    @NotBlank
+    private String firstName;
+    @NotBlank
+    private String lastName;
+    @NotNull
+    @Past
+    private LocalDate birthDate;
+    @NotNull
+    private AddressDto address;
+    private String mobilePhone;
+    private String profilePicture;
 
     public String getEmail() {
         return email;
@@ -30,6 +38,14 @@ public class SignupRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getPassword() {
@@ -40,11 +56,59 @@ public class SignupRequest {
         this.password = password;
     }
 
-    public Set<String> getRole() {
-        return this.role;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setRole(Set<String> role) {
-        this.role = role;
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public AddressDto getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressDto address) {
+        this.address = address;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }
