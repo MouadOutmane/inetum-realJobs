@@ -1,0 +1,62 @@
+<div class="col-md-8 offset-md-3">
+  <h2>Filter Vacancies</h2>
+  <form (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label> Function Title</label>
+      <input [(ngModel)]="filter.functionTitle" class="form-control" id="functionTitle"
+             name="functionTitle" type="text">
+    </div>
+
+    <div class="form-group">
+      <label> contract Type</label>
+      <input [(ngModel)]="filter.contractType" class="form-control" id="contractType"
+             name="contractType" type="text">
+    </div>
+
+    <div class="form-group">
+      <label> Industry</label>
+      <input [(ngModel)]="filter.industry" class="form-control" id="industry"
+             name="industry" type="text">
+    </div>
+
+    <div class="form-group">
+      <label> Country</label>
+      <input [(ngModel)]="filter.country" class="form-control" id="country"
+             name="country" type="text">
+    </div>
+
+    <div class="form-group">
+      <label> Required Years Of Experience</label>
+      <input [(ngModel)]="filter.requiredYearsOfExperience" class="form-control" id="requiredYearsOfExperience"
+             name="requiredYearsOfExperience" type="number">
+    </div>
+
+    <button class="btn btn-success" type="submit">Submit</button>
+  </form>
+</div>
+<div class="container">
+  <h2>Vacancies</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Function Title</th>
+      <th>Contract Type</th>
+      <th>City</th>
+      <th>Offer</th>
+      <th>Company</th>
+      <th>Posting Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let vacancy of vacancies$|async">
+      <td>{{ vacancy.functionTitle}}</td>
+      <td>{{ vacancy.contractType}}</td>
+      <td>{{ vacancy.city}}</td>
+      <td>{{ vacancy.offer}}</td>
+      <td>{{ vacancy.companyName}}</td>
+      <td>{{ vacancy.postingDate}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
