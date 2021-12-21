@@ -36,12 +36,11 @@ public class AccountService {
         }
 
         if (countryRepository.existsById(signUpRequest.getAddress().getCountry())) {
-            String strRole = signUpRequest.getRole().toString();
-            if (strRole.equals(Role.JOB_SEEKER.toString())) {
+            if (signUpRequest.getRole().equals(Role.JOB_SEEKER)) {
                 JobSeeker jobSeeker = new JobSeeker();
                 buildAccount(signUpRequest, jobSeeker);
                 accountRepository.save(jobSeeker);
-            } else if (strRole.equals(Role.RECRUITER.toString())) {
+            } else if (signUpRequest.getRole().equals(Role.RECRUITER)) {
                 Recruiter recruiter = new Recruiter();
                 buildAccount(signUpRequest, recruiter);
                 accountRepository.save(recruiter);
