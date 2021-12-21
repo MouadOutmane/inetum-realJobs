@@ -1,9 +1,9 @@
-package world.inetum.realdolmen.inetumrealJobs.repositories;
+package world.inetum.realdolmen.realjobs.repositories;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import world.inetum.realdolmen.inetumrealJobs.BaseRepositoryTest;
+import world.inetum.realdolmen.realjobs.BaseRepositoryTest;
 import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
 import world.inetum.realdolmen.realjobs.entities.Company;
 import world.inetum.realdolmen.realjobs.entities.Country;

@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.inetumrealJobs;
+package world.inetum.realdolmen.realjobs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

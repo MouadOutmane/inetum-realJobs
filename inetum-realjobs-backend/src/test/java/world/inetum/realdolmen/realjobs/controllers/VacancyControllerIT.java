@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.inetumrealJobs.controllers;
+package world.inetum.realdolmen.realjobs.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import world.inetum.realdolmen.inetumrealJobs.BaseIntegrationTest;
+import world.inetum.realdolmen.realjobs.BaseIntegrationTest;
 import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
 import world.inetum.realdolmen.realjobs.entities.Address;
 import world.inetum.realdolmen.realjobs.entities.Company;

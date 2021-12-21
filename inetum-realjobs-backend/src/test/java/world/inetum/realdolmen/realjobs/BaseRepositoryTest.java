@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.inetumrealJobs;
+package world.inetum.realdolmen.realjobs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;

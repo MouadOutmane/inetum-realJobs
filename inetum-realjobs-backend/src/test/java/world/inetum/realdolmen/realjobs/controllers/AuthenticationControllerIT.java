@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.inetumrealJobs.controllers;
+package world.inetum.realdolmen.realjobs.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -14,9 +14,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import world.inetum.realdolmen.inetumrealJobs.BaseIntegrationTest;
+import world.inetum.realdolmen.realjobs.BaseIntegrationTest;
 import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
-import world.inetum.realdolmen.realjobs.controllers.AuthenticationController;
 import world.inetum.realdolmen.realjobs.dtos.AddressDto;
 import world.inetum.realdolmen.realjobs.entities.enums.Gender;
 import world.inetum.realdolmen.realjobs.entities.enums.Role;
