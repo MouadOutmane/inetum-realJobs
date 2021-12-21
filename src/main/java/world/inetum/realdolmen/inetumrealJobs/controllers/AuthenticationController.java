@@ -30,19 +30,16 @@ public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder encoder;
     private final JwtUtils jwtUtils;
-    private final AccountRepository accountRepository;
     private final AccountService accountService;
 
     @Autowired
     public AuthenticationController(AuthenticationManager authenticationManager,
                                     PasswordEncoder encoder,
                                     JwtUtils jwtUtils,
-                                    AccountRepository accountRepository,
                                     AccountService accountService) {
         this.authenticationManager = authenticationManager;
         this.encoder = encoder;
         this.jwtUtils = jwtUtils;
-        this.accountRepository = accountRepository;
         this.accountService = accountService;
     }
 

@@ -2,17 +2,20 @@ package world.inetum.realdolmen.inetumrealJobs.payload.request;
 
 import world.inetum.realdolmen.inetumrealJobs.dtos.AddressDto;
 import world.inetum.realdolmen.inetumrealJobs.entities.enums.Gender;
+import world.inetum.realdolmen.inetumrealJobs.entities.enums.Role;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
 public class SignupRequest {
     @Email
+    @NotNull
     private String email;
-    @NotBlank
-    private String role;
+    @NotNull
+    private Role role;
     @NotNull
     private String password;
     @NotNull
@@ -22,6 +25,7 @@ public class SignupRequest {
     @NotBlank
     private String lastName;
     @NotNull
+    @Past
     private LocalDate birthDate;
     @NotNull
     private AddressDto address;
@@ -36,11 +40,11 @@ public class SignupRequest {
         this.email = email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

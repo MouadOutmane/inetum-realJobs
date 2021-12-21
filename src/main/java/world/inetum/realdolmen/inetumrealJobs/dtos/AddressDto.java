@@ -6,16 +6,16 @@ import javax.validation.constraints.NotNull;
 public class AddressDto {
 
     @NotBlank
-    String streetName;
+    private String streetName;
     @NotBlank
-    String houseNumber;
-    String box;
+    private String houseNumber;
+    private String box;
     @NotBlank
-    String city;
+    private String city;
     @NotBlank
-    String postalCode;
+    private String postalCode;
     @NotNull
-    Long country;
+    private Long country;
 
     public String getStreetName() {
         return streetName;

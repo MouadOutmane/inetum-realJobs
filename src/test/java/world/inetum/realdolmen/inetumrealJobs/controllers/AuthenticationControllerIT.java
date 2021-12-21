@@ -18,6 +18,7 @@ import world.inetum.realdolmen.inetumrealJobs.BaseIntegrationTest;
 import world.inetum.realdolmen.inetumrealJobs.InetumRealJobsApplication;
 import world.inetum.realdolmen.inetumrealJobs.dtos.AddressDto;
 import world.inetum.realdolmen.inetumrealJobs.entities.enums.Gender;
+import world.inetum.realdolmen.inetumrealJobs.entities.enums.Role;
 import world.inetum.realdolmen.inetumrealJobs.exceptions.EndpointException;
 import world.inetum.realdolmen.inetumrealJobs.exceptions.messages.SignUpExceptionMessage;
 import world.inetum.realdolmen.inetumrealJobs.payload.request.LoginRequest;
@@ -90,7 +91,7 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
         SignupRequest request = new SignupRequest();
         request.setEmail("user2@user.user");
         request.setPassword("password");
-        request.setRole("ROLE_JOB_SEEKER");
+        request.setRole(Role.ROLE_JOB_SEEKER);
         request.setGender(Gender.MALE);
         request.setFirstName("User");
         request.setLastName("User");
@@ -105,7 +106,7 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
     }
 
     @Test
-    void registerWithExistingCredentialsReturning401() throws Exception {
+    void registerWithExistingCredentialsReturning401() {
         persistJobSeeker("user@user.user", "password");
 
         AddressDto addressDto = new AddressDto();
@@ -118,7 +119,7 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
         SignupRequest request = new SignupRequest();
         request.setEmail("user@user.user");
         request.setPassword("password");
-        request.setRole("ROLE_JOB_SEEKER");
+        request.setRole(Role.ROLE_JOB_SEEKER);
         request.setGender(Gender.MALE);
         request.setFirstName("User");
         request.setLastName("User");

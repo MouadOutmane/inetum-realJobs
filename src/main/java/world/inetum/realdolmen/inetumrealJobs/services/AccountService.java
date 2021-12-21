@@ -35,7 +35,7 @@ public class AccountService {
         }
 
         if (countryRepository.existsById(signUpRequest.getAddress().getCountry())) {
-            String strRole = signUpRequest.getRole();
+            String strRole = signUpRequest.getRole().toString();
             if (strRole.equals("ROLE_JOB_SEEKER")) {
                 JobSeeker jobSeeker = new JobSeeker();
                 buildAccount(signUpRequest, jobSeeker);
