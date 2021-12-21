@@ -1,8 +1,10 @@
 package world.inetum.realdolmen.inetumrealJobs.repositories;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import world.inetum.realdolmen.inetumrealJobs.BaseRepositoryTest;
+import world.inetum.realdolmen.inetumrealJobs.InetumRealJobsApplication;
 import world.inetum.realdolmen.inetumrealJobs.entities.Company;
 import world.inetum.realdolmen.inetumrealJobs.entities.Country;
 import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
@@ -15,8 +17,9 @@ import static org.springframework.data.jpa.domain.Specification.where;
 import static world.inetum.realdolmen.inetumrealJobs.repositories.VacancySpecification.*;
 
 @SuppressWarnings("ConstantConditions")
-@DataJpaTest
-public class VacancySpecificationTest extends BaseRepositoryTest {
+@SpringBootTest(classes = InetumRealJobsApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Transactional
+public class VacancySpecificationIT extends BaseRepositoryTest {
 
     @Test
     void findAll_FullTimeItaly3YearsOfExperienceVacancies_True() {
