@@ -6,13 +6,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import world.inetum.realdolmen.inetumrealJobs.payload.request.LoginRequest;
 import world.inetum.realdolmen.inetumrealJobs.payload.request.SignupRequest;
 import world.inetum.realdolmen.inetumrealJobs.payload.response.JwtResponse;
 import world.inetum.realdolmen.inetumrealJobs.payload.response.MessageResponse;
-import world.inetum.realdolmen.inetumrealJobs.repositories.AccountRepository;
 import world.inetum.realdolmen.inetumrealJobs.security.jwt.JwtUtils;
 import world.inetum.realdolmen.inetumrealJobs.services.AccountService;
 import world.inetum.realdolmen.inetumrealJobs.services.UserDetailsImpl;
@@ -28,17 +26,14 @@ import java.util.stream.Collectors;
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
-    private final PasswordEncoder encoder;
     private final JwtUtils jwtUtils;
     private final AccountService accountService;
 
     @Autowired
     public AuthenticationController(AuthenticationManager authenticationManager,
-                                    PasswordEncoder encoder,
                                     JwtUtils jwtUtils,
                                     AccountService accountService) {
         this.authenticationManager = authenticationManager;
-        this.encoder = encoder;
         this.jwtUtils = jwtUtils;
         this.accountService = accountService;
     }
