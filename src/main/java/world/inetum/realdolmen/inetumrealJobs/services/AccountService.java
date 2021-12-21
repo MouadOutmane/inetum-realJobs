@@ -7,6 +7,7 @@ import world.inetum.realdolmen.inetumrealJobs.entities.Account;
 import world.inetum.realdolmen.inetumrealJobs.entities.Address;
 import world.inetum.realdolmen.inetumrealJobs.entities.JobSeeker;
 import world.inetum.realdolmen.inetumrealJobs.entities.Recruiter;
+import world.inetum.realdolmen.inetumrealJobs.entities.enums.Role;
 import world.inetum.realdolmen.inetumrealJobs.exceptions.EndpointException;
 import world.inetum.realdolmen.inetumrealJobs.exceptions.messages.SignUpExceptionMessage;
 import world.inetum.realdolmen.inetumrealJobs.payload.request.SignupRequest;
@@ -36,14 +37,16 @@ public class AccountService {
 
         if (countryRepository.existsById(signUpRequest.getAddress().getCountry())) {
             String strRole = signUpRequest.getRole().toString();
-            if (strRole.equals("ROLE_JOB_SEEKER")) {
+            if (strRole.equals(Role.JOB_SEEKER.toString())) {
                 JobSeeker jobSeeker = new JobSeeker();
                 buildAccount(signUpRequest, jobSeeker);
                 accountRepository.save(jobSeeker);
-            } else if (strRole.equals("ROLE_RECRUITER")) {
+            } else if (strRole.equals(Role.RECRUITER.toString())) {
                 Recruiter recruiter = new Recruiter();
                 buildAccount(signUpRequest, recruiter);
                 accountRepository.save(recruiter);
+            }else {
+                throw new IllegalArgumentException("Non existing role");
             }
         }
     }
