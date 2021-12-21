@@ -91,7 +91,7 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
         SignupRequest request = new SignupRequest();
         request.setEmail("user2@user.user");
         request.setPassword("password");
-        request.setRole(Role.ROLE_JOB_SEEKER);
+        request.setRole(Role.JOB_SEEKER);
         request.setGender(Gender.MALE);
         request.setFirstName("User");
         request.setLastName("User");
@@ -119,7 +119,7 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
         SignupRequest request = new SignupRequest();
         request.setEmail("user@user.user");
         request.setPassword("password");
-        request.setRole(Role.ROLE_JOB_SEEKER);
+        request.setRole(Role.JOB_SEEKER);
         request.setGender(Gender.MALE);
         request.setFirstName("User");
         request.setLastName("User");
