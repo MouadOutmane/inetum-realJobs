@@ -1,15 +1,10 @@
 package world.inetum.realdolmen.realjobs.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
-@Builder
-@AllArgsConstructor
 public class Address {
 
     @NotBlank
@@ -40,7 +35,20 @@ public class Address {
     private Country country;
 
     public Address() {
+    }
 
+    public Address(String streetName,
+                   String houseNumber,
+                   String box,
+                   String city,
+                   String postalCode,
+                   Country country) {
+        this.streetName = streetName;
+        this.houseNumber = houseNumber;
+        this.box = box;
+        this.city = city;
+        this.postalCode = postalCode;
+        this.country = country;
     }
 
     public String getStreetName() {

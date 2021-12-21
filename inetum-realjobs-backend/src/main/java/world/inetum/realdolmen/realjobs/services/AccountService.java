@@ -51,14 +51,14 @@ public class AccountService {
     }
 
     private void buildAccount(SignupRequest signUpRequest, Account account) {
-        Address address = Address.builder()
-                .streetName(signUpRequest.getAddress().getStreetName())
-                .houseNumber(signUpRequest.getAddress().getHouseNumber())
-                .box(signUpRequest.getAddress().getBox())
-                .city(signUpRequest.getAddress().getCity())
-                .postalCode(signUpRequest.getAddress().getPostalCode())
-                .country(countryRepository.getById(signUpRequest.getAddress().getCountry()))
-                .build();
+        Address address = new Address(
+                signUpRequest.getAddress().getStreetName(),
+                signUpRequest.getAddress().getHouseNumber(),
+                signUpRequest.getAddress().getBox(),
+                signUpRequest.getAddress().getCity(),
+                signUpRequest.getAddress().getPostalCode(),
+                countryRepository.getById(signUpRequest.getAddress().getCountry())
+        );
 
         account.setEmail(signUpRequest.getEmail());
         account.setPassword(encoder.encode(signUpRequest.getPassword()));
