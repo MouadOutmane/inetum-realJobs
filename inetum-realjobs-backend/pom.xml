@@ -10,9 +10,9 @@
     </parent>
 
     <groupId>world.inetum.realdolmen</groupId>
-    <artifactId>inetum-realJobs</artifactId>
+    <artifactId>inetum-realjobs</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>inetum-realJobs</name>
+    <name>inetum-realjobs</name>
     <description>Project for Spring Boot</description>
 
     <properties>

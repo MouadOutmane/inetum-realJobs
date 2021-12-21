@@ -5,15 +5,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import world.inetum.realdolmen.inetumrealJobs.entities.Address;
-import world.inetum.realdolmen.inetumrealJobs.entities.Company;
-import world.inetum.realdolmen.inetumrealJobs.entities.Country;
-import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
-import world.inetum.realdolmen.inetumrealJobs.entities.enums.ContractType;
-import world.inetum.realdolmen.inetumrealJobs.repositories.AccountRepository;
-import world.inetum.realdolmen.inetumrealJobs.repositories.CompanyRepository;
-import world.inetum.realdolmen.inetumrealJobs.repositories.CountryRepository;
-import world.inetum.realdolmen.inetumrealJobs.repositories.VacancyRepository;
+import world.inetum.realdolmen.realjobs.entities.Address;
+import world.inetum.realdolmen.realjobs.entities.Company;
+import world.inetum.realdolmen.realjobs.entities.Country;
+import world.inetum.realdolmen.realjobs.entities.Vacancy;
+import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
+import world.inetum.realdolmen.realjobs.repositories.AccountRepository;
+import world.inetum.realdolmen.realjobs.repositories.CompanyRepository;
+import world.inetum.realdolmen.realjobs.repositories.CountryRepository;
+import world.inetum.realdolmen.realjobs.repositories.VacancyRepository;
 
 import java.util.Optional;
 

@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import world.inetum.realdolmen.inetumrealJobs.entities.*;
-import world.inetum.realdolmen.inetumrealJobs.entities.enums.Gender;
+import world.inetum.realdolmen.realjobs.entities.*;
+import world.inetum.realdolmen.realjobs.entities.enums.Gender;
 
 import java.time.LocalDate;
 

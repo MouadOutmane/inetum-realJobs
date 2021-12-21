@@ -10,12 +10,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import world.inetum.realdolmen.inetumrealJobs.BaseIntegrationTest;
-import world.inetum.realdolmen.inetumrealJobs.InetumRealJobsApplication;
-import world.inetum.realdolmen.inetumrealJobs.entities.Address;
-import world.inetum.realdolmen.inetumrealJobs.entities.Company;
-import world.inetum.realdolmen.inetumrealJobs.entities.Country;
-import world.inetum.realdolmen.inetumrealJobs.entities.Vacancy;
-import world.inetum.realdolmen.inetumrealJobs.entities.enums.ContractType;
+import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
+import world.inetum.realdolmen.realjobs.entities.Address;
+import world.inetum.realdolmen.realjobs.entities.Company;
+import world.inetum.realdolmen.realjobs.entities.Country;
+import world.inetum.realdolmen.realjobs.entities.Vacancy;
+import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

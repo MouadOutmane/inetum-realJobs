@@ -15,14 +15,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import world.inetum.realdolmen.inetumrealJobs.BaseIntegrationTest;
-import world.inetum.realdolmen.inetumrealJobs.InetumRealJobsApplication;
-import world.inetum.realdolmen.inetumrealJobs.dtos.AddressDto;
-import world.inetum.realdolmen.inetumrealJobs.entities.enums.Gender;
-import world.inetum.realdolmen.inetumrealJobs.entities.enums.Role;
-import world.inetum.realdolmen.inetumrealJobs.exceptions.EndpointException;
-import world.inetum.realdolmen.inetumrealJobs.exceptions.messages.SignUpExceptionMessage;
-import world.inetum.realdolmen.inetumrealJobs.payload.request.LoginRequest;
-import world.inetum.realdolmen.inetumrealJobs.payload.request.SignupRequest;
+import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
+import world.inetum.realdolmen.realjobs.controllers.AuthenticationController;
+import world.inetum.realdolmen.realjobs.dtos.AddressDto;
+import world.inetum.realdolmen.realjobs.entities.enums.Gender;
+import world.inetum.realdolmen.realjobs.entities.enums.Role;
+import world.inetum.realdolmen.realjobs.exceptions.EndpointException;
+import world.inetum.realdolmen.realjobs.exceptions.messages.SignUpExceptionMessage;
+import world.inetum.realdolmen.realjobs.payload.request.LoginRequest;
+import world.inetum.realdolmen.realjobs.payload.request.SignupRequest;
 
 import java.time.LocalDate;
 
