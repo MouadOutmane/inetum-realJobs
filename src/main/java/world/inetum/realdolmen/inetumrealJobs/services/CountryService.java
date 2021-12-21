@@ -21,6 +21,6 @@ public class CountryService {
     }
 
     public List<Country> retrieveAllCountries() {
-        return countryRepository.findAll();
+        return countryRepository.findAllByOrderByName();
     }
 }
