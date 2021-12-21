@@ -33,4 +33,5 @@ build/
 .vscode/
 
 *.env
+!template.env
 create-tables.sql
