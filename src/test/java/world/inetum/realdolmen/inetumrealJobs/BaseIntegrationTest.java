@@ -50,7 +50,6 @@ public abstract class BaseIntegrationTest extends BaseRepositoryTest {
         address.setPostalCode("postal");
         address.setCountry(country);
 
-        account.setUsername(email);
         account.setEmail(email);
         account.setPassword(passwordEncoder.encode(password));
         account.setGender(Gender.MALE);
