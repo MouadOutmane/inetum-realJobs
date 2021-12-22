@@ -51,7 +51,7 @@ public class Vacancy extends BaseModel {
     private String requirements;
 
     @NotBlank
-    @Column(name = "offer", nullable = false)
+    @Column(name = "offer", nullable = false, columnDefinition = "TEXT")
     private String offer;
 
     @JoinColumn(

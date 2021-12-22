@@ -81,4 +81,8 @@ public class Address {
     public void setCountry(Country country) {
         this.country = country;
     }
+
+    public String toString(){
+        return getStreetName() + " " + getHouseNumber() + " " + getBox() + " " + getCity() + " " + getPostalCode() + " " + getCountry().getName();
+    }
 }

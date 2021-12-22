@@ -497,3 +497,23 @@ VALUES (1, null, null, null, null, 0, null, 'Brussels', '7', '1000', 'Road', '20
 INSERT INTO job_seeker (id, resume_id)
 VALUES (1, null);
 ALTER SEQUENCE account_id_seq RESTART WITH 2;
+
+
+INSERT INTO company
+(id, changed_by, changed_on, created_by, created_on, version, city, industry, logo, name, country_id)
+VALUES (1, 'user', now(), 'user', now(), 1, 'Huizingen', 'Application Services', null, 'Inetum-Realdolmen', 20);
+INSERT INTO recruiter (id, company_id)
+VALUES (1, 1);
+INSERT INTO vacancy
+(id, changed_by, changed_on, created_by, created_on, version, box, city, house_number, postal_code, street_name,
+ contract_type, function_description, function_title, offer, required_years_of_experience, requirements, country_id,
+ company_id, recruiter_id)
+VALUES (1, 'user', now(), 'user', now(), 1, '', 'Huizingen', '42', '1654', 'A. Vaucampslaan', 'FULL_TIME',
+        'You have to know Java and ...', 'Java Developer', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 2, '', 20, 1, 1);
+INSERT INTO vacancy
+(id, changed_by, changed_on, created_by, created_on, version, box, city, house_number, postal_code, street_name,
+ contract_type, function_description, function_title, offer, required_years_of_experience, requirements, country_id,
+ company_id, recruiter_id)
+VALUES (2, 'user', now(), 'user', now(), 1, '', 'Huizingen', '42', '1654', 'A. Vaucampslaan', 'FULL_TIME',
+        'You have worked with ...', 'Front End Developer', 'We offer free coffee and fruit', 3, '', 20, 1, 1);
+
