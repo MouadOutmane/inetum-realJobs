@@ -18,6 +18,7 @@ public interface VacancyMapper {
     @Mapping(source = "company.name", target = "companyName")
     @Mapping(source = "company.industry", target = "companyIndustry")
     @Mapping(source = "company.country.name", target = "companyCountry")
+    @Mapping(source = "company.city", target = "companyCity")
     @Mapping(source = "company.logo", target = "companyLogo")
     VacancyReadDto toDto(Vacancy vacancy);
 

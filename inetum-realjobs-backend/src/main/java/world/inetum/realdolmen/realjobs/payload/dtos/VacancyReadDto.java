@@ -28,9 +28,11 @@ public class VacancyReadDto {
     private String companyName;
     private String companyIndustry;
     private String companyCountry;
+    private String companyCity;
     private String companyLogo;
 
     // Recruiter
+
 
     public long getId() {
         return id;
@@ -166,6 +168,14 @@ public class VacancyReadDto {
 
     public void setCompanyCountry(String companyCountry) {
         this.companyCountry = companyCountry;
+    }
+
+    public String getCompanyCity() {
+        return companyCity;
+    }
+
+    public void setCompanyCity(String companyCity) {
+        this.companyCity = companyCity;
     }
 
     public String getCompanyLogo() {
