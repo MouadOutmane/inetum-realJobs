@@ -10,20 +10,11 @@ import {UserDetailsComponent} from "./components/user-details/user-details.compo
 import {UniversalAppInterceptor} from "src/app/interceptor/universalAppInterceptor";
 import {AuthGuardService} from "./guard/authGuard.service";
 import {RegisterComponent} from "./components/register/register.component";
-import {PasswordModule} from "primeng/password";
-import {PanelModule} from "primeng/panel";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {DropdownModule} from "primeng/dropdown";
-import {CalendarModule} from "primeng/calendar";
-import {FileUploadModule} from "primeng/fileupload";
-import {RadioButtonModule} from "primeng/radiobutton";
-import {MessagesModule} from "primeng/messages";
-import {MessageModule} from "primeng/message";
-import {ToastModule} from "primeng/toast";
-import {InputMaskModule} from "primeng/inputmask";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {VacancyDetailsComponent} from "./components/vacancy-details/vacancy-details.component";
 import {ErrorHandlerComponent} from "./components/error-handler/error-handler.component";
+import {PrimengImportsModule} from "./primeng-imports";
 
 @NgModule({
   declarations: [
@@ -41,18 +32,9 @@ import {ErrorHandlerComponent} from "./components/error-handler/error-handler.co
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    PasswordModule,
-    PanelModule,
-    DropdownModule,
-    CalendarModule,
-    RadioButtonModule,
-    MessagesModule,
-    MessageModule,
     BrowserAnimationsModule,
-    FileUploadModule,
-    ToastModule,
-    InputMaskModule,
     routing,
+    PrimengImportsModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: UniversalAppInterceptor, multi: true},
