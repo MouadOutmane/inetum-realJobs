@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <div class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="" routerLinkActive="active">Inetum-RealJobs</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="vacancy/search" routerLinkActive="active">Search</a>
+    </li>
+    <li class="nav-item">
+      <a *ngIf="!isLoggedIn()" class="nav-link" routerLink="login" routerLinkActive="active">Log in now</a>
+      <button (click)="logout()" *ngIf="isLoggedIn()" class="nav-link" routerLink="" routerLinkActive="active">
+        Log out
+      </button>
+    </li>
+  </div>
+</nav>
+
+<div class="container" id="logo">
+  <router-outlet></router-outlet>
+</div>

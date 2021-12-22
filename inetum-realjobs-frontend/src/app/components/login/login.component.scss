@@ -1,0 +1,18 @@
+#buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.loginForm {
+  display: block;
+  margin: auto;
+}
+
+.row {
+  display: inline-flex;
+  justify-content: space-around;
+}
+
+.error-message {
+  color:red;
+}
