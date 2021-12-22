@@ -1,14 +1,11 @@
-package world.inetum.realdolmen.realjobs.dtos;
+package world.inetum.realdolmen.realjobs.payload.query;
 
-public class VacancyFilterDto {
+public class VacancyFilter {
+
     String functionTitle;
-
     String contractType;
-
     String country;
-
     String industry;
-
     Integer requiredYearsOfExperience;
 
     public String getFunctionTitle() {
@@ -50,4 +47,5 @@ public class VacancyFilterDto {
     public void setRequiredYearsOfExperience(Integer requiredYearsOfExperience) {
         this.requiredYearsOfExperience = requiredYearsOfExperience;
     }
+
 }

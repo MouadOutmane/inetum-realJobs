@@ -1,6 +1,6 @@
 package world.inetum.realdolmen.realjobs.payload.request;
 
-import world.inetum.realdolmen.realjobs.dtos.AddressDto;
+import world.inetum.realdolmen.realjobs.payload.dtos.AddressReadDto;
 import world.inetum.realdolmen.realjobs.entities.enums.Gender;
 import world.inetum.realdolmen.realjobs.entities.enums.Role;
 
@@ -28,7 +28,7 @@ public class SignupRequest {
     @Past
     private LocalDate birthDate;
     @NotNull
-    private AddressDto address;
+    private AddressReadDto address;
     private String mobilePhone;
     private String profilePicture;
 
@@ -88,11 +88,11 @@ public class SignupRequest {
         this.birthDate = birthDate;
     }
 
-    public AddressDto getAddress() {
+    public AddressReadDto getAddress() {
         return address;
     }
 
-    public void setAddress(AddressDto address) {
+    public void setAddress(AddressReadDto address) {
         this.address = address;
     }
 

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import world.inetum.realdolmen.realjobs.dtos.VacancyFilterResultDto;
+import world.inetum.realdolmen.realjobs.payload.dtos.VacancyReadDto;
 import world.inetum.realdolmen.realjobs.entities.Vacancy;
 import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
 import world.inetum.realdolmen.realjobs.services.VacancyService;
@@ -27,21 +27,21 @@ public class VacancyController {
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<VacancyFilterResultDto>> findAllVacanciesWithFilter(@RequestParam String functionTitle,
-                                                                                   @RequestParam(required = false) ContractType contractType,
-                                                                                   @RequestParam(name = "country", required = false) Long country_id,
-                                                                                   @RequestParam String industry,
-                                                                                   @RequestParam(required = false) Integer requiredYearsOfExperience) {
+    public ResponseEntity<List<VacancyReadDto>> findAllVacanciesWithFilter(@RequestParam String functionTitle,
+                                                                           @RequestParam(required = false) ContractType contractType,
+                                                                           @RequestParam(name = "country", required = false) Long country_id,
+                                                                           @RequestParam String industry,
+                                                                           @RequestParam(required = false) Integer requiredYearsOfExperience) {
         List<Vacancy> results = vacancyService.findVacancyWithFilter(functionTitle, contractType, country_id, industry, requiredYearsOfExperience);
         if (results.isEmpty()) {
             return new ResponseEntity<>(Collections.emptyList(), HttpStatus.NO_CONTENT);
         }
 
-        List<VacancyFilterResultDto> dtos = results
+        List<VacancyReadDto> dtos = results
                 .stream()
                 .map((vacancy) -> {
                     // FIXME - Implement proper mapping.
-                    VacancyFilterResultDto dto = new VacancyFilterResultDto();
+                    VacancyReadDto dto = new VacancyReadDto();
                     dto.setFunctionTitle(vacancy.getFunctionTitle());
 
                     return dto;

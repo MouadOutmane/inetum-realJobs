@@ -1,9 +1,9 @@
-package world.inetum.realdolmen.realjobs.dtos;
+package world.inetum.realdolmen.realjobs.payload.dtos;
 
 import javax.validation.constraints.NotEmpty;
 
 
-public class VacancyFilterResultDto {
+public class VacancyReadDto {
 
     @NotEmpty(message = "Please provide a function title")
     private String functionTitle;

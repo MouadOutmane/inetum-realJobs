@@ -1,9 +1,9 @@
-package world.inetum.realdolmen.realjobs.dtos;
+package world.inetum.realdolmen.realjobs.payload.dtos;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public class AddressDto {
+public class AddressReadDto {
 
     @NotBlank
     private String streetName;

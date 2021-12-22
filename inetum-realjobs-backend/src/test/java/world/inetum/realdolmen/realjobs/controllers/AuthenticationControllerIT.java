@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import world.inetum.realdolmen.realjobs.BaseIntegrationTest;
 import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
-import world.inetum.realdolmen.realjobs.dtos.AddressDto;
+import world.inetum.realdolmen.realjobs.payload.dtos.AddressReadDto;
 import world.inetum.realdolmen.realjobs.entities.enums.Gender;
 import world.inetum.realdolmen.realjobs.entities.enums.Role;
 import world.inetum.realdolmen.realjobs.exceptions.EndpointException;
@@ -81,7 +81,7 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
     @Test
     void registerWithNonExistingCredentialsReturning200() throws Exception {
 
-        AddressDto addressDto = new AddressDto();
+        AddressReadDto addressDto = new AddressReadDto();
         addressDto.setStreetName("street name");
         addressDto.setHouseNumber("15");
         addressDto.setCity("city");
@@ -109,7 +109,7 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
     void registerWithExistingCredentialsReturning401() {
         persistJobSeeker("user@user.user", "password");
 
-        AddressDto addressDto = new AddressDto();
+        AddressReadDto addressDto = new AddressReadDto();
         addressDto.setStreetName("street name");
         addressDto.setHouseNumber("15");
         addressDto.setCity("city");
