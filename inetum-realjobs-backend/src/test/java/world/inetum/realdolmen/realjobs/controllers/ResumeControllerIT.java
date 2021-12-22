@@ -63,7 +63,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
 
     @Test
     @Transactional
-    void newResume_asJobSeeker_succes() throws Exception {
+    void newResume_asJobSeeker_success() throws Exception {
         Account account = createJobSeekerAndLogin();
 
         ResumeCreationDto resumeCreationDto = createTestDto();
