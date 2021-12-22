@@ -1,8 +1,5 @@
 package world.inetum.realdolmen.realjobs.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -40,14 +37,6 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
 
     @Autowired
     private AuthenticationController authenticationController;
-
-    private ObjectMapper mapper;
-
-    @BeforeEach
-    void setUp() {
-        mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-    }
 
     @Test
     void loginWithExistingCredentialsReturning200() throws Exception {

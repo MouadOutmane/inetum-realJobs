@@ -1,6 +1,8 @@
 package world.inetum.realdolmen.realjobs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,6 +22,8 @@ import java.util.Optional;
 @SuppressWarnings({"SameParameterValue"})
 public abstract class BaseRepositoryTest {
 
+    protected static ObjectMapper mapper;
+
     @Autowired
     protected AccountRepository accountRepository;
     @Autowired
@@ -28,6 +32,12 @@ public abstract class BaseRepositoryTest {
     protected CountryRepository countryRepository;
     @Autowired
     protected VacancyRepository vacancyRepository;
+
+    @BeforeAll
+    protected static void registerMapper() {
+        mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+    }
 
     @BeforeEach
     @Transactional(propagation = Propagation.REQUIRES_NEW)
