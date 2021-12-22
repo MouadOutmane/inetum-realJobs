@@ -2,6 +2,8 @@ package world.inetum.realdolmen.realjobs.payload.dtos;
 
 import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
 
+import java.time.LocalDateTime;
+
 public class VacancyReadDto {
 
     private long id;
@@ -12,6 +14,7 @@ public class VacancyReadDto {
     private int requiredYearsOfExperience;
     private String requirements;
     private String offer;
+    private LocalDateTime postedOn;
 
     // Address
     private String streetName;
@@ -25,6 +28,7 @@ public class VacancyReadDto {
     private String companyName;
     private String companyIndustry;
     private String companyCountry;
+    private String companyLogo;
 
     // Recruiter
 
@@ -82,6 +86,14 @@ public class VacancyReadDto {
 
     public void setOffer(String offer) {
         this.offer = offer;
+    }
+
+    public LocalDateTime getPostedOn() {
+        return postedOn;
+    }
+
+    public void setPostedOn(LocalDateTime postedOn) {
+        this.postedOn = postedOn;
     }
 
     public String getStreetName() {
@@ -154,6 +166,14 @@ public class VacancyReadDto {
 
     public void setCompanyCountry(String companyCountry) {
         this.companyCountry = companyCountry;
+    }
+
+    public String getCompanyLogo() {
+        return companyLogo;
+    }
+
+    public void setCompanyLogo(String companyLogo) {
+        this.companyLogo = companyLogo;
     }
 
 }
