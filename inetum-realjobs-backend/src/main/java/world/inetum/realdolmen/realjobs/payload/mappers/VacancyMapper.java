@@ -1,12 +1,12 @@
-package world.inetum.realdolmen.realjobs.mappers;
+package world.inetum.realdolmen.realjobs.payload.mappers;
 
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import world.inetum.realdolmen.realjobs.payload.dtos.VacancyReadDto;
 import world.inetum.realdolmen.realjobs.entities.Vacancy;
 
-@Mapper(componentModel = "cdi", uses = VacancyFilterResultMapper.class, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
-public interface VacancyFilterResultMapper {
+@Mapper(componentModel = "cdi", uses = VacancyMapper.class, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+public interface VacancyMapper {
 
     VacancyReadDto toDto(Vacancy vacancy);
 
