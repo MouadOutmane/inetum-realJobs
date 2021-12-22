@@ -14,6 +14,7 @@ import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -73,13 +74,15 @@ public class VacancyControllerIT extends BaseIntegrationTest {
 
     @Test
     public void addVacancy_POSTValidVacancy_Success() throws Exception {
+        Country country = persistCountry("Belgium");
+
         Address address = new Address();
         address.setStreetName("street");
         address.setHouseNumber("number");
         address.setBox(null);
         address.setCity("city");
         address.setPostalCode("postal");
-        address.setCountry(null);
+        address.setCountry(country);
 
         Vacancy vacancy = new Vacancy();
         vacancy.setFunctionTitle("Vendor");
@@ -97,7 +100,8 @@ public class VacancyControllerIT extends BaseIntegrationTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(asJsonString(vacancy))
                 )
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.functionTitle").value("Vendor"));
     }
 
 
