@@ -1,0 +1,15 @@
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.p-field * {
+  display: block;
+}
+
+.p-inline-message.p-inline-message-error {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
