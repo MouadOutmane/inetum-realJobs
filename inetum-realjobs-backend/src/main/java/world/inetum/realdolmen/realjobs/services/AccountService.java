@@ -14,6 +14,8 @@ import world.inetum.realdolmen.realjobs.payload.security.SignupRequest;
 import world.inetum.realdolmen.realjobs.repositories.AccountRepository;
 import world.inetum.realdolmen.realjobs.repositories.CountryRepository;
 
+import java.util.Optional;
+
 @Service
 public class AccountService {
 
@@ -44,7 +46,7 @@ public class AccountService {
                 Recruiter recruiter = new Recruiter();
                 buildAccount(signUpRequest, recruiter);
                 accountRepository.save(recruiter);
-            }else {
+            } else {
                 throw new IllegalArgumentException("Non existing role");
             }
         }
@@ -69,5 +71,9 @@ public class AccountService {
         account.setAddress(address);
         account.setMobilePhone(signUpRequest.getMobilePhone());
         account.setProfilePicture(signUpRequest.getProfilePicture());
+    }
+
+    public Optional<Account> getPersonalInfo(Long id) {
+        return this.accountRepository.getPersonalInformationById(id);
     }
 }

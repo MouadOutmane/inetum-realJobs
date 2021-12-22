@@ -22,6 +22,7 @@ import {MessageModule} from "primeng/message";
 import {ToastModule} from "primeng/toast";
 import {InputMaskModule} from "primeng/inputmask";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
+import {FieldsetModule} from 'primeng/fieldset';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
     ToastModule,
     InputMaskModule,
     routing,
+    FieldsetModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: UniversalAppInterceptor, multi: true},
