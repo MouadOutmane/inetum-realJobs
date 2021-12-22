@@ -1,0 +1,22 @@
+<div *ngIf="vacancy$ | async as vacancy; else loadingOrError">
+  <header>
+    <div *ngIf="vacancy.companyLogo; else templateLogo" class="company-logo">
+      <img *ngIf="vacancy.companyLogo" [src]="vacancy.companyLogo" alt="company logo">
+    </div>
+    <ng-template #templateLogo>
+      TODO: template
+    </ng-template>
+  </header>
+
+  {{vacancy.id}}
+</div>
+
+<ng-template #loadingOrError>
+  <app-error-handler *ngIf="error; else loading" [error]="error"></app-error-handler>
+
+  <ng-template #loading>
+    <div class="col-12 text-center">
+      Loading ...
+    </div>
+  </ng-template>
+</ng-template>

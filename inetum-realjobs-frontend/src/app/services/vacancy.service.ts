@@ -7,7 +7,7 @@ import {Vacancy} from "../models/vacancy";
 @Injectable({
   providedIn: "root",
 })
-export class VacancySearchService {
+export class VacancyService {
 
   vacancies: Vacancy[] = [];
 
@@ -26,4 +26,12 @@ export class VacancySearchService {
       .get<Vacancy[]>("http://localhost:8080/api/vacancies/",
         {observe: "body", responseType: "json", params: params});
   }
+
+  getVacancy(id: number): Observable<Vacancy> {
+    return this.httpClient.get<Vacancy>(
+      `http://localhost:8080/api/vacancies/${id}`,
+      {observe: "body", responseType: "json"},
+    );
+  }
+
 }

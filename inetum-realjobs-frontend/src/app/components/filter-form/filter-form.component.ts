@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
 import {VacancyFilterFields} from "../../models/vacancy-filter-fields.model";
-import {VacancySearchService} from "../../services/vacancy-search.service";
+import {VacancyService} from "../../services/vacancy.service";
 import {Vacancy} from "../../models/vacancy";
 
 @Component({
@@ -20,14 +20,14 @@ export class FilterFormComponent implements OnInit {
   };
   vacancies$: Observable<Vacancy[]>;
 
-  constructor(private vacancySearchService: VacancySearchService) {
+  constructor(private vacancyService: VacancyService) {
   }
 
   ngOnInit(): void {
   }
 
   getFilteredVacancies() {
-    this.vacancies$ = this.vacancySearchService.getFilteredVacancies(this.filter);
+    this.vacancies$ = this.vacancyService.getFilteredVacancies(this.filter);
   }
 
   onSubmit() {
