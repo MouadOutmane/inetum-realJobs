@@ -1,6 +1,7 @@
 package world.inetum.realdolmen.realjobs.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import world.inetum.realdolmen.realjobs.payload.dtos.ResumeCreationDto;
 import world.inetum.realdolmen.realjobs.payload.dtos.ResumeReadDto;
@@ -24,6 +25,7 @@ public class ResumeController {
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
     public ResumeReadDto newResume(@Valid @RequestBody ResumeCreationDto newResume) {
         return resumeMapper.toDto(resumeService.addResume(newResume));
     }

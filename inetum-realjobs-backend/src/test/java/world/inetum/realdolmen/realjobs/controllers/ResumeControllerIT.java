@@ -18,10 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import world.inetum.realdolmen.realjobs.BaseIntegrationTest;
 import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
-import world.inetum.realdolmen.realjobs.entities.Resume;
+import world.inetum.realdolmen.realjobs.entities.*;
 import world.inetum.realdolmen.realjobs.entities.enums.ResumeStatus;
 import world.inetum.realdolmen.realjobs.entities.enums.SkillLevel;
 import world.inetum.realdolmen.realjobs.payload.dtos.*;
+import world.inetum.realdolmen.realjobs.payload.security.LoginRequest;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
@@ -62,7 +63,9 @@ class ResumeControllerIT extends BaseIntegrationTest {
 
     @Test
     @Transactional
-    void newResume() throws Exception {
+    void newResume_asJobSeeker_succes() throws Exception {
+        Account account = createJobSeekerAndLogin();
+
         ResumeCreationDto resumeCreationDto = createTestDto();
 
         MvcResult mvcResult = mockMvc.perform(
@@ -116,15 +119,69 @@ class ResumeControllerIT extends BaseIntegrationTest {
                 .setParameter("id", id)
                 .getSingleResult();
 
+        JobSeeker jobSeeker = em
+                .createQuery("select j from JobSeeker j where j.id = :id", JobSeeker.class)
+                .setParameter("id", account.getId())
+                .getSingleResult();
+
+        assertNotNull(createdResume, "No resume found in the database");
         assertAll(
-                () -> assertNotNull(createdResume),
-                () -> assertEquals("Test summary", createdResume.getSummary()),
-                () -> assertEquals(ResumeStatus.POSITIVE, createdResume.getStatus()),
-                () -> assertEquals(3, createdResume.getSkills().size()),
-                () -> assertEquals(3, createdResume.getLanguages().size()),
-                () -> assertEquals(2, createdResume.getEducationList().size()),
-                () -> assertEquals(1, createdResume.getExperienceList().size())
+                () -> assertEquals("Test summary", createdResume.getSummary(), "Summary doesn't match"),
+                () -> assertEquals(ResumeStatus.POSITIVE, createdResume.getStatus(), "Status doesn't match"),
+                () -> assertEquals(3, createdResume.getSkills().size(), "The amount of skills isn't the expected amount"),
+                () -> assertEquals(3, createdResume.getLanguages().size(), "The amount of languages isn't the expected amount"),
+                () -> assertEquals(2, createdResume.getEducationList().size(), "The amount of education entries isn't the expected amount"),
+                () -> assertEquals(1, createdResume.getExperienceList().size(), "The amount of experience entries isn't the expected amount"),
+                () -> assertNotNull(jobSeeker.getResume(), "There is no resume linked with the user"),
+                () -> assertEquals(createdResume, jobSeeker.getResume(), "The linked resume isn't the same as the created one")
         );
+    }
+
+    @Test
+    @Transactional
+    void newResume_asRecruiter_forbidden() throws Exception {
+        createRecruiterAndLogin();
+
+        ResumeCreationDto resumeCreationDto = createTestDto();
+
+        mockMvc.perform(
+                        post("/api/resume/create")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(resumeCreationDto))
+                )
+                .andExpect(status().isForbidden());
+
+        List<Resume> resumes = em
+                .createQuery("select r from Resume r", Resume.class)
+                .getResultList();
+
+        assertTrue(resumes.isEmpty(), "No resumes should've been created");
+    }
+
+    private Account createJobSeekerAndLogin() throws Exception {
+        Account account = persistJobSeeker("test@inetum-realdolmen.world", "password");
+        LoginRequest request = new LoginRequest("test@inetum-realdolmen.world", "password");
+        mockMvc.perform(
+                        post("/api/authentication/login")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(request))
+                )
+                .andExpect(status().isOk());
+        return account;
+    }
+
+    private void createRecruiterAndLogin() throws Exception {
+        Country country = persistCountry("Belgium");
+        Company company = persistCompany("Inetum-Realdolmen", "IT", country);
+        persistRecruiter("test@inetum-realdolmen.world", "password", company);
+
+        LoginRequest request = new LoginRequest("test@inetum-realdolmen.world", "password");
+        mockMvc.perform(
+                        post("/api/authentication/login")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(request))
+                )
+                .andExpect(status().isOk());
     }
 
     private ResumeCreationDto createTestDto() {
