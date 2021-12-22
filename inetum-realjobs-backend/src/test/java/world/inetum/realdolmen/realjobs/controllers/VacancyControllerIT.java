@@ -34,8 +34,10 @@ public class VacancyControllerIT extends BaseIntegrationTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isNoContent())
-                .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$").isEmpty());
+                .andExpectAll(
+                        jsonPath("$").isArray(),
+                        jsonPath("$").isEmpty()
+                );
     }
 
     @Test
@@ -67,8 +69,10 @@ public class VacancyControllerIT extends BaseIntegrationTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$.length()").value(3));
+                .andExpectAll(
+                        jsonPath("$").isArray(),
+                        jsonPath("$.length()").value(3)
+                );
     }
 
     @Test
@@ -92,8 +96,10 @@ public class VacancyControllerIT extends BaseIntegrationTest {
 
         mockMvc.perform(get("/api/vacancies/all"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$.length()").value(8));
+                .andExpectAll(
+                        jsonPath("$").isArray(),
+                        jsonPath("$.length()").value(8)
+                );
     }
 
     @Test
@@ -137,8 +143,10 @@ public class VacancyControllerIT extends BaseIntegrationTest {
                                 .content(asJsonString(vacancy))
                 )
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").isNotEmpty())
-                .andExpect(jsonPath("$.functionTitle").value("Vendor"));
+                .andExpectAll(
+                        jsonPath("$.id").isNotEmpty(),
+                        jsonPath("$.functionTitle").value("Vendor")
+                );
     }
 
 

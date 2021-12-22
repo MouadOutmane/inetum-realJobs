@@ -50,13 +50,15 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
                                 .content(mapper.writeValueAsString(request))
                 )
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.accessToken").isNotEmpty())
-                .andExpect(jsonPath("$.tokenType").value("Bearer"))
-                .andExpect(jsonPath("$.id").value(account.getId()))
-                .andExpect(jsonPath("$.email").value("test@inetum-realdolmen.world"))
-                .andExpect(jsonPath("$.roles").isArray())
-                .andExpect(jsonPath("$.roles.length()").value(1))
-                .andExpect(jsonPath("$.roles[0]").value("ROLE_JOBSEEKER"));
+                .andExpectAll(
+                        jsonPath("$.accessToken").isNotEmpty(),
+                        jsonPath("$.tokenType").value("Bearer"),
+                        jsonPath("$.id").value(account.getId()),
+                        jsonPath("$.email").value("test@inetum-realdolmen.world"),
+                        jsonPath("$.roles").isArray(),
+                        jsonPath("$.roles.length()").value(1),
+                        jsonPath("$.roles[0]").value("ROLE_JOBSEEKER")
+                );
     }
 
     @Test
