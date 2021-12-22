@@ -24,6 +24,8 @@ public class EducationDto {
     @Past
     private LocalDate endDate;
 
+    // TODO - add start before end validation
+
     private String description;
 
     public String getDegree() {

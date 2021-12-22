@@ -2,7 +2,8 @@ package world.inetum.realdolmen.realjobs.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import world.inetum.realdolmen.realjobs.payload.dtos.ResumeDto;
+import world.inetum.realdolmen.realjobs.payload.dtos.ResumeCreationDto;
+import world.inetum.realdolmen.realjobs.payload.dtos.ResumeReadDto;
 import world.inetum.realdolmen.realjobs.payload.mappers.ResumeMapper;
 import world.inetum.realdolmen.realjobs.services.ResumeService;
 
@@ -23,7 +24,7 @@ public class ResumeController {
     }
 
     @PostMapping("/create")
-    public ResumeDto newResume(@Valid @RequestBody ResumeDto newResume) {
+    public ResumeReadDto newResume(@Valid @RequestBody ResumeCreationDto newResume) {
         return resumeMapper.toDto(resumeService.addResume(newResume));
     }
 }

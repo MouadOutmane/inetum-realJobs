@@ -2,16 +2,14 @@ package world.inetum.realdolmen.realjobs.payload.dtos;
 
 import world.inetum.realdolmen.realjobs.entities.enums.ResumeStatus;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public class ResumeDto {
+public class ResumeReadDto {
 
-    @NotBlank
+    private Long id;
+
     private String summary;
 
-    @NotNull
     private ResumeStatus status;
 
     private List<SkillDto> skills;
@@ -21,6 +19,14 @@ public class ResumeDto {
     private List<EducationDto> educationList;
 
     private List<ExperienceDto> experienceList;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getSummary() {
         return summary;

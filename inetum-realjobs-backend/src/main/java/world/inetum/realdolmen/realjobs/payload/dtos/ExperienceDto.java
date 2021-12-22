@@ -25,6 +25,8 @@ public class ExperienceDto {
 
     private boolean currentJob;
 
+    // TODO - add start before end validation (unless current job)
+
     private String description;
 
     public String getJobTitle() {
