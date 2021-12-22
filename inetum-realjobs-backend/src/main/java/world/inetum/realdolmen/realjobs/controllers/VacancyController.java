@@ -4,9 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import world.inetum.realdolmen.realjobs.payload.dtos.VacancyReadDto;
 import world.inetum.realdolmen.realjobs.entities.Vacancy;
 import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
+import world.inetum.realdolmen.realjobs.payload.dtos.VacancyReadDto;
+import world.inetum.realdolmen.realjobs.payload.mappers.VacancyMapper;
 import world.inetum.realdolmen.realjobs.services.VacancyService;
 
 import javax.validation.Valid;
@@ -19,10 +20,12 @@ import java.util.List;
 public class VacancyController {
 
     private final VacancyService vacancyService;
+    private final VacancyMapper vacancyMapper;
 
     @Autowired
-    public VacancyController(VacancyService vacancyService) {
+    public VacancyController(VacancyService vacancyService, VacancyMapper vacancyMapper) {
         this.vacancyService = vacancyService;
+        this.vacancyMapper = vacancyMapper;
     }
 
     @GetMapping
@@ -62,4 +65,12 @@ public class VacancyController {
         // FIXME - Implement DTOs.
         return vacancyService.addVacancy(newVacancy);
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<VacancyReadDto> findVacancy(@PathVariable("id") long id) {
+        return ResponseEntity.of(
+                vacancyService.findVacancyById(id).map(vacancyMapper::toDto)
+        );
+    }
+
 }
