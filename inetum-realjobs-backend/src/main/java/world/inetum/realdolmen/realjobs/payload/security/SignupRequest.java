@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.realjobs.payload.request;
+package world.inetum.realdolmen.realjobs.payload.security;
 
 import world.inetum.realdolmen.realjobs.payload.dtos.AddressReadDto;
 import world.inetum.realdolmen.realjobs.entities.enums.Gender;

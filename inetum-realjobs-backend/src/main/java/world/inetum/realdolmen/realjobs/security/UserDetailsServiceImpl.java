@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.realjobs.services;
+package world.inetum.realdolmen.realjobs.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

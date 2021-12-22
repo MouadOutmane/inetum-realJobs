@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import world.inetum.realdolmen.realjobs.security.jwt.AuthEntryPointJwt;
 import world.inetum.realdolmen.realjobs.security.jwt.AuthTokenFilter;
-import world.inetum.realdolmen.realjobs.services.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity

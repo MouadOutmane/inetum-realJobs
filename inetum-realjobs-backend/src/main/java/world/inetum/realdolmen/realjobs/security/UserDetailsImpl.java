@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.realjobs.services;
+package world.inetum.realdolmen.realjobs.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;

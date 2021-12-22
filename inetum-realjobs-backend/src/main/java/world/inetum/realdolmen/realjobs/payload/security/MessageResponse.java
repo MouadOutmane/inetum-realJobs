@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.realjobs.payload.response;
+package world.inetum.realdolmen.realjobs.payload.security;
 
 public class MessageResponse {
     private String message;

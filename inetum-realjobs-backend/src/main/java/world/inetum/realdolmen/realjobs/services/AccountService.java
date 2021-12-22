@@ -10,7 +10,7 @@ import world.inetum.realdolmen.realjobs.entities.Recruiter;
 import world.inetum.realdolmen.realjobs.entities.enums.Role;
 import world.inetum.realdolmen.realjobs.exceptions.EndpointException;
 import world.inetum.realdolmen.realjobs.exceptions.messages.SignUpExceptionMessage;
-import world.inetum.realdolmen.realjobs.payload.request.SignupRequest;
+import world.inetum.realdolmen.realjobs.payload.security.SignupRequest;
 import world.inetum.realdolmen.realjobs.repositories.AccountRepository;
 import world.inetum.realdolmen.realjobs.repositories.CountryRepository;
 

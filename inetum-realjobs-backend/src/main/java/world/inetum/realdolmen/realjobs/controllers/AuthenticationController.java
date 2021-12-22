@@ -7,13 +7,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import world.inetum.realdolmen.realjobs.payload.request.LoginRequest;
-import world.inetum.realdolmen.realjobs.payload.request.SignupRequest;
-import world.inetum.realdolmen.realjobs.payload.response.JwtResponse;
-import world.inetum.realdolmen.realjobs.payload.response.MessageResponse;
+import world.inetum.realdolmen.realjobs.payload.security.LoginRequest;
+import world.inetum.realdolmen.realjobs.payload.security.SignupRequest;
+import world.inetum.realdolmen.realjobs.payload.security.JwtResponse;
+import world.inetum.realdolmen.realjobs.payload.security.MessageResponse;
 import world.inetum.realdolmen.realjobs.security.jwt.JwtUtils;
 import world.inetum.realdolmen.realjobs.services.AccountService;
-import world.inetum.realdolmen.realjobs.services.UserDetailsImpl;
+import world.inetum.realdolmen.realjobs.security.UserDetailsImpl;
 
 import javax.validation.Valid;
 import java.util.List;

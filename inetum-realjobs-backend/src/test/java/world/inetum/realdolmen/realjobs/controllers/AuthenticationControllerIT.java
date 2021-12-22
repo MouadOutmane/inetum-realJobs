@@ -21,8 +21,8 @@ import world.inetum.realdolmen.realjobs.entities.enums.Gender;
 import world.inetum.realdolmen.realjobs.entities.enums.Role;
 import world.inetum.realdolmen.realjobs.exceptions.EndpointException;
 import world.inetum.realdolmen.realjobs.exceptions.messages.SignUpExceptionMessage;
-import world.inetum.realdolmen.realjobs.payload.request.LoginRequest;
-import world.inetum.realdolmen.realjobs.payload.request.SignupRequest;
+import world.inetum.realdolmen.realjobs.payload.security.LoginRequest;
+import world.inetum.realdolmen.realjobs.payload.security.SignupRequest;
 
 import java.time.LocalDate;
 

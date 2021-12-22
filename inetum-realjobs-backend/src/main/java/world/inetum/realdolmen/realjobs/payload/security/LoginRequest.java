@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.realjobs.payload.request;
+package world.inetum.realdolmen.realjobs.payload.security;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
