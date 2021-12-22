@@ -1,14 +1,9 @@
 package world.inetum.realdolmen.realjobs.controllers;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 import world.inetum.realdolmen.realjobs.BaseIntegrationTest;
 import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
 import world.inetum.realdolmen.realjobs.entities.Address;
@@ -25,16 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest(classes = InetumRealJobsApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class VacancyControllerIT extends BaseIntegrationTest {
-
-    private MockMvc mockMvc;
-
-    @Autowired
-    private WebApplicationContext context;
-
-    @BeforeEach
-    void setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-    }
 
     @Test
     public void findAllVacanciesWithFilter_GETVacancyNoMatch_NoContent() throws Exception {

@@ -11,9 +11,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 import world.inetum.realdolmen.realjobs.BaseIntegrationTest;
 import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
 import world.inetum.realdolmen.realjobs.entities.Account;
@@ -41,13 +38,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = InetumRealJobsApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AuthenticationControllerIT extends BaseIntegrationTest {
 
-    private MockMvc mockMvc;
-
     @Autowired
     private AuthenticationController authenticationController;
-
-    @Autowired
-    private WebApplicationContext context;
 
     private ObjectMapper mapper;
 
@@ -55,7 +47,6 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
     void setUp() {
         mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
     @Test
