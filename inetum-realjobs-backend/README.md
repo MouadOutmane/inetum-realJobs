@@ -36,4 +36,5 @@ Working in `inetum-realjobs-backend`.
 
 Working in `inetum-realjobs-frontend`.
 
+- execute `npm ci`
 - execute `npm run start` or `ng serve`
