@@ -4,7 +4,7 @@ import {Observable, tap} from "rxjs";
 import {User} from "../models/user.model";
 import * as moment from "moment";
 
-const baseUrl = "http://localhost:8080/api/authentication/";
+const baseUrl = "authentication/";
 
 @Injectable({
   providedIn: "root",

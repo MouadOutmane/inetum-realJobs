@@ -21,6 +21,7 @@ import {MessagesModule} from "primeng/messages";
 import {MessageModule} from "primeng/message";
 import {ToastModule} from "primeng/toast";
 import {InputMaskModule} from "primeng/inputmask";
+import {UrlInterceptor} from "./interceptor/url.interceptor";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 
 @NgModule({
@@ -51,6 +52,7 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
     routing,
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: UniversalAppInterceptor, multi: true},
     AuthGuardService,
   ],
