@@ -55,9 +55,17 @@ public class VacancyController {
     }
 
     @GetMapping("/all")
-    public List<Vacancy> findAllVacancies() {
-        // FIXME - Implement DTOs.
-        return vacancyService.findAll();
+    public List<VacancyReadDto> findAllVacancies() {
+        return vacancyService.findAll()
+                .stream()
+                .map((vacancy) -> {
+                    // FIXME - Implement proper mapping.
+                    VacancyReadDto dto = new VacancyReadDto();
+                    dto.setFunctionTitle(vacancy.getFunctionTitle());
+
+                    return dto;
+                })
+                .toList();
     }
 
     @PostMapping("/create")
