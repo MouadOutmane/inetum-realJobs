@@ -13,7 +13,7 @@ export interface Vacancy {
   requiredYearsOfExperience: number;
   requirements: string;
   offer: string;
-  postingDate: string; // TODO 22-dec-2021 Use an actual Date type?
+  postedOn: string;
 
   streetName: string;
   houseNumber: string;
@@ -24,5 +24,7 @@ export interface Vacancy {
 
   companyName?: string;
   companyIndustry: string;
+  companyCountry: string;
+  companyCity: string;
   companyLogo?: string;
 }
