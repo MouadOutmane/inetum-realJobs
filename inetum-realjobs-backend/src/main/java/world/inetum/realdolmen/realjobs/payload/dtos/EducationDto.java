@@ -21,7 +21,6 @@ public class EducationDto {
     private LocalDate startDate;
 
     @NotNull
-    @Past
     private LocalDate endDate;
 
     // TODO - add start before end validation

@@ -8,6 +8,7 @@ import java.util.List;
 
 public class ResumeCreationDto {
 
+    // TODO set max length
     @NotBlank
     private String summary;
 

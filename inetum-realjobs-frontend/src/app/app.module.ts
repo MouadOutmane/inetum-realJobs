@@ -23,6 +23,13 @@ import {ToastModule} from "primeng/toast";
 import {InputMaskModule} from "primeng/inputmask";
 import {UrlInterceptor} from "./interceptor/url.interceptor";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
+import {ResumeCreateComponent} from "./components/resume/resume-create/resume-create.component";
+import {InputTextModule} from "primeng/inputtext";
+import {LanguageFormComponent} from "./components/resume/forms/language-form/language-form.component";
+import {SkillFormComponent} from "./components/resume/forms/skill-form/skill-form.component";
+import {ExperienceFormComponent} from "./components/resume/forms/experience-form/experience-form.component";
+import {CheckboxModule} from "primeng/checkbox";
+import {EducationFormComponent} from './components/resume/forms/education-form/education-form.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +39,11 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
     UserDetailsComponent,
     RegisterComponent,
     NotFoundComponent,
+    ResumeCreateComponent,
+    ExperienceFormComponent,
+    SkillFormComponent,
+    LanguageFormComponent,
+    EducationFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +62,8 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
     ToastModule,
     InputMaskModule,
     routing,
+    InputTextModule,
+    CheckboxModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},

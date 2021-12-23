@@ -1,0 +1,104 @@
+<h2>Experience</h2>
+<form (ngSubmit)="submitForm()" [formGroup]="experienceForm" id="experienceForm">
+  <div class="form-group">
+    <div class="p-field">
+      <label>Job title</label>
+      <input formControlName="jobTitle" pInputText>
+      <p-message
+        *ngIf="experienceForm.controls['jobTitle'].invalid && experienceForm.controls['jobTitle'].dirty"
+        severity="error"
+        text="Job title is required">
+      </p-message>
+    </div>
+    <div class="p-field">
+      <label>Company</label>
+      <input formControlName="company" pInputText>
+      <p-message
+        *ngIf="experienceForm.controls['company'].invalid && experienceForm.controls['company'].dirty"
+        severity="error"
+        text="Company is required">
+      </p-message>
+    </div>
+    <div class="p-field">
+      <label>Start date</label>
+      <p-calendar formControlName="startDate"></p-calendar>
+      <p-message
+        *ngIf="experienceForm.controls['startDate'].invalid && experienceForm.controls['startDate'].dirty"
+        severity="error"
+        text="Start date is required">
+      </p-message>
+      <p-message
+        *ngIf="!isDateInPast(experienceForm.controls['startDate'].value)"
+        severity="error"
+        text="Start date must be before today">
+      </p-message>
+    </div>
+    <div class="p-field">
+      <label>End date</label>
+      <p-calendar formControlName="endDate"></p-calendar>
+      <p-message
+        *ngIf="isEndDateNotInPast()"
+        severity="error"
+        text="End date must be before today">
+      </p-message>
+      <p-message
+        *ngIf="isEndDateBeforeStartDate()"
+        severity="error"
+        text="End date must be after start date">
+      </p-message>
+    </div>
+    <div class="p-field">
+      <p-checkbox
+        [formControl]="$any(experienceForm).controls['currentJob']"
+        [binary]="true"
+        label="This is my current job">
+      </p-checkbox>
+    </div>
+    <div class="p-field">
+      <label>Industry</label>
+      <input formControlName="industry" pInputText>
+      <p-message
+        *ngIf="experienceForm.controls['industry'].invalid && experienceForm.controls['industry'].dirty"
+        severity="error"
+        text="Industry is required">
+      </p-message>
+    </div>
+    <div class="p-field">
+      <label>Category</label>
+      <input formControlName="functionCategory" pInputText>
+      <p-message
+        *ngIf="experienceForm.controls['functionCategory'].invalid && experienceForm.controls['functionCategory'].dirty"
+        severity="error"
+        text="Category is required">
+      </p-message>
+    </div>
+    <div class="p-field">
+      <label>Description</label>
+      <input formControlName="description" pInputText>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="experienceForm.invalid"
+      class="p-button p-mb-2"
+      pButton
+    >
+      Add experience
+    </button>
+  </div>
+</form>
+<div>
+  <h3>Your experiences</h3>
+  <span *ngIf="experienceList.length === 0">No experience(s) added</span>
+  <ul>
+    <li *ngFor="let exp of experienceList; let i = index">
+      <span>{{exp.jobTitle}}</span>
+      <button
+        pButton
+        (click)="deleteExperience(i)"
+      >
+        Remove
+      </button>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,56 @@
+<h2>Skills</h2>
+<form (ngSubmit)="submitForm()" [formGroup]="skillForm" id="skillForm">
+  <div class="form-group">
+    <div class="p-field">
+      <label>Skill</label>
+      <input formControlName="skill" pInputText>
+      <p-message
+        *ngIf="skillForm.controls['skill'].invalid && skillForm.controls['skill'].dirty"
+        severity="error"
+        text="Skill is required">
+      </p-message>
+      <p-message
+        *ngIf="isSkillAlreadyAdded()"
+        severity="error"
+        text="This skill is already in the list">
+      </p-message>
+    </div>
+    <div class="p-field">
+      <label>Skill level</label>
+      <p-dropdown
+        [options]="skillLevelOptions"
+        formControlName="skillLevel"
+        placeholder="Select a skill level">
+      </p-dropdown>
+      <p-message
+        *ngIf="skillForm.controls['skillLevel'].invalid && skillForm.controls['skillLevel'].dirty"
+        severity="error"
+        text="Skill level is required">
+      </p-message>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="skillForm.invalid"
+      class="p-button p-mb-2"
+      pButton
+    >
+      Add skill
+    </button>
+  </div>
+</form>
+<div>
+  <h3>Your skills</h3>
+  <span *ngIf="skills.length === 0">No skill(s) added</span>
+  <ul>
+    <li *ngFor="let lang of skills; let i = index">
+      <span>{{lang.skill}} - {{lang.skillLevel}}</span>
+      <button
+        pButton
+        (click)="deleteSkill(i)"
+      >
+        Remove
+      </button>
+    </li>
+  </ul>
+</div>

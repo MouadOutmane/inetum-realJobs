@@ -1,0 +1,56 @@
+<h2>Languages</h2>
+<form (ngSubmit)="submitForm()" [formGroup]="languageForm" id="languageForm">
+  <div class="form-group">
+    <div class="p-field">
+      <label>Language</label>
+      <input formControlName="language" pInputText>
+      <p-message
+        *ngIf="languageForm.controls['language'].invalid && languageForm.controls['language'].dirty"
+        severity="error"
+        text="Language is required">
+      </p-message>
+      <p-message
+        *ngIf="isLanguageAlreadyAdded()"
+        severity="error"
+        text="This language is already in the list">
+      </p-message>
+    </div>
+    <div class="p-field">
+      <label>Skill level</label>
+      <p-dropdown
+        [options]="skillLevelOptions"
+        formControlName="skillLevel"
+        placeholder="Select a skill level">
+      </p-dropdown>
+      <p-message
+        *ngIf="languageForm.controls['skillLevel'].invalid && languageForm.controls['skillLevel'].dirty"
+        severity="error"
+        text="Skill level is required">
+      </p-message>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="languageForm.invalid"
+      class="p-button p-mb-2"
+      pButton
+    >
+      Add language
+    </button>
+  </div>
+</form>
+<div>
+  <h3>Your languages</h3>
+  <span *ngIf="languages.length === 0">No language(s) added</span>
+  <ul>
+    <li *ngFor="let lang of languages; let i = index">
+      <span>{{lang.language}} - {{lang.skillLevel}}</span>
+      <button
+        pButton
+        (click)="deleteLanguage(i)"
+      >
+        Remove
+      </button>
+    </li>
+  </ul>
+</div>

@@ -12,6 +12,7 @@ public class ExperienceDto {
 
     private String functionCategory;
 
+    // TODO check with new Company entity?
     @NotBlank
     private String company;
 
