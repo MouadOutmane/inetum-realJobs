@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import world.inetum.realdolmen.realjobs.payload.dtos.VacancyReadDto;
 import world.inetum.realdolmen.realjobs.entities.Vacancy;
 import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
+import world.inetum.realdolmen.realjobs.payload.dtos.VacancyReadDto;
 import world.inetum.realdolmen.realjobs.services.VacancyService;
 
 import javax.validation.Valid;
@@ -52,9 +52,17 @@ public class VacancyController {
     }
 
     @GetMapping("/all")
-    public List<Vacancy> findAllVacancies() {
-        // FIXME - Implement DTOs.
-        return vacancyService.findAll();
+    public List<VacancyReadDto> findAllVacancies() {
+        return vacancyService.findAll()
+                .stream()
+                .map((vacancy) -> {
+                    // FIXME - Implement proper mapping.
+                    VacancyReadDto dto = new VacancyReadDto();
+                    dto.setFunctionTitle(vacancy.getFunctionTitle());
+
+                    return dto;
+                })
+                .toList();
     }
 
     @PostMapping("/create")
