@@ -12,6 +12,8 @@ import {MessageModule} from "primeng/message";
 import {ToastModule} from "primeng/toast";
 import {InputMaskModule} from "primeng/inputmask";
 import {PasswordModule} from "primeng/password";
+import {DividerModule} from "primeng/divider";
+import {ScrollPanelModule} from "primeng/scrollpanel";
 
 const modules = [
   ButtonModule,
@@ -28,6 +30,8 @@ const modules = [
   InputMaskModule,
   PasswordModule,
   PanelModule,
+  DividerModule,
+  ScrollPanelModule,
 ];
 
 @NgModule({
