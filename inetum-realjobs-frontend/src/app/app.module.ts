@@ -23,6 +23,10 @@ import {ToastModule} from "primeng/toast";
 import {InputMaskModule} from "primeng/inputmask";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {FieldsetModule} from 'primeng/fieldset';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -50,11 +54,16 @@ import {FieldsetModule} from 'primeng/fieldset';
     ToastModule,
     InputMaskModule,
     routing,
-    FieldsetModule
+    FieldsetModule,
+    InputNumberModule,
+    ConfirmDialogModule,
+    ProgressSpinnerModule,
+
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: UniversalAppInterceptor, multi: true},
     AuthGuardService,
+    ConfirmationService
   ],
   bootstrap: [AppComponent],
 })
