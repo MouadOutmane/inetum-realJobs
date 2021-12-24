@@ -40,7 +40,7 @@ public class VacancyController {
         List<VacancyReadDto> dtos = results
                 .stream()
                 .map((vacancy) -> {
-                    // FIXME - Implement proper mapping.
+                    // TODO - Implement proper mapping.
                     VacancyReadDto dto = new VacancyReadDto();
                     dto.setFunctionTitle(vacancy.getFunctionTitle());
 
@@ -56,7 +56,7 @@ public class VacancyController {
         return vacancyService.findAll()
                 .stream()
                 .map((vacancy) -> {
-                    // FIXME - Implement proper mapping.
+                    // TODO - Implement proper mapping.
                     VacancyReadDto dto = new VacancyReadDto();
                     dto.setFunctionTitle(vacancy.getFunctionTitle());
 
@@ -67,7 +67,7 @@ public class VacancyController {
 
     @PostMapping("/create")
     public Vacancy newVacancy(@Valid @RequestBody Vacancy newVacancy) {
-        // FIXME - Implement DTOs.
+        // TODO - Implement DTOs.
         return vacancyService.addVacancy(newVacancy);
     }
 }
