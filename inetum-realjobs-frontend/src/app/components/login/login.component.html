@@ -1,3 +1,6 @@
+<div class="error-message" *ngIf="badCredentials">
+  <i class="pi pi-times-circle"></i> The email or password is wrong
+</div>
 <form (ngSubmit)="login()" [formGroup]="loginForm" id="loginForm">
   <h5>Login</h5>
   <label>Email:</label>
@@ -8,8 +11,4 @@
 
   <a routerLink="/forgot-password" routerLinkActive="active">Forgot password?</a>
   <a class="registerLink" routerLink="/register" routerLinkActive="active">Sign up</a>
-
-  <div class="error-message" *ngIf="badCredentials">
-    Bad credentials
-  </div>
 </form>
