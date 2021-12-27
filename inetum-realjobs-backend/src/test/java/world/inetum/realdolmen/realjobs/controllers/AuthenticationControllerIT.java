@@ -202,4 +202,9 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
         fail("Not yet implemented!");
     }
 
+    @Test
+    void resetPassword() {
+        fail("Not yet implemented!");
+    }
+
 }

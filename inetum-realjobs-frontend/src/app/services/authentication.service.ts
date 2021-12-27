@@ -32,6 +32,10 @@ export class AuthenticationService {
     localStorage.removeItem("expires_at");
   }
 
+  resetPassword(code: string, password: string): Observable<string> {
+    return this.http.post<string>(baseUrl + "resetPassword", {code, password});
+  }
+
   public isLoggedIn(): boolean {
     return !this.isTokenExpired();
   }

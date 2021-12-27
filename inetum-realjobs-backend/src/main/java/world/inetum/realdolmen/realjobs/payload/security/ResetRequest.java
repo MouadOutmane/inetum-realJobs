@@ -1,11 +1,26 @@
 package world.inetum.realdolmen.realjobs.payload.security;
 
+import java.util.UUID;
+
 public class ResetRequest {
 
-    private String email;
+    private UUID code;
+    private String password;
 
-    public String getEmail() {
-        return email;
+    public UUID getCode() {
+        return code;
+    }
+
+    public void setCode(UUID code) {
+        this.code = code;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

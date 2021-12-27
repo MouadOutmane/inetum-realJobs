@@ -1,6 +1,7 @@
 package world.inetum.realdolmen.realjobs.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -69,12 +70,19 @@ public class AuthenticationController {
     }
 
     @PostMapping("/forgotPassword")
-    public void forgotPassword(@Valid @RequestBody ResetRequest resetRequest) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void forgotPassword(@Valid @RequestBody ForgotRequest forgotRequest) {
         try {
-            accountService.forgotPassword(resetRequest);
+            accountService.forgotPassword(forgotRequest);
         } catch (MessagingException e) {
             throw new EndpointException(ResetPasswordExceptionMessage.UNKNOWN_ERROR);
         }
+    }
+
+    @PostMapping("/resetPassword")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void resetPassword(@Valid @RequestBody ResetRequest resetRequest) {
+        accountService.resetPassword(resetRequest);
     }
 
 }

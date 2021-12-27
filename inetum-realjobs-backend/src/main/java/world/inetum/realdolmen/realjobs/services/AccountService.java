@@ -6,20 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import world.inetum.realdolmen.realjobs.entities.Account;
-import world.inetum.realdolmen.realjobs.entities.Address;
-import world.inetum.realdolmen.realjobs.entities.JobSeeker;
-import world.inetum.realdolmen.realjobs.entities.Recruiter;
+import world.inetum.realdolmen.realjobs.entities.*;
 import world.inetum.realdolmen.realjobs.entities.enums.Role;
 import world.inetum.realdolmen.realjobs.exceptions.EndpointException;
 import world.inetum.realdolmen.realjobs.exceptions.messages.ResetPasswordExceptionMessage;
 import world.inetum.realdolmen.realjobs.exceptions.messages.SignUpExceptionMessage;
+import world.inetum.realdolmen.realjobs.payload.security.ForgotRequest;
 import world.inetum.realdolmen.realjobs.payload.security.ResetRequest;
 import world.inetum.realdolmen.realjobs.payload.security.SignupRequest;
 import world.inetum.realdolmen.realjobs.repositories.AccountRepository;
 import world.inetum.realdolmen.realjobs.repositories.CountryRepository;
+import world.inetum.realdolmen.realjobs.repositories.ResetCodeRepository;
 
 import javax.mail.MessagingException;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -31,30 +31,61 @@ public class AccountService {
     private final CountryRepository countryRepository;
     private final AccountRepository accountRepository;
     private final MailService mailService;
+    private final ResetCodeRepository resetCodeRepository;
 
     @Autowired
     public AccountService(PasswordEncoder encoder,
                           CountryRepository countryRepository,
                           AccountRepository accountRepository,
-                          MailService mailService) {
+                          MailService mailService, ResetCodeRepository resetCodeRepository) {
         this.encoder = encoder;
         this.countryRepository = countryRepository;
         this.accountRepository = accountRepository;
         this.mailService = mailService;
+        this.resetCodeRepository = resetCodeRepository;
+    }
+
+    private void saveCode(UUID code, Account account) {
+        ResetCode resetCode = new ResetCode();
+        resetCode.setCode(code);
+        resetCode.setAccount(account);
+        resetCodeRepository.save(resetCode);
     }
 
     @Transactional
-    public void forgotPassword(ResetRequest resetRequest) throws MessagingException {
-        Account account = accountRepository.findByEmail(resetRequest.getEmail())
+    public void forgotPassword(ForgotRequest forgotRequest) throws MessagingException {
+        Account account = accountRepository.findByEmail(forgotRequest.getEmail())
                 .orElseThrow(() -> new EndpointException(ResetPasswordExceptionMessage.EMAIL_NOT_CORRECT));
 
-        UUID code = UUID.randomUUID();
+        UUID code;
+        do {
+            code = UUID.randomUUID();
+        } while (resetCodeRepository.existsById(code));
 
-        // FIXME - save code
+        saveCode(code, account);
 
         mailService.sendResetPasswordLink(account.getEmail(), code.toString());
 
-        LOGGER.debug("{} requested a password reset! -> {}", resetRequest.getEmail(), code);
+        LOGGER.debug("{} requested a password reset! -> {}", forgotRequest.getEmail(), code);
+    }
+
+    @Transactional
+    public void resetPassword(ResetRequest resetRequest) {
+        ResetCode resetCode = resetCodeRepository.findById(resetRequest.getCode())
+                .orElseThrow(() -> new EndpointException(ResetPasswordExceptionMessage.INVALID_CODE));
+
+        if (!resetCode.isValid(LocalDateTime.now())) {
+            resetCodeRepository.delete(resetCode);
+            throw new EndpointException(ResetPasswordExceptionMessage.INVALID_CODE);
+        }
+
+        Account account = resetCode.getAccount();
+        account.setPassword(encoder.encode(resetRequest.getPassword()));
+        accountRepository.save(account);
+
+        resetCodeRepository.deleteAllByAccountId(account.getId());
+
+        LOGGER.debug("Reset password with for {} with the code {}", account.getEmail(), resetRequest.getCode().toString());
     }
 
     public void saveAccount(SignupRequest signUpRequest) {
