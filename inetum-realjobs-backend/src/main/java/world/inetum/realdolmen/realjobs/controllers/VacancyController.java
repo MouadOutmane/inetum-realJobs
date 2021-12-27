@@ -10,6 +10,7 @@ import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
 import world.inetum.realdolmen.realjobs.services.VacancyService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,10 +53,29 @@ public class VacancyController {
     }
 
     @GetMapping("/all")
-    public List<Vacancy> findAllVacancies() {
-        // FIXME - Implement DTOs.
-        return vacancyService.findAll();
-    }
+    List<VacancyReadDto> findAllVacancies() {
+        List<Vacancy> vacancies = vacancyService.findAll();
+
+
+        List<VacancyReadDto> vacanciesDto = new ArrayList<>();
+
+        for (Vacancy vacancy: vacancies) {
+            VacancyReadDto vacDto = new VacancyReadDto();
+            // FIXME - Implement proper mapping.
+            vacDto.setId(vacancy.getId());
+            vacDto.setAddress(vacancy.getAddress().toString());
+            vacDto.setContractType(vacancy.getContractType().toString());
+            vacDto.setCompanyName(vacancy.getCompany().getName());
+            vacDto.setFunctionTitle(vacancy.getFunctionTitle());
+            vacDto.setOffer(vacancy.getOffer());
+            vacDto.setRequirements(vacancy.getRequirements());
+            vacDto.setFunctionDescription(vacancy.getFunctionDescription());
+            vacDto.setRequiredYearsOfExperience(vacancy.getRequiredYearsOfExperience());
+
+            vacanciesDto.add(vacDto);
+        }
+
+        return vacanciesDto;}
 
     @PostMapping("/create")
     public Vacancy newVacancy(@Valid @RequestBody Vacancy newVacancy) {

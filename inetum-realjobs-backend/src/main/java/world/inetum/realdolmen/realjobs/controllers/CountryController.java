@@ -1,4 +1,4 @@
-package world.inetum.realdolmen.inetumrealJobs.controllers;
+package world.inetum.realdolmen.realjobs.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import world.inetum.realdolmen.inetumrealJobs.entities.Country;
-import world.inetum.realdolmen.inetumrealJobs.services.CountryServiceImpl;
+import world.inetum.realdolmen.realjobs.entities.Country;
+import world.inetum.realdolmen.realjobs.services.CountryService;
 
 import java.util.List;
 
@@ -18,10 +18,10 @@ import java.util.List;
 @RequestMapping("/api/country")
 public class CountryController {
 
-    private final CountryServiceImpl countryService;
+    private final CountryService countryService;
 
     @Autowired
-    public CountryController(CountryServiceImpl countryService) {
+    public CountryController(CountryService countryService) {
         this.countryService = countryService;
     }
 

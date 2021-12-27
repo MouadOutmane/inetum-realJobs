@@ -75,6 +75,7 @@ public abstract class BaseRepositoryTest {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     protected Country persistCountry(String name) {
         Optional<Country> optionalCountry = countryRepository.findByName(name);
+
         if (optionalCountry.isPresent()) return optionalCountry.get();
 
         Country country = new Country();
