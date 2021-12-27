@@ -17,7 +17,6 @@ import {ErrorHandlerComponent} from "./components/error-handler/error-handler.co
 import {PrimengImportsModule} from "./primeng-imports";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
-import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 @NgModule({
   declarations: [
@@ -40,7 +39,6 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
     BrowserAnimationsModule,
     routing,
     PrimengImportsModule,
-    ProgressSpinnerModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: UniversalAppInterceptor, multi: true},
