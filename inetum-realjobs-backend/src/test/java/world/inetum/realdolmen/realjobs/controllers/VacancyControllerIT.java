@@ -149,5 +149,36 @@ public class VacancyControllerIT extends BaseIntegrationTest {
                 );
     }
 
+    @Test
+    public void findVacancy_Success() throws Exception {
+        Country country1 = persistCountry("Belgium");
+        Country country2 = persistCountry("France");
+
+        Company company1 = persistCompany("name1", "industry1", country1);
+
+        persistVacancy("function1", ContractType.PART_TIME, createAddress(country1), company1, 1);
+        persistVacancy("function2", ContractType.PART_TIME, createAddress(country1), company1, 3);
+        Vacancy vacancy = persistVacancy("function3", ContractType.FLEXI, createAddress(country2), company1, 0);
+
+        mockMvc.perform(
+                        get("/api/vacancies/" + vacancy.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(vacancy.getId()))
+                .andExpect(jsonPath("$.functionTitle").value("function3"))
+                .andExpect(jsonPath("$.contractType").value(ContractType.FLEXI.name()))
+                .andExpect(jsonPath("$.country").value("France"))
+                .andExpect(jsonPath("$.companyCountry").value("Belgium"));
+    }
+
+    @Test
+    public void findVacancy_NotFound() throws Exception {
+        mockMvc.perform(
+                        get(("/api/vacancies/5375"))
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isNotFound());
+    }
 
 }

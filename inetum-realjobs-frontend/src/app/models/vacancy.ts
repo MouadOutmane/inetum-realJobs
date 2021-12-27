@@ -1,18 +1,30 @@
+export enum ContractType {
+  FULL_TIME = "FULL_TIME",
+  PART_TIME = "PART_TIME",
+  FLEXI = "FLEXI",
+  STUDENT = "STUDENT",
+}
+
 export interface Vacancy {
   id: number;
   functionTitle: string;
-  contractType: string;
+  contractType: ContractType;
   functionDescription: string;
-  postingDate: string;
-  companyName: string;
-  industry: string;
-  country: string;
-  city: string;
-  postalCode: number;
-  streetName: string;
-  nr: number;
-  box: string;
   requiredYearsOfExperience: number;
-  requiredExperienceSkillsEducation: string;
+  requirements: string;
   offer: string;
+  postedOn: string;
+
+  streetName: string;
+  houseNumber: string;
+  box: string;
+  city: string;
+  postalCode: string;
+  country: string;
+
+  companyName?: string;
+  companyIndustry: string;
+  companyCountry: string;
+  companyCity: string;
+  companyLogo?: string;
 }
