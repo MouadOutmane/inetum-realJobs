@@ -44,23 +44,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureTestEntityManager
 class ResumeControllerIT extends BaseIntegrationTest {
 
-    private MockMvc mockMvc;
-    private ObjectMapper mapper;
-
-    private final WebApplicationContext context;
     private final EntityManager em;
 
     @Autowired
-    ResumeControllerIT(WebApplicationContext context, EntityManager em) {
-        this.context = context;
+    ResumeControllerIT(EntityManager em) {
         this.em = em;
-    }
-
-    @BeforeEach
-    void setUp() {
-        mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
     private Account createJobSeekerAndLogin() throws Exception {
@@ -69,7 +57,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
         mockMvc.perform(
                         post("/api/authentication/login")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(mapper.writeValueAsString(request))
+                                .content(asJsonString(request))
                 )
                 .andExpect(status().isOk());
         return account;
@@ -320,7 +308,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
             return mockMvc.perform(
                             post("/api/resume/education")
                                     .contentType(MediaType.APPLICATION_JSON)
-                                    .content(mapper.writeValueAsString(educationCreateDto))
+                                    .content(asJsonString(educationCreateDto))
                     )
                     .andExpect(status().isOk());
         }
@@ -469,7 +457,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
             return mockMvc.perform(
                             post("/api/resume/experience")
                                     .contentType(MediaType.APPLICATION_JSON)
-                                    .content(mapper.writeValueAsString(experienceCreateDto))
+                                    .content(asJsonString(experienceCreateDto))
                     )
                     .andExpect(status().isOk());
         }
