@@ -82,7 +82,6 @@ export class ResetPasswordComponent implements OnInit {
       const passwordRepeat = passwordRepeatControl.value;
       if (!password || !passwordRepeat) return null;
 
-      console.log("password", {password, passwordRepeat});
       const forbidden = password !== passwordRepeat;
       return forbidden ? {duplicatePassword: true} : null;
     };
@@ -106,7 +105,6 @@ export class ResetPasswordComponent implements OnInit {
     if (control.errors["required"]) return "Field can't be empty!";
     else if (control.errors["duplicatePassword"]) return "Both passwords should be the same!";
 
-    console.log("getValidationMessage", control.errors);
     return "Invalid input!";
   }
 
