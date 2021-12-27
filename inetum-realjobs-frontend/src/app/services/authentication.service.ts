@@ -23,6 +23,10 @@ export class AuthenticationService {
     return this.http.post<string>(baseUrl + "signUp", user);
   }
 
+  requestReset(body: any): Observable<string> {
+    return this.http.post<string>(baseUrl + "forgotPassword", body);
+  }
+
   logout() {
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");

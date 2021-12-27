@@ -24,6 +24,7 @@ import {InputMaskModule} from "primeng/inputmask";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import {ResetPasswordComponent} from "./components/reset-password/reset-password
     ToastModule,
     InputMaskModule,
     routing,
+    ProgressSpinnerModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: UniversalAppInterceptor, multi: true},
