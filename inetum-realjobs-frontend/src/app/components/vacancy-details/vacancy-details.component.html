@@ -1,0 +1,71 @@
+<p-card *ngIf="vacancy$ | async as vacancy; else loadingOrError" class="details">
+  <header>
+    <div class="company-logo">
+      <img *ngIf="vacancy.companyLogo; else templateLogo" [src]="vacancy.companyLogo" alt="company logo">
+      <ng-template #templateLogo>
+        <div class="logo-placeholder">{{vacancy.companyName}}</div>
+      </ng-template>
+    </div>
+    <div class="function-information">
+      <h2 class="function-title">{{vacancy.functionTitle}}</h2>
+      <span class="company-name">{{vacancy.companyName}}</span>
+      <span class="company-location">{{vacancy.city}} ({{vacancy.country}})</span>
+      <span class="posted-on">Posted: {{formatDate(vacancy.postedOn)}}</span>
+    </div>
+    <div (click)="share()" class="actions">
+      <div class="share">
+        <i class="pi pi-external-link"></i>
+        Share
+      </div>
+      <a class="apply-now" routerLink="apply">Apply Now</a>
+    </div>
+  </header>
+  <p-divider></p-divider>
+
+  <!--
+   - 60px for the header
+   - 96px for the card
+   - 150px for the card title
+   - 32px for the divider
+   -->
+  <p-scrollPanel [style]="{width: '100%', height: 'calc(100vh - 338px)'}">
+    <p-panel [showHeader]="false">
+      <p>
+        <strong>Industry:</strong>
+        {{vacancy.companyIndustry}}
+      </p>
+      <p>
+        <strong>Required experience:</strong>
+        {{vacancy.requiredYearsOfExperience}} years
+      </p>
+      <p>
+        <strong>Contract type:</strong>
+        {{vacancy.contractType}}
+      </p>
+      <p>
+        <strong>Location:</strong>
+        {{formatAddress(vacancy)}}
+      </p>
+    </p-panel>
+    <p-panel [showHeader]="false">
+      <h4>Function description</h4>
+
+      <p>{{vacancy.functionDescription}}</p>
+    </p-panel>
+    <p-panel [showHeader]="false">
+      <h4>Offer</h4>
+
+      <p>{{vacancy.offer}}</p>
+    </p-panel>
+  </p-scrollPanel>
+</p-card>
+
+<ng-template #loadingOrError>
+  <app-error-handler *ngIf="error; else loading" [error]="error"></app-error-handler>
+
+  <ng-template #loading>
+    <div class="col-12 text-center">
+      Loading ...
+    </div>
+  </ng-template>
+</ng-template>
