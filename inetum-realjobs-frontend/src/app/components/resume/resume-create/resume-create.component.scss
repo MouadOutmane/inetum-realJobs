@@ -1,0 +1,40 @@
+.create-resume {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+  grid-template-areas:
+    "resume-status resume-summary"
+    "resume-experience resume-experience"
+    "resume-education resume-education"
+    "resume-skill resume-skill"
+    "resume-language resume-language";
+  margin: 1rem 0;
+}
+
+.create-resume > .resume-status {
+  grid-area: resume-status;
+}
+
+.create-resume > .resume-status ::ng-deep .p-card {
+  height: 100%;
+}
+
+.create-resume > .resume-summary {
+  grid-area: resume-summary;
+}
+
+.create-resume > .resume-experience {
+  grid-area: resume-experience;
+}
+
+.create-resume > .resume-education {
+  grid-area: resume-education;
+}
+
+.create-resume > .resume-skill {
+  grid-area: resume-skill;
+}
+
+.create-resume > .resume-language {
+  grid-area: resume-language;
+}

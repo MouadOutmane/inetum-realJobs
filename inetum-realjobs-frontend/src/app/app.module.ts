@@ -30,6 +30,22 @@ import {SkillFormComponent} from "./components/resume/forms/skill-form/skill-for
 import {ExperienceFormComponent} from "./components/resume/forms/experience-form/experience-form.component";
 import {CheckboxModule} from "primeng/checkbox";
 import {EducationFormComponent} from './components/resume/forms/education-form/education-form.component';
+import {ExperienceDetailsComponent} from './components/resume/details/experience-details/experience-details.component';
+import {CardModule} from "primeng/card";
+import {RippleModule} from "primeng/ripple";
+import {StyleClassModule} from "primeng/styleclass";
+import {ExperienceListComponent} from './components/resume/details/experience-list/experience-list.component';
+import {EducationDetailsComponent} from './components/resume/details/education-details/education-details.component';
+import {EducationListComponent} from './components/resume/details/education-list/education-list.component';
+import {SkillListComponent} from './components/resume/details/skill-list/skill-list.component';
+import {ChipModule} from "primeng/chip";
+import {LanguageListComponent} from './components/resume/details/language-list/language-list.component';
+import {StatusFormComponent} from './components/resume/forms/status-form/status-form.component';
+import {SummaryFormComponent} from './components/resume/forms/summary-form/summary-form.component';
+import {InputTextareaModule} from "primeng/inputtextarea";
+import {ConfirmPopupModule} from "primeng/confirmpopup";
+import {ConfirmationService} from 'primeng/api';
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 @NgModule({
   declarations: [
@@ -44,31 +60,47 @@ import {EducationFormComponent} from './components/resume/forms/education-form/e
     SkillFormComponent,
     LanguageFormComponent,
     EducationFormComponent,
+    ExperienceDetailsComponent,
+    ExperienceListComponent,
+    EducationDetailsComponent,
+    EducationListComponent,
+    SkillListComponent,
+    LanguageListComponent,
+    StatusFormComponent,
+    SummaryFormComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    PasswordModule,
-    PanelModule,
-    DropdownModule,
-    CalendarModule,
-    RadioButtonModule,
-    MessagesModule,
-    MessageModule,
-    BrowserAnimationsModule,
-    FileUploadModule,
-    ToastModule,
-    InputMaskModule,
-    routing,
-    InputTextModule,
-    CheckboxModule,
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        PasswordModule,
+        PanelModule,
+        DropdownModule,
+        CalendarModule,
+        RadioButtonModule,
+        MessagesModule,
+        MessageModule,
+        BrowserAnimationsModule,
+        FileUploadModule,
+        ToastModule,
+        InputMaskModule,
+        routing,
+        InputTextModule,
+        CheckboxModule,
+        CardModule,
+        RippleModule,
+        StyleClassModule,
+        ChipModule,
+        InputTextareaModule,
+        ConfirmPopupModule,
+        ConfirmDialogModule,
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: UniversalAppInterceptor, multi: true},
     AuthGuardService,
+    ConfirmationService,
   ],
   bootstrap: [AppComponent],
 })

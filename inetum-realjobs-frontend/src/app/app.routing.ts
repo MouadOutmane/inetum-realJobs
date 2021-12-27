@@ -13,7 +13,7 @@ const appRoutes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
   {path: "vacancy/search", component: FilterFormComponent},
-  {path: "resume/create", component: ResumeCreateComponent},
+  {path: "resume/create", component: ResumeCreateComponent, canActivate: [AuthGuardService]},
   {path: "**", component: NotFoundComponent},
 ];
 

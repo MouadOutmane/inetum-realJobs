@@ -1,0 +1,10 @@
+<div class="experience-list-comp">
+  <div *ngFor="let exp of experienceList; let i = index">
+    <app-experience-details
+      [experience]="exp"
+      [deleteButton]="deleteButton"
+      [index]="i"
+      (deleteEvent)="deleteItem($event)">
+    </app-experience-details>
+  </div>
+</div>

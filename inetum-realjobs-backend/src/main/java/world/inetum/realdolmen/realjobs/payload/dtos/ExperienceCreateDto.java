@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
-public class ExperienceDto {
+public class ExperienceCreateDto {
 
     @NotBlank
     private String jobTitle;

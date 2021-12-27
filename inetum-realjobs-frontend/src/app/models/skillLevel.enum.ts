@@ -1,5 +1,5 @@
 export enum SkillLevel {
-  BASIC,
-  INTERMEDIATE,
-  EXPERT
+  BASIC = "BASIC",
+  INTERMEDIATE = "INTERMEDIATE",
+  EXPERT = "EXPERT"
 }

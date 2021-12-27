@@ -18,7 +18,8 @@ public class JwtUtils {
     @Value("password")
     private String jwtSecret;
 
-    @Value("1200000")
+    //TODO - change back to 1200000
+    @Value("2147483647")
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {

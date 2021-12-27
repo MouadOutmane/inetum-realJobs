@@ -1,0 +1,41 @@
+<div class="language-list-comp">
+  <p-card header="Basic">
+    <div class="language-card">
+      <div
+        *ngFor="let entry of basicLanguages"
+      >
+        <p-chip
+          label="{{entry.language.language}}"
+          [removable]="true"
+          (onRemove)="deleteItem(entry.index)">
+        </p-chip>
+      </div>
+    </div>
+  </p-card>
+  <p-card header="Intermediate">
+    <div class="language-card">
+      <div
+        *ngFor="let entry of intermediateLanguages"
+      >
+        <p-chip
+          label="{{entry.language.language}}"
+          [removable]="true"
+          (onRemove)="deleteItem(entry.index)">
+        </p-chip>
+      </div>
+    </div>
+  </p-card>
+  <p-card header="Expert">
+    <div class="language-card">
+      <div
+        *ngFor="let entry of expertLanguages"
+      >
+        <p-chip
+          label="{{entry.language.language}}"
+          [removable]="true"
+          (onRemove)="deleteItem(entry.index)">
+        </p-chip>
+      </div>
+    </div>
+  </p-card>
+</div>

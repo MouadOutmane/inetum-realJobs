@@ -1,4 +1,5 @@
 export interface Experience {
+  id?: number;
   jobTitle: string;
   functionCategory: string;
   company: string;

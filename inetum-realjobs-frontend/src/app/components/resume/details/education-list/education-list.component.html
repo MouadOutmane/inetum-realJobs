@@ -1,0 +1,10 @@
+<div class="education-list-comp">
+  <div *ngFor="let edu of educationList; let i = index">
+    <app-education-details
+      [education]="edu"
+      [deleteButton]="deleteButton"
+      [index]="i"
+      (deleteEvent)="deleteItem($event)">
+    </app-education-details>
+  </div>
+</div>

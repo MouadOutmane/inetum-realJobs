@@ -2,6 +2,10 @@ import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Language} from "../../../../models/language";
 import {SkillLevel} from "../../../../models/skillLevel.enum";
+import {ResumeService} from "../../../../services/resume.service";
+import {MessageService} from "primeng/api";
+import {catchError, throwError} from "rxjs";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: "app-language-form",
@@ -12,33 +16,52 @@ export class LanguageFormComponent implements OnInit {
 
   languageForm: FormGroup;
   skillLevelOptions: SkillLevel[];
+  languages: Language[];
 
-  @Input() languages: Language[];
-  @Output() newLanguageEvent = new EventEmitter<Language>();
-  @Output() deleteLanguageEvent = new EventEmitter<number>();
-
-  constructor(private formBuilder: FormBuilder) {
-    this.skillLevelOptions = Object.keys(SkillLevel)
-      .filter(key => !isNaN(Number(key)))
-      .map(key => SkillLevel[key]);
+  constructor(private resumeService: ResumeService,
+              private messageService: MessageService,
+              private formBuilder: FormBuilder) {
+    this.skillLevelOptions = Object.keys(SkillLevel) as SkillLevel[];
+    this.languages = [];
   }
 
   ngOnInit(): void {
     this.languageForm = this.formBuilder.group({
       language: ["", [Validators.required]],
       skillLevel: [undefined, [Validators.required]],
-    })
+    });
+    this.resumeService
+      .getLanguages()
+      .pipe(catchError((err) => this.onError(err)))
+      .subscribe(languages => {
+        this.languages = languages;
+      });
   }
 
   submitForm() {
     if (this.languageForm.valid) {
-      this.newLanguageEvent.emit(this.getFormData());
-      this.languageForm.reset();
+      this.resumeService
+        .addLanguage(this.getFormData())
+        .pipe(catchError((err) => this.onError(err)))
+        .subscribe(languages => {
+          this.languages = languages;
+          this.languageForm.reset();
+        });
     }
   }
 
+  onError(error: HttpErrorResponse) {
+    this.messageService.add({key: "tl", severity: "error", summary: "Error", detail: error.message});
+    return throwError(() => error.message);
+  }
+
   deleteLanguage(index: number) {
-    this.deleteLanguageEvent.emit(index);
+    this.resumeService
+      .removeLanguage(index)
+      .pipe(catchError((err) => this.onError(err)))
+      .subscribe(languages => {
+        this.languages = languages;
+      });
   }
 
   getFormData(): Language {
@@ -46,6 +69,10 @@ export class LanguageFormComponent implements OnInit {
       language: this.languageForm.controls["language"].value,
       skillLevel: this.languageForm.controls["skillLevel"].value,
     }
+  }
+
+  isInvalid(component: string): boolean {
+    return this.languageForm.controls[component].invalid && this.languageForm.controls[component].dirty
   }
 
   isLanguageAlreadyAdded(): boolean {

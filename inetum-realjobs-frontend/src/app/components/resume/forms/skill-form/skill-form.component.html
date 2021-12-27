@@ -1,56 +1,90 @@
-<h2>Skills</h2>
-<form (ngSubmit)="submitForm()" [formGroup]="skillForm" id="skillForm">
-  <div class="form-group">
-    <div class="p-field">
-      <label>Skill</label>
-      <input formControlName="skill" pInputText>
-      <p-message
-        *ngIf="skillForm.controls['skill'].invalid && skillForm.controls['skill'].dirty"
-        severity="error"
-        text="Skill is required">
-      </p-message>
-      <p-message
-        *ngIf="isSkillAlreadyAdded()"
-        severity="error"
-        text="This skill is already in the list">
-      </p-message>
-    </div>
-    <div class="p-field">
-      <label>Skill level</label>
-      <p-dropdown
-        [options]="skillLevelOptions"
-        formControlName="skillLevel"
-        placeholder="Select a skill level">
-      </p-dropdown>
-      <p-message
-        *ngIf="skillForm.controls['skillLevel'].invalid && skillForm.controls['skillLevel'].dirty"
-        severity="error"
-        text="Skill level is required">
-      </p-message>
-    </div>
-
-    <button
-      type="submit"
-      [disabled]="skillForm.invalid"
-      class="p-button p-mb-2"
-      pButton
-    >
-      Add skill
-    </button>
-  </div>
-</form>
-<div>
-  <h3>Your skills</h3>
-  <span *ngIf="skills.length === 0">No skill(s) added</span>
-  <ul>
-    <li *ngFor="let lang of skills; let i = index">
-      <span>{{lang.skill}} - {{lang.skillLevel}}</span>
-      <button
-        pButton
-        (click)="deleteSkill(i)"
+<p-card>
+  <ng-template pTemplate="header">
+    <div class="skills-form-header">
+      <span
+        class="skills-form-header-text"
       >
-        Remove
-      </button>
-    </li>
-  </ul>
-</div>
+        Skills
+      </span>
+      <div>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-times"
+          class="p-button-rounded p-button-text">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <form (ngSubmit)="submitForm()" [formGroup]="skillForm" class="skillForm">
+    <div class="form-group">
+      <div class="form-inputs">
+        <label class="skill-skill-label">Skill</label>
+        <input
+          formControlName="skill"
+          pInputText
+          [ngClass]="{'skill-skill-input': true, 'ng-invalid ng-dirty' : isInvalid('skill') || isSkillAlreadyAdded()}"
+        >
+        <div class="skill-skill-error">
+          <small
+            *ngIf="isInvalid('skill')"
+            class="p-error"
+          >
+            Skill is required
+          </small>
+          <small
+            *ngIf="isSkillAlreadyAdded()"
+            class="p-error"
+          >
+            This skill is already in the list
+          </small>
+        </div>
+        <label class="skill-level-label">Skill level</label>
+        <p-dropdown
+          [options]="skillLevelOptions"
+          formControlName="skillLevel"
+          placeholder="Select a skill level"
+          [ngClass]="{'skill-level-input': true, 'ng-invalid ng-dirty' : isInvalid('skillLevel')}">
+        </p-dropdown>
+        <div
+          class="skill-level-error"
+        >
+          <small
+            *ngIf="isInvalid('skillLevel')"
+            class="p-error"
+          >
+            Skill level is required
+          </small>
+        </div>
+      </div>
+
+      <div class="center-content">
+        <button
+          type="submit"
+          [disabled]="skillForm.invalid"
+          class="p-button p-mb-2"
+          pButton
+        >
+          Add skill
+        </button>
+      </div>
+    </div>
+  </form>
+  <div>
+    <h3>Your skills</h3>
+    <div class="skills">
+      <span *ngIf="skills.length === 0; else skillsComponent">
+        No skill(s) added
+      </span>
+    </div>
+  </div>
+</p-card>
+
+<ng-template #skillsComponent>
+  <app-skill-list
+    [skills]="skills"
+    [deleteButton]="true"
+    (deleteEvent)="deleteSkill($event)">
+  </app-skill-list>
+</ng-template>

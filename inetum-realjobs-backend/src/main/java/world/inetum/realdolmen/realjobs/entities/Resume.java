@@ -3,8 +3,6 @@ package world.inetum.realdolmen.realjobs.entities;
 import world.inetum.realdolmen.realjobs.entities.enums.ResumeStatus;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +10,11 @@ import java.util.List;
 @Table(name = "Resume")
 public class Resume extends BaseModel {
 
-    @NotBlank
-    @Column(name = "summary", nullable = false)
+    @Column(name = "summary")
     private String summary;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private ResumeStatus status;
 
     // TODO: 14-Dec-21 email: this can come from Account
@@ -52,6 +48,39 @@ public class Resume extends BaseModel {
     )
     @JoinColumn(name = "resume_id")
     private List<Experience> experienceList = new ArrayList<>();
+
+    public void addSkill(Skill skill) {
+        skills.add(skill);
+    }
+
+    public void removeSkill(int index) {
+        skills.remove(index);
+    }
+
+    public void addLanguage(Language language) {
+        languages.add(language);
+    }
+
+
+    public void removeLanguage(int index) {
+        languages.remove(index);
+    }
+
+    public void addEducation(Education education) {
+        educationList.add(education);
+    }
+
+    public void removeEducation(int index) {
+        educationList.remove(index);
+    }
+
+    public void addExperience(Experience experience) {
+        experienceList.add(experience);
+    }
+
+    public void removeExperience(int index) {
+        experienceList.remove(index);
+    }
 
     public String getSummary() {
         return summary;

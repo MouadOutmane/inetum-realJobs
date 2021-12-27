@@ -1,6 +1,10 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {Education} from "../../../../models/education";
+import {ResumeService} from "../../../../services/resume.service";
+import {MessageService} from "primeng/api";
+import {catchError, throwError} from "rxjs";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-education-form',
@@ -10,12 +14,13 @@ import {Education} from "../../../../models/education";
 export class EducationFormComponent implements OnInit {
 
   educationForm: FormGroup;
+  educationList: Education[];
+  today: Date = new Date();
 
-  @Input() educationList: Education[];
-  @Output() newEducationEvent = new EventEmitter<Education>();
-  @Output() deleteEducationEvent = new EventEmitter<number>();
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private resumeService: ResumeService,
+              private messageService: MessageService,
+              private formBuilder: FormBuilder) {
+    this.educationList = [];
   }
 
   ngOnInit(): void {
@@ -27,17 +32,38 @@ export class EducationFormComponent implements OnInit {
       endDate: [undefined, [Validators.required]],
       description: [""],
     });
+    this.resumeService
+      .getEducationList()
+      .pipe(catchError((err) => this.onError(err)))
+      .subscribe(educationList => {
+        this.educationList = educationList;
+      });
   }
 
   submitForm() {
     if (this.educationForm.valid) {
-      this.newEducationEvent.emit(this.getFormData());
-      this.educationForm.reset();
+      this.resumeService
+        .addEducation(this.getFormData())
+        .pipe(catchError((err) => this.onError(err)))
+        .subscribe(educationList => {
+          this.educationList = educationList;
+          this.educationForm.reset();
+        });
     }
   }
 
+  onError(error: HttpErrorResponse) {
+    this.messageService.add({key: "tl", severity: "error", summary: "Error", detail: error.error.message});
+    return throwError(() => error.message);
+  }
+
   deleteEducation(index: number) {
-    this.deleteEducationEvent.emit(index);
+    this.resumeService
+      .removeEducation(index)
+      .pipe(catchError((err) => this.onError(err)))
+      .subscribe(educationList => {
+        this.educationList = educationList;
+      });
   }
 
   getFormData(): Education {
@@ -51,11 +77,43 @@ export class EducationFormComponent implements OnInit {
     }
   }
 
+  isInvalid(component: string) {
+    switch (component) {
+      case "startDate":
+        return !this.isDateInPast(this.educationForm.controls['startDate'].value) ||
+          (this.educationForm.controls[component].invalid &&
+            this.educationForm.controls[component].dirty);
+      default:
+        return this.educationForm.controls[component].invalid &&
+          this.educationForm.controls[component].dirty;
+    }
+  }
+
+  isInvalidBasic(component: string) {
+    return this.educationForm.controls[component].invalid &&
+      this.educationForm.controls[component].dirty;
+  }
+
   isDateInPast(date: Date): boolean {
-    return this.isDateBefore(date, new Date());
+    return date < new Date();
   }
 
   isDateBefore(date1: Date, date2: Date): boolean {
-    return date1 < date2;
+    if (date1 && date2) {
+      return date1 < date2;
+    }
+    return false;
+  }
+
+  get endDate() {
+    return this.educationForm.controls["endDate"].value;
+  }
+
+  get startDate() {
+    return this.educationForm.controls["startDate"].value;
+  }
+
+  get maxStartDate() {
+    return this.today > this.endDate ? this.today : this.endDate;
   }
 }

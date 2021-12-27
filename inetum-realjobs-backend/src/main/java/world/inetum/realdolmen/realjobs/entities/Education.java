@@ -29,7 +29,6 @@ public class Education extends BaseModel {
     private LocalDate startDate;
 
     @NotNull
-    @Past
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 

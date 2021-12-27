@@ -2,16 +2,19 @@ package world.inetum.realdolmen.realjobs.payload.dtos;
 
 import world.inetum.realdolmen.realjobs.entities.enums.SkillLevel;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+public class SkillReadDto {
 
-public class SkillDto {
-
-    @NotBlank
+    private Long id;
     private String skill;
-
-    @NotNull
     private SkillLevel skillLevel;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getSkill() {
         return skill;

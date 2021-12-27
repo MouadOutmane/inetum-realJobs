@@ -1,7 +1,11 @@
-import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SkillLevel} from "../../../../models/skillLevel.enum";
 import {Skill} from "../../../../models/skill";
+import {ResumeService} from "../../../../services/resume.service";
+import {MessageService} from "primeng/api";
+import {catchError, throwError} from "rxjs";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: "app-skill-form",
@@ -12,33 +16,52 @@ export class SkillFormComponent implements OnInit {
 
   skillForm: FormGroup;
   skillLevelOptions: SkillLevel[];
+  skills: Skill[];
 
-  @Input() skills: Skill[];
-  @Output() newSkillEvent = new EventEmitter<Skill>();
-  @Output() deleteSkillEvent = new EventEmitter<number>();
-
-  constructor(private formBuilder: FormBuilder) {
-    this.skillLevelOptions = Object.keys(SkillLevel)
-      .filter(key => !isNaN(Number(key)))
-      .map(key => SkillLevel[key]);
+  constructor(private resumeService: ResumeService,
+              private messageService: MessageService,
+              private formBuilder: FormBuilder) {
+    this.skillLevelOptions = Object.keys(SkillLevel) as SkillLevel[];
+    this.skills = [];
   }
 
   ngOnInit(): void {
     this.skillForm = this.formBuilder.group({
       skill: ["", [Validators.required]],
       skillLevel: [undefined, [Validators.required]],
-    })
+    });
+    this.resumeService
+      .getSkills()
+      .pipe(catchError((err) => this.onError(err)))
+      .subscribe(skills => {
+        this.skills = skills;
+      });
   }
 
   submitForm() {
     if (this.skillForm.valid) {
-      this.newSkillEvent.emit(this.getFormData());
-      this.skillForm.reset();
+      this.resumeService
+        .addSkill(this.getFormData())
+        .pipe(catchError((err) => this.onError(err)))
+        .subscribe(skills => {
+          this.skills = skills;
+          this.skillForm.reset();
+        });
     }
   }
 
+  onError(error: HttpErrorResponse) {
+    this.messageService.add({key: "tl", severity: "error", summary: "Error", detail: error.message});
+    return throwError(() => error.message);
+  }
+
   deleteSkill(index: number) {
-    this.deleteSkillEvent.emit(index);
+    this.resumeService
+      .removeSkill(index)
+      .pipe(catchError((err) => this.onError(err)))
+      .subscribe(skills => {
+        this.skills = skills;
+      });
   }
 
   getFormData(): Skill {
@@ -48,10 +71,14 @@ export class SkillFormComponent implements OnInit {
     }
   }
 
+  isInvalid(component: string): boolean {
+    return this.skillForm.controls[component].invalid && this.skillForm.controls[component].dirty
+  }
+
   isSkillAlreadyAdded(): boolean {
     const newSkill = this.skillForm.controls["skill"].value;
 
-    if (newSkill === null) {
+    if (newSkill === null || newSkill.length === 0) {
       return false;
     }
 

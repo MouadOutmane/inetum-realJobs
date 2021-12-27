@@ -1,5 +1,5 @@
 export enum ResumeStatus {
-  POSITIVE,
-  NEUTRAL,
-  NEGATIVE
+  POSITIVE = "POSITIVE",
+  NEUTRAL = "NEUTRAL",
+  NEGATIVE = "NEGATIVE"
 }

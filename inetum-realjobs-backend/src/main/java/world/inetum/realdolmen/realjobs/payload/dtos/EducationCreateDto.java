@@ -1,12 +1,11 @@
 package world.inetum.realdolmen.realjobs.payload.dtos;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
-public class EducationDto {
+public class EducationCreateDto {
 
     @NotBlank
     private String degree;

@@ -2,9 +2,8 @@ package world.inetum.realdolmen.realjobs.payload.mappers;
 
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
-import world.inetum.realdolmen.realjobs.entities.Resume;
-import world.inetum.realdolmen.realjobs.payload.dtos.ResumeCreationDto;
-import world.inetum.realdolmen.realjobs.payload.dtos.ResumeReadDto;
+import world.inetum.realdolmen.realjobs.entities.*;
+import world.inetum.realdolmen.realjobs.payload.dtos.*;
 
 @Mapper(
         componentModel = "spring",
@@ -12,8 +11,20 @@ import world.inetum.realdolmen.realjobs.payload.dtos.ResumeReadDto;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR
 )
 public interface ResumeMapper {
-
-    ResumeReadDto toDto(Resume resume);
-
-    Resume toEntity(ResumeCreationDto resumeCreationDto);
+    
+    SkillReadDto toDto(Skill skill);
+    
+    Skill toEntity(SkillCreateDto skillCreateDto);
+    
+    LanguageReadDto toDto(Language language);
+    
+    Language toEntity(LanguageCreateDto languageCreateDto);
+    
+    EducationReadDto toDto(Education education);
+    
+    Education toEntity(EducationCreateDto educationCreateDto);
+    
+    ExperienceReadDto toDto(Experience experience);
+    
+    Experience toEntity(ExperienceCreateDto experienceCreateDto);
 }

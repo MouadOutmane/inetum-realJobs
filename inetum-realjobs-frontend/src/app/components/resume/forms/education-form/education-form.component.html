@@ -1,83 +1,156 @@
-<h2>Education</h2>
-<form (ngSubmit)="submitForm()" [formGroup]="educationForm" id="educationForm">
-  <div class="form-group">
-    <div class="p-field">
-      <label>Degree</label>
-      <input formControlName="degree" pInputText>
-      <p-message
-        *ngIf="educationForm.controls['degree'].invalid && educationForm.controls['degree'].dirty"
-        severity="error"
-        text="Degree is required">
-      </p-message>
-    </div>
-    <div class="p-field">
-      <label>Program</label>
-      <input formControlName="program" pInputText>
-      <p-message
-        *ngIf="educationForm.controls['program'].invalid && educationForm.controls['program'].dirty"
-        severity="error"
-        text="Program is required">
-      </p-message>
-    </div>
-    <div class="p-field">
-      <label>School</label>
-      <input formControlName="school" pInputText>
-      <p-message
-        *ngIf="educationForm.controls['school'].invalid && educationForm.controls['school'].dirty"
-        severity="error"
-        text="School is required">
-      </p-message>
-    </div>
-    <div class="p-field">
-      <label>Start date</label>
-      <p-calendar formControlName="startDate"></p-calendar>
-      <p-message
-        *ngIf="educationForm.controls['startDate'].invalid && educationForm.controls['startDate'].dirty"
-        severity="error"
-        text="Start date is required">
-      </p-message>
-      <p-message
-        *ngIf="!isDateInPast(educationForm.controls['startDate'].value)"
-        severity="error"
-        text="Start date must be before today">
-      </p-message>
-    </div>
-    <div class="p-field">
-      <label>(Expected) End date</label>
-      <p-calendar formControlName="endDate"></p-calendar>
-      <p-message
-        *ngIf="isDateBefore(educationForm.controls['endDate'].value, educationForm.controls['startDate'].value)"
-        severity="error"
-        text="End date must be before start date">
-      </p-message>
-    </div>
-    <div class="p-field">
-      <label>Description</label>
-      <input formControlName="description" pInputText>
-    </div>
-
-    <button
-      type="submit"
-      [disabled]="educationForm.invalid"
-      class="p-button p-mb-2"
-      pButton
-    >
-      Add education
-    </button>
-  </div>
-</form>
-<div>
-  <h3>Your educations</h3>
-  <span *ngIf="educationList.length === 0">No education(s) added</span>
-  <ul>
-    <li *ngFor="let exp of educationList; let i = index">
-      <span>{{exp.program}}</span>
-      <button
-        pButton
-        (click)="deleteEducation(i)"
+<p-card>
+  <ng-template pTemplate="header">
+    <div class="education-form-header">
+      <span
+        class="education-form-header-text"
       >
-        Remove
-      </button>
-    </li>
-  </ul>
-</div>
+        Education
+      </span>
+      <div>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-times"
+          class="p-button-rounded p-button-text">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <form (ngSubmit)="submitForm()" [formGroup]="educationForm" class="educationForm">
+    <div class="form-group">
+      <div class="form-inputs">
+        <label class="edu-deg-label">Degree</label>
+        <input
+          formControlName="degree"
+          pInputText
+          [ngClass]="{'edu-deg-input': true, 'ng-invalid ng-dirty' : isInvalid('degree')}"
+        >
+        <div
+          class="edu-deg-error"
+        >
+          <small
+            *ngIf="isInvalid('degree')"
+            class="p-error"
+          >
+            Degree is required
+          </small>
+        </div>
+        <label class="edu-prog-label">Program</label>
+        <input
+          formControlName="program"
+          pInputText
+          [ngClass]="{'edu-prog-input': true, 'ng-invalid ng-dirty' : isInvalid('program')}"
+        >
+        <div
+          class="edu-prog-error"
+        >
+          <small
+            *ngIf="isInvalid('program')"
+            class="p-error"
+          >
+            Program is required
+          </small>
+        </div>
+        <label class="edu-school-label">School</label>
+        <input
+          formControlName="school"
+          pInputText
+          [ngClass]="{'edu-school-input': true, 'ng-invalid ng-dirty' : isInvalid('school')}"
+        >
+        <div
+          class="edu-school-error"
+        >
+          <small
+            *ngIf="isInvalid('school')"
+            class="p-error"
+          >
+            School is required
+          </small>
+        </div>
+        <label class="edu-sd-label">Start date</label>
+        <p-calendar
+          [showIcon]="true"
+          formControlName="startDate"
+          dateFormat="dd-mm-yy"
+          [maxDate]="maxStartDate"
+          [ngClass]="{'edu-sd-input': true, 'ng-invalid ng-dirty' : isInvalid('startDate')}">
+        </p-calendar>
+        <div
+          class="edu-sd-error"
+        >
+          <small
+            *ngIf="isInvalidBasic('startDate')"
+            class="p-error"
+          >
+            Start date is required
+          </small>
+          <small
+            *ngIf="!isDateInPast(educationForm.controls['startDate'].value)"
+            class="p-error"
+          >
+            Start date must be before today
+          </small>
+        </div>
+        <label class="edu-ed-label">(Expected) End date</label>
+        <p-calendar
+          [showIcon]="true"
+          formControlName="endDate"
+          dateFormat="dd-mm-yy"
+          [minDate]="startDate"
+          [ngClass]="{'edu-ed-input': true, 'ng-invalid ng-dirty' : isInvalid('endDate')}">
+        </p-calendar>
+        <div
+          class="edu-ed-error"
+        >
+          <small
+            *ngIf="isInvalidBasic('endDate')"
+            class="p-error"
+          >
+            End is required
+          </small>
+          <small
+            *ngIf="isDateBefore(educationForm.controls['endDate'].value, educationForm.controls['startDate'].value)"
+            class="p-error"
+          >
+            End date must be before start date
+          </small>
+        </div>
+        <label class="edu-desc-label">Description</label>
+        <textarea
+          formControlName="description"
+          pInputTextarea
+          [autoResize]="true"
+          [ngClass]="{'edu-desc-input': true, 'ng-invalid ng-dirty' : isInvalid('description')}">
+        </textarea>
+      </div>
+
+      <div class="center-content">
+        <button
+          type="submit"
+          [disabled]="educationForm.invalid"
+          class="p-button p-mb-2"
+          pButton
+        >
+          Add education
+        </button>
+      </div>
+    </div>
+  </form>
+  <div>
+    <h3>Your education</h3>
+    <div class="education-list">
+      <span *ngIf="educationList.length === 0; else educationListComponent">
+        No education(s) added
+      </span>
+    </div>
+  </div>
+</p-card>
+
+<ng-template #educationListComponent>
+  <app-education-list
+    [educationList]="educationList"
+    [deleteButton]="true"
+    (deleteEvent)="deleteEducation($event)">
+  </app-education-list>
+</ng-template>

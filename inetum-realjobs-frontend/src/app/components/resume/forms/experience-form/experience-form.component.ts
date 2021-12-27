@@ -1,7 +1,10 @@
-import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Experience} from "../../../../models/experience";
-import {SkillLevel} from "../../../../models/skillLevel.enum";
+import {MessageService} from "primeng/api";
+import {ResumeService} from "../../../../services/resume.service";
+import {catchError, throwError} from "rxjs";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: "app-experience-form",
@@ -11,12 +14,12 @@ import {SkillLevel} from "../../../../models/skillLevel.enum";
 export class ExperienceFormComponent implements OnInit {
 
   experienceForm: FormGroup;
+  experienceList: Experience[] = [];
+  today: Date = new Date();
 
-  @Input() experienceList: Experience[];
-  @Output() newExperienceEvent = new EventEmitter<Experience>();
-  @Output() deleteExperienceEvent = new EventEmitter<number>();
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private resumeService: ResumeService,
+              private messageService: MessageService,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -38,17 +41,38 @@ export class ExperienceFormComponent implements OnInit {
         this.experienceForm.get("endDate").enable();
       }
     });
+    this.resumeService
+      .getExperienceList()
+      .pipe(catchError((err) => this.onError(err)))
+      .subscribe(experienceList => {
+        this.experienceList = experienceList;
+      });
   }
 
   submitForm() {
     if (this.experienceForm.valid) {
-      this.newExperienceEvent.emit(this.getFormData());
-      this.experienceForm.reset();
+      this.resumeService
+        .addExperience(this.getFormData())
+        .pipe(catchError((err) => this.onError(err)))
+        .subscribe(experienceList => {
+          this.experienceList = experienceList;
+          this.experienceForm.reset();
+        });
     }
   }
 
+  onError(error: HttpErrorResponse) {
+    this.messageService.add({key: "tl", severity: "error", summary: "Error", detail: error.message});
+    return throwError(() => error.message);
+  }
+
   deleteExperience(index: number) {
-    this.deleteExperienceEvent.emit(index);
+    this.resumeService
+      .removeExperience(index)
+      .pipe(catchError((err) => this.onError(err)))
+      .subscribe(experienceList => {
+        this.experienceList = experienceList;
+      });
   }
 
   getFormData(): Experience {
@@ -62,6 +86,28 @@ export class ExperienceFormComponent implements OnInit {
       currentJob: this.experienceForm.controls["currentJob"].value,
       description: this.experienceForm.controls["description"].value,
     }
+  }
+
+  isInvalid(component: string) {
+    switch (component) {
+      case "startDate":
+        return (this.experienceForm.controls[component].invalid &&
+            this.experienceForm.controls[component].dirty) ||
+          !this.isDateInPast(this.experienceForm.controls[component].value);
+      case "endDate":
+        return (this.experienceForm.controls[component].invalid &&
+            this.experienceForm.controls[component].dirty) ||
+          this.isEndDateNotInPast() ||
+          this.isEndDateBeforeStartDate();
+      default:
+        return this.experienceForm.controls[component].invalid &&
+          this.experienceForm.controls[component].dirty;
+    }
+  }
+
+  isInvalidBasic(component: string) {
+    return this.experienceForm.controls[component].invalid &&
+      this.experienceForm.controls[component].dirty;
   }
 
   isEndDateNotInPast(): boolean {
@@ -99,5 +145,17 @@ export class ExperienceFormComponent implements OnInit {
 
   isDateBefore(date1: Date, date2: Date): boolean {
     return date1 < date2;
+  }
+
+  get endDate() {
+    return this.experienceForm.controls["endDate"].value;
+  }
+
+  get startDate() {
+    return this.experienceForm.controls["startDate"].value;
+  }
+
+  get maxStartDate() {
+    return this.today > this.endDate ? this.today : this.endDate;
   }
 }

@@ -3,12 +3,15 @@ package world.inetum.realdolmen.realjobs.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import world.inetum.realdolmen.realjobs.payload.dtos.ResumeCreationDto;
-import world.inetum.realdolmen.realjobs.payload.dtos.ResumeReadDto;
+import world.inetum.realdolmen.realjobs.entities.enums.ResumeStatus;
+import world.inetum.realdolmen.realjobs.payload.dtos.*;
 import world.inetum.realdolmen.realjobs.payload.mappers.ResumeMapper;
 import world.inetum.realdolmen.realjobs.services.ResumeService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -24,9 +27,147 @@ public class ResumeController {
         this.resumeMapper = resumeMapper;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/skill")
     @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
-    public ResumeReadDto newResume(@Valid @RequestBody ResumeCreationDto newResume) {
-        return resumeMapper.toDto(resumeService.addResume(newResume));
+    public List<SkillReadDto> addSkill(@Valid @RequestBody SkillCreateDto newSkill) {
+        return resumeService
+                .addSkill(resumeMapper.toEntity(newSkill))
+                .stream()
+                .map(resumeMapper::toDto)
+                .toList();
+    }
+
+    @DeleteMapping("/skill/{index}")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public List<SkillReadDto> removeSkill(@Valid @PathVariable("index") int index) {
+        return resumeService
+                .removeSkill(index)
+                .stream()
+                .map(resumeMapper::toDto)
+                .toList();
+    }
+
+    @GetMapping("/skill")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public List<SkillReadDto> getSkills() {
+        return resumeService
+                .getSkills()
+                .stream()
+                .map(resumeMapper::toDto)
+                .toList();
+    }
+
+    @PostMapping("/language")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public List<LanguageReadDto> addLanguage(@Valid @RequestBody LanguageCreateDto newLanguage) {
+        return resumeService
+                .addLanguage(resumeMapper.toEntity(newLanguage))
+                .stream()
+                .map(resumeMapper::toDto)
+                .toList();
+    }
+
+    @DeleteMapping("/language/{index}")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public List<LanguageReadDto> removeLanguage(@Valid @PathVariable("index") int index) {
+        return resumeService
+                .removeLanguage(index)
+                .stream()
+                .map(resumeMapper::toDto)
+                .toList();
+    }
+
+    @GetMapping("/language")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public List<LanguageReadDto> getLanguages() {
+        return resumeService
+                .getLanguages()
+                .stream()
+                .map(resumeMapper::toDto)
+                .toList();
+    }
+
+    @PostMapping("/education")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public List<EducationReadDto> addEducation(@Valid @RequestBody EducationCreateDto newEducation) {
+        return resumeService
+                .addEducation(resumeMapper.toEntity(newEducation))
+                .stream()
+                .map(resumeMapper::toDto)
+                .toList();
+    }
+
+    @DeleteMapping("/education/{index}")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public List<EducationReadDto> removeEducation(@Valid @PathVariable("index") int index) {
+        return resumeService
+                .removeEducation(index)
+                .stream()
+                .map(resumeMapper::toDto)
+                .toList();
+    }
+
+    @GetMapping("/education")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public List<EducationReadDto> getEducationList() {
+        return resumeService
+                .getEducationList()
+                .stream()
+                .map(resumeMapper::toDto)
+                .toList();
+    }
+
+    @PostMapping("/experience")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public List<ExperienceReadDto> addExperience(@Valid @RequestBody ExperienceCreateDto newExperience) {
+        return resumeService
+                .addExperience(resumeMapper.toEntity(newExperience))
+                .stream()
+                .map(resumeMapper::toDto)
+                .toList();
+    }
+
+    @DeleteMapping("/experience/{index}")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public List<ExperienceReadDto> removeExperience(@Valid @PathVariable("index") int index) {
+        return resumeService
+                .removeExperience(index)
+                .stream()
+                .map(resumeMapper::toDto)
+                .toList();
+    }
+
+    @GetMapping("/experience")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public List<ExperienceReadDto> getExperienceList() {
+        return resumeService
+                .getExperienceList()
+                .stream()
+                .map(resumeMapper::toDto)
+                .toList();
+    }
+
+    @PostMapping("/summary")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public SingleValueDto<String> setSummary(@RequestBody @NotBlank SingleValueDto<String> summary) {
+        return new SingleValueDto<>(resumeService.setSummary(summary.getValue()));
+    }
+
+    @GetMapping("/summary")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public SingleValueDto<String> getSummary() {
+        return new SingleValueDto<>(resumeService.getSummary());
+    }
+
+    @PostMapping("/status")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public SingleValueDto<ResumeStatus> setStatus(@RequestBody @NotNull SingleValueDto<ResumeStatus> status) {
+        return new SingleValueDto<>(resumeService.setStatus(status.getValue()));
+    }
+
+    @GetMapping("/status")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public SingleValueDto<ResumeStatus> getStatus() {
+        return new SingleValueDto<>(resumeService.getStatus());
     }
 }

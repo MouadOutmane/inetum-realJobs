@@ -1,67 +1,26 @@
-<form (ngSubmit)="submitForm()" [formGroup]="creationForm" id="resumeCreationForm">
-  <div class="form-group">
-    <div class="p-field">
-      <label>Summary</label>
-      <input formControlName="summary" pInputText>
-      <p-message
-        *ngIf="creationForm.controls['summary'].invalid && creationForm.controls['summary'].dirty"
-        severity="error"
-        text="Summary is required">
-      </p-message>
-    </div>
-    <div class="p-field">
-      <label>Status</label>
-      <p-dropdown
-        [options]="resumeStatusOptions"
-        formControlName="status"
-        placeholder="Select a status">
-      </p-dropdown>
-      <p-message
-        *ngIf="creationForm.controls['status'].invalid && creationForm.controls['status'].dirty"
-        severity="error"
-        text="Status is required">
-      </p-message>
-    </div>
-
-    <div>
-      <app-experience-form
-        [experienceList]="experienceList"
-        (newExperienceEvent)="addExperience($event)"
-        (deleteExperienceEvent)="removeExperience($event)">
-      </app-experience-form>
-    </div>
-
-    <div>
-      <app-education-form
-        [educationList]="educationList"
-        (newEducationEvent)="addEducation($event)"
-        (deleteEducationEvent)="removeEducation($event)">
-      </app-education-form>
-    </div>
-
-    <div>
-      <app-skill-form
-        [skills]="skills"
-        (newSkillEvent)="addSkill($event)"
-        (deleteSkillEvent)="removeSkill($event)">
-      </app-skill-form>
-    </div>
-
-    <div>
-      <app-language-form
-        [languages]="languages"
-        (newLanguageEvent)="addLanguage($event)"
-        (deleteLanguageEvent)="removeLanguage($event)">
-      </app-language-form>
-    </div>
-
-    <button
-      type="submit"
-      [disabled]="creationForm.invalid"
-      class="p-button p-mb-2"
-      pButton
-    >
-      Submit
-    </button>
+<div class="create-resume">
+  <div class="resume-status">
+    <app-status-form></app-status-form>
   </div>
-</form>
+
+  <div class="resume-summary">
+    <app-summary-form></app-summary-form>
+  </div>
+
+  <div class="resume-experience">
+    <app-experience-form></app-experience-form>
+  </div>
+
+  <div class="resume-education">
+    <app-education-form></app-education-form>
+  </div>
+
+  <div class="resume-skill">
+    <app-skill-form></app-skill-form>
+  </div>
+
+  <div class="resume-language">
+    <app-language-form></app-language-form>
+  </div>
+</div>
+<p-toast key="tl" position="top-left"></p-toast>

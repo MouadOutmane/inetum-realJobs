@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -59,5 +60,13 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
                     put("message", bodyOfResponse);
                 }},
                 new HttpHeaders(), HttpStatus.FORBIDDEN, request);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    protected ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex, WebRequest request) {
+        return handleExceptionInternal(ex, new HashMap<>() {{
+                    put("message", "Something went wrong...");
+                }},
+                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 }
