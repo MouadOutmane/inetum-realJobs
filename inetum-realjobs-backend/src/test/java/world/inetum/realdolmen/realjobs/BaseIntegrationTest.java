@@ -26,7 +26,7 @@ public abstract class BaseIntegrationTest extends BaseRepositoryTest {
     }
 
     protected JobSeeker persistJobSeeker(String email, String password) {
-        return persistJobSeeker(email, password, null);
+        return persistJobSeeker(email, password, new Resume());
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

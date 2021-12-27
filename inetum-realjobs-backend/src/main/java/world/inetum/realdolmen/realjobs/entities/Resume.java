@@ -53,33 +53,16 @@ public class Resume extends BaseModel {
         skills.add(skill);
     }
 
-    public void removeSkill(int index) {
-        skills.remove(index);
-    }
-
     public void addLanguage(Language language) {
         languages.add(language);
-    }
-
-
-    public void removeLanguage(int index) {
-        languages.remove(index);
     }
 
     public void addEducation(Education education) {
         educationList.add(education);
     }
 
-    public void removeEducation(int index) {
-        educationList.remove(index);
-    }
-
     public void addExperience(Experience experience) {
         experienceList.add(experience);
-    }
-
-    public void removeExperience(int index) {
-        experienceList.remove(index);
     }
 
     public String getSummary() {

@@ -1,284 +1,732 @@
-//package world.inetum.realdolmen.realjobs.controllers;
-//
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-//import com.jayway.jsonpath.JsonPath;
-//import org.hamcrest.Matchers;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
-//import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.http.MediaType;
-//import org.springframework.test.web.servlet.MockMvc;
-//import org.springframework.test.web.servlet.MvcResult;
-//import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-//import org.springframework.transaction.annotation.Transactional;
-//import org.springframework.web.context.WebApplicationContext;
-//import world.inetum.realdolmen.realjobs.BaseIntegrationTest;
-//import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
-//import world.inetum.realdolmen.realjobs.entities.*;
-//import world.inetum.realdolmen.realjobs.entities.enums.ResumeStatus;
-//import world.inetum.realdolmen.realjobs.entities.enums.SkillLevel;
-//import world.inetum.realdolmen.realjobs.payload.dtos.*;
-//import world.inetum.realdolmen.realjobs.payload.security.LoginRequest;
-//
-//import javax.persistence.EntityManager;
-//import java.time.LocalDate;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-//
-//@SpringBootTest(
-//        classes = InetumRealJobsApplication.class,
-//        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
-//)
-//@AutoConfigureMockMvc
-//@AutoConfigureTestEntityManager
-//class ResumeControllerIT extends BaseIntegrationTest {
-//
-// TODO fix
-//
-//    private MockMvc mockMvc;
-//    private ObjectMapper mapper;
-//
-//    private final WebApplicationContext context;
-//    private final EntityManager em;
-//
-//    @Autowired
-//    ResumeControllerIT(WebApplicationContext context, EntityManager em) {
-//        this.context = context;
-//        this.em = em;
-//    }
-//
-//    @BeforeEach
-//    void setUp() {
-//        mapper = new ObjectMapper();
-//        mapper.registerModule(new JavaTimeModule());
-//        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-//    }
-//
-//    @Test
-//    @Transactional
-//    void newResume_asJobSeeker_success() throws Exception {
-//        Account account = createJobSeekerAndLogin();
-//
-//        ResumeCreationDto resumeCreationDto = createTestDto();
-//
-//        MvcResult mvcResult = mockMvc.perform(
-//                        post("/api/resume/create")
-//                                .contentType(MediaType.APPLICATION_JSON)
-//                                .content(mapper.writeValueAsString(resumeCreationDto))
-//                )
-//                .andExpect(status().isOk())
-//                .andExpectAll(
-//                        jsonPath("$.id").exists(),
-//                        jsonPath("$.id").isNumber(),
-//                        jsonPath("$.summary", Matchers.is("Test summary")),
-//                        jsonPath("$.status", Matchers.is(ResumeStatus.POSITIVE.toString())),
-//                        jsonPath("$.skills").isArray(),
-//                        jsonPath("$.skills").isNotEmpty(),
-//                        jsonPath("$.skills.length()", Matchers.is(3)),
-//                        jsonPath("$.skills[*].skill", Matchers.containsInAnyOrder("Java", "Python", "Writing tests")),
-//                        jsonPath("$.skills[*].skillLevel", Matchers.containsInAnyOrder(SkillLevel.INTERMEDIATE.toString(), SkillLevel.INTERMEDIATE.toString(), SkillLevel.EXPERT.toString())),
-//                        jsonPath("$.languages.length()", Matchers.is(3)),
-//                        jsonPath("$.languages").isArray(),
-//                        jsonPath("$.languages").isNotEmpty(),
-//                        jsonPath("$.languages[*].language", Matchers.containsInAnyOrder("Dutch", "French", "English")),
-//                        jsonPath("$.languages[*].skillLevel", Matchers.containsInAnyOrder(SkillLevel.EXPERT.toString(), SkillLevel.BASIC.toString(), SkillLevel.EXPERT.toString())),
-//                        jsonPath("$.educationList").isArray(),
-//                        jsonPath("$.educationList").isNotEmpty(),
-//                        jsonPath("$.educationList.length()", Matchers.is(2)),
-//                        jsonPath("$.educationList[*].degree", Matchers.containsInAnyOrder("Masters", "Bachelors")),
-//                        jsonPath("$.educationList[*].program", Matchers.containsInAnyOrder("Applied Engineering", "Applied Engineering")),
-//                        jsonPath("$.educationList[*].school", Matchers.containsInAnyOrder("UA", "UA")),
-//                        jsonPath("$.educationList[*].startDate", Matchers.containsInAnyOrder("2020-09-21", "2017-09-21")),
-//                        jsonPath("$.educationList[*].endDate", Matchers.containsInAnyOrder("2021-06-30", "2020-06-30")),
-//                        jsonPath("$.educationList[*].description", Matchers.containsInAnyOrder("Desc1", "Desc2")),
-//                        jsonPath("$.experienceList").isArray(),
-//                        jsonPath("$.experienceList").isNotEmpty(),
-//                        jsonPath("$.experienceList.length()", Matchers.is(1)),
-//                        jsonPath("$.experienceList[0].jobTitle", Matchers.is("Junior Java consultant")),
-//                        jsonPath("$.experienceList[0].functionCategory", Matchers.is("Software consultant")),
-//                        jsonPath("$.experienceList[0].company", Matchers.is("Inetum-Realdolmen")),
-//                        jsonPath("$.experienceList[0].industry", Matchers.is("IT")),
-//                        jsonPath("$.experienceList[0].startDate", Matchers.is("2021-09-01")),
-//                        jsonPath("$.experienceList[0].endDate", Matchers.nullValue()),
-//                        jsonPath("$.experienceList[0].currentJob", Matchers.is(true)),
-//                        jsonPath("$.experienceList[0].description", Matchers.is("Desc1"))
-//                )
-//                .andReturn();
-//
-//        Long id = Long.valueOf(JsonPath.read(mvcResult.getResponse().getContentAsString(), "$.id").toString());
-//
-//        Resume createdResume = em
-//                .createQuery("select r from Resume r where r.id = :id", Resume.class)
-//                .setParameter("id", id)
-//                .getSingleResult();
-//
-//        JobSeeker jobSeeker = em
-//                .createQuery("select j from JobSeeker j where j.id = :id", JobSeeker.class)
-//                .setParameter("id", account.getId())
-//                .getSingleResult();
-//
-//        assertNotNull(createdResume, "No resume found in the database");
-//        assertAll(
-//                () -> assertEquals("Test summary", createdResume.getSummary(), "Summary doesn't match"),
-//                () -> assertEquals(ResumeStatus.POSITIVE, createdResume.getStatus(), "Status doesn't match"),
-//                () -> assertEquals(3, createdResume.getSkills().size(), "The amount of skills isn't the expected amount"),
-//                () -> assertEquals(3, createdResume.getLanguages().size(), "The amount of languages isn't the expected amount"),
-//                () -> assertEquals(2, createdResume.getEducationList().size(), "The amount of education entries isn't the expected amount"),
-//                () -> assertEquals(1, createdResume.getExperienceList().size(), "The amount of experience entries isn't the expected amount"),
-//                () -> assertNotNull(jobSeeker.getResume(), "There is no resume linked with the user"),
-//                () -> assertEquals(createdResume, jobSeeker.getResume(), "The linked resume isn't the same as the created one")
-//        );
-//    }
-//
-//    @Test
-//    @Transactional
-//    void newResume_asRecruiter_forbidden() throws Exception {
-//        createRecruiterAndLogin();
-//
-//        ResumeCreationDto resumeCreationDto = createTestDto();
-//
-//        mockMvc.perform(
-//                        post("/api/resume/create")
-//                                .contentType(MediaType.APPLICATION_JSON)
-//                                .content(mapper.writeValueAsString(resumeCreationDto))
-//                )
-//                .andExpect(status().isForbidden());
-//
-//        List<Resume> resumes = em
-//                .createQuery("select r from Resume r", Resume.class)
-//                .getResultList();
-//
-//        assertTrue(resumes.isEmpty(), "No resumes should've been created");
-//    }
-//
-//    private Account createJobSeekerAndLogin() throws Exception {
-//        Account account = persistJobSeeker("test@inetum-realdolmen.world", "password");
-//        LoginRequest request = new LoginRequest("test@inetum-realdolmen.world", "password");
-//        mockMvc.perform(
-//                        post("/api/authentication/login")
-//                                .contentType(MediaType.APPLICATION_JSON)
-//                                .content(mapper.writeValueAsString(request))
-//                )
-//                .andExpect(status().isOk());
-//        return account;
-//    }
-//
-//    private void createRecruiterAndLogin() throws Exception {
-//        Country country = persistCountry("Belgium");
-//        Company company = persistCompany("Inetum-Realdolmen", "IT", country);
-//        persistRecruiter("test@inetum-realdolmen.world", "password", company);
-//
-//        LoginRequest request = new LoginRequest("test@inetum-realdolmen.world", "password");
-//        mockMvc.perform(
-//                        post("/api/authentication/login")
-//                                .contentType(MediaType.APPLICATION_JSON)
-//                                .content(mapper.writeValueAsString(request))
-//                )
-//                .andExpect(status().isOk());
-//    }
-//
-//    private ResumeCreationDto createTestDto() {
-//        ResumeCreationDto resumeCreationDto = new ResumeCreationDto();
-//
-//        resumeCreationDto.setSummary("Test summary");
-//        resumeCreationDto.setStatus(ResumeStatus.POSITIVE);
-//        resumeCreationDto.setEducationList(createEducationDtoList());
-//        resumeCreationDto.setExperienceList(createExperienceDtoList());
-//        resumeCreationDto.setLanguages(createLanguageDtoList());
-//        resumeCreationDto.setSkills(createSkillDtoList());
-//
-//        return resumeCreationDto;
-//    }
-//
-//    private List<EducationDto> createEducationDtoList() {
-//        List<EducationDto> educationDtoList = new ArrayList<>();
-//
-//        EducationDto educationDto1 = new EducationDto();
-//        educationDto1.setDegree("Masters");
-//        educationDto1.setDescription("Desc1");
-//        educationDto1.setProgram("Applied Engineering");
-//        educationDto1.setSchool("UA");
-//        educationDto1.setStartDate(LocalDate.of(2020, 9, 21));
-//        educationDto1.setEndDate(LocalDate.of(2021, 6, 30));
-//        educationDtoList.add(educationDto1);
-//
-//        EducationDto educationDto2 = new EducationDto();
-//        educationDto2.setDegree("Bachelors");
-//        educationDto2.setDescription("Desc2");
-//        educationDto2.setProgram("Applied Engineering");
-//        educationDto2.setSchool("UA");
-//        educationDto2.setStartDate(LocalDate.of(2017, 9, 21));
-//        educationDto2.setEndDate(LocalDate.of(2020, 6, 30));
-//        educationDtoList.add(educationDto2);
-//
-//        return educationDtoList;
-//    }
-//
-//    private List<ExperienceDto> createExperienceDtoList() {
-//        List<ExperienceDto> experienceDtoList = new ArrayList<>();
-//
-//        ExperienceDto experienceDto1 = new ExperienceDto();
-//        experienceDto1.setCompany("Inetum-Realdolmen");
-//        experienceDto1.setDescription("Desc1");
-//        experienceDto1.setCurrentJob(true);
-//        experienceDto1.setStartDate(LocalDate.of(2021, 9, 1));
-//        experienceDto1.setFunctionCategory("Software consultant");
-//        experienceDto1.setIndustry("IT");
-//        experienceDto1.setJobTitle("Junior Java consultant");
-//        experienceDtoList.add(experienceDto1);
-//
-//        return experienceDtoList;
-//    }
-//
-//    private List<LanguageDto> createLanguageDtoList() {
-//        List<LanguageDto> languageDtoList = new ArrayList<>();
-//
-//        LanguageDto languageDto1 = new LanguageDto();
-//        languageDto1.setLanguage("Dutch");
-//        languageDto1.setSkillLevel(SkillLevel.EXPERT);
-//        languageDtoList.add(languageDto1);
-//
-//        LanguageDto languageDto2 = new LanguageDto();
-//        languageDto2.setLanguage("French");
-//        languageDto2.setSkillLevel(SkillLevel.BASIC);
-//        languageDtoList.add(languageDto2);
-//
-//        LanguageDto languageDto3 = new LanguageDto();
-//        languageDto3.setLanguage("English");
-//        languageDto3.setSkillLevel(SkillLevel.EXPERT);
-//        languageDtoList.add(languageDto3);
-//
-//        return languageDtoList;
-//    }
-//
-//    private List<SkillCreateDto> createSkillDtoList() {
-//        List<SkillCreateDto> skillCreateDtoList = new ArrayList<>();
-//
-//        SkillCreateDto skillCreateDto1 = new SkillCreateDto();
-//        skillCreateDto1.setSkill("Java");
-//        skillCreateDto1.setSkillLevel(SkillLevel.INTERMEDIATE);
-//        skillCreateDtoList.add(skillCreateDto1);
-//
-//        SkillCreateDto skillCreateDto2 = new SkillCreateDto();
-//        skillCreateDto2.setSkill("Python");
-//        skillCreateDto2.setSkillLevel(SkillLevel.INTERMEDIATE);
-//        skillCreateDtoList.add(skillCreateDto2);
-//
-//        SkillCreateDto skillCreateDto3 = new SkillCreateDto();
-//        skillCreateDto3.setSkill("Writing tests");
-//        skillCreateDto3.setSkillLevel(SkillLevel.EXPERT);
-//        skillCreateDtoList.add(skillCreateDto3);
-//
-//        return skillCreateDtoList;
-//    }
-//}
-//
+package world.inetum.realdolmen.realjobs.controllers;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
+import world.inetum.realdolmen.realjobs.BaseIntegrationTest;
+import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
+import world.inetum.realdolmen.realjobs.entities.*;
+import world.inetum.realdolmen.realjobs.entities.enums.ResumeStatus;
+import world.inetum.realdolmen.realjobs.entities.enums.SkillLevel;
+import world.inetum.realdolmen.realjobs.payload.dtos.*;
+import world.inetum.realdolmen.realjobs.payload.security.LoginRequest;
+
+import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@SpringBootTest(
+        classes = InetumRealJobsApplication.class,
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+)
+@AutoConfigureMockMvc
+@AutoConfigureTestEntityManager
+class ResumeControllerIT extends BaseIntegrationTest {
+
+    private MockMvc mockMvc;
+    private ObjectMapper mapper;
+
+    private final WebApplicationContext context;
+    private final EntityManager em;
+
+    @Autowired
+    ResumeControllerIT(WebApplicationContext context, EntityManager em) {
+        this.context = context;
+        this.em = em;
+    }
+
+    @BeforeEach
+    void setUp() {
+        mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+    }
+
+    private Account createJobSeekerAndLogin() throws Exception {
+        Account account = persistJobSeeker("test@inetum-realdolmen.world", "password");
+        LoginRequest request = new LoginRequest("test@inetum-realdolmen.world", "password");
+        mockMvc.perform(
+                        post("/api/authentication/login")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(request))
+                )
+                .andExpect(status().isOk());
+        return account;
+    }
+
+    @Nested
+    class SkillTests {
+
+        private ResultActions persistSkill(String name, SkillLevel level) throws Exception {
+            SkillCreateDto skillCreateDto = new SkillCreateDto();
+            skillCreateDto.setSkill(name);
+            skillCreateDto.setSkillLevel(level);
+
+            return mockMvc.perform(
+                            post("/api/resume/skill")
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .content(asJsonString(skillCreateDto))
+                    )
+                    .andExpect(status().isOk());
+        }
+
+        @Test
+        @Transactional
+        void addSkill() throws Exception {
+            Account account = createJobSeekerAndLogin();
+
+            persistSkill("Test 1", SkillLevel.EXPERT)
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(1)),
+                            jsonPath("$[*].skill", containsInAnyOrder("Test 1")),
+                            jsonPath("$[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString()))
+                    );
+            persistSkill("Test 2", SkillLevel.BASIC)
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(2)),
+                            jsonPath("$[*].skill", containsInAnyOrder("Test 1", "Test 2")),
+                            jsonPath("$[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString(), SkillLevel.BASIC.toString()))
+                    );
+
+            JobSeeker jobSeeker = em
+                    .createQuery("select j from JobSeeker j where j.id = :id", JobSeeker.class)
+                    .setParameter("id", account.getId())
+                    .getSingleResult();
+
+            Resume resume = jobSeeker.getResume();
+
+            assertNotNull(resume, "No resume found in the database");
+            assertEquals(2, resume.getSkills().size(), "The amount of skills isn't the expected amount");
+        }
+
+        @Test
+        @Transactional
+        void removeSkill() throws Exception {
+            Account account = createJobSeekerAndLogin();
+            persistSkill("Test 1", SkillLevel.EXPERT);
+            persistSkill("Test 2", SkillLevel.BASIC);
+            persistSkill("Test 3", SkillLevel.INTERMEDIATE);
+            String skills = persistSkill("Test 4", SkillLevel.BASIC)
+                    .andReturn()
+                    .getResponse()
+                    .getContentAsString();
+
+            List<Skill> skillList = mapper.readValue(skills, new TypeReference<>() {
+            });
+
+            Long toRemove = skillList
+                    .stream()
+                    .filter(i -> i.getSkill().equals("Test 3"))
+                    .toList()
+                    .get(0)
+                    .getId();
+
+            mockMvc.perform(
+                            delete("/api/resume/skill/" + toRemove)
+                    )
+                    .andExpect(status().isOk())
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(3)),
+                            jsonPath("$[*].skill", containsInAnyOrder("Test 1", "Test 2", "Test 4")),
+                            jsonPath("$[*].skill", not(contains("Test 3"))),
+                            jsonPath("$[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString(), SkillLevel.BASIC.toString(), SkillLevel.BASIC.toString())),
+                            jsonPath("$[*].skillLevel", not(contains(SkillLevel.INTERMEDIATE.toString())))
+                    );
+
+            JobSeeker jobSeeker = em
+                    .createQuery("select j from JobSeeker j where j.id = :id", JobSeeker.class)
+                    .setParameter("id", account.getId())
+                    .getSingleResult();
+
+            Resume resume = jobSeeker.getResume();
+
+            assertNotNull(resume, "No resume found in the database");
+            assertEquals(3, resume.getSkills().size(), "The amount of skills isn't the expected amount");
+        }
+
+        @Test
+        @Transactional
+        void getSkills() throws Exception {
+            Account account = createJobSeekerAndLogin();
+            persistSkill("Test 1", SkillLevel.EXPERT);
+            persistSkill("Test 2", SkillLevel.BASIC);
+            persistSkill("Test 3", SkillLevel.INTERMEDIATE);
+            persistSkill("Test 4", SkillLevel.BASIC);
+
+            mockMvc.perform(
+                            get("/api/resume/skill/")
+                    )
+                    .andExpect(status().isOk())
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(4)),
+                            jsonPath("$[*].skill", containsInAnyOrder("Test 1", "Test 2", "Test 3", "Test 4")),
+                            jsonPath("$[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString(), SkillLevel.BASIC.toString(), SkillLevel.INTERMEDIATE.toString(), SkillLevel.BASIC.toString()))
+                    );
+        }
+    }
+
+    @Nested
+    class LanguageTests {
+
+        private ResultActions persistLanguage(String language, SkillLevel level) throws Exception {
+            LanguageCreateDto languageCreateDto = new LanguageCreateDto();
+            languageCreateDto.setLanguage(language);
+            languageCreateDto.setSkillLevel(level);
+
+            return mockMvc.perform(
+                            post("/api/resume/language")
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .content(asJsonString(languageCreateDto))
+                    )
+                    .andExpect(status().isOk());
+        }
+
+        @Test
+        @Transactional
+        void addLanguage() throws Exception {
+            Account account = createJobSeekerAndLogin();
+
+            persistLanguage("Test 1", SkillLevel.EXPERT)
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(1)),
+                            jsonPath("$[*].language", containsInAnyOrder("Test 1")),
+                            jsonPath("$[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString()))
+                    );
+            persistLanguage("Test 2", SkillLevel.BASIC)
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(2)),
+                            jsonPath("$[*].language", containsInAnyOrder("Test 1", "Test 2")),
+                            jsonPath("$[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString(), SkillLevel.BASIC.toString()))
+                    );
+
+            JobSeeker jobSeeker = em
+                    .createQuery("select j from JobSeeker j where j.id = :id", JobSeeker.class)
+                    .setParameter("id", account.getId())
+                    .getSingleResult();
+
+            Resume resume = jobSeeker.getResume();
+
+            assertNotNull(resume, "No resume found in the database");
+            assertEquals(2, resume.getLanguages().size(), "The amount of languages isn't the expected amount");
+        }
+
+        @Test
+        @Transactional
+        void removeLanguage() throws Exception {
+            Account account = createJobSeekerAndLogin();
+            persistLanguage("Test 1", SkillLevel.EXPERT);
+            persistLanguage("Test 2", SkillLevel.BASIC);
+            persistLanguage("Test 3", SkillLevel.INTERMEDIATE);
+            String languages = persistLanguage("Test 4", SkillLevel.BASIC)
+                    .andReturn()
+                    .getResponse()
+                    .getContentAsString();
+
+            List<Language> languageList = mapper.readValue(languages, new TypeReference<>() {
+            });
+
+            Long toRemove = languageList
+                    .stream()
+                    .filter(i -> i.getLanguage().equals("Test 3"))
+                    .toList()
+                    .get(0)
+                    .getId();
+
+            mockMvc.perform(
+                            delete("/api/resume/language/" + toRemove)
+                    )
+                    .andExpect(status().isOk())
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(3)),
+                            jsonPath("$[*].language", containsInAnyOrder("Test 1", "Test 2", "Test 4")),
+                            jsonPath("$[*].language", not(contains("Test 3"))),
+                            jsonPath("$[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString(), SkillLevel.BASIC.toString(), SkillLevel.BASIC.toString())),
+                            jsonPath("$[*].skillLevel", not(contains(SkillLevel.INTERMEDIATE.toString())))
+                    );
+
+            JobSeeker jobSeeker = em
+                    .createQuery("select j from JobSeeker j where j.id = :id", JobSeeker.class)
+                    .setParameter("id", account.getId())
+                    .getSingleResult();
+
+            Resume resume = jobSeeker.getResume();
+
+            assertNotNull(resume, "No resume found in the database");
+            assertEquals(3, resume.getLanguages().size(), "The amount of languages isn't the expected amount");
+        }
+
+        @Test
+        @Transactional
+        void getLanguages() throws Exception {
+            Account account = createJobSeekerAndLogin();
+            persistLanguage("Test 1", SkillLevel.EXPERT);
+            persistLanguage("Test 2", SkillLevel.BASIC);
+            persistLanguage("Test 3", SkillLevel.INTERMEDIATE);
+            persistLanguage("Test 4", SkillLevel.BASIC);
+
+            mockMvc.perform(
+                            get("/api/resume/language/")
+                    )
+                    .andExpect(status().isOk())
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(4)),
+                            jsonPath("$[*].language", containsInAnyOrder("Test 1", "Test 2", "Test 3", "Test 4")),
+                            jsonPath("$[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString(), SkillLevel.BASIC.toString(), SkillLevel.INTERMEDIATE.toString(), SkillLevel.BASIC.toString()))
+                    );
+        }
+    }
+
+    @Nested
+    class EducationTests {
+
+        private ResultActions persistEducation(EducationCreateDto educationCreateDto) throws Exception {
+            return mockMvc.perform(
+                            post("/api/resume/education")
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .content(mapper.writeValueAsString(educationCreateDto))
+                    )
+                    .andExpect(status().isOk());
+        }
+
+        private List<EducationCreateDto> createEducationCreateDtoList() {
+            List<EducationCreateDto> educationDtoList = new ArrayList<>();
+
+            EducationCreateDto educationDto1 = new EducationCreateDto();
+            educationDto1.setDegree("Masters");
+            educationDto1.setDescription("Desc1");
+            educationDto1.setProgram("Applied Engineering");
+            educationDto1.setSchool("UA");
+            educationDto1.setStartDate(LocalDate.of(2020, 9, 21));
+            educationDto1.setEndDate(LocalDate.of(2021, 6, 30));
+            educationDtoList.add(educationDto1);
+
+            EducationCreateDto educationDto2 = new EducationCreateDto();
+            educationDto2.setDegree("Bachelors");
+            educationDto2.setDescription("Desc2");
+            educationDto2.setProgram("Applied Engineering");
+            educationDto2.setSchool("UA");
+            educationDto2.setStartDate(LocalDate.of(2017, 9, 21));
+            educationDto2.setEndDate(LocalDate.of(2020, 6, 30));
+            educationDtoList.add(educationDto2);
+
+            return educationDtoList;
+        }
+
+        @Test
+        @Transactional
+        void addEducation() throws Exception {
+            Account account = createJobSeekerAndLogin();
+
+            persistEducation(createEducationCreateDtoList().get(0))
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(1)),
+                            jsonPath("$[*].degree", containsInAnyOrder("Masters")),
+                            jsonPath("$[*].program", containsInAnyOrder("Applied Engineering")),
+                            jsonPath("$[*].school", containsInAnyOrder("UA")),
+                            jsonPath("$[*].startDate", containsInAnyOrder("2020-09-21")),
+                            jsonPath("$[*].endDate", containsInAnyOrder("2021-06-30")),
+                            jsonPath("$[*].description", containsInAnyOrder("Desc1"))
+                    );
+            persistEducation(createEducationCreateDtoList().get(1))
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(2)),
+                            jsonPath("$[*].degree", containsInAnyOrder("Masters", "Bachelors")),
+                            jsonPath("$[*].program", containsInAnyOrder("Applied Engineering", "Applied Engineering")),
+                            jsonPath("$[*].school", containsInAnyOrder("UA", "UA")),
+                            jsonPath("$[*].startDate", containsInAnyOrder("2020-09-21", "2017-09-21")),
+                            jsonPath("$[*].endDate", containsInAnyOrder("2021-06-30", "2020-06-30")),
+                            jsonPath("$[*].description", containsInAnyOrder("Desc1", "Desc2"))
+                    );
+
+            JobSeeker jobSeeker = em
+                    .createQuery("select j from JobSeeker j where j.id = :id", JobSeeker.class)
+                    .setParameter("id", account.getId())
+                    .getSingleResult();
+
+            Resume resume = jobSeeker.getResume();
+
+            assertNotNull(resume, "No resume found in the database");
+            assertEquals(2, resume.getEducationList().size(), "The amount of education entries isn't the expected amount");
+        }
+
+        @Test
+        @Transactional
+        void removeEducation() throws Exception {
+            Account account = createJobSeekerAndLogin();
+            persistEducation(createEducationCreateDtoList().get(0));
+            String languages = persistEducation(createEducationCreateDtoList().get(1))
+                    .andReturn()
+                    .getResponse()
+                    .getContentAsString();
+
+            List<Education> educationList = mapper.readValue(languages, new TypeReference<>() {
+            });
+
+            Long toRemove = educationList
+                    .stream()
+                    .filter(i -> i.getDegree().equals("Bachelors"))
+                    .toList()
+                    .get(0)
+                    .getId();
+
+            mockMvc.perform(
+                            delete("/api/resume/education/" + toRemove)
+                    )
+                    .andExpect(status().isOk())
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(1)),
+                            jsonPath("$[*].degree", containsInAnyOrder("Masters")),
+                            jsonPath("$[*].program", containsInAnyOrder("Applied Engineering")),
+                            jsonPath("$[*].school", containsInAnyOrder("UA")),
+                            jsonPath("$[*].startDate", containsInAnyOrder("2020-09-21")),
+                            jsonPath("$[*].endDate", containsInAnyOrder("2021-06-30")),
+                            jsonPath("$[*].description", containsInAnyOrder("Desc1"))
+                    );
+
+            JobSeeker jobSeeker = em
+                    .createQuery("select j from JobSeeker j where j.id = :id", JobSeeker.class)
+                    .setParameter("id", account.getId())
+                    .getSingleResult();
+
+            Resume resume = jobSeeker.getResume();
+
+            assertNotNull(resume, "No resume found in the database");
+            assertEquals(1, resume.getEducationList().size(), "The amount of education entries isn't the expected amount");
+        }
+
+        @Test
+        @Transactional
+        void getEducationList() throws Exception {
+            Account account = createJobSeekerAndLogin();
+            persistEducation(createEducationCreateDtoList().get(0));
+            persistEducation(createEducationCreateDtoList().get(1));
+
+            mockMvc.perform(
+                            get("/api/resume/education/")
+                    )
+                    .andExpect(status().isOk())
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(2)),
+                            jsonPath("$[*].degree", containsInAnyOrder("Masters", "Bachelors")),
+                            jsonPath("$[*].program", containsInAnyOrder("Applied Engineering", "Applied Engineering")),
+                            jsonPath("$[*].school", containsInAnyOrder("UA", "UA")),
+                            jsonPath("$[*].startDate", containsInAnyOrder("2020-09-21", "2017-09-21")),
+                            jsonPath("$[*].endDate", containsInAnyOrder("2021-06-30", "2020-06-30")),
+                            jsonPath("$[*].description", containsInAnyOrder("Desc1", "Desc2"))
+                    );
+        }
+    }
+
+    @Nested
+    class ExperienceTests {
+
+        private ResultActions persistExperience(ExperienceCreateDto experienceCreateDto) throws Exception {
+            return mockMvc.perform(
+                            post("/api/resume/experience")
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .content(mapper.writeValueAsString(experienceCreateDto))
+                    )
+                    .andExpect(status().isOk());
+        }
+
+        private List<ExperienceCreateDto> createExperienceDtoList() {
+            List<ExperienceCreateDto> experienceDtoList = new ArrayList<>();
+
+            ExperienceCreateDto experienceDto1 = new ExperienceCreateDto();
+            experienceDto1.setCompany("Inetum-Realdolmen");
+            experienceDto1.setDescription("Desc1");
+            experienceDto1.setCurrentJob(true);
+            experienceDto1.setStartDate(LocalDate.of(2021, 12, 1));
+            experienceDto1.setFunctionCategory("Software consultant");
+            experienceDto1.setIndustry("IT");
+            experienceDto1.setJobTitle("Junior Java consultant");
+            experienceDtoList.add(experienceDto1);
+
+            ExperienceCreateDto experienceDto2 = new ExperienceCreateDto();
+            experienceDto2.setCompany("VDAB");
+            experienceDto2.setDescription("Desc2");
+            experienceDto2.setCurrentJob(false);
+            experienceDto2.setStartDate(LocalDate.of(2021, 9, 1));
+            experienceDto2.setEndDate(LocalDate.of(2021, 12, 1));
+            experienceDto2.setFunctionCategory("Trainee");
+            experienceDto2.setIndustry("IT");
+            experienceDto2.setJobTitle("Junior Java consultant");
+            experienceDtoList.add(experienceDto2);
+
+            return experienceDtoList;
+        }
+
+        @Test
+        @Transactional
+        void addExperience() throws Exception {
+            Account account = createJobSeekerAndLogin();
+
+            persistExperience(createExperienceDtoList().get(0))
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(1)),
+                            jsonPath("$[0].jobTitle", is("Junior Java consultant")),
+                            jsonPath("$[0].functionCategory", is("Software consultant")),
+                            jsonPath("$[0].company", is("Inetum-Realdolmen")),
+                            jsonPath("$[0].industry", is("IT")),
+                            jsonPath("$[0].startDate", is("2021-12-01")),
+                            jsonPath("$[0].endDate", nullValue()),
+                            jsonPath("$[0].currentJob", is(true)),
+                            jsonPath("$[0].description", is("Desc1"))
+                    );
+            persistExperience(createExperienceDtoList().get(1))
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(2)),
+                            jsonPath("$[*].jobTitle", containsInAnyOrder("Junior Java consultant", "Junior Java consultant")),
+                            jsonPath("$[*].functionCategory", containsInAnyOrder("Software consultant", "Trainee")),
+                            jsonPath("$[*].company", containsInAnyOrder("Inetum-Realdolmen", "VDAB")),
+                            jsonPath("$[*].industry", containsInAnyOrder("IT", "IT")),
+                            jsonPath("$[*].startDate", containsInAnyOrder("2021-12-01", "2021-09-01")),
+                            jsonPath("$[*].endDate", containsInAnyOrder(null, "2021-12-01")),
+                            jsonPath("$[*].currentJob", containsInAnyOrder(true, false)),
+                            jsonPath("$[*].description", containsInAnyOrder("Desc1", "Desc2"))
+                    );
+
+            JobSeeker jobSeeker = em
+                    .createQuery("select j from JobSeeker j where j.id = :id", JobSeeker.class)
+                    .setParameter("id", account.getId())
+                    .getSingleResult();
+
+            Resume resume = jobSeeker.getResume();
+
+            assertNotNull(resume, "No resume found in the database");
+            assertEquals(2, resume.getExperienceList().size(), "The amount of experience entries isn't the expected amount");
+        }
+
+        @Test
+        @Transactional
+        void removeExperience() throws Exception {
+            Account account = createJobSeekerAndLogin();
+            persistExperience(createExperienceDtoList().get(0));
+            String languages = persistExperience(createExperienceDtoList().get(1))
+                    .andReturn()
+                    .getResponse()
+                    .getContentAsString();
+
+            List<Experience> educationList = mapper.readValue(languages, new TypeReference<>() {
+            });
+
+            Long toRemove = educationList
+                    .stream()
+                    .filter(i -> i.getCompany().equals("VDAB"))
+                    .toList()
+                    .get(0)
+                    .getId();
+
+            mockMvc.perform(
+                            delete("/api/resume/experience/" + toRemove)
+                    )
+                    .andExpect(status().isOk())
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(1)),
+                            jsonPath("$[0].jobTitle", is("Junior Java consultant")),
+                            jsonPath("$[0].functionCategory", is("Software consultant")),
+                            jsonPath("$[0].company", is("Inetum-Realdolmen")),
+                            jsonPath("$[0].industry", is("IT")),
+                            jsonPath("$[0].startDate", is("2021-12-01")),
+                            jsonPath("$[0].endDate", nullValue()),
+                            jsonPath("$[0].currentJob", is(true)),
+                            jsonPath("$[0].description", is("Desc1"))
+                    );
+
+            JobSeeker jobSeeker = em
+                    .createQuery("select j from JobSeeker j where j.id = :id", JobSeeker.class)
+                    .setParameter("id", account.getId())
+                    .getSingleResult();
+
+            Resume resume = jobSeeker.getResume();
+
+            assertNotNull(resume, "No resume found in the database");
+            assertEquals(1, resume.getExperienceList().size(), "The amount of experience entries isn't the expected amount");
+        }
+
+        @Test
+        @Transactional
+        void getExperienceList() throws Exception {
+            Account account = createJobSeekerAndLogin();
+            persistExperience(createExperienceDtoList().get(0));
+            persistExperience(createExperienceDtoList().get(1));
+
+            mockMvc.perform(
+                            get("/api/resume/experience/")
+                    )
+                    .andExpect(status().isOk())
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(2)),
+                            jsonPath("$[*].jobTitle", containsInAnyOrder("Junior Java consultant", "Junior Java consultant")),
+                            jsonPath("$[*].functionCategory", containsInAnyOrder("Software consultant", "Trainee")),
+                            jsonPath("$[*].company", containsInAnyOrder("Inetum-Realdolmen", "VDAB")),
+                            jsonPath("$[*].industry", containsInAnyOrder("IT", "IT")),
+                            jsonPath("$[*].startDate", containsInAnyOrder("2021-12-01", "2021-09-01")),
+                            jsonPath("$[*].endDate", containsInAnyOrder(null, "2021-12-01")),
+                            jsonPath("$[*].currentJob", containsInAnyOrder(true, false)),
+                            jsonPath("$[*].description", containsInAnyOrder("Desc1", "Desc2"))
+                    );
+        }
+    }
+
+    @Nested
+    class SummaryTests {
+
+        private ResultActions persistSummary(String summary) throws Exception {
+            SingleValueDto<String> summaryDto = new SingleValueDto<>();
+            summaryDto.setValue(summary);
+
+            return mockMvc.perform(
+                            post("/api/resume/summary")
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .content(asJsonString(summaryDto))
+                    )
+                    .andExpect(status().isOk());
+        }
+
+        @Test
+        @Transactional
+        void setSummary() throws Exception {
+            Account account = createJobSeekerAndLogin();
+
+            persistSummary("Test 1")
+                    .andExpectAll(
+                            jsonPath("$.value").isString(),
+                            jsonPath("$.value", is("Test 1"))
+                    );
+
+            JobSeeker jobSeeker = em
+                    .createQuery("select j from JobSeeker j where j.id = :id", JobSeeker.class)
+                    .setParameter("id", account.getId())
+                    .getSingleResult();
+
+            Resume resume = jobSeeker.getResume();
+
+            assertNotNull(resume, "No resume found in the database");
+            assertEquals("Test 1", resume.getSummary(), "The summary wasn't set correctly");
+        }
+
+        @Test
+        @Transactional
+        void getSummary() throws Exception {
+            createJobSeekerAndLogin();
+            persistSummary("Test 1");
+
+            mockMvc.perform(
+                            get("/api/resume/summary/")
+                    )
+                    .andExpect(status().isOk())
+                    .andExpectAll(
+                            jsonPath("$.value").isString(),
+                            jsonPath("$.value", is("Test 1"))
+                    );
+        }
+    }
+
+    @Nested
+    class StatusTests {
+
+        private ResultActions persistStatus(ResumeStatus status) throws Exception {
+            SingleValueDto<ResumeStatus> statusDto = new SingleValueDto<>();
+            statusDto.setValue(status);
+
+            return mockMvc.perform(
+                            post("/api/resume/status")
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .content(asJsonString(statusDto))
+                    )
+                    .andExpect(status().isOk());
+        }
+
+        @Test
+        @Transactional
+        void setStatus() throws Exception {
+            Account account = createJobSeekerAndLogin();
+
+            persistStatus(ResumeStatus.POSITIVE)
+                    .andExpectAll(
+                            jsonPath("$.value").isString(),
+                            jsonPath("$.value", is(ResumeStatus.POSITIVE.toString()))
+                    );
+
+            JobSeeker jobSeeker = em
+                    .createQuery("select j from JobSeeker j where j.id = :id", JobSeeker.class)
+                    .setParameter("id", account.getId())
+                    .getSingleResult();
+
+            Resume resume = jobSeeker.getResume();
+
+            assertNotNull(resume);
+            assertEquals(ResumeStatus.POSITIVE, resume.getStatus(), "The status wasn't set correctly");
+        }
+
+        @Test
+        @Transactional
+        void getStatus() throws Exception {
+            createJobSeekerAndLogin();
+            persistStatus(ResumeStatus.NEUTRAL);
+
+            mockMvc.perform(
+                            get("/api/resume/status/")
+                    )
+                    .andExpect(status().isOk())
+                    .andExpectAll(
+                            jsonPath("$.value").isString(),
+                            jsonPath("$.value", is(ResumeStatus.NEUTRAL.toString()))
+                    );
+        }
+    }
+}

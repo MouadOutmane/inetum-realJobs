@@ -9,8 +9,11 @@ public class JobSeeker extends Account {
     @JoinColumn(
             name = "resume_id"
     )
-    @OneToOne(fetch = FetchType.LAZY)
-    private Resume resume = new Resume();
+    @OneToOne(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    private Resume resume =  new Resume();
 
     public Resume getResume() {
         return resume;

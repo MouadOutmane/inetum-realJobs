@@ -19,8 +19,8 @@ export class SkillListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  deleteItem(index: number) {
-    this.deleteEvent.emit(index);
+  deleteItem(id: number) {
+    this.deleteEvent.emit(id);
   }
 
   get basicSkills(): { skill: Skill, index: number }[] {

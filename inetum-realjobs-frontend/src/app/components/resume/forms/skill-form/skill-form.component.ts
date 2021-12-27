@@ -55,9 +55,9 @@ export class SkillFormComponent implements OnInit {
     return throwError(() => error.message);
   }
 
-  deleteSkill(index: number) {
+  deleteSkill(id: number) {
     this.resumeService
-      .removeSkill(index)
+      .removeSkill(id)
       .pipe(catchError((err) => this.onError(err)))
       .subscribe(skills => {
         this.skills = skills;

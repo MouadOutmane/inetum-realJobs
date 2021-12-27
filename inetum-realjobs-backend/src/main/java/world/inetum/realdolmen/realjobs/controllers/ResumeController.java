@@ -37,11 +37,11 @@ public class ResumeController {
                 .toList();
     }
 
-    @DeleteMapping("/skill/{index}")
+    @DeleteMapping("/skill/{id}")
     @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
-    public List<SkillReadDto> removeSkill(@Valid @PathVariable("index") int index) {
+    public List<SkillReadDto> removeSkill(@Valid @PathVariable("id") long id) {
         return resumeService
-                .removeSkill(index)
+                .removeSkill(id)
                 .stream()
                 .map(resumeMapper::toDto)
                 .toList();
@@ -67,11 +67,11 @@ public class ResumeController {
                 .toList();
     }
 
-    @DeleteMapping("/language/{index}")
+    @DeleteMapping("/language/{id}")
     @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
-    public List<LanguageReadDto> removeLanguage(@Valid @PathVariable("index") int index) {
+    public List<LanguageReadDto> removeLanguage(@Valid @PathVariable("id") long id) {
         return resumeService
-                .removeLanguage(index)
+                .removeLanguage(id)
                 .stream()
                 .map(resumeMapper::toDto)
                 .toList();
@@ -97,11 +97,11 @@ public class ResumeController {
                 .toList();
     }
 
-    @DeleteMapping("/education/{index}")
+    @DeleteMapping("/education/{id}")
     @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
-    public List<EducationReadDto> removeEducation(@Valid @PathVariable("index") int index) {
+    public List<EducationReadDto> removeEducation(@Valid @PathVariable("id") long id) {
         return resumeService
-                .removeEducation(index)
+                .removeEducation(id)
                 .stream()
                 .map(resumeMapper::toDto)
                 .toList();
@@ -127,11 +127,11 @@ public class ResumeController {
                 .toList();
     }
 
-    @DeleteMapping("/experience/{index}")
+    @DeleteMapping("/experience/{id}")
     @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
-    public List<ExperienceReadDto> removeExperience(@Valid @PathVariable("index") int index) {
+    public List<ExperienceReadDto> removeExperience(@Valid @PathVariable("id") long id) {
         return resumeService
-                .removeExperience(index)
+                .removeExperience(id)
                 .stream()
                 .map(resumeMapper::toDto)
                 .toList();

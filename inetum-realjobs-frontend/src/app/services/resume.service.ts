@@ -22,8 +22,8 @@ export class ResumeService {
     return this.http.post<Skill[]>(baseUrl + "skill", skill);
   }
 
-  removeSkill(index: number): Observable<Skill[]> {
-    return this.http.delete<Skill[]>(baseUrl + "skill/" + index);
+  removeSkill(id: number): Observable<Skill[]> {
+    return this.http.delete<Skill[]>(baseUrl + "skill/" + id);
   }
 
   getSkills(): Observable<Skill[]> {
@@ -34,8 +34,8 @@ export class ResumeService {
     return this.http.post<Language[]>(baseUrl + "language", language);
   }
 
-  removeLanguage(index: number): Observable<Language[]> {
-    return this.http.delete<Language[]>(baseUrl + "language/" + index);
+  removeLanguage(id: number): Observable<Language[]> {
+    return this.http.delete<Language[]>(baseUrl + "language/" + id);
   }
 
   getLanguages(): Observable<Language[]> {
@@ -46,8 +46,8 @@ export class ResumeService {
     return this.http.post<Education[]>(baseUrl + "education", education);
   }
 
-  removeEducation(index: number): Observable<Education[]> {
-    return this.http.delete<Education[]>(baseUrl + "education/" + index);
+  removeEducation(id: number): Observable<Education[]> {
+    return this.http.delete<Education[]>(baseUrl + "education/" + id);
   }
 
   getEducationList(): Observable<Education[]> {
@@ -58,8 +58,8 @@ export class ResumeService {
     return this.http.post<Experience[]>(baseUrl + "experience", experience);
   }
 
-  removeExperience(index: number): Observable<Experience[]> {
-    return this.http.delete<Experience[]>(baseUrl + "experience/" + index);
+  removeExperience(id: number): Observable<Experience[]> {
+    return this.http.delete<Experience[]>(baseUrl + "experience/" + id);
   }
 
   getExperienceList(): Observable<Experience[]> {
