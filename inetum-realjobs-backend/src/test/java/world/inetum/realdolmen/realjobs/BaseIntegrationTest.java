@@ -1,9 +1,13 @@
 package world.inetum.realdolmen.realjobs;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 import world.inetum.realdolmen.realjobs.entities.*;
 import world.inetum.realdolmen.realjobs.entities.enums.Gender;
 
@@ -14,6 +18,15 @@ public abstract class BaseIntegrationTest extends BaseRepositoryTest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    protected MockMvc mockMvc;
+    @Autowired
+    private WebApplicationContext context;
+
+    @BeforeEach
+    void buildMockMvc() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+    }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     protected Recruiter persistRecruiter(String email, String password, Company company) {
