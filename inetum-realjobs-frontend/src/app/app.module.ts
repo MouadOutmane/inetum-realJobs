@@ -22,6 +22,8 @@ import {MessageModule} from "primeng/message";
 import {ToastModule} from "primeng/toast";
 import {InputMaskModule} from "primeng/inputmask";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
+import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
+import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
     UserDetailsComponent,
     RegisterComponent,
     NotFoundComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

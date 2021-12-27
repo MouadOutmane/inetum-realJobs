@@ -197,4 +197,9 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
         assertEquals(SignUpExceptionMessage.INCORRECT_DATA, exception.getExceptionMessage());
     }
 
+    @Test
+    void forgotPassword() {
+        fail("Not yet implemented!");
+    }
+
 }
