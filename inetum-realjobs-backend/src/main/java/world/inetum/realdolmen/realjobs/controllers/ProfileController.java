@@ -27,15 +27,15 @@ public class ProfileController {
     }
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getPersonalInfo(@PathVariable(value = "id") Long id) {
-        //TODO check if logged in user id is the same as the id
-        Optional<Account> accountPersonalInfo = this.accountService.getPersonalInfo(id);
+    @GetMapping("/{email}")
+    public ResponseEntity<?> getPersonalInfo(@PathVariable(value = "email") String email) {
+        // TODO check if logged in user id is the same as the id
+        Optional<Account> accountPersonalInfo = this.accountService.getPersonalInfo(email);
         if (accountPersonalInfo.isPresent()) {
             ProfileDto profileDto = profileMapper.toDto(accountPersonalInfo.get());
             return new ResponseEntity(profileDto, HttpStatus.OK);
         }
-        //TODO user not found
+        // TODO user not found
         throw new IllegalArgumentException();
     }
 

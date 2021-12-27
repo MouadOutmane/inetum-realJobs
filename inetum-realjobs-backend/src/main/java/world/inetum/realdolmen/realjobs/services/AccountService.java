@@ -73,7 +73,7 @@ public class AccountService {
         account.setProfilePicture(signUpRequest.getProfilePicture());
     }
 
-    public Optional<Account> getPersonalInfo(Long id) {
-        return this.accountRepository.getPersonalInformationById(id);
+    public Optional<Account> getPersonalInfo(String email) {
+        return this.accountRepository.getPersonalInformationById(email);
     }
 }

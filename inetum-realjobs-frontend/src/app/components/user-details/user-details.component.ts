@@ -7,6 +7,8 @@ import {ProfileService} from "../../services/profile-service";
 import {Profile} from "../../models/profile.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ConfirmationService} from "primeng/api";
+import {AuthenticationService} from "../../services/authentication.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -22,13 +24,15 @@ export class UserDetailsComponent implements OnInit {
   profileFormLoading: boolean = false;
   deleteLoading: boolean = false;
   loading: boolean = true;
-   error: boolean;
-   errorMessage: string;
+  error: boolean;
+  errorMessage: string;
 
   constructor(private countryService: CountryService,
               private profileService: ProfileService,
               private formBuilder: FormBuilder,
-              private confirmationService: ConfirmationService) {
+              private confirmationService: ConfirmationService,
+              private authService: AuthenticationService,
+              private router: Router) {
 
     this.profileForm = this.formBuilder.group({
       firstName: ["", [Validators.required, Validators.pattern("^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ ]+$")]],
@@ -99,6 +103,8 @@ export class UserDetailsComponent implements OnInit {
       icon: 'pi pi-trash',
       accept: () => {
         this.deleteLoading = true;
+        this.authService.logout();
+        this.router.navigate(["login"]);
       }
     })
   }
