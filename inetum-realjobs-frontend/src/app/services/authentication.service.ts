@@ -3,6 +3,7 @@ import {Injectable} from "@angular/core";
 import {Observable, tap} from "rxjs";
 import {User} from "../models/user.model";
 import * as moment from "moment";
+import {ValidationErrors, Validators} from "@angular/forms";
 
 const baseUrl = "http://localhost:8080/api/authentication/";
 
@@ -25,6 +26,10 @@ export class AuthenticationService {
 
   requestReset(body: any): Observable<string> {
     return this.http.post<string>(baseUrl + "forgotPassword", body);
+  }
+
+  get passwordValidators(): (ValidationErrors | null)[] {
+    return [Validators.required, Validators.minLength(4)];
   }
 
   logout() {

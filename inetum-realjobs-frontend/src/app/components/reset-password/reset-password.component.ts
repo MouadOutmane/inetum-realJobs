@@ -24,7 +24,7 @@ export class ResetPasswordComponent implements OnInit {
     this.route.queryParams.subscribe(params => this.code = params["code"]);
     this.forgotPasswordForm = this.formBuilder.group(
       {
-        password: ["", [Validators.required]],
+        password: ["", [...this.authenticationService.passwordValidators]],
         password_repeat: ["", [Validators.required]],
       },
       {validators: this.requireDuplicatePassword()});
