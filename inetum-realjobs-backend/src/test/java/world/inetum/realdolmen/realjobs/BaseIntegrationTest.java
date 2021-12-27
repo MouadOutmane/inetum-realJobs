@@ -1,6 +1,10 @@
 package world.inetum.realdolmen.realjobs;
 
+import com.icegreen.greenmail.configuration.GreenMailConfiguration;
+import com.icegreen.greenmail.junit5.GreenMailExtension;
+import com.icegreen.greenmail.util.ServerSetupTest;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,12 +20,17 @@ import java.time.LocalDate;
 @SuppressWarnings({"UnusedReturnValue", "SameParameterValue", "unused"})
 public abstract class BaseIntegrationTest extends BaseRepositoryTest {
 
+    @RegisterExtension
+    protected static GreenMailExtension greenMail = new GreenMailExtension(ServerSetupTest.SMTP)
+            .withConfiguration(GreenMailConfiguration.aConfig().withUser("mail", "test"))
+            .withPerMethodLifecycle(false);
+
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    protected MockMvc mockMvc;
     @Autowired
     private WebApplicationContext context;
+
+    protected MockMvc mockMvc;
 
     @BeforeEach
     void buildMockMvc() {
@@ -73,5 +82,6 @@ public abstract class BaseIntegrationTest extends BaseRepositoryTest {
         account.setMobilePhone(null);
         account.setProfilePicture("picture");
     }
+
 
 }
