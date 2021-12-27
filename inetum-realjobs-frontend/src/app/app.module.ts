@@ -10,8 +10,6 @@ import {UserDetailsComponent} from "./components/user-details/user-details.compo
 import {UniversalAppInterceptor} from "src/app/interceptor/universalAppInterceptor";
 import {AuthGuardService} from "./guard/authGuard.service";
 import {RegisterComponent} from "./components/register/register.component";
-import {PasswordModule} from "primeng/password";
-import {PanelModule} from "primeng/panel";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DropdownModule} from "primeng/dropdown";
 import {CalendarModule} from "primeng/calendar";
@@ -23,6 +21,9 @@ import {ToastModule} from "primeng/toast";
 import {InputMaskModule} from "primeng/inputmask";
 import {UrlInterceptor} from "./interceptor/url.interceptor";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
+import {VacancyDetailsComponent} from "./components/vacancy-details/vacancy-details.component";
+import {ErrorHandlerComponent} from "./components/error-handler/error-handler.component";
+import {PrimengImportsModule} from "./primeng-imports";
 import {ResumeCreateComponent} from "./components/resume/resume-create/resume-create.component";
 import {InputTextModule} from "primeng/inputtext";
 import {LanguageFormComponent} from "./components/resume/forms/language-form/language-form.component";
@@ -55,6 +56,8 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
     UserDetailsComponent,
     RegisterComponent,
     NotFoundComponent,
+    VacancyDetailsComponent,
+    ErrorHandlerComponent,
     ResumeCreateComponent,
     ExperienceFormComponent,
     SkillFormComponent,
@@ -69,33 +72,42 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
     StatusFormComponent,
     SummaryFormComponent,
   ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        PasswordModule,
-        PanelModule,
-        DropdownModule,
-        CalendarModule,
-        RadioButtonModule,
-        MessagesModule,
-        MessageModule,
-        BrowserAnimationsModule,
-        FileUploadModule,
-        ToastModule,
-        InputMaskModule,
-        routing,
-        InputTextModule,
-        CheckboxModule,
-        CardModule,
-        RippleModule,
-        StyleClassModule,
-        ChipModule,
-        InputTextareaModule,
-        ConfirmPopupModule,
-        ConfirmDialogModule,
-    ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    PasswordModule,
+    PanelModule,
+    DropdownModule,
+    CalendarModule,
+    RadioButtonModule,
+    MessagesModule,
+    MessageModule,
+    BrowserAnimationsModule,
+    FileUploadModule,
+    ToastModule,
+    InputMaskModule,
+    routing,
+    InputTextModule,
+    CheckboxModule,
+    CardModule,
+    RippleModule,
+    StyleClassModule,
+    ChipModule,
+    InputTextareaModule,
+    ConfirmPopupModule,
+    ConfirmDialogModule,
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    routing,
+    PrimengImportsModule,
+  ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: UniversalAppInterceptor, multi: true},

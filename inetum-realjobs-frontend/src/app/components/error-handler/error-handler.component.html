@@ -1,0 +1,8 @@
+<app-not-found *ngIf="code ===404; else errorMessage"></app-not-found>
+<ng-template #errorMessage>
+  <div class="col-12 text-center mt-3">
+    <div class="alert alert-danger">
+      {{ message }}
+    </div>
+  </div>
+</ng-template>

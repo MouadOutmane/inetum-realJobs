@@ -1,26 +1,46 @@
 package world.inetum.realdolmen.realjobs.payload.dtos;
 
-import javax.validation.constraints.NotEmpty;
+import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
 
+import java.time.LocalDateTime;
 
 public class VacancyReadDto {
 
-    @NotEmpty(message = "Please provide a function title")
+    private long id;
+
     private String functionTitle;
-
-    @NotEmpty(message = "Please provide a contract type")
-    private String contractType;
-
-    @NotEmpty(message = "Please provide a city")
-    private String city;
-
-    @NotEmpty(message = "Please provide an offer")
+    private ContractType contractType;
+    private String functionDescription;
+    private int requiredYearsOfExperience;
+    private String requirements;
     private String offer;
+    private LocalDateTime postedOn;
 
-    @NotEmpty(message = "Please provide a company name")
+    // Address
+    private String streetName;
+    private String houseNumber;
+    private String box;
+    private String city;
+    private String postalCode;
+    private String country;
+
+    // Company
     private String companyName;
+    private String companyIndustry;
+    private String companyCountry;
+    private String companyCity;
+    private String companyLogo;
 
-    private String postingDate;
+    // Recruiter
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getFunctionTitle() {
         return functionTitle;
@@ -30,20 +50,36 @@ public class VacancyReadDto {
         this.functionTitle = functionTitle;
     }
 
-    public String getContractType() {
+    public ContractType getContractType() {
         return contractType;
     }
 
-    public void setContractType(String contractType) {
+    public void setContractType(ContractType contractType) {
         this.contractType = contractType;
     }
 
-    public String getCity() {
-        return city;
+    public String getFunctionDescription() {
+        return functionDescription;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setFunctionDescription(String functionDescription) {
+        this.functionDescription = functionDescription;
+    }
+
+    public int getRequiredYearsOfExperience() {
+        return requiredYearsOfExperience;
+    }
+
+    public void setRequiredYearsOfExperience(int requiredYearsOfExperience) {
+        this.requiredYearsOfExperience = requiredYearsOfExperience;
+    }
+
+    public String getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(String requirements) {
+        this.requirements = requirements;
     }
 
     public String getOffer() {
@@ -54,6 +90,62 @@ public class VacancyReadDto {
         this.offer = offer;
     }
 
+    public LocalDateTime getPostedOn() {
+        return postedOn;
+    }
+
+    public void setPostedOn(LocalDateTime postedOn) {
+        this.postedOn = postedOn;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public String getBox() {
+        return box;
+    }
+
+    public void setBox(String box) {
+        this.box = box;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public String getCompanyName() {
         return companyName;
     }
@@ -62,11 +154,36 @@ public class VacancyReadDto {
         this.companyName = companyName;
     }
 
-    public String getPostingDate() {
-        return postingDate;
+    public String getCompanyIndustry() {
+        return companyIndustry;
     }
 
-    public void setPostingDate(String postingDate) {
-        this.postingDate = postingDate;
+    public void setCompanyIndustry(String companyIndustry) {
+        this.companyIndustry = companyIndustry;
     }
+
+    public String getCompanyCountry() {
+        return companyCountry;
+    }
+
+    public void setCompanyCountry(String companyCountry) {
+        this.companyCountry = companyCountry;
+    }
+
+    public String getCompanyCity() {
+        return companyCity;
+    }
+
+    public void setCompanyCity(String companyCity) {
+        this.companyCity = companyCity;
+    }
+
+    public String getCompanyLogo() {
+        return companyLogo;
+    }
+
+    public void setCompanyLogo(String companyLogo) {
+        this.companyLogo = companyLogo;
+    }
+
 }
