@@ -43,11 +43,11 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     }
 
     @ExceptionHandler(EndpointException.class)
-    protected ResponseEntity<Object> handleEndpointException(EndpointException ex, WebRequest request) {
-        String bodyOfResponse = ex.getExceptionMessage().getMessage();
-        return handleExceptionInternal(ex, new HashMap<>() {{
+    protected ResponseEntity<Object> handleEndpointException(EndpointException exception, WebRequest request) {
+        String bodyOfResponse = exception.getExceptionMessage().getMessage();
+        return handleExceptionInternal(exception, new HashMap<>() {{
                     put("message", bodyOfResponse);
                 }},
-                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+                new HttpHeaders(), exception.getStatus(), request);
     }
 }

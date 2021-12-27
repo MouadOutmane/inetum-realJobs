@@ -3,6 +3,7 @@ package world.inetum.realdolmen.realjobs.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,7 +56,7 @@ public class AccountService {
     @Transactional
     public void forgotPassword(ForgotRequest forgotRequest) throws MessagingException {
         Account account = accountRepository.findByEmail(forgotRequest.getEmail())
-                .orElseThrow(() -> new EndpointException(ResetPasswordExceptionMessage.EMAIL_NOT_CORRECT));
+                .orElseThrow(() -> new EndpointException(HttpStatus.NOT_FOUND, ResetPasswordExceptionMessage.EMAIL_NOT_CORRECT));
 
         UUID code;
         do {
@@ -72,11 +73,11 @@ public class AccountService {
     @Transactional
     public void resetPassword(ResetRequest resetRequest) {
         ResetCode resetCode = resetCodeRepository.findById(resetRequest.getCode())
-                .orElseThrow(() -> new EndpointException(ResetPasswordExceptionMessage.INVALID_CODE));
+                .orElseThrow(() -> new EndpointException(HttpStatus.NOT_FOUND, ResetPasswordExceptionMessage.INVALID_CODE));
 
         if (!resetCode.isValid(LocalDateTime.now())) {
             resetCodeRepository.delete(resetCode);
-            throw new EndpointException(ResetPasswordExceptionMessage.INVALID_CODE);
+            throw new EndpointException(HttpStatus.NOT_FOUND, ResetPasswordExceptionMessage.INVALID_CODE);
         }
 
         Account account = resetCode.getAccount();
