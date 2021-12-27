@@ -3,14 +3,38 @@
   justify-content: space-around;
 }
 
-.loginForm {
-  display: block;
-  margin: auto;
+#loginForm {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 0.5em;
+  max-width: 25em;
+  width: 100%;
+  border: 2px solid grey;
+  padding: 0.2em;
+  border-radius: 0.4em;
 }
 
-.row {
-  display: inline-flex;
-  justify-content: space-around;
+label {
+  grid-column: 1 / 2;
+}
+
+input {
+  grid-column: 2 / 3;
+}
+
+button {
+  grid-column: span 2;
+  margin-top: 0.5em;
+  border-radius: 0.4em;
+}
+
+.registerLink {
+  text-align: right;
+}
+
+h5{
+  text-align: center;
+  grid-column: span 2;
 }
 
 .error-message {
