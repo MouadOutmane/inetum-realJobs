@@ -13,7 +13,6 @@ import world.inetum.realdolmen.realjobs.exceptions.messages.SignUpExceptionMessa
 import world.inetum.realdolmen.realjobs.payload.security.SignupRequest;
 import world.inetum.realdolmen.realjobs.repositories.AccountRepository;
 import world.inetum.realdolmen.realjobs.repositories.CountryRepository;
-
 import java.util.Optional;
 
 @Service
@@ -37,19 +36,21 @@ public class AccountService {
             throw new EndpointException(SignUpExceptionMessage.EMAIL_ALREADY_USED);
         }
 
-        if (countryRepository.existsById(signUpRequest.getAddress().getCountry())) {
-            if (signUpRequest.getRole().equals(Role.JOB_SEEKER)) {
-                JobSeeker jobSeeker = new JobSeeker();
-                buildAccount(signUpRequest, jobSeeker);
-                accountRepository.save(jobSeeker);
-            } else if (signUpRequest.getRole().equals(Role.RECRUITER)) {
-                Recruiter recruiter = new Recruiter();
-                buildAccount(signUpRequest, recruiter);
-                accountRepository.save(recruiter);
-            } else {
-                throw new IllegalArgumentException("Non existing role");
-            }
+        if (!countryRepository.existsById(signUpRequest.getAddress().getCountry())) {
+            throw new EndpointException(SignUpExceptionMessage.INCORRECT_DATA);
         }
+
+        Account account;
+        if (signUpRequest.getRole().equals(Role.JOB_SEEKER)) {
+            account = new JobSeeker();
+        } else if (signUpRequest.getRole().equals(Role.RECRUITER)) {
+            account = new Recruiter();
+        } else {
+            throw new EndpointException(SignUpExceptionMessage.INCORRECT_DATA);
+        }
+
+        buildAccount(signUpRequest, account);
+        accountRepository.save(account);
     }
 
     private void buildAccount(SignupRequest signUpRequest, Account account) {

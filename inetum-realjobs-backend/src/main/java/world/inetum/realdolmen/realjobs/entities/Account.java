@@ -3,6 +3,7 @@ package world.inetum.realdolmen.realjobs.entities;
 import world.inetum.realdolmen.realjobs.entities.enums.Gender;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -41,6 +42,7 @@ public abstract class Account extends BaseModel {
     @Column(name = "birth_date", nullable = false)
     private LocalDate dateOfBirth;
 
+    @Valid
     @NotNull
     @Embedded
     private Address address;

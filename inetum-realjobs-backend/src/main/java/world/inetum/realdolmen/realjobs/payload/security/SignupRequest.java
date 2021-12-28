@@ -1,9 +1,10 @@
 package world.inetum.realdolmen.realjobs.payload.security;
 
-import world.inetum.realdolmen.realjobs.payload.dtos.AddressReadDto;
 import world.inetum.realdolmen.realjobs.entities.enums.Gender;
 import world.inetum.realdolmen.realjobs.entities.enums.Role;
+import world.inetum.realdolmen.realjobs.payload.dtos.AddressReadDto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -27,6 +28,7 @@ public class SignupRequest {
     @NotNull
     @Past
     private LocalDate birthDate;
+    @Valid
     @NotNull
     private AddressReadDto address;
     private String mobilePhone;

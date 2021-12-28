@@ -15,7 +15,6 @@ export class AuthenticationService {
   }
 
   login(values: any): Observable<User> {
-
     return this.http.post<User>(baseUrl + "login", values)
       .pipe(tap((res: any) => this.setSession(res)));
   }
