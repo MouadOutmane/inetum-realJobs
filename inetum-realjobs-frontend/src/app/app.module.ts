@@ -47,6 +47,8 @@ import {InputTextareaModule} from "primeng/inputtextarea";
 import {ConfirmPopupModule} from "primeng/confirmpopup";
 import {ConfirmationService} from 'primeng/api';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {PasswordModule} from "primeng/password";
+import {PanelModule} from "primeng/panel";
 
 @NgModule({
   declarations: [
@@ -98,13 +100,6 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
     InputTextareaModule,
     ConfirmPopupModule,
     ConfirmDialogModule,
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
     routing,
     PrimengImportsModule,
   ],
