@@ -510,3 +510,13 @@ VALUES (1, 'initial', '2021-12-27 17:06:11.000000', 'initial', '2021-12-27 17:06
         '1000', 'Realdolmenstreet', 'FULL_TIME', 'Code like a monkey!', 'Code monkey', 'a banana', 0, 'be monkey', 20,
         1, null);
 ALTER SEQUENCE vacancy_id_seq RESTART WITH 2;
+
+INSERT INTO public.application (id, changed_by, changed_on, created_by, created_on, version, motivation, status,
+                                job_seeker_id, vacancy_id)
+VALUES (1, 'initial', '2021-12-28 11:15:25.000000', 'initial', '2021-12-28 11:15:26.000000', 0, 'none', 'ACCEPTED', 1,
+        1);
+INSERT INTO public.application (id, changed_by, changed_on, created_by, created_on, version, motivation, status,
+                                job_seeker_id, vacancy_id)
+VALUES (2, 'initial', '2021-12-28 11:15:26.000000', 'initial', '2021-12-28 11:15:27.000000', 0, 'the banana', null, 1,
+        1);
+ALTER SEQUENCE application_id_seq RESTART WITH 2;
