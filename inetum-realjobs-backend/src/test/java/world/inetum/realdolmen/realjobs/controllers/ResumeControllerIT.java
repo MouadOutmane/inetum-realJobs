@@ -1,9 +1,6 @@
 package world.inetum.realdolmen.realjobs.controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +8,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEnti
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.WebApplicationContext;
 import world.inetum.realdolmen.realjobs.BaseIntegrationTest;
 import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
 import world.inetum.realdolmen.realjobs.entities.*;
@@ -714,6 +708,23 @@ class ResumeControllerIT extends BaseIntegrationTest {
                     .andExpectAll(
                             jsonPath("$.value").isString(),
                             jsonPath("$.value", is(ResumeStatus.NEUTRAL.toString()))
+                    );
+        }
+
+        @Test
+        void getAccount() throws Exception {
+            Account account = createJobSeekerAndLogin();
+
+            mockMvc.perform(
+                            get("/api/resume/account")
+                    )
+                    .andExpect(status().isOk())
+                    .andExpectAll(
+                            jsonPath("$.email", is("test@inetum-realdolmen.world")),
+                            jsonPath("$.firstName", is("first name")),
+                            jsonPath("$.lastName", is("last name")),
+                            jsonPath("$.mobilePhone", is(nullValue())),
+                            jsonPath("$.profilePicture", is("picture"))
                     );
         }
     }
