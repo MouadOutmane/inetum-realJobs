@@ -7,6 +7,7 @@ import {Education} from "../models/education";
 import {Experience} from "../models/experience";
 import {ResumeStatus} from "../models/resumeStatus.enum";
 import {SingleResult} from "../models/singleResult";
+import {AccountResume} from "../models/accountResume";
 
 const baseUrl = "resume/";
 
@@ -80,6 +81,10 @@ export class ResumeService {
 
   getResumeStatus(): Observable<ResumeStatus> {
     return this.http.get<SingleResult<ResumeStatus>>(baseUrl + "status/").pipe(ResumeService.getValue());
+  }
+
+  getAccountResume(): Observable<AccountResume> {
+    return this.http.get<AccountResume>(baseUrl + "account/");
   }
 
   private static getValue() {

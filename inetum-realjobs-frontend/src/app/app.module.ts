@@ -49,6 +49,7 @@ import {ConfirmationService} from 'primeng/api';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PasswordModule} from "primeng/password";
 import {PanelModule} from "primeng/panel";
+import { ResumeAccountDetailsComponent } from './components/resume/details/resume-account-details/resume-account-details.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import {PanelModule} from "primeng/panel";
     LanguageListComponent,
     StatusFormComponent,
     SummaryFormComponent,
+    ResumeAccountDetailsComponent,
   ],
   imports: [
     BrowserModule,

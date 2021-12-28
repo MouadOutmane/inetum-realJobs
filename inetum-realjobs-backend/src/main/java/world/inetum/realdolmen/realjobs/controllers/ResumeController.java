@@ -5,6 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import world.inetum.realdolmen.realjobs.entities.enums.ResumeStatus;
 import world.inetum.realdolmen.realjobs.payload.dtos.*;
+import world.inetum.realdolmen.realjobs.payload.mappers.AccountMapper;
 import world.inetum.realdolmen.realjobs.payload.mappers.ResumeMapper;
 import world.inetum.realdolmen.realjobs.services.ResumeService;
 
@@ -20,11 +21,13 @@ public class ResumeController {
 
     private final ResumeService resumeService;
     private final ResumeMapper resumeMapper;
+    private final AccountMapper accountMapper;
 
     @Autowired
-    public ResumeController(ResumeService resumeService, ResumeMapper resumeMapper) {
+    public ResumeController(ResumeService resumeService, ResumeMapper resumeMapper, AccountMapper accountMapper) {
         this.resumeService = resumeService;
         this.resumeMapper = resumeMapper;
+        this.accountMapper = accountMapper;
     }
 
     @PostMapping("/skill")
@@ -169,5 +172,11 @@ public class ResumeController {
     @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
     public SingleValueDto<ResumeStatus> getStatus() {
         return new SingleValueDto<>(resumeService.getStatus());
+    }
+
+    @GetMapping("/account")
+    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    public AccountResumeReadDto getAccount() {
+        return accountMapper.toDto(resumeService.getAccount());
     }
 }

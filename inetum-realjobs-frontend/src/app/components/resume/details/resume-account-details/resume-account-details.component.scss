@@ -1,0 +1,15 @@
+.resume-account {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .name {
+    align-self: center;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  img {
+    width: 100%;
+  }
+}

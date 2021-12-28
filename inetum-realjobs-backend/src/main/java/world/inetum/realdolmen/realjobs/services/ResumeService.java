@@ -159,4 +159,8 @@ public class ResumeService {
         logger.info("User {} fetched their status", currentUserJs.getId());
         return currentUserJs.getResume().getStatus();
     }
+
+    public Account getAccount() {
+        return securityService.getJobSeeker();
+    }
 }
