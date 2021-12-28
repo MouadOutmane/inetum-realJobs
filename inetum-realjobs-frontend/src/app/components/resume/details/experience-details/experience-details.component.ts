@@ -11,7 +11,6 @@ export class ExperienceDetailsComponent implements OnInit {
   @Input() experience: Experience;
 
   @Input() deleteButton: boolean;
-  @Input() index: number;
   @Output() deleteEvent = new EventEmitter<number>();
 
   constructor() {
@@ -21,7 +20,7 @@ export class ExperienceDetailsComponent implements OnInit {
   }
 
   deleteItem() {
-    this.deleteEvent.emit(this.index);
+    this.deleteEvent.emit(this.experience.id);
   }
 
   getEndDate(): string {

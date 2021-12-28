@@ -23,21 +23,18 @@ export class SkillListComponent implements OnInit {
     this.deleteEvent.emit(id);
   }
 
-  get basicSkills(): { skill: Skill, index: number }[] {
+  get basicSkills(): Skill[] {
     return this.skills
-      .map((skill, index) => ({skill, index}))
-      .filter(({skill}) => skill.skillLevel === SkillLevel.BASIC);
+      .filter(skill => skill.skillLevel === SkillLevel.BASIC);
   }
 
-  get intermediateSkills(): { skill: Skill, index: number }[] {
+  get intermediateSkills(): Skill[] {
     return this.skills
-      .map((skill, index) => ({skill, index}))
-      .filter(({skill}) => skill.skillLevel === SkillLevel.INTERMEDIATE);
+      .filter(skill => skill.skillLevel === SkillLevel.INTERMEDIATE);
   }
 
-  get expertSkills(): { skill: Skill, index: number }[] {
+  get expertSkills(): Skill[] {
     return this.skills
-      .map((skill, index) => ({skill, index}))
-      .filter(({skill}) => skill.skillLevel === SkillLevel.EXPERT);
+      .filter(skill => skill.skillLevel === SkillLevel.EXPERT);
   }
 }

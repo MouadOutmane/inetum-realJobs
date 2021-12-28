@@ -11,7 +11,6 @@ export class EducationDetailsComponent implements OnInit {
   @Input() education: Education;
 
   @Input() deleteButton: boolean;
-  @Input() index: number;
   @Output() deleteEvent = new EventEmitter<number>();
 
   constructor() {
@@ -21,6 +20,6 @@ export class EducationDetailsComponent implements OnInit {
   }
 
   deleteItem() {
-    this.deleteEvent.emit(this.index);
+    this.deleteEvent.emit(this.education.id);
   }
 }

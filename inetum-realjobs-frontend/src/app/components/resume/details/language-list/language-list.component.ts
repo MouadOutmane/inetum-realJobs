@@ -23,21 +23,18 @@ export class LanguageListComponent implements OnInit {
     this.deleteEvent.emit(index);
   }
 
-  get basicLanguages(): { language: Language, index: number }[] {
+  get basicLanguages(): Language[] {
     return this.languages
-      .map((language, index) => ({language, index}))
-      .filter(({language}) => language.skillLevel === SkillLevel.BASIC);
+      .filter(language => language.skillLevel === SkillLevel.BASIC);
   }
 
-  get intermediateLanguages(): { language: Language, index: number }[] {
+  get intermediateLanguages(): Language[] {
     return this.languages
-      .map((language, index) => ({language, index}))
-      .filter(({language}) => language.skillLevel === SkillLevel.INTERMEDIATE);
+      .filter(language => language.skillLevel === SkillLevel.INTERMEDIATE);
   }
 
-  get expertLanguages(): { language: Language, index: number }[] {
+  get expertLanguages(): Language[] {
     return this.languages
-      .map((language, index) => ({language, index}))
-      .filter(({language}) => language.skillLevel === SkillLevel.EXPERT);
+      .filter(language => language.skillLevel === SkillLevel.EXPERT);
   }
 }

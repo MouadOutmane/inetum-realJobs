@@ -2,12 +2,12 @@
   <p-card header="Basic">
     <div class="skill-card">
       <div
-        *ngFor="let entry of basicSkills"
+        *ngFor="let skill of basicSkills"
       >
         <p-chip
-          label="{{entry.skill.skill}}"
+          label="{{skill.skill}}"
           [removable]="true"
-          (onRemove)="deleteItem(entry.skill.id)">
+          (onRemove)="deleteItem(skill.id)">
         </p-chip>
       </div>
     </div>
@@ -15,12 +15,12 @@
   <p-card header="Intermediate">
     <div class="skill-card">
       <div
-        *ngFor="let entry of intermediateSkills"
+        *ngFor="let skill of intermediateSkills"
       >
         <p-chip
-          label="{{entry.skill.skill}}"
+          label="{{skill.skill}}"
           [removable]="true"
-          (onRemove)="deleteItem(entry.skill.id)">
+          (onRemove)="deleteItem(skill.id)">
         </p-chip>
       </div>
     </div>
@@ -28,12 +28,12 @@
   <p-card header="Expert">
     <div class="skill-card">
       <div
-        *ngFor="let entry of expertSkills"
+        *ngFor="let skill of expertSkills"
       >
         <p-chip
-          label="{{entry.skill.skill}}"
+          label="{{skill.skill}}"
           [removable]="true"
-          (onRemove)="deleteItem(entry.skill.id)">
+          (onRemove)="deleteItem(skill.id)">
         </p-chip>
       </div>
     </div>
