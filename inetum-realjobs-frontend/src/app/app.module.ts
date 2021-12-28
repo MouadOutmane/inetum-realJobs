@@ -15,6 +15,7 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {VacancyDetailsComponent} from "./components/vacancy-details/vacancy-details.component";
 import {ErrorHandlerComponent} from "./components/error-handler/error-handler.component";
 import {PrimengImportsModule} from "./primeng-imports";
+import {VacancyApplicationsComponent} from "./components/vacancy-applications/vacancy-applications.component";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {PrimengImportsModule} from "./primeng-imports";
     NotFoundComponent,
     VacancyDetailsComponent,
     ErrorHandlerComponent,
+    VacancyApplicationsComponent,
   ],
   imports: [
     BrowserModule,
