@@ -15,11 +15,7 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {VacancyDetailsComponent} from "./components/vacancy-details/vacancy-details.component";
 import {ErrorHandlerComponent} from "./components/error-handler/error-handler.component";
 import {PrimengImportsModule} from "./primeng-imports";
-import {FieldsetModule} from 'primeng/fieldset';
-import {InputNumberModule} from 'primeng/inputnumber';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 
 @NgModule({
@@ -40,10 +36,6 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     routing,
-    FieldsetModule,
-    InputNumberModule,
-    ConfirmDialogModule,
-    ProgressSpinnerModule,
     PrimengImportsModule,
   ],
   providers: [

@@ -15,6 +15,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     boolean existsByEmail(String email);
 
     @Query("SELECT A FROM Account A JOIN FETCH A.address as AD JOIN FETCH AD.country WHERE A.email  =?1")
-    Optional<Account> getPersonalInformationById(String email);
+    Optional<Account> getPersonalInformationByEmail(String email);
 
 }

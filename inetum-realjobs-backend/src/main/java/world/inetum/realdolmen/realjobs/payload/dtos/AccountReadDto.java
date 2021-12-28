@@ -1,18 +1,17 @@
 package world.inetum.realdolmen.realjobs.payload.dtos;
 
-import world.inetum.realdolmen.realjobs.entities.Address;
 import world.inetum.realdolmen.realjobs.entities.enums.Gender;
 
 import java.time.LocalDate;
 
-public class ProfileDto {
+public class AccountReadDto {
 
     private String email;
     private Gender gender;
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
-    private Address address;
+    private AddressReadDto address;
     private String mobilePhone;
     private String profilePicture;
 
@@ -56,11 +55,11 @@ public class ProfileDto {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Address getAddress() {
+    public AddressReadDto getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(AddressReadDto address) {
         this.address = address;
     }
 

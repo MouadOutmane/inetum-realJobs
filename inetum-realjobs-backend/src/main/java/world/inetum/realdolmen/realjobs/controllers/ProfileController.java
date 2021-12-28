@@ -1,6 +1,8 @@
 package world.inetum.realdolmen.realjobs.controllers;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,11 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import world.inetum.realdolmen.realjobs.entities.Account;
 import world.inetum.realdolmen.realjobs.exceptions.EndpointException;
 import world.inetum.realdolmen.realjobs.exceptions.messages.ProfileExceptionMessage;
-import world.inetum.realdolmen.realjobs.payload.dtos.ProfileDto;
+import world.inetum.realdolmen.realjobs.payload.dtos.AccountReadDto;
 import world.inetum.realdolmen.realjobs.payload.mappers.ProfileMapper;
 import world.inetum.realdolmen.realjobs.security.SecurityService;
 import world.inetum.realdolmen.realjobs.services.AccountService;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -31,25 +34,15 @@ public class ProfileController {
     }
 
 
-    @GetMapping("/{email}")
-    // TODO roles should be included in the jwt so the preAuthorize can work
-    //  @JobSeekerAndRecruiter
-    public ResponseEntity<?> getPersonalInfo(@PathVariable(value = "email") String email) {
-        // TODO getCurrentUser does not work
-        //validateAuthorization(email);
-        Optional<Account> accountPersonalInfo = this.accountService.getPersonalInfo(email);
-        if (accountPersonalInfo.isPresent()) {
-            ProfileDto profileDto = profileMapper.toDto(accountPersonalInfo.get());
-            return new ResponseEntity(profileDto, HttpStatus.OK);
-        }
-        throw new EndpointException(ProfileExceptionMessage.PROFILE_NOT_FOUND);
-    }
-
-
-    private void validateAuthorization(String email) {
-        if (!securityService.getCurrentUser().getEmail().equals(email)) {
-            throw new EndpointException(ProfileExceptionMessage.UNAUTHORIZED_REQUEST);
-        }
+    @GetMapping("/")
+    @RolesAllowed({"JOB_SEEKER", "RECRUITER"})
+    public AccountReadDto getPersonalInfo() {
+        Account account = accountService
+                .getPersonalInfo(securityService
+                        .getCurrentUser()
+                        .getEmail())
+                .orElseThrow(() -> new EndpointException(ProfileExceptionMessage.PROFILE_NOT_FOUND));
+        return profileMapper.toDto(account);
     }
 
 

@@ -1,10 +1,10 @@
-<p-message severity="error" [text]="errorMessage" *ngIf="this.error" styleClass="p-mr-2"></p-message>
+<p-message severity="error" [text]="errorMessage" *ngIf="error" styleClass="p-mr-2"></p-message>
 
-<div class="center-div">
-  <p-progressSpinner *ngIf="this.loading"></p-progressSpinner>
+<div class="center-div" *ngIf="loading">
+  <p-progressSpinner></p-progressSpinner>
 </div>
 
-<div class="p-grid p-fluid" *ngIf="(!this.loading && !this.error)">
+<div class="p-grid p-fluid" *ngIf="(!loading && !error)">
   <p-fieldset>
     <ng-template pTemplate="header">Personal Information</ng-template>
     <form (ngSubmit)="save()" [formGroup]="profileForm">
@@ -15,17 +15,15 @@
           <input class="col p-md-2" type="text" formControlName="lastName" pInputText placeholder="Last name">
         </div>
         <div class="p-field mb-2">
-          <p-dropdown [options]="genders"
-                      formControlName="gender"
-                      placeholder="Select your gender">
+          <p-dropdown [options]="genders" formControlName="gender" placeholder="Select your gender">
           </p-dropdown>
         </div>
         <div class="p-field mb-2">
           <p-calendar formControlName="dateOfBirth" inputId="basic" placeholder="Birthdate"></p-calendar>
         </div>
         <div class="p-inputgroup mb-2">
-          <input class="col p-col-7 p-md-2" type="text" pInputText
-                 placeholder="Street name" formControlName="streetName">&nbsp;
+          <input class="col p-col-7 p-md-2" type="text" pInputText placeholder="Street name"
+                 formControlName="streetName">&nbsp;
           <input class="col p-md-2" type="number" pInputText placeholder="Nr" formControlName="houseNumber">&nbsp;
           <input class="col p-md-2" type="text" pInputText placeholder="Box" formControlName="box">&nbsp;
         </div>
@@ -34,28 +32,24 @@
           <input class="col p-md-2" type="number" pInputText placeholder="Postal code" formControlName="postalCode">&nbsp;
         </div>
         <div class="p-field mb-2">
-          <p-dropdown [options]="countries$| async "
-                      formControlName="country"
-                      optionLabel="name" placeholder="Select your country">
+          <p-dropdown [options]="countries$| async " formControlName="country" optionLabel="name" optionValue="id"
+                      placeholder="Select your country">
           </p-dropdown>
         </div>
         <div class="p-field mb-2">
-          <p-inputNumber placeholder="Mobile phone"
-                         formControlName="mobilePhone"
-                         [useGrouping]="false">
+          <p-inputNumber placeholder="Mobile phone" formControlName="mobilePhone" [useGrouping]="false">
           </p-inputNumber>
         </div>
       </div>
       <br>
-      <button [loading]="profileFormLoading" [disabled]="!this.profileForm.dirty || !this.profileForm.valid" pButton
-              pRipple
+      <button [loading]="profileFormLoading" [disabled]="!profileForm.dirty || !profileForm.valid" pButton pRipple
               label="Update and save" icon="pi pi-save"></button>
     </form>
   </p-fieldset>
 
   <p-fieldset>
     <ng-template pTemplate="header">Close account</ng-template>
-    <button [loading]="this.deleteLoading" (click)="this.deleteAccount()" pButton pRipple label="Delete account"
+    <button [loading]="deleteLoading" (click)="deleteAccount()" pButton pRipple label="Delete account"
             icon="pi pi-trash"></button>
 
   </p-fieldset>

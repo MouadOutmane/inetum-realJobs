@@ -14,6 +14,10 @@ import {InputMaskModule} from "primeng/inputmask";
 import {PasswordModule} from "primeng/password";
 import {DividerModule} from "primeng/divider";
 import {ScrollPanelModule} from "primeng/scrollpanel";
+import {FieldsetModule} from 'primeng/fieldset';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 const modules = [
   ButtonModule,
@@ -32,6 +36,10 @@ const modules = [
   PanelModule,
   DividerModule,
   ScrollPanelModule,
+  FieldsetModule,
+  InputNumberModule,
+  ConfirmDialogModule,
+  ProgressSpinnerModule
 ];
 
 @NgModule({

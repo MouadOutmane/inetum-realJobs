@@ -53,7 +53,7 @@ export class UserDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.genders = Object.keys(Gender).map(key => Gender[key].toString());
-    this.getCountries();
+    this.countries$ = this.countryService.getAllCountries();
     this.profileService.getUserProfile()
       .pipe(
         catchError((err) => {
@@ -82,11 +82,7 @@ export class UserDetailsComponent implements OnInit {
       country: this.profile$.address.country,
       mobilePhone: this.profile$.mobilePhone,
       dateOfBirth: new Date(this.profile$.dateOfBirth)
-    })
-  }
-
-  private getCountries() {
-    this.countries$ = this.countryService.getAllCountries();
+    });
   }
 
   save() {
@@ -113,6 +109,5 @@ export class UserDetailsComponent implements OnInit {
     this.error = true;
     this.loading = false;
     this.errorMessage = "Error has occured, please try again..";
-
   }
 }

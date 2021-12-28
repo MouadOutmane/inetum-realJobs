@@ -2,7 +2,7 @@ package world.inetum.realdolmen.realjobs.exceptions.messages;
 
 public enum ProfileExceptionMessage implements ExceptionMessage {
 
-    PROFILE_NOT_FOUND, UNAUTHORIZED_REQUEST;
+    PROFILE_NOT_FOUND;
 
     @Override
     public String getMessage() {

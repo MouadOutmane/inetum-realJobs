@@ -19,8 +19,7 @@ export class ProfileService {
   }
 
   getUserProfile(): Observable<Profile> {
-    return this.http.get<Profile>("http://localhost:8080/api/profile/"
-      + this.authService.getLoggedInUserEmail(),
+    return this.http.get<Profile>("http://localhost:8080/api/profile/",
       {responseType: 'json'});
   }
 }
