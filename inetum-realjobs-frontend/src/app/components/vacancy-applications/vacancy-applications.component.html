@@ -1,5 +1,10 @@
-<div *ngIf="applications$ | async as applications; else loadingOrError" class="details">
-  <!-- FIXME - Actually show applications -->
+<div *ngIf="vacancy$ | async as vacancy; else loadingOrError">
+  <h2>Applicants for: {{vacancy.functionTitle}}</h2>
+
+  <div *ngIf="applications$ | async as applications; else loadingOrError">
+    <!-- FIXME - Actually show applications -->
+    {{applications.length}}
+  </div>
 </div>
 
 <ng-template #loadingOrError>
