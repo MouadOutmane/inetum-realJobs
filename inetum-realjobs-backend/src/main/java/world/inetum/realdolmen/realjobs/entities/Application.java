@@ -1,5 +1,7 @@
 package world.inetum.realdolmen.realjobs.entities;
 
+import world.inetum.realdolmen.realjobs.entities.enums.ApplicationStatus;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -7,7 +9,9 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "Application")
 public class Application extends BaseModel {
 
-    // TODO: 14-Dec-21 what is application status?
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ApplicationStatus status;
 
     // TODO: 14-Dec-21 was separate Entity, why?
     @NotBlank
@@ -25,6 +29,14 @@ public class Application extends BaseModel {
     )
     @ManyToOne(fetch = FetchType.LAZY)
     private Vacancy vacancy;
+
+    public ApplicationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ApplicationStatus status) {
+        this.status = status;
+    }
 
     public String getMotivation() {
         return motivation;
@@ -49,4 +61,5 @@ public class Application extends BaseModel {
     public void setVacancy(Vacancy vacancy) {
         this.vacancy = vacancy;
     }
+
 }
