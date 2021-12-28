@@ -219,6 +219,9 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
 
         var code = allCodes.get(0);
         assertEquals("test@realjobs.com", code.getAccount().getEmail(), "Code should be linked to the given account");
+
+        var allMails = greenMail.getReceivedMessages();
+        assertEquals(1, allMails.length, "A single mail was expected");
     }
 
     @Test
