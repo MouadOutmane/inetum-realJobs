@@ -530,7 +530,13 @@ INSERT INTO public.vacancy (id, changed_by, changed_on, created_by, created_on, 
 VALUES (1, 'initial', '2021-12-27 17:06:11.000000', 'initial', '2021-12-27 17:06:12.000000', 0, 'tree', 'box', '1',
         '1000', 'Realdolmenstreet', 'FULL_TIME', 'Code like a monkey!', 'Code monkey', 'a banana', 0, 'be monkey', 20,
         1, null);
-ALTER SEQUENCE vacancy_id_seq RESTART WITH 2;
+INSERT INTO public.vacancy (id, changed_by, changed_on, created_by, created_on, version, box, city, house_number,
+                            postal_code, street_name, contract_type, function_description, function_title, offer,
+                            required_years_of_experience, requirements, country_id, company_id, recruiter_id)
+VALUES (2, 'initial', '2021-12-27 17:06:11.000000', 'initial', '2021-12-27 17:06:12.000000', 0, 'tree', 'box', '1',
+        '1000', 'Realdolmenstreet', 'FULL_TIME', 'Code like a gorilla!', 'Code gorilla', 'another banana', 3,
+        'be gorilla', 20, null, 2);
+ALTER SEQUENCE vacancy_id_seq RESTART WITH 3;
 
 INSERT INTO public.application (id, changed_by, changed_on, created_by, created_on, version, motivation, status,
                                 job_seeker_id, vacancy_id)
@@ -540,4 +546,8 @@ INSERT INTO public.application (id, changed_by, changed_on, created_by, created_
                                 job_seeker_id, vacancy_id)
 VALUES (2, 'initial', '2021-12-28 11:15:26.000000', 'initial', '2021-12-28 11:15:27.000000', 0, 'the banana', null, 1,
         1);
-ALTER SEQUENCE application_id_seq RESTART WITH 2;
+INSERT INTO public.application (id, changed_by, changed_on, created_by, created_on, version, motivation, status,
+                                job_seeker_id, vacancy_id)
+VALUES (3, 'initial', '2021-12-28 11:15:26.000000', 'initial', '2021-12-28 11:15:27.000000', 0, 'more banana', null, 1,
+        2);
+ALTER SEQUENCE application_id_seq RESTART WITH 4;
