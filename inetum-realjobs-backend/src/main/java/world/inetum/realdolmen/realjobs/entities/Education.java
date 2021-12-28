@@ -82,4 +82,17 @@ public class Education extends BaseModel {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Education{" +
+                "id=" + getId() +
+                ", degree='" + degree + '\'' +
+                ", program='" + program + '\'' +
+                ", school='" + school + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

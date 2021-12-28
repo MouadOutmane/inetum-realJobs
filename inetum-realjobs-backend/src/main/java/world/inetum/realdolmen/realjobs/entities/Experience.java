@@ -103,4 +103,19 @@ public class Experience extends BaseModel {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Experience{" +
+                "id=" + getId() +
+                ", jobTitle='" + jobTitle + '\'' +
+                ", functionCategory='" + functionCategory + '\'' +
+                ", company='" + company + '\'' +
+                ", industry='" + industry + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", currentJob=" + currentJob +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
