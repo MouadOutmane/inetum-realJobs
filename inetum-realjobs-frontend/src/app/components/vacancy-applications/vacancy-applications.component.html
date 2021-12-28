@@ -1,1 +1,13 @@
-<p>vacancy-applications works!</p>
+<div *ngIf="applications$ | async as applications; else loadingOrError" class="details">
+  <!-- FIXME - Actually show applications -->
+</div>
+
+<ng-template #loadingOrError>
+  <app-error-handler *ngIf="error; else loading" [error]="error"></app-error-handler>
+
+  <ng-template #loading>
+    <div class="col-12 text-center">
+      Loading ...
+    </div>
+  </ng-template>
+</ng-template>
