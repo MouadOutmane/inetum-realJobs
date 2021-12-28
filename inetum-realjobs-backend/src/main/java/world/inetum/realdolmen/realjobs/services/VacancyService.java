@@ -2,6 +2,8 @@ package world.inetum.realdolmen.realjobs.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import world.inetum.realdolmen.realjobs.entities.Account;
+import world.inetum.realdolmen.realjobs.entities.Recruiter;
 import world.inetum.realdolmen.realjobs.entities.Vacancy;
 import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
 import world.inetum.realdolmen.realjobs.repositories.VacancyRepository;
@@ -15,10 +17,12 @@ import static world.inetum.realdolmen.realjobs.repositories.VacancySpecification
 @Service
 public class VacancyService {
 
+    private final AccountService accountService;
     private final VacancyRepository vacancyRepository;
 
     @Autowired
-    public VacancyService(VacancyRepository vacancyRepository) {
+    public VacancyService(AccountService accountService, VacancyRepository vacancyRepository) {
+        this.accountService = accountService;
         this.vacancyRepository = vacancyRepository;
     }
 
@@ -42,4 +46,23 @@ public class VacancyService {
                 .and(withFunctionTitle(functionTitle))
         );
     }
+
+    public boolean checkVacancyAccess(Vacancy vacancy, final String email) {
+        boolean hasAccess = false;
+
+        if (vacancy.getRecruiter() != null) {
+            hasAccess = vacancy.getRecruiter().getEmail().equals(email);
+        } else if (vacancy.getCompany() != null) {
+            Optional<Account> accountOptional = accountService.findByEmail(email);
+
+            if (accountOptional.isPresent()
+                    && accountOptional.get() instanceof Recruiter recruiter
+                    && recruiter.getCompany() != null) {
+                hasAccess = vacancy.getCompany().getId().equals(recruiter.getCompany().getId());
+            }
+        }
+
+        return hasAccess;
+    }
+
 }

@@ -14,6 +14,8 @@ import world.inetum.realdolmen.realjobs.payload.security.SignupRequest;
 import world.inetum.realdolmen.realjobs.repositories.AccountRepository;
 import world.inetum.realdolmen.realjobs.repositories.CountryRepository;
 
+import java.util.Optional;
+
 @Service
 public class AccountService {
 
@@ -28,6 +30,10 @@ public class AccountService {
         this.encoder = encoder;
         this.countryRepository = countryRepository;
         this.accountRepository = accountRepository;
+    }
+
+    public Optional<Account> findByEmail(String email) {
+        return accountRepository.findByEmail(email);
     }
 
     public void saveAccount(SignupRequest signUpRequest) {
