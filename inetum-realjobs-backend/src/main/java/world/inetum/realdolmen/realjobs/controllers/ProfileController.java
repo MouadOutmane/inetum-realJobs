@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import world.inetum.realdolmen.realjobs.controllers.annotations.JobSeekerAndRecruiter;
 import world.inetum.realdolmen.realjobs.entities.Account;
 import world.inetum.realdolmen.realjobs.exceptions.EndpointException;
 import world.inetum.realdolmen.realjobs.exceptions.messages.ProfileExceptionMessage;

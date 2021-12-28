@@ -21,6 +21,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,17 +38,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    PasswordModule,
-    PanelModule,
-    DropdownModule,
-    CalendarModule,
-    RadioButtonModule,
-    MessagesModule,
-    MessageModule,
     BrowserAnimationsModule,
-    FileUploadModule,
-    ToastModule,
-    InputMaskModule,
     routing,
     FieldsetModule,
     InputNumberModule,
