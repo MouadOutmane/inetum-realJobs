@@ -74,6 +74,7 @@ public class AccountService {
     }
 
     public Optional<Account> getPersonalInfo(String email) {
+
         return this.accountRepository.getPersonalInformationById(email);
     }
 }
