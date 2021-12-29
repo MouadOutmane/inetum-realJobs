@@ -15,6 +15,8 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {VacancyDetailsComponent} from "./components/vacancy-details/vacancy-details.component";
 import {ErrorHandlerComponent} from "./components/error-handler/error-handler.component";
 import {PrimengImportsModule} from "./primeng-imports";
+import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
+import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
 import {ConfirmationService} from 'primeng/api';
 
 
@@ -26,6 +28,8 @@ import {ConfirmationService} from 'primeng/api';
     UserDetailsComponent,
     RegisterComponent,
     NotFoundComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
     VacancyDetailsComponent,
     ErrorHandlerComponent,
   ],

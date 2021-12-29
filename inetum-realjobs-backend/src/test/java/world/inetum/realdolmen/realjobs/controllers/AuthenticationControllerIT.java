@@ -8,22 +8,25 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.transaction.annotation.Transactional;
 import world.inetum.realdolmen.realjobs.BaseIntegrationTest;
 import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
-import world.inetum.realdolmen.realjobs.entities.Account;
-import world.inetum.realdolmen.realjobs.entities.Country;
-import world.inetum.realdolmen.realjobs.entities.JobSeeker;
-import world.inetum.realdolmen.realjobs.entities.Recruiter;
+import world.inetum.realdolmen.realjobs.entities.*;
 import world.inetum.realdolmen.realjobs.entities.enums.Gender;
 import world.inetum.realdolmen.realjobs.entities.enums.Role;
 import world.inetum.realdolmen.realjobs.exceptions.EndpointException;
 import world.inetum.realdolmen.realjobs.exceptions.messages.SignUpExceptionMessage;
 import world.inetum.realdolmen.realjobs.payload.dtos.AddressCreateDto;
+import world.inetum.realdolmen.realjobs.payload.dtos.AddressReadDto;
+import world.inetum.realdolmen.realjobs.payload.security.ForgotRequest;
 import world.inetum.realdolmen.realjobs.payload.security.LoginRequest;
+import world.inetum.realdolmen.realjobs.payload.security.ResetRequest;
 import world.inetum.realdolmen.realjobs.payload.security.SignupRequest;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -195,6 +198,85 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
 
         var exception = assertThrows(EndpointException.class, () -> authenticationController.signUp(request));
         assertEquals(SignUpExceptionMessage.INCORRECT_DATA, exception.getExceptionMessage());
+    }
+
+    @Test
+    @Transactional
+    void forgotPassword() throws Exception {
+        persistJobSeeker("test@realjobs.com", "test");
+
+        var forgotRequest = new ForgotRequest();
+        forgotRequest.setEmail("test@realjobs.com");
+
+        mockMvc.perform(post("/api/authentication/forgotPassword")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(forgotRequest)))
+                .andExpect(status().isNoContent());
+
+        greenMail.waitForIncomingEmail(1);
+
+        var allCodes = resetCodeRepository.findAll();
+        assertEquals(1, allCodes.size(), "There should be a single reset code in the database");
+
+        var code = allCodes.get(0);
+        assertEquals("test@realjobs.com", code.getAccount().getEmail(), "Code should be linked to the given account");
+
+        var allMails = greenMail.getReceivedMessages();
+        assertEquals(1, allMails.length, "A single mail was expected");
+    }
+
+    @Test
+    void forgotPasswordNotExistingUser() throws Exception {
+        var forgotRequest = new ForgotRequest();
+        forgotRequest.setEmail("test@realjobs.com");
+
+        mockMvc.perform(post("/api/authentication/forgotPassword")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(forgotRequest)))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @Transactional
+    void resetPassword() throws Exception {
+        Account account1 = persistJobSeeker("test@realjobs.com", "test");
+        String account1Password = account1.getPassword();
+        Account account2 = persistJobSeeker("test2@realjobs.com", "xxx");
+
+        UUID code = UUID.randomUUID();
+        persistResetCode(account1, code);
+        persistResetCode(account1, UUID.randomUUID());
+        persistResetCode(account2, UUID.randomUUID());
+
+        ResetRequest resetRequest = new ResetRequest();
+        resetRequest.setPassword("password");
+        resetRequest.setCode(code);
+
+        mockMvc.perform(post("/api/authentication/resetPassword")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(resetRequest)))
+                .andExpect(status().isNoContent());
+
+        Account editedAccount = accountRepository.getById(account1.getId());
+        assertNotEquals(account1Password, editedAccount.getPassword(), "Password should have been changed");
+
+        List<ResetCode> codes = resetCodeRepository.findAll();
+        assertEquals(1, codes.size(), "All but 1 code should have been removed");
+
+        ResetCode resetCode = codes.get(0);
+        assertEquals("test2@realjobs.com", resetCode.getAccount().getEmail());
+    }
+
+    @Test
+    void resetPasswordFakeCode() throws Exception {
+        ResetRequest resetRequest = new ResetRequest();
+        resetRequest.setPassword("password");
+        resetRequest.setCode(UUID.fromString("83911cf1-a027-4add-a263-e55d3c089e6e"));
+
+        mockMvc.perform(post("/api/authentication/resetPassword")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(resetRequest)))
+                .andExpect(status().isNotFound());
     }
 
 }

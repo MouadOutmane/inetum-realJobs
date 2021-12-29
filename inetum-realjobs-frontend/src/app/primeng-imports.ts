@@ -18,6 +18,8 @@ import {FieldsetModule} from 'primeng/fieldset';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {ProgressSpinnerModule} from "primeng/progressspinner";
+
 
 const modules = [
   ButtonModule,
@@ -36,6 +38,7 @@ const modules = [
   PanelModule,
   DividerModule,
   ScrollPanelModule,
+  ProgressSpinnerModule,
   FieldsetModule,
   InputNumberModule,
   ConfirmDialogModule,
