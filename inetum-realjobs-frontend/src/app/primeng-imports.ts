@@ -21,6 +21,8 @@ import {ChipModule} from "primeng/chip";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {ConfirmPopupModule} from "primeng/confirmpopup";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
+
 
 const modules = [
   ButtonModule,
@@ -45,6 +47,7 @@ const modules = [
   InputTextareaModule,
   ConfirmPopupModule,
   ConfirmDialogModule,
+  ProgressSpinnerModule,
 ];
 
 @NgModule({

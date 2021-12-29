@@ -33,6 +33,8 @@ import {
   ResumeAccountDetailsComponent
 } from './components/resume/details/resume-account-details/resume-account-details.component';
 import {ConfirmationService} from 'primeng/api';
+import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
+import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import {ConfirmationService} from 'primeng/api';
     UserDetailsComponent,
     RegisterComponent,
     NotFoundComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
     VacancyDetailsComponent,
     ErrorHandlerComponent,
     ResumeCreateComponent,
