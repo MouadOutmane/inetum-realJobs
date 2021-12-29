@@ -13,6 +13,7 @@ import {MessageService} from "primeng/api";
 export class ResumeAccountDetailsComponent implements OnInit {
 
   data: AccountResume;
+  loading: boolean = true;
 
   constructor(private resumeService: ResumeService,
               private messageService: MessageService) {
@@ -24,6 +25,7 @@ export class ResumeAccountDetailsComponent implements OnInit {
       .pipe(catchError((err) => this.onError(err)))
       .subscribe(data => {
         this.data = data;
+        this.loading = false;
       })
   }
 
