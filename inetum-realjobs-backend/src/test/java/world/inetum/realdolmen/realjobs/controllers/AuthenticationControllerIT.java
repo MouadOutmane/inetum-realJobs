@@ -1,7 +1,11 @@
 package world.inetum.realdolmen.realjobs.controllers;
 
+import com.icegreen.greenmail.configuration.GreenMailConfiguration;
+import com.icegreen.greenmail.junit5.GreenMailExtension;
+import com.icegreen.greenmail.util.ServerSetupTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -39,6 +43,11 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
 
     @Autowired
     private AuthenticationController authenticationController;
+
+    @RegisterExtension
+    protected static GreenMailExtension greenMail = new GreenMailExtension(ServerSetupTest.SMTP)
+            .withConfiguration(GreenMailConfiguration.aConfig().withUser("mail", "test"))
+            .withPerMethodLifecycle(false);
 
     @Test
     void loginWithExistingCredentialsReturning200() throws Exception {
