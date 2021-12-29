@@ -18,7 +18,7 @@ import world.inetum.realdolmen.realjobs.entities.enums.Gender;
 import world.inetum.realdolmen.realjobs.entities.enums.Role;
 import world.inetum.realdolmen.realjobs.exceptions.EndpointException;
 import world.inetum.realdolmen.realjobs.exceptions.messages.SignUpExceptionMessage;
-import world.inetum.realdolmen.realjobs.payload.dtos.AddressReadDto;
+import world.inetum.realdolmen.realjobs.payload.dtos.AddressCreateDto;
 import world.inetum.realdolmen.realjobs.payload.security.LoginRequest;
 import world.inetum.realdolmen.realjobs.payload.security.SignupRequest;
 
@@ -76,7 +76,7 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
     void registerWithNonExistingCredentialsReturning200() throws Exception {
         Country country = persistCountry("some country");
 
-        AddressReadDto addressDto = new AddressReadDto();
+        AddressCreateDto addressDto = new AddressCreateDto();
         addressDto.setStreetName("street name");
         addressDto.setHouseNumber("15");
         addressDto.setCity("city");
@@ -113,7 +113,7 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
     void registerWithNonExistingRecruiterCredentialsReturning200() throws Exception {
         Country country = persistCountry("some country");
 
-        AddressReadDto addressDto = new AddressReadDto();
+        AddressCreateDto addressDto = new AddressCreateDto();
         addressDto.setStreetName("street name");
         addressDto.setHouseNumber("15");
         addressDto.setCity("city");
@@ -151,7 +151,7 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
         persistJobSeeker("user@user.user", "password");
         Country country = persistCountry("some country");
 
-        AddressReadDto addressDto = new AddressReadDto();
+        AddressCreateDto addressDto = new AddressCreateDto();
         addressDto.setStreetName("street name");
         addressDto.setHouseNumber("15");
         addressDto.setCity("city");
@@ -175,7 +175,7 @@ class AuthenticationControllerIT extends BaseIntegrationTest {
 
     @Test
     void registerWithFakeCountry() {
-        AddressReadDto addressDto = new AddressReadDto();
+        AddressCreateDto addressDto = new AddressCreateDto();
         addressDto.setStreetName("street name");
         addressDto.setHouseNumber("15");
         addressDto.setCity("city");

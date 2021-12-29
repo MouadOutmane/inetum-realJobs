@@ -2,7 +2,7 @@ package world.inetum.realdolmen.realjobs.payload.security;
 
 import world.inetum.realdolmen.realjobs.entities.enums.Gender;
 import world.inetum.realdolmen.realjobs.entities.enums.Role;
-import world.inetum.realdolmen.realjobs.payload.dtos.AddressReadDto;
+import world.inetum.realdolmen.realjobs.payload.dtos.AddressCreateDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -30,7 +30,7 @@ public class SignupRequest {
     private LocalDate birthDate;
     @Valid
     @NotNull
-    private AddressReadDto address;
+    private AddressCreateDto address;
     private String mobilePhone;
     private String profilePicture;
 
@@ -90,11 +90,11 @@ public class SignupRequest {
         this.birthDate = birthDate;
     }
 
-    public AddressReadDto getAddress() {
+    public AddressCreateDto getAddress() {
         return address;
     }
 
-    public void setAddress(AddressReadDto address) {
+    public void setAddress(AddressCreateDto address) {
         this.address = address;
     }
 

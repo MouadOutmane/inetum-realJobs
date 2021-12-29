@@ -19,7 +19,7 @@ import {Router} from "@angular/router";
 export class UserDetailsComponent implements OnInit {
   genders: Array<String> = [];
   countries$: Observable<Country[]>;
-  profile$: Profile;
+  profile: Profile;
   profileForm: FormGroup;
   profileFormLoading: boolean = false;
   deleteLoading: boolean = false;
@@ -62,7 +62,7 @@ export class UserDetailsComponent implements OnInit {
         })
       )
       .subscribe(data => {
-        this.profile$ = data
+        this.profile = data
         this.patchProfileFormValues();
         this.loading = false;
       })
@@ -71,21 +71,22 @@ export class UserDetailsComponent implements OnInit {
 
   patchProfileFormValues() {
     this.profileForm.patchValue({
-      firstName: this.profile$.firstName,
-      lastName: this.profile$.lastName,
-      gender: this.profile$.gender,
-      streetName: this.profile$.address.streetName,
-      houseNumber: this.profile$.address.houseNumber,
-      box: this.profile$.address.box,
-      city: this.profile$.address.city,
-      postalCode: this.profile$.address.postalCode,
-      country: this.profile$.address.country,
-      mobilePhone: this.profile$.mobilePhone,
-      dateOfBirth: new Date(this.profile$.dateOfBirth)
+      firstName: this.profile.firstName,
+      lastName: this.profile.lastName,
+      gender: this.profile.gender,
+      streetName: this.profile.address.streetName,
+      houseNumber: this.profile.address.houseNumber,
+      box: this.profile.address.box,
+      city: this.profile.address.city,
+      postalCode: this.profile.address.postalCode,
+      country: this.profile.address.country,
+      mobilePhone: this.profile.mobilePhone,
+      dateOfBirth: new Date(this.profile.dateOfBirth)
     });
   }
 
   save() {
+  //TODO - update personal info
     if (this.profileForm.dirty && this.profileForm.valid) {
       this.profileFormLoading = true;
 
@@ -93,6 +94,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   deleteAccount() {
+    //TODO - update personal info
     this.confirmationService.confirm({
       header: 'Delete Confirmation',
       message: 'Are you sure that you want to delete your account?',

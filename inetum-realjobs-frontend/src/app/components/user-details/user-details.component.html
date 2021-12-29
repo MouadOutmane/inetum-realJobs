@@ -11,8 +11,8 @@
       <div class="p-col-12">
         <div class="p-inputgroup mb-2">
           <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-          <input class="col p-md-2" type="text" formControlName="firstName" pInputText placeholder="First name">&nbsp;
-          <input class="col p-md-2" type="text" formControlName="lastName" pInputText placeholder="Last name">
+          <input class="col" type="text" formControlName="firstName" pInputText placeholder="First name">&nbsp;
+          <input class="col" type="text" formControlName="lastName" pInputText placeholder="Last name">
         </div>
         <div class="p-field mb-2">
           <p-dropdown [options]="genders" formControlName="gender" placeholder="Select your gender">
@@ -22,17 +22,16 @@
           <p-calendar formControlName="dateOfBirth" inputId="basic" placeholder="Birthdate"></p-calendar>
         </div>
         <div class="p-inputgroup mb-2">
-          <input class="col p-col-7 p-md-2" type="text" pInputText placeholder="Street name"
-                 formControlName="streetName">&nbsp;
-          <input class="col p-md-2" type="number" pInputText placeholder="Nr" formControlName="houseNumber">&nbsp;
-          <input class="col p-md-2" type="text" pInputText placeholder="Box" formControlName="box">&nbsp;
+          <input class="col" type="text" pInputText placeholder="Street name" formControlName="streetName">&nbsp;
+          <input class="col" type="number" pInputText placeholder="Nr" formControlName="houseNumber">&nbsp;
+          <input class="col" type="text" pInputText placeholder="Box" formControlName="box">
         </div>
         <div class="p-inputgroup mb-2">
-          <input class="col col-lg-7 p-md-2" type="text" pInputText placeholder="City" formControlName="city">&nbsp;
-          <input class="col p-md-2" type="number" pInputText placeholder="Postal code" formControlName="postalCode">&nbsp;
+          <input class="col" type="text" pInputText placeholder="City" formControlName="city">&nbsp;
+          <input class="col" type="number" pInputText placeholder="Postal code" formControlName="postalCode">
         </div>
         <div class="p-field mb-2">
-          <p-dropdown [options]="countries$| async " formControlName="country" optionLabel="name" optionValue="id"
+          <p-dropdown [options]="countries$| async " formControlName="country" optionLabel="name" optionValue="name"
                       placeholder="Select your country">
           </p-dropdown>
         </div>

@@ -3,7 +3,7 @@ package world.inetum.realdolmen.realjobs.payload.dtos;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public class AddressReadDto {
+public class AddressCreateDto {
 
     @NotBlank
     private String streetName;
@@ -15,7 +15,7 @@ public class AddressReadDto {
     @NotBlank
     private String postalCode;
     @NotNull
-    private String country;
+    private Long country;
 
     public String getStreetName() {
         return streetName;
@@ -57,12 +57,11 @@ public class AddressReadDto {
         this.postalCode = postalCode;
     }
 
-    public String getCountry() {
+    public Long getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Long country) {
         this.country = country;
     }
-
 }
