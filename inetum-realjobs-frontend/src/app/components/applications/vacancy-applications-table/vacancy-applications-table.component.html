@@ -39,8 +39,7 @@
     </div>
     <div class="details">
       <!-- FIXME - Show icon-->
-      <!-- FIXME - Include mailto attribute. -->
-      <span>{{application.jobSeeker.email}}</span>
+      <a href="mailto:{{application.jobSeeker.email}}">{{application.jobSeeker.email}}</a>
       <!-- FIXME - Format phone number. -->
       <span *ngIf="application.jobSeeker.mobilePhone">{{application.jobSeeker.mobilePhone}}</span>
     </div>
