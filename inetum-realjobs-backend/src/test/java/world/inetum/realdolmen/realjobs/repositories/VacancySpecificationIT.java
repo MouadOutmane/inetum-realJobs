@@ -3,7 +3,7 @@ package world.inetum.realdolmen.realjobs.repositories;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import world.inetum.realdolmen.realjobs.BaseRepositoryTest;
+import world.inetum.realdolmen.realjobs.BaseIntegrationTest;
 import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
 import world.inetum.realdolmen.realjobs.entities.Company;
 import world.inetum.realdolmen.realjobs.entities.Country;
@@ -19,7 +19,7 @@ import static world.inetum.realdolmen.realjobs.repositories.VacancySpecification
 @SuppressWarnings("ConstantConditions")
 @SpringBootTest(classes = InetumRealJobsApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
-public class VacancySpecificationIT extends BaseRepositoryTest {
+public class VacancySpecificationIT extends BaseIntegrationTest {
 
     @Test
     void findAll_FullTimeItaly3YearsOfExperienceVacancies_True() {
