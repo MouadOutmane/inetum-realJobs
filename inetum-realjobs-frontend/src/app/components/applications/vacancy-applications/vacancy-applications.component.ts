@@ -17,6 +17,7 @@ export class VacancyApplicationsComponent implements OnInit {
   vacancy$: Observable<Vacancy>;
   applications$: Observable<Application[]>;
   error: any = null;
+  panel: number = 0;
 
   constructor(
     private route: ActivatedRoute,

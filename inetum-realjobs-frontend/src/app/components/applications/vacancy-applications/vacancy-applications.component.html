@@ -2,7 +2,7 @@
   <h2>Applicants for: {{vacancy.functionTitle}}</h2>
   <p-divider></p-divider>
 
-  <p-tabView *ngIf="applications$ | async as applications; else loadingOrError">
+  <p-tabView *ngIf="applications$ | async as applications; else loadingOrError" [(activeIndex)]="panel">
     <p-tabPanel header="Not yet reviewed">
       <app-vacancy-applications-table (updateApplications)="fetchApplications()"
                                       [applications]="getApplicationsNotYetReviewed(applications)">
