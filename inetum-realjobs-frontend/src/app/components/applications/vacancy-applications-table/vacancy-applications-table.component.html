@@ -7,12 +7,16 @@
         <span>{{application.jobSeeker.firstName}}</span>
         <span>{{application.jobSeeker.lastName}}</span>
       </div>
-      <!-- FIXME - Show icons. -->
-      <p-button routerLink="/resume/{{application.jobSeeker.resumeId}}" styleClass="p-button-sm">
-        Show resume
+      <p-button icon="pi pi-user"
+                label="Show resume"
+                routerLink="/resume/{{application.jobSeeker.resumeId}}"
+                styleClass="p-button-sm">
       </p-button>
-      <!-- FIXME - Show icons. -->
-      <p-button routerLink="/motivation/{{application.id}}" styleClass="p-button-sm">Show motivation</p-button>
+      <p-button icon="pi pi-file"
+                label="Show motivation"
+                routerLink="/motivation/{{application.id}}"
+                styleClass="p-button-sm">
+      </p-button>
     </div>
     <div class="actions">
       <p-button (onClick)="updateApplication(application, status.ACCEPTED)"
@@ -26,11 +30,14 @@
         Decline
       </p-button>
     </div>
-    <div class="details">
-      <!-- FIXME - Show icon. -->
-      <a href="mailto:{{application.jobSeeker.email}}">{{application.jobSeeker.email}}</a>
-      <!-- FIXME - Format phone number. -->
-      <span *ngIf="application.jobSeeker.mobilePhone">{{application.jobSeeker.mobilePhone}}</span>
+    <div class="details-wrapper">
+      <i class="pi pi-info-circle"></i>
+
+      <div class="details">
+        <a href="mailto:{{application.jobSeeker.email}}">{{application.jobSeeker.email}}</a>
+        <!-- TODO 29-dec-2021 Format phone number. -->
+        <span *ngIf="application.jobSeeker.mobilePhone">{{application.jobSeeker.mobilePhone}}</span>
+      </div>
     </div>
   </div>
 </div>

@@ -54,8 +54,18 @@
   }
 }
 
-.details {
+.details-wrapper {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  gap: 0.25em;
+
+  i {
+    font-size: 1.5rem;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
