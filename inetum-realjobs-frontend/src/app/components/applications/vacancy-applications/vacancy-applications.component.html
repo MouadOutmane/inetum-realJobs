@@ -4,15 +4,18 @@
 
   <p-tabView *ngIf="applications$ | async as applications; else loadingOrError">
     <p-tabPanel header="Not yet reviewed">
-      <app-vacancy-applications-table [applications]="getApplicationsNotYetReviewed(applications)">
+      <app-vacancy-applications-table (updateApplications)="fetchApplications()"
+                                      [applications]="getApplicationsNotYetReviewed(applications)">
       </app-vacancy-applications-table>
     </p-tabPanel>
     <p-tabPanel header="Accepted">
-      <app-vacancy-applications-table [applications]="getApplicationsAccepted(applications)">
+      <app-vacancy-applications-table (updateApplications)="fetchApplications()"
+                                      [applications]="getApplicationsAccepted(applications)">
       </app-vacancy-applications-table>
     </p-tabPanel>
     <p-tabPanel header="Declined">
-      <app-vacancy-applications-table [applications]="getApplicationsDenied(applications)">
+      <app-vacancy-applications-table (updateApplications)="fetchApplications()"
+                                      [applications]="getApplicationsDenied(applications)">
       </app-vacancy-applications-table>
     </p-tabPanel>
   </p-tabView>

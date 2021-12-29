@@ -31,10 +31,15 @@ export class VacancyApplicationsComponent implements OnInit {
       this.vacancy$ = this.vacancyService
         .getVacancy(this.id)
         .pipe(this.onError());
-      this.applications$ = this.vacancyService
-        .getApplications(this.id)
-        .pipe(this.onError());
+
+      this.fetchApplications();
     });
+  }
+
+  fetchApplications() {
+    this.applications$ = this.vacancyService
+      .getApplications(this.id)
+      .pipe(this.onError());
   }
 
   private onError<T>(): OperatorFunction<T, T> {

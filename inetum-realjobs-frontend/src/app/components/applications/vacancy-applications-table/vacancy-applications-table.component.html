@@ -15,16 +15,16 @@
       <p-button routerLink="/motivation/{{application.id}}" styleClass="p-button-sm">Show motivation</p-button>
     </div>
     <div class="actions">
-      <!--
-        FIXME - Improve button
-        - Action
-      -->
-      <p-button [disabled]="application.status === 'ACCEPTED'" styleClass="p-button-sm">Accept</p-button>
-      <!--
-        FIXME - Improve button
-        - Action
-      -->
-      <p-button [disabled]="application.status === 'DENIED'" styleClass="p-button-sm">Decline</p-button>
+      <p-button (onClick)="updateApplication(application, status.ACCEPTED)"
+                [disabled]="application.status === status.ACCEPTED || application.loading"
+                styleClass="p-button-sm">
+        Accept
+      </p-button>
+      <p-button (onClick)="updateApplication(application, status.DENIED)"
+                [disabled]="application.status === status.DENIED || application.loading"
+                styleClass="p-button-sm">
+        Decline
+      </p-button>
     </div>
     <div class="details">
       <!-- FIXME - Show icon. -->

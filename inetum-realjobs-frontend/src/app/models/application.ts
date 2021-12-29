@@ -6,4 +6,6 @@ export class Application {
   status: ApplicationStatus | null;
   motivation: string | null;
   jobSeeker: JobSeeker;
+
+  loading?: boolean;
 }
