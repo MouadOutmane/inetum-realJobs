@@ -1,20 +1,21 @@
 package world.inetum.realdolmen.realjobs.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import world.inetum.realdolmen.realjobs.payload.security.JwtResponse;
-import world.inetum.realdolmen.realjobs.payload.security.LoginRequest;
-import world.inetum.realdolmen.realjobs.payload.security.MessageResponse;
-import world.inetum.realdolmen.realjobs.payload.security.SignupRequest;
+import world.inetum.realdolmen.realjobs.exceptions.EndpointException;
+import world.inetum.realdolmen.realjobs.exceptions.messages.ResetPasswordExceptionMessage;
+import world.inetum.realdolmen.realjobs.payload.security.*;
 import world.inetum.realdolmen.realjobs.security.UserDetailsImpl;
 import world.inetum.realdolmen.realjobs.security.jwt.JwtUtils;
 import world.inetum.realdolmen.realjobs.services.AccountService;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,4 +68,21 @@ public class AuthenticationController {
 
         return new MessageResponse("User registered successfully!");
     }
+
+    @PostMapping("/forgotPassword")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void forgotPassword(@Valid @RequestBody ForgotRequest forgotRequest) {
+        try {
+            accountService.forgotPassword(forgotRequest);
+        } catch (MessagingException e) {
+            throw new EndpointException(ResetPasswordExceptionMessage.UNKNOWN_ERROR);
+        }
+    }
+
+    @PostMapping("/resetPassword")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void resetPassword(@Valid @RequestBody ResetRequest resetRequest) {
+        accountService.resetPassword(resetRequest);
+    }
+
 }

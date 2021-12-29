@@ -7,19 +7,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import world.inetum.realdolmen.realjobs.entities.Address;
-import world.inetum.realdolmen.realjobs.entities.Company;
-import world.inetum.realdolmen.realjobs.entities.Country;
-import world.inetum.realdolmen.realjobs.entities.Vacancy;
+import world.inetum.realdolmen.realjobs.entities.*;
 import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
-import world.inetum.realdolmen.realjobs.repositories.AccountRepository;
-import world.inetum.realdolmen.realjobs.repositories.CompanyRepository;
-import world.inetum.realdolmen.realjobs.repositories.CountryRepository;
-import world.inetum.realdolmen.realjobs.repositories.VacancyRepository;
+import world.inetum.realdolmen.realjobs.repositories.*;
 
 import java.util.Optional;
+import java.util.UUID;
 
-@SuppressWarnings({"SameParameterValue"})
+@SuppressWarnings({"SameParameterValue", "unused"})
 public abstract class BaseRepositoryTest {
 
     protected static ObjectMapper mapper;
@@ -32,6 +27,8 @@ public abstract class BaseRepositoryTest {
     protected CountryRepository countryRepository;
     @Autowired
     protected VacancyRepository vacancyRepository;
+    @Autowired
+    protected ResetCodeRepository resetCodeRepository;
 
     @BeforeAll
     protected static void registerMapper() {
@@ -42,6 +39,7 @@ public abstract class BaseRepositoryTest {
     @BeforeEach
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     protected void cleanDatabase() {
+        resetCodeRepository.deleteAll();
         accountRepository.deleteAll();
         vacancyRepository.deleteAll();
         companyRepository.deleteAll();
@@ -125,4 +123,12 @@ public abstract class BaseRepositoryTest {
         return address;
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    protected ResetCode persistResetCode(Account account, UUID code) {
+        ResetCode resetCode = new ResetCode();
+        resetCode.setCode(code);
+        resetCode.setAccount(account);
+        return resetCodeRepository.save(resetCode);
+    }
+    
 }
