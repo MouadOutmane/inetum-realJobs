@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Experience} from "../../../../models/experience";
 
 @Component({
@@ -6,18 +6,12 @@ import {Experience} from "../../../../models/experience";
   templateUrl: './experience-list.component.html',
   styleUrls: ['./experience-list.component.scss']
 })
-export class ExperienceListComponent implements OnInit {
+export class ExperienceListComponent {
 
   @Input() experienceList: Experience[];
 
   @Input() deleteButton: boolean;
   @Output() deleteEvent = new EventEmitter<number>();
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   deleteItem(index: number) {
     this.deleteEvent.emit(index);

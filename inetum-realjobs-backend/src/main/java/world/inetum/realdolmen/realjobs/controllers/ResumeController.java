@@ -9,6 +9,7 @@ import world.inetum.realdolmen.realjobs.payload.mappers.AccountMapper;
 import world.inetum.realdolmen.realjobs.payload.mappers.ResumeMapper;
 import world.inetum.realdolmen.realjobs.services.ResumeService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -31,7 +32,7 @@ public class ResumeController {
     }
 
     @PostMapping("/skill")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public List<SkillReadDto> addSkill(@Valid @RequestBody SkillCreateDto newSkill) {
         return resumeService
                 .addSkill(resumeMapper.toEntity(newSkill))
@@ -41,7 +42,7 @@ public class ResumeController {
     }
 
     @DeleteMapping("/skill/{id}")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public List<SkillReadDto> removeSkill(@Valid @PathVariable("id") long id) {
         return resumeService
                 .removeSkill(id)
@@ -51,7 +52,7 @@ public class ResumeController {
     }
 
     @GetMapping("/skill")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public List<SkillReadDto> getSkills() {
         return resumeService
                 .getSkills()
@@ -61,7 +62,7 @@ public class ResumeController {
     }
 
     @PostMapping("/language")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public List<LanguageReadDto> addLanguage(@Valid @RequestBody LanguageCreateDto newLanguage) {
         return resumeService
                 .addLanguage(resumeMapper.toEntity(newLanguage))
@@ -71,7 +72,7 @@ public class ResumeController {
     }
 
     @DeleteMapping("/language/{id}")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public List<LanguageReadDto> removeLanguage(@Valid @PathVariable("id") long id) {
         return resumeService
                 .removeLanguage(id)
@@ -81,7 +82,7 @@ public class ResumeController {
     }
 
     @GetMapping("/language")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public List<LanguageReadDto> getLanguages() {
         return resumeService
                 .getLanguages()
@@ -91,7 +92,7 @@ public class ResumeController {
     }
 
     @PostMapping("/education")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public List<EducationReadDto> addEducation(@Valid @RequestBody EducationCreateDto newEducation) {
         return resumeService
                 .addEducation(resumeMapper.toEntity(newEducation))
@@ -101,7 +102,7 @@ public class ResumeController {
     }
 
     @DeleteMapping("/education/{id}")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public List<EducationReadDto> removeEducation(@Valid @PathVariable("id") long id) {
         return resumeService
                 .removeEducation(id)
@@ -111,7 +112,7 @@ public class ResumeController {
     }
 
     @GetMapping("/education")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public List<EducationReadDto> getEducationList() {
         return resumeService
                 .getEducationList()
@@ -121,7 +122,7 @@ public class ResumeController {
     }
 
     @PostMapping("/experience")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public List<ExperienceReadDto> addExperience(@Valid @RequestBody ExperienceCreateDto newExperience) {
         return resumeService
                 .addExperience(resumeMapper.toEntity(newExperience))
@@ -131,7 +132,7 @@ public class ResumeController {
     }
 
     @DeleteMapping("/experience/{id}")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public List<ExperienceReadDto> removeExperience(@Valid @PathVariable("id") long id) {
         return resumeService
                 .removeExperience(id)
@@ -141,7 +142,7 @@ public class ResumeController {
     }
 
     @GetMapping("/experience")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public List<ExperienceReadDto> getExperienceList() {
         return resumeService
                 .getExperienceList()
@@ -151,31 +152,31 @@ public class ResumeController {
     }
 
     @PostMapping("/summary")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public SingleValueDto<String> setSummary(@RequestBody @NotBlank SingleValueDto<String> summary) {
         return new SingleValueDto<>(resumeService.setSummary(summary.getValue()));
     }
 
     @GetMapping("/summary")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public SingleValueDto<String> getSummary() {
         return new SingleValueDto<>(resumeService.getSummary());
     }
 
     @PostMapping("/status")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public SingleValueDto<ResumeStatus> setStatus(@RequestBody @NotNull SingleValueDto<ResumeStatus> status) {
         return new SingleValueDto<>(resumeService.setStatus(status.getValue()));
     }
 
     @GetMapping("/status")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public SingleValueDto<ResumeStatus> getStatus() {
         return new SingleValueDto<>(resumeService.getStatus());
     }
 
     @GetMapping("/account")
-    @PreAuthorize("hasRole('ROLE_JOBSEEKER')")
+    @RolesAllowed("JOBSEEKER")
     public AccountResumeReadDto getAccount() {
         return accountMapper.toDto(resumeService.getAccount());
     }

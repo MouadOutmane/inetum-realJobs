@@ -49,6 +49,23 @@ export class AuthenticationService {
     return localStorage.getItem("id_token");
   }
 
+  parseJwt() {
+    if (!this.getJWTToken()) {
+      return null;
+    }
+    const base64Token = this.getJWTToken().split('.')[1];
+    const base64 = base64Token.replace(/-/g, '+').replace(/_/g, '/');
+    return JSON.parse(window.atob(base64));
+  }
+
+  getCurrentRoles(): string[] {
+    const parsedJwt = this.parseJwt();
+    if (parsedJwt) {
+      return parsedJwt["roles"];
+    }
+    return null;
+  }
+
   private setSession(authResult: any) {
     const expiresAt = moment().add(authResult.expiresIn, "second");
 

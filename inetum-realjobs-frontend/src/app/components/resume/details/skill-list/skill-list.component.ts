@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Skill} from "../../../../models/skill";
 import {SkillLevel} from "../../../../models/skillLevel.enum";
 
@@ -7,17 +7,11 @@ import {SkillLevel} from "../../../../models/skillLevel.enum";
   templateUrl: './skill-list.component.html',
   styleUrls: ['./skill-list.component.scss']
 })
-export class SkillListComponent implements OnInit {
+export class SkillListComponent {
 
   @Input() skills: Skill[];
   @Input() deleteButton: boolean;
   @Output() deleteEvent = new EventEmitter<number>();
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   deleteItem(id: number) {
     this.deleteEvent.emit(id);

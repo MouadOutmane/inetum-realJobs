@@ -39,20 +39,24 @@ public class SecurityService {
     }
 
     public JobSeeker getJobSeeker() {
-        Account account = getCurrentUser();
-        if (account instanceof JobSeeker) {
-            return jobSeekerRepository.getById(account.getId());
-        } else {
-            throw new UsernameNotFoundException("The logged in user isn't a jobseeker");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            return jobSeekerRepository
+                    .findByEmailWithResume(currentUserName)
+                    .orElseThrow(() -> new UsernameNotFoundException("Jobseeker Not Found with email " + currentUserName));
         }
+        return null;
     }
 
     public Recruiter getRecruiter() {
-        Account account = getCurrentUser();
-        if (account instanceof Recruiter) {
-            return recruiterRepository.getById(account.getId());
-        } else {
-            throw new UsernameNotFoundException("The logged in user isn't a recruiter");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            return recruiterRepository
+                    .findByEmailWithCompany(currentUserName)
+                    .orElseThrow(() -> new UsernameNotFoundException("Recruiter Not Found with email " + currentUserName));
         }
+        return null;
     }
 }

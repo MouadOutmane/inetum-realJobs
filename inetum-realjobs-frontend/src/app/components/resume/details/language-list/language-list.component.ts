@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Language} from "../../../../models/language";
 import {SkillLevel} from "../../../../models/skillLevel.enum";
 
@@ -7,17 +7,11 @@ import {SkillLevel} from "../../../../models/skillLevel.enum";
   templateUrl: './language-list.component.html',
   styleUrls: ['./language-list.component.scss']
 })
-export class LanguageListComponent implements OnInit {
+export class LanguageListComponent {
 
   @Input() languages: Language[];
   @Input() deleteButton: boolean;
   @Output() deleteEvent = new EventEmitter<number>();
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   deleteItem(index: number) {
     this.deleteEvent.emit(index);

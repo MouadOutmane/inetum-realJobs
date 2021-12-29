@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Education} from "../../../../models/education";
 
 @Component({
@@ -6,18 +6,12 @@ import {Education} from "../../../../models/education";
   templateUrl: './education-list.component.html',
   styleUrls: ['./education-list.component.scss']
 })
-export class EducationListComponent implements OnInit {
+export class EducationListComponent {
 
   @Input() educationList: Education[];
 
   @Input() deleteButton: boolean;
   @Output() deleteEvent = new EventEmitter<number>();
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   deleteItem(index: number) {
     this.deleteEvent.emit(index);

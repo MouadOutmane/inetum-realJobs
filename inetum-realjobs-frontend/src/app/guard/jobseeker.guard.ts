@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {CanActivate, Router} from '@angular/router';
 import {AuthenticationService} from "../services/authentication.service";
 
 @Injectable({
@@ -11,10 +10,10 @@ export class JobseekerGuard implements CanActivate {
   constructor(private auth: AuthenticationService, private router: Router) {
   }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.auth.)
+  canActivate(): boolean {
+    if (!this.auth.getCurrentRoles().includes("ROLE_JOBSEEKER")) {
+      this.router.navigate(["not-found"]);
+    }
+    return true;
   }
-
 }

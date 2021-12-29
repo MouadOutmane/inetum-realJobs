@@ -14,6 +14,13 @@ import {InputMaskModule} from "primeng/inputmask";
 import {PasswordModule} from "primeng/password";
 import {DividerModule} from "primeng/divider";
 import {ScrollPanelModule} from "primeng/scrollpanel";
+import {CheckboxModule} from "primeng/checkbox";
+import {RippleModule} from "primeng/ripple";
+import {StyleClassModule} from "primeng/styleclass";
+import {ChipModule} from "primeng/chip";
+import {InputTextareaModule} from "primeng/inputtextarea";
+import {ConfirmPopupModule} from "primeng/confirmpopup";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 const modules = [
   ButtonModule,
@@ -29,9 +36,15 @@ const modules = [
   ToastModule,
   InputMaskModule,
   PasswordModule,
-  PanelModule,
   DividerModule,
   ScrollPanelModule,
+  CheckboxModule,
+  RippleModule,
+  StyleClassModule,
+  ChipModule,
+  InputTextareaModule,
+  ConfirmPopupModule,
+  ConfirmDialogModule,
 ];
 
 @NgModule({
