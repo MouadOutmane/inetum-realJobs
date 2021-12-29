@@ -1,4 +1,4 @@
-<ng-container *ngFor="let application of applications; let i = index;">
+<div *ngFor="let application of applications; let i = index;" class="entry">
   <span class="number">{{i + 1}}.</span>
 
   <div class="application">
@@ -37,4 +37,4 @@
       <span *ngIf="application.jobSeeker.mobilePhone">{{application.jobSeeker.mobilePhone}}</span>
     </div>
   </div>
-</ng-container>
+</div>
