@@ -17,7 +17,6 @@ import {ScrollPanelModule} from "primeng/scrollpanel";
 import {FieldsetModule} from 'primeng/fieldset';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 
@@ -42,7 +41,6 @@ const modules = [
   FieldsetModule,
   InputNumberModule,
   ConfirmDialogModule,
-  ProgressSpinnerModule
 ];
 
 @NgModule({
