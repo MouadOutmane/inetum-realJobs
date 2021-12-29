@@ -1,62 +1,59 @@
-<div class="col-md-8 offset-md-3">
-  <h2>Filter Vacancies</h2>
-  <form (ngSubmit)="onSubmit()">
 
-    <div class="form-group">
-      <label> Function Title</label>
-      <input [(ngModel)]="filter.functionTitle" class="form-control" id="functionTitle"
-             name="functionTitle" type="text">
+    <h2>Filter Vacancies</h2>
+    <div class="p-grid p-fluid">
+        <div class="p-col-12 p-md-4">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-id-card"></i></span>
+                <input type="text" pInputText [(ngModel)]="filter.functionTitle" placeholder="Function Title">         
+            </div>
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-file"></i></span>
+                <input type="text" pInputText [(ngModel)]="filter.contractType" placeholder="Contract Type">         
+            </div>
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-flag-fill"></i></span>
+                <input type="text" pInputText [(ngModel)]="filter.country" placeholder="Country">         
+            </div>
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-globe"></i></span>
+                <input type="text" pInputText [(ngModel)]="filter.industry" placeholder="Industry">         
+            </div>
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input type="text" pInputText [(ngModel)]="filter.requiredYearsOfExperience" placeholder="Max Years Of Experience">         
+            </div>
+            
+
+        </div>
+
     </div>
+    <button pButton type="button" label="Submit" (click)="onSubmit()"></button>
 
-    <div class="form-group">
-      <label> contract Type</label>
-      <input [(ngModel)]="filter.contractType" class="form-control" id="contractType"
-             name="contractType" type="text">
-    </div>
 
-    <div class="form-group">
-      <label> Industry</label>
-      <input [(ngModel)]="filter.industry" class="form-control" id="industry"
-             name="industry" type="text">
-    </div>
+    <h2>Vacancies</h2>
 
-    <div class="form-group">
-      <label> Country</label>
-      <input [(ngModel)]="filter.country" class="form-control" id="country"
-             name="country" type="text">
-    </div>
-
-    <div class="form-group">
-      <label> Required Years Of Experience</label>
-      <input [(ngModel)]="filter.requiredYearsOfExperience" class="form-control" id="requiredYearsOfExperience"
-             name="requiredYearsOfExperience" type="number">
-    </div>
-
-    <button class="btn btn-success" type="submit">Submit</button>
-  </form>
-</div>
-<div class="container">
-  <h2>Vacancies</h2>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Function Title</th>
-      <th>Contract Type</th>
-      <th>City</th>
-      <th>Offer</th>
-      <th>Company</th>
-      <th>Posting Date</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let vacancy of vacancies$|async">
-      <td>{{ vacancy.functionTitle}}</td>
-      <td>{{ vacancy.contractType}}</td>
-      <td>{{ vacancy.city}}</td>
-      <td>{{ vacancy.offer}}</td>
-      <td>{{ vacancy.companyName}}</td>
-      <td>{{ vacancy.postingDate}}</td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+    <p-table [value]="vacancies$ | async" styleClass="p-datatable-striped" responsiveLayout="scroll">    
+        <ng-template pTemplate="header">
+        <tr>
+            <th>Function Title</th>
+            <th>Contract Type</th>
+            <th>City</th>
+            <th>Offer</th>
+            <th>Company</th>
+            <th>Posting Date</th>
+        </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-vacancy>
+            <tr>
+                <td>{{ vacancy.functionTitle}}</td>
+                <td>{{ vacancy.contractType}}</td>
+                <td>{{ vacancy.city}}</td>
+                <td>{{ vacancy.offer}}</td>
+                <td>{{ vacancy.companyName}}</td>
+                <td>{{ vacancy.postingDate}}</td>
+            </tr>
+        </ng-template>
+</p-table>

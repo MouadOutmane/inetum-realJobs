@@ -1,7 +1,9 @@
 export interface VacancyFilterFields {
-  functionTitle: string;
-  contractType: string;
-  industry: string;
-  country: string;
-  requiredYearsOfExperience: number;
+    functionTitle: string;
+    contractType: string;
+    industry: string;
+    country: number;
+    requiredYearsOfExperience: number;
+
+    
 }

@@ -1,20 +1,15 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
   <div class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" routerLink="" routerLinkActive="active">Inetum-RealJobs</a>
+      <a routerLink="" routerLinkActive="active" class="nav-link">Inetum-RealJobs</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="vacancy/search" routerLinkActive="active">Search</a>
-    </li>
-    <li class="nav-item">
-      <a *ngIf="!isLoggedIn()" class="nav-link" routerLink="login" routerLinkActive="active">Log in now</a>
-      <button (click)="logout()" *ngIf="isLoggedIn()" class="nav-link" routerLink="" routerLinkActive="active">
-        Log out
-      </button>
+      <a *ngIf="!isLoggedIn()" routerLink="login" routerLinkActive="active" class="nav-link">Log in now</a>
+      <button (click)="logout()" *ngIf="isLoggedIn()" routerLink="" routerLinkActive="active" class="nav-link">Log out</button>
     </li>
   </div>
 </nav>
 
-<div class="container" id="logo">
+<div class="container">
   <router-outlet></router-outlet>
 </div>

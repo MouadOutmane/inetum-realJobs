@@ -1,7 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {Country} from "../models/country";
+import {Country} from "src/app/models/country.model";
 
 const baseUrl = "http://localhost:8080/api/country/";
 
@@ -16,4 +16,5 @@ export class CountryService {
   getAllCountries(): Observable<Country[]> {
     return this.http.get<Country[]>(baseUrl + "all");
   }
+
 }

@@ -1,0 +1,113 @@
+
+<div>
+    <h1>
+        Create Vacancy
+    </h1>
+
+    <form [formGroup]="vacancyForm" class="ui-g">
+        <p-panel header= "Add Vacancy" class="ui-g-12">
+
+            <div class="ui-g">
+                <label for="functionTitle">Function Title: </label>
+                <input pInputText formControlName="functionTitle"/>
+                <div *ngIf="!vacancyForm.get('functionTitle').valid && (vacancyForm.get('functionTitle').dirty ||vacancyForm.get('functionTitle').touched)">
+                    <p-message severity="error" text="required !"></p-message>
+                </div>
+            </div>
+            <br>
+            <div class="ui-g">
+                <label for="contractType">Contract Type: </label>
+                <p-dropdown [options]="contractTypes" formControlName="contractType" optionLabel="name"></p-dropdown>
+            </div>
+            <br>
+            <div class="ui-g">
+                <label for="city">City </label>
+                <input pInputText formControlName="city"/>
+                <div *ngIf="!vacancyForm.get('city').valid && (vacancyForm.get('city').dirty ||vacancyForm.get('city').touched)">
+                    <p-message severity="error" text="required !"></p-message>
+                </div>
+
+                <label for="country">Country</label>
+                <p-dropdown [options]="countries" formControlName="country" optionLabel="name"></p-dropdown>
+
+            </div>
+            <br>
+            <div class="ui-g">
+                <label for="companyName"> Company Name: </label>
+                <input pInputText formControlName="companyName"/>
+                <div *ngIf="!vacancyForm.get('companyName').valid && (vacancyForm.get('companyName').dirty ||vacancyForm.get('companyName').touched)">
+                    <p-message severity="error" text="required !"></p-message>
+                </div>
+            
+                <label for="industry">Industry: </label>
+                <input pInputText formControlName="industry"/>
+            </div>
+            <br>
+            <p-panel header= "Adress" class="ui-g-12">
+            <div class="ui-g">
+                <label for="streetName"> Street: </label>
+                <input pInputText formControlName="streetName"/>
+                <div *ngIf="!vacancyForm.get('streetName').valid && (vacancyForm.get('streetName').dirty ||vacancyForm.get('streetName').touched)">
+                    <p-message severity="error" text="required !"></p-message>
+                </div>
+
+                <label for="nr">  Number: </label>
+                <input pInputText formControlName="nr"/>
+                <div *ngIf="!vacancyForm.get('nr').valid && (vacancyForm.get('nr').dirty ||vacancyForm.get('nr').touched)">
+                    <p-message severity="error" text="required valid number !"></p-message>
+                </div>
+
+                <label for="box">  Box: </label>
+                <input pInputText formControlName="box"/>
+
+                <label for="postalCode">  Postal Code: </label>
+                <input pInputText formControlName="postalCode"/>
+                <div *ngIf="!vacancyForm.get('postalCode').valid && (vacancyForm.get('postalCode').dirty ||vacancyForm.get('postalCode').touched)">
+                    <p-message severity="error" text="required valid number!"></p-message>
+                </div>
+            </div>
+        </p-panel>
+            <br>
+            <div class="ui-g">
+
+                <label for="functionDescription">Function Description: </label>
+                <textarea pInputTextarea formControlName="functionDescription"></textarea>
+                <div *ngIf="!vacancyForm.get('functionDescription').valid && (vacancyForm.get('functionDescription').dirty ||vacancyForm.get('functionDescription').touched)">
+                    <p-message severity="error" text="required !"></p-message>
+                </div>
+
+            </div>
+            <br>
+            <div class="ui-g">
+
+                <label for="offer">Offer: </label>
+                <textarea pInputTextarea formControlName="offer" ></textarea>
+                <div *ngIf="!vacancyForm.get('offer').valid && (vacancyForm.get('offer').dirty ||vacancyForm.get('offer').touched)">
+                    <p-message severity="error" text="required !"></p-message>
+                </div>
+
+            </div>
+            <br>
+            <div class="ui-g">
+
+                <label for="requiredExperienceSkillsEducation">Required Experience/Skills/Education: </label>
+                <textarea pInputTextarea formControlName="requiredExperienceSkillsEducation" ></textarea>
+
+            </div>
+            
+            <br>
+            <div class="ui-g">
+                <label for="requiredYearsOfExperience">Required Years Of Experience: {{vacancyForm.get('requiredYearsOfExperience').value}}</label>
+                <p-slider formControlName="requiredYearsOfExperience" [min]="0" [max]="40"></p-slider>
+            </div>
+            <br>
+            <div class="ui-g">
+                <button type="submit" pButton label="Submit" (click)="onSubmit()"></button>
+            </div>
+        </p-panel>
+
+    </form>
+
+    
+</div>
+                

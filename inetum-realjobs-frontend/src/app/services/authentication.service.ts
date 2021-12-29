@@ -1,59 +1,53 @@
-import {HttpClient} from "@angular/common/http";
-import {Injectable} from "@angular/core";
-import {Observable, tap} from "rxjs";
-import {User} from "../models/user.model";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
+import { User } from '../models/user.model';
 import * as moment from "moment";
 
-const baseUrl = "http://localhost:8080/api/authentication/";
-
+const baseUrl= 'http://localhost:8080/authentication/';
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root'
 })
 export class AuthenticationService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) { }
+
+  login(values: any) : Observable<User>{
+    
+    return this.http.post<User>(baseUrl+'login', values)
+    .pipe(tap((res: any) => this.setSession(res)));
   }
 
-  login(values: any): Observable<User> {
+  private setSession(authResult: any){
+    const expiresAt = moment().add(authResult.expiresIn,'second');
 
-    return this.http.post<User>(baseUrl + "login", values)
-      .pipe(tap((res: any) => this.setSession(res)));
+    localStorage.setItem('id_token', authResult.accessToken);
+    localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
   }
 
-  register(user: User): Observable<string> {
-    return this.http.post<string>(baseUrl + "signUp", user);
-  }
-
-  logout() {
-    localStorage.removeItem("id_token");
+  logout(){
+    localStorage.removeItem('id_token');
     localStorage.removeItem("expires_at");
   }
 
-  public isLoggedIn(): boolean {
+  public isLoggedIn(): boolean{
     return !this.isTokenExpired();
   }
 
-  public isLoggedOut(): boolean {
+  public isLoggedOut(): boolean{
     return !this.isLoggedIn();
   }
 
-  isTokenExpired(): boolean {
+  isTokenExpired(): boolean{
     const expiration: number = Number(localStorage.getItem("expires_at"));
-    if (expiration != null) {
-      return ((1000 * expiration) - (new Date()).getTime()) < 5000;
-    } else {
-      return false;
-    }
+      if (expiration!= null) {
+        return ((1000 * expiration) - (new Date()).getTime()) < 5000;
+      } else {
+        return false;
+      }
   }
 
-  getJWTToken() {
-    return localStorage.getItem("id_token");
-  }
-
-  private setSession(authResult: any) {
-    const expiresAt = moment().add(authResult.expiresIn, "second");
-
-    localStorage.setItem("id_token", authResult.accessToken);
-    localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
-  }
+  getJWTToken(){
+    return localStorage.getItem('id_token');
+}
 }
