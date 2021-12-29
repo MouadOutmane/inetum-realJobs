@@ -15,6 +15,8 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {VacancyDetailsComponent} from "./components/vacancy-details/vacancy-details.component";
 import {ErrorHandlerComponent} from "./components/error-handler/error-handler.component";
 import {PrimengImportsModule} from "./primeng-imports";
+import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
+import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
 import {
   VacancyApplicationsComponent,
 } from "./components/applications/vacancy-applications/vacancy-applications.component";
@@ -30,6 +32,8 @@ import {
     UserDetailsComponent,
     RegisterComponent,
     NotFoundComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
     VacancyDetailsComponent,
     ErrorHandlerComponent,
     VacancyApplicationsComponent,
