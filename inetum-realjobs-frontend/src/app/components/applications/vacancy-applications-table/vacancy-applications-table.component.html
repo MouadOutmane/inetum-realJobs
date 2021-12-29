@@ -7,15 +7,11 @@
         <span>{{application.jobSeeker.firstName}}</span>
         <span>{{application.jobSeeker.lastName}}</span>
       </div>
-      <!--
-        FIXME - Improve button.
-        - Icons
-      -->
-      <p-button routerLink="/resume/{{application.jobSeeker.resumeId}}" styleClass="p-button-sm">Show resume</p-button>
-      <!--
-        FIXME - Improve button
-        - Icons
-      -->
+      <!-- FIXME - Show icons. -->
+      <p-button routerLink="/resume/{{application.jobSeeker.resumeId}}" styleClass="p-button-sm">
+        Show resume
+      </p-button>
+      <!-- FIXME - Show icons. -->
       <p-button routerLink="/motivation/{{application.id}}" styleClass="p-button-sm">Show motivation</p-button>
     </div>
     <div class="actions">
@@ -31,7 +27,7 @@
       <p-button [disabled]="application.status === 'DENIED'" styleClass="p-button-sm">Decline</p-button>
     </div>
     <div class="details">
-      <!-- FIXME - Show icon-->
+      <!-- FIXME - Show icon. -->
       <a href="mailto:{{application.jobSeeker.email}}">{{application.jobSeeker.email}}</a>
       <!-- FIXME - Format phone number. -->
       <span *ngIf="application.jobSeeker.mobilePhone">{{application.jobSeeker.mobilePhone}}</span>
