@@ -1,0 +1,48 @@
+<ng-container *ngFor="let application of applications; let i = index;">
+  <span class="number">{{i + 1}}.</span>
+
+  <!-- FIXME - Improve styling. -->
+  <div class="application">
+    <div class="information">
+      <div class="name">
+        <span>{{application.jobSeeker.firstName}}</span>
+        <span>{{application.jobSeeker.lastName}}</span>
+      </div>
+      <!--
+        FIXME - Improve button.
+        - Styling
+        - Icons
+        - Link to resume
+      -->
+      <button pButton>Show resume</button>
+      <!--
+        FIXME - Improve button
+        - Styling
+        - Icons
+        - Link to motivation
+      -->
+      <button pButton>Show motivation</button>
+    </div>
+    <div class="actions">
+      <!--
+        FIXME - Improve button
+        - Styling
+        - Action
+      -->
+      <button pButton>Accept</button>
+      <!--
+        FIXME - Improve button
+        - Styling
+        - Action
+      -->
+      <button pButton>Decline</button>
+    </div>
+    <div class="details">
+      <!-- FIXME - Show icon-->
+      <!-- FIXME - Include mailto attribute. -->
+      <span>{{application.jobSeeker.email}}</span>
+      <!-- FIXME - Format phone number. -->
+      <span *ngIf="application.jobSeeker.mobilePhone">{{application.jobSeeker.mobilePhone}}</span>
+    </div>
+  </div>
+</ng-container>

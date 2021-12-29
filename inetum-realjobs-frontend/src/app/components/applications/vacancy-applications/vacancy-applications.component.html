@@ -1,0 +1,29 @@
+<div *ngIf="vacancy$ | async as vacancy; else loadingOrError">
+  <h2>Applicants for: {{vacancy.functionTitle}}</h2>
+  <p-divider></p-divider>
+
+  <p-tabView *ngIf="applications$ | async as applications; else loadingOrError">
+    <p-tabPanel header="Not yet reviewed">
+      <app-vacancy-applications-table [applications]="getApplicationsNotYetReviewed(applications)">
+      </app-vacancy-applications-table>
+    </p-tabPanel>
+    <p-tabPanel header="Accepted">
+      <app-vacancy-applications-table [applications]="getApplicationsAccepted(applications)">
+      </app-vacancy-applications-table>
+    </p-tabPanel>
+    <p-tabPanel header="Declined">
+      <app-vacancy-applications-table [applications]="getApplicationsDenied(applications)">
+      </app-vacancy-applications-table>
+    </p-tabPanel>
+  </p-tabView>
+</div>
+
+<ng-template #loadingOrError>
+  <app-error-handler *ngIf="error; else loading" [error]="error"></app-error-handler>
+
+  <ng-template #loading>
+    <div class="col-12 text-center">
+      Loading ...
+    </div>
+  </ng-template>
+</ng-template>

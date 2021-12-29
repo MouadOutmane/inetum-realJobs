@@ -14,6 +14,7 @@ import {InputMaskModule} from "primeng/inputmask";
 import {PasswordModule} from "primeng/password";
 import {DividerModule} from "primeng/divider";
 import {ScrollPanelModule} from "primeng/scrollpanel";
+import {TabViewModule} from "primeng/tabview";
 
 const modules = [
   ButtonModule,
@@ -32,6 +33,7 @@ const modules = [
   PanelModule,
   DividerModule,
   ScrollPanelModule,
+  TabViewModule,
 ];
 
 @NgModule({

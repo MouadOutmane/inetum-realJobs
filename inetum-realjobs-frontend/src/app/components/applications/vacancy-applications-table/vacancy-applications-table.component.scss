@@ -1,0 +1,44 @@
+:host {
+  display: flex;
+}
+
+.number {
+  display: flex;
+  align-items: center;
+  padding: 1em;
+}
+
+.application {
+  display: flex;
+  gap: 0.5em;
+}
+
+.information {
+  display: flex;
+  gap: 0.5em;
+
+  .name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  button {
+    align-self: center;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 0.5em;
+
+  button {
+    align-self: center;
+  }
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

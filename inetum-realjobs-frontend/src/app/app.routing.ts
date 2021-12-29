@@ -6,7 +6,9 @@ import {AuthGuardService} from "./guard/authGuard.service";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {VacancyDetailsComponent} from "./components/vacancy-details/vacancy-details.component";
-import {VacancyApplicationsComponent} from "./components/vacancy-applications/vacancy-applications.component";
+import {
+  VacancyApplicationsComponent,
+} from "./components/applications/vacancy-applications/vacancy-applications.component";
 
 const appRoutes: Routes = [
   {path: "", redirectTo: "/vacancy/search", pathMatch: "full"},

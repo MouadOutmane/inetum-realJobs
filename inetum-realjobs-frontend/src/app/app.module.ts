@@ -15,7 +15,12 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {VacancyDetailsComponent} from "./components/vacancy-details/vacancy-details.component";
 import {ErrorHandlerComponent} from "./components/error-handler/error-handler.component";
 import {PrimengImportsModule} from "./primeng-imports";
-import {VacancyApplicationsComponent} from "./components/vacancy-applications/vacancy-applications.component";
+import {
+  VacancyApplicationsComponent,
+} from "./components/applications/vacancy-applications/vacancy-applications.component";
+import {
+  VacancyApplicationsTableComponent,
+} from "./components/applications/vacancy-applications-table/vacancy-applications-table.component";
 
 @NgModule({
   declarations: [
@@ -28,6 +33,7 @@ import {VacancyApplicationsComponent} from "./components/vacancy-applications/va
     VacancyDetailsComponent,
     ErrorHandlerComponent,
     VacancyApplicationsComponent,
+    VacancyApplicationsTableComponent,
   ],
   imports: [
     BrowserModule,
