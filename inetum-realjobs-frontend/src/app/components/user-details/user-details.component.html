@@ -4,51 +4,48 @@
   <p-progressSpinner></p-progressSpinner>
 </div>
 
-<div class="p-grid p-fluid" *ngIf="(!loading && !error)">
-  <p-fieldset>
-    <ng-template pTemplate="header">Personal Information</ng-template>
-    <form (ngSubmit)="save()" [formGroup]="profileForm">
-      <div class="p-col-12">
-        <div class="p-inputgroup mb-2">
-          <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-          <input class="col" type="text" formControlName="firstName" pInputText placeholder="First name">&nbsp;
-          <input class="col" type="text" formControlName="lastName" pInputText placeholder="Last name">
-        </div>
-        <div class="p-field mb-2">
-          <p-dropdown [options]="genders" formControlName="gender" placeholder="Select your gender">
-          </p-dropdown>
-        </div>
-        <div class="p-field mb-2">
-          <p-calendar formControlName="dateOfBirth" inputId="basic" placeholder="Birthdate"></p-calendar>
-        </div>
-        <div class="p-inputgroup mb-2">
-          <input class="col" type="text" pInputText placeholder="Street name" formControlName="streetName">&nbsp;
-          <input class="col" type="number" pInputText placeholder="Nr" formControlName="houseNumber">&nbsp;
-          <input class="col" type="text" pInputText placeholder="Box" formControlName="box">
-        </div>
-        <div class="p-inputgroup mb-2">
-          <input class="col" type="text" pInputText placeholder="City" formControlName="city">&nbsp;
-          <input class="col" type="number" pInputText placeholder="Postal code" formControlName="postalCode">
-        </div>
-        <div class="p-field mb-2">
-          <p-dropdown [options]="countries$| async " formControlName="country" optionLabel="name" optionValue="name"
-                      placeholder="Select your country">
-          </p-dropdown>
-        </div>
-        <div class="p-field mb-2">
-          <p-inputNumber placeholder="Mobile phone" formControlName="mobilePhone" [useGrouping]="false">
-          </p-inputNumber>
-        </div>
+<div class="p-fluid" *ngIf="(!loading && !error)">
+  <p-fieldset >
+    <ng-template  pTemplate="header">Personal Information</ng-template>
+    <form (ngSubmit)="save()" [formGroup]="profileForm" class="gridForm">
+      <div class="p-inputgroup mb-2">
+        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+        <input type="text" formControlName="firstName" pInputText placeholder="First name">
+        <input type="text" formControlName="lastName" pInputText placeholder="Last name">
       </div>
-      <br>
-      <button [loading]="profileFormLoading" [disabled]="!profileForm.dirty || !profileForm.valid" pButton pRipple
+      <div class="full-column">
+        <p-dropdown [options]="genders" formControlName="gender" placeholder="Select your gender">
+        </p-dropdown>
+      </div>
+      <div class="full-column ">
+        <p-calendar formControlName="dateOfBirth" inputId="basic" placeholder="Birthdate"></p-calendar>
+      </div>
+      <div class="p-inputgroup ">
+        <input type="text"  pInputText placeholder="Street name" formControlName="streetName">
+        <input type="number" pInputText placeholder="Nr" formControlName="houseNumber">
+        <input type="text" pInputText placeholder="Box" formControlName="box">
+      </div>
+      <div class="p-inputgroup ">
+        <input type="text" pInputText placeholder="City" formControlName="city">
+        <input type="number" pInputText placeholder="Postal code" formControlName="postalCode">
+      </div>
+      <div class="full-column ">
+        <p-dropdown [options]="countries$| async " formControlName="country" optionLabel="name" optionValue="name"
+                    placeholder="Select your country">
+        </p-dropdown>
+      </div>
+      <div class="full-column">
+        <p-inputNumber placeholder="Mobile phone" formControlName="mobilePhone" [useGrouping]="false">
+        </p-inputNumber>
+      </div>
+      <button [loading]="profileFormLoading" [disabled]="!profileForm.dirty || !profileForm.valid" pButton
               label="Update and save" icon="pi pi-save"></button>
     </form>
   </p-fieldset>
 
   <p-fieldset>
     <ng-template pTemplate="header">Close account</ng-template>
-    <button [loading]="deleteLoading" (click)="deleteAccount()" pButton pRipple label="Delete account"
+    <button [loading]="deleteLoading" (click)="deleteAccount()" pButton label="Delete account"
             icon="pi pi-trash"></button>
 
   </p-fieldset>

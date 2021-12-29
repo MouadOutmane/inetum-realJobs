@@ -110,6 +110,6 @@ export class UserDetailsComponent implements OnInit {
   handleError(err: any) {
     this.error = true;
     this.loading = false;
-    this.errorMessage = "Error has occured, please try again..";
+    this.errorMessage = err?.message || "Something went wrong.";
   }
 }
