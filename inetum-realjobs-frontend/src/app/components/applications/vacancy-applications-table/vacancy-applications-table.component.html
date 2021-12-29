@@ -11,29 +11,25 @@
       <!--
         FIXME - Improve button.
         - Icons
-        - Link to resume
       -->
-      <p-button styleClass="p-button-sm">Show resume</p-button>
+      <p-button routerLink="/resume/{{application.jobSeeker.resumeId}}" styleClass="p-button-sm">Show resume</p-button>
       <!--
         FIXME - Improve button
         - Icons
-        - Link to motivation
       -->
-      <p-button styleClass="p-button-sm">Show motivation</p-button>
+      <p-button routerLink="/motivation/{{application.id}}" styleClass="p-button-sm">Show motivation</p-button>
     </div>
     <div class="actions">
       <!--
         FIXME - Improve button
-        - Styling
         - Action
       -->
-      <p-button styleClass="p-button-sm">Accept</p-button>
+      <p-button [disabled]="application.status === 'ACCEPTED'" styleClass="p-button-sm">Accept</p-button>
       <!--
         FIXME - Improve button
-        - Styling
         - Action
       -->
-      <p-button styleClass="p-button-sm">Decline</p-button>
+      <p-button [disabled]="application.status === 'DENIED'" styleClass="p-button-sm">Decline</p-button>
     </div>
     <div class="details">
       <!-- FIXME - Show icon-->
