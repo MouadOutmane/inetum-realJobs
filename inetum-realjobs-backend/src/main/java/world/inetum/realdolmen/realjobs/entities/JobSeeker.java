@@ -11,7 +11,8 @@ public class JobSeeker extends Account {
     )
     @OneToOne(
             fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL,
+            optional = false
     )
     private Resume resume =  new Resume();
 
