@@ -24,20 +24,14 @@
         <input
           formControlName="language"
           pInputText
-          [ngClass]="{'lang-lang-input': true, 'ng-invalid ng-dirty' : isInvalid('language') || isLanguageAlreadyAdded()}"
+          [ngClass]="{'lang-lang-input': true, 'ng-invalid ng-dirty' : isInvalid('language')}"
         >
         <div class="lang-lang-error">
           <small
             *ngIf="isInvalid('language')"
             class="p-error"
           >
-            Language is required
-          </small>
-          <small
-            *ngIf="isLanguageAlreadyAdded()"
-            class="p-error"
-          >
-            This language is already in the list
+            {{getValidationMessage("language")}}
           </small>
         </div>
         <label class="lang-level-label">Skill level</label>
@@ -53,7 +47,7 @@
             *ngIf="isInvalid('skillLevel')"
             class="p-error"
           >
-            Skill level is required
+            {{getValidationMessage("skillLevel")}}
           </small>
         </div>
       </div>

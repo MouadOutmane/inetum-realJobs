@@ -6,6 +6,7 @@ import {ResumeService} from "../../../../services/resume.service";
 import {MessageService} from "primeng/api";
 import {catchError, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
+import CustomValidators from "../../../../validators/CustomValidators";
 
 @Component({
   selector: "app-skill-form",
@@ -27,7 +28,7 @@ export class SkillFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.skillForm = this.formBuilder.group({
-      skill: ["", [Validators.required]],
+      skill: ["", [Validators.required, CustomValidators.uniqueItemValidator(this.skills.map(s => s.skill))]],
       skillLevel: [undefined, [Validators.required]],
     });
     this.resumeService
@@ -36,6 +37,16 @@ export class SkillFormComponent implements OnInit {
       .subscribe(skills => {
         this.skills = skills;
       });
+    this.skillForm.get("skill").valueChanges.subscribe(val => {
+      this.skillForm
+        .controls["skill"]
+        .setValidators(
+          Validators.compose([
+            Validators.required,
+            CustomValidators.uniqueItemValidator(this.skills.map(s => s.skill))
+          ])
+        );
+    });
   }
 
   submitForm() {
@@ -75,18 +86,13 @@ export class SkillFormComponent implements OnInit {
     return this.skillForm.controls[component].invalid && this.skillForm.controls[component].dirty
   }
 
-  isSkillAlreadyAdded(): boolean {
-    const newSkill = this.skillForm.controls["skill"].value;
+  getValidationMessage(component: string): string {
+    const control = this.skillForm.controls[component];
+    if (control.valid) return undefined;
 
-    if (newSkill === null || newSkill.length === 0) {
-      return false;
-    }
+    if (control.errors["required"]) return "This field can't be empty!";
+    else if (control.errors["uniqueItem"]) return "This skill is already in the list";
 
-    for (let skill of this.skills) {
-      if (skill.skill.toLowerCase() === newSkill.toLowerCase()) {
-        return true;
-      }
-    }
-    return false;
+    return "Invalid input!";
   }
 }

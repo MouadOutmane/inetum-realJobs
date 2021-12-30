@@ -5,6 +5,7 @@ import {MessageService} from "primeng/api";
 import {ResumeService} from "../../../../services/resume.service";
 import {catchError, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
+import CustomValidators from "../../../../validators/CustomValidators";
 
 @Component({
   selector: "app-experience-form",
@@ -28,10 +29,12 @@ export class ExperienceFormComponent implements OnInit {
       functionCategory: ["", [Validators.required]],
       company: ["", [Validators.required]],
       industry: ["", [Validators.required]],
-      startDate: [undefined, [Validators.required]],
-      endDate: [undefined],
+      startDate: [undefined, [Validators.required, CustomValidators.dateInPastValidator()]],
+      endDate: [undefined, [CustomValidators.dateInPastValidator()]],
       currentJob: [false],
       description: [""],
+    }, {
+      validators: CustomValidators.date1AfterDate2Validator("endDate", "startDate")
     });
     this.experienceForm.get("currentJob").valueChanges.subscribe(val => {
       if (val) {
@@ -77,67 +80,66 @@ export class ExperienceFormComponent implements OnInit {
 
   getFormData(): Experience {
     return {
-      jobTitle: this.experienceForm.controls["jobTitle"].value,
-      functionCategory: this.experienceForm.controls["functionCategory"].value,
-      company: this.experienceForm.controls["company"].value,
-      industry: this.experienceForm.controls["industry"].value,
-      startDate: this.experienceForm.controls["startDate"].value,
-      endDate: this.experienceForm.controls["endDate"].value,
-      currentJob: this.experienceForm.controls["currentJob"].value,
-      description: this.experienceForm.controls["description"].value,
+      jobTitle: this.jobTitle,
+      functionCategory: this.functionCategory,
+      company: this.company,
+      industry: this.industry,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      currentJob: this.currentJob,
+      description: this.description,
     }
   }
 
-  isInvalid(component: string) {
-    switch (component) {
-      case "startDate":
-        return (this.experienceForm.controls[component].invalid &&
-            this.experienceForm.controls[component].dirty) ||
-          !this.isDateInPast(this.experienceForm.controls[component].value);
-      case "endDate":
-        return (this.experienceForm.controls[component].invalid &&
-            this.experienceForm.controls[component].dirty) ||
-          this.isEndDateNotInPast() ||
-          this.isEndDateBeforeStartDate();
-      default:
-        return this.experienceForm.controls[component].invalid &&
-          this.experienceForm.controls[component].dirty;
+  isInvalid(component: string): boolean {
+    const fieldInvalid = this.experienceForm.controls[component].invalid && this.experienceForm.controls[component].dirty;
+    if (component === "endDate") {
+      return fieldInvalid || (this.experienceForm.errors && this.experienceForm.errors["date1AfterDate2"]);
     }
+    return fieldInvalid;
   }
 
-  isInvalidBasic(component: string) {
-    return this.experienceForm.controls[component].invalid &&
-      this.experienceForm.controls[component].dirty;
+  getValidationMessage(component: string): string {
+    const control = this.experienceForm.controls[component];
+    if (control.valid && this.experienceForm.valid) return undefined;
+    if (!control.valid) {
+      if (control.errors["required"]) return "This field can't be empty!";
+      else if (control.errors["dateInPast"]) return "This date can't be in the future";
+    } else {
+      if (this.experienceForm.errors["date1AfterDate2"] && component === "endDate") return "The end date can't be before the start date";
+    }
+
+    return "Invalid input!";
   }
 
-  isEndDateNotInPast(): boolean {
-    const endDate = this.experienceForm.controls["endDate"].value;
-    const currentJob = this.experienceForm.controls["currentJob"].value;
-
-    if (currentJob) {
-      return false;
-    }
-    if (!endDate) {
-      return false;
-    }
-
-    return !this.isDateInPast(endDate);
-  }
-
-  isEndDateBeforeStartDate(): boolean {
-    const endDate = this.experienceForm.controls["endDate"].value;
-    const startDate = this.experienceForm.controls["startDate"].value;
-    const currentJob = this.experienceForm.controls["currentJob"].value;
-
-    if (currentJob) {
-      return false;
-    }
-    if (!startDate || !endDate) {
-      return false;
-    }
-
-    return this.isDateBefore(endDate, startDate);
-  }
+  // isEndDateNotInPast(): boolean {
+  //   const endDate = this.experienceForm.controls["endDate"].value;
+  //   const currentJob = this.experienceForm.controls["currentJob"].value;
+  //
+  //   if (currentJob) {
+  //     return false;
+  //   }
+  //   if (!endDate) {
+  //     return false;
+  //   }
+  //
+  //   return !this.isDateInPast(endDate);
+  // }
+  //
+  // isEndDateBeforeStartDate(): boolean {
+  //   const endDate = this.experienceForm.controls["endDate"].value;
+  //   const startDate = this.experienceForm.controls["startDate"].value;
+  //   const currentJob = this.experienceForm.controls["currentJob"].value;
+  //
+  //   if (currentJob) {
+  //     return false;
+  //   }
+  //   if (!startDate || !endDate) {
+  //     return false;
+  //   }
+  //
+  //   return this.isDateBefore(endDate, startDate);
+  // }
 
   isDateInPast(date: Date): boolean {
     return this.isDateBefore(date, new Date());
@@ -147,12 +149,36 @@ export class ExperienceFormComponent implements OnInit {
     return date1 < date2;
   }
 
-  get endDate() {
-    return this.experienceForm.controls["endDate"].value;
+  get jobTitle() {
+    return this.experienceForm.controls["jobTitle"].value;
+  }
+
+  get functionCategory() {
+    return this.experienceForm.controls["functionCategory"].value;
+  }
+
+  get company() {
+    return this.experienceForm.controls["company"].value;
+  }
+
+  get industry() {
+    return this.experienceForm.controls["industry"].value;
   }
 
   get startDate() {
     return this.experienceForm.controls["startDate"].value;
+  }
+
+  get endDate() {
+    return this.experienceForm.controls["endDate"].value;
+  }
+
+  get currentJob() {
+    return this.experienceForm.controls["currentJob"].value;
+  }
+
+  get description() {
+    return this.experienceForm.controls["description"].value;
   }
 
   get maxStartDate() {

@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Language} from "../../../../models/language";
 import {SkillLevel} from "../../../../models/skillLevel.enum";
@@ -6,6 +6,7 @@ import {ResumeService} from "../../../../services/resume.service";
 import {MessageService} from "primeng/api";
 import {catchError, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
+import CustomValidators from "../../../../validators/CustomValidators";
 
 @Component({
   selector: "app-language-form",
@@ -27,7 +28,7 @@ export class LanguageFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.languageForm = this.formBuilder.group({
-      language: ["", [Validators.required]],
+      language: ["", [Validators.required, CustomValidators.uniqueItemValidator(this.languages.map(l => l.language))]],
       skillLevel: [undefined, [Validators.required]],
     });
     this.resumeService
@@ -36,6 +37,16 @@ export class LanguageFormComponent implements OnInit {
       .subscribe(languages => {
         this.languages = languages;
       });
+    this.languageForm.get("language").valueChanges.subscribe(val => {
+      this.languageForm
+        .controls["language"]
+        .setValidators(
+          Validators.compose([
+            Validators.required,
+            CustomValidators.uniqueItemValidator(this.languages.map(l => l.language))
+          ])
+        );
+    });
   }
 
   submitForm() {
@@ -75,18 +86,13 @@ export class LanguageFormComponent implements OnInit {
     return this.languageForm.controls[component].invalid && this.languageForm.controls[component].dirty
   }
 
-  isLanguageAlreadyAdded(): boolean {
-    const newLang = this.languageForm.controls["language"].value;
+  getValidationMessage(component: string): string {
+    const control = this.languageForm.controls[component];
+    if (control.valid) return undefined;
 
-    if (newLang === null) {
-      return false;
-    }
+    if (control.errors["required"]) return "This field can't be empty!";
+    else if (control.errors["uniqueItem"]) return "This language is already in the list";
 
-    for (let lang of this.languages) {
-      if (lang.language.toLowerCase() === newLang.toLowerCase()) {
-        return true;
-      }
-    }
-    return false;
+    return "Invalid input!";
   }
 }

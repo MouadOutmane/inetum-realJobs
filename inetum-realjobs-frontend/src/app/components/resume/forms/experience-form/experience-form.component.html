@@ -33,7 +33,7 @@
             *ngIf="isInvalid('jobTitle')"
             class="p-error"
           >
-            Job title is required
+            {{getValidationMessage("jobTitle")}}
           </small>
         </div>
         <label class="exp-cm-label">Company</label>
@@ -49,7 +49,7 @@
             *ngIf="isInvalid('company')"
             class="p-error"
           >
-            Company is required
+            {{getValidationMessage("company")}}
           </small>
         </div>
         <label class="exp-sd-label">Start date</label>
@@ -64,16 +64,10 @@
           class="exp-sd-error"
         >
           <small
-            *ngIf="isInvalidBasic('startDate')"
+            *ngIf="isInvalid('startDate')"
             class="p-error"
           >
-            Start date is required
-          </small>
-          <small
-            *ngIf="!isDateInPast(experienceForm.controls['startDate'].value)"
-            class="p-error"
-          >
-            Start date must be before today
+            {{getValidationMessage("startDate")}}
           </small>
         </div>
         <label class="exp-ed-label">End date</label>
@@ -89,16 +83,10 @@
           class="exp-ed-error"
         >
           <small
-            *ngIf="isEndDateNotInPast()"
+            *ngIf="isInvalid('endDate')"
             class="p-error"
           >
-            End date must be before today
-          </small>
-          <small
-            *ngIf="isEndDateBeforeStartDate()"
-            class="p-error"
-          >
-            End date must be after start date
+            {{getValidationMessage("endDate")}}
           </small>
         </div>
         <p-checkbox
@@ -122,7 +110,7 @@
             *ngIf="isInvalid('industry')"
             class="p-error"
           >
-            Industry is required
+            {{getValidationMessage("industry")}}
           </small>
         </div>
         <label class="exp-cat-label">Category</label>
@@ -138,7 +126,7 @@
             *ngIf="isInvalid('functionCategory')"
             class="p-error"
           >
-            Category is required
+            {{getValidationMessage("functionCategory")}}
           </small>
         </div>
         <label class="exp-desc-label">Description</label>

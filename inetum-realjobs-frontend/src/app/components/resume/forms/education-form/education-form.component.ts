@@ -5,6 +5,7 @@ import {ResumeService} from "../../../../services/resume.service";
 import {MessageService} from "primeng/api";
 import {catchError, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
+import CustomValidators from "../../../../validators/CustomValidators";
 
 @Component({
   selector: 'app-education-form',
@@ -28,9 +29,11 @@ export class EducationFormComponent implements OnInit {
       degree: ["", [Validators.required]],
       program: ["", [Validators.required]],
       school: ["", [Validators.required]],
-      startDate: [undefined, [Validators.required]],
+      startDate: [undefined, [Validators.required, CustomValidators.dateInPastValidator()]],
       endDate: [undefined, [Validators.required]],
       description: [""],
+    }, {
+      validators: CustomValidators.date1AfterDate2Validator("endDate", "startDate")
     });
     this.resumeService
       .getEducationList()
@@ -68,49 +71,58 @@ export class EducationFormComponent implements OnInit {
 
   getFormData(): Education {
     return {
-      degree: this.educationForm.controls["degree"].value,
-      program: this.educationForm.controls["program"].value,
-      school: this.educationForm.controls["school"].value,
-      startDate: this.educationForm.controls["startDate"].value,
-      endDate: this.educationForm.controls["endDate"].value,
-      description: this.educationForm.controls["description"].value,
+      degree: this.degree,
+      program: this.program,
+      school: this.school,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      description: this.description,
     }
   }
 
-  isInvalid(component: string) {
-    switch (component) {
-      case "startDate":
-        return !this.isDateInPast(this.educationForm.controls['startDate'].value) ||
-          (this.educationForm.controls[component].invalid &&
-            this.educationForm.controls[component].dirty);
-      default:
-        return this.educationForm.controls[component].invalid &&
-          this.educationForm.controls[component].dirty;
+  isInvalid(component: string): boolean {
+    const fieldInvalid = this.educationForm.controls[component].invalid && this.educationForm.controls[component].dirty;
+    if (component === "endDate") {
+      return fieldInvalid || (this.educationForm.errors && this.educationForm.errors["date1AfterDate2"]);
     }
+    return fieldInvalid;
   }
 
-  isInvalidBasic(component: string) {
-    return this.educationForm.controls[component].invalid &&
-      this.educationForm.controls[component].dirty;
-  }
-
-  isDateInPast(date: Date): boolean {
-    return date < new Date();
-  }
-
-  isDateBefore(date1: Date, date2: Date): boolean {
-    if (date1 && date2) {
-      return date1 < date2;
+  getValidationMessage(component: string): string {
+    const control = this.educationForm.controls[component];
+    if (control.valid && this.educationForm.valid) return undefined;
+    if (!control.valid) {
+      if (control.errors["required"]) return "This field can't be empty!";
+      else if (control.errors["dateInPast"]) return "This date can't be in the future";
+    } else {
+      if (this.educationForm.errors["date1AfterDate2"] && component === "endDate") return "The end date can't be before the start date";
     }
-    return false;
+
+    return "Invalid input!";
+  }
+
+  get degree() {
+    return this.educationForm.controls["degree"].value;
+  }
+
+  get program() {
+    return this.educationForm.controls["program"].value;
+  }
+
+  get school() {
+    return this.educationForm.controls["school"].value;
+  }
+
+  get startDate() {
+    return this.educationForm.controls["startDate"].value;
   }
 
   get endDate() {
     return this.educationForm.controls["endDate"].value;
   }
 
-  get startDate() {
-    return this.educationForm.controls["startDate"].value;
+  get description() {
+    return this.educationForm.controls["description"].value;
   }
 
   get maxStartDate() {

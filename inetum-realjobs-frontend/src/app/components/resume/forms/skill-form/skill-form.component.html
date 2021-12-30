@@ -24,20 +24,14 @@
         <input
           formControlName="skill"
           pInputText
-          [ngClass]="{'skill-skill-input': true, 'ng-invalid ng-dirty' : isInvalid('skill') || isSkillAlreadyAdded()}"
+          [ngClass]="{'skill-skill-input': true, 'ng-invalid ng-dirty' : isInvalid('skill')}"
         >
         <div class="skill-skill-error">
           <small
             *ngIf="isInvalid('skill')"
             class="p-error"
           >
-            Skill is required
-          </small>
-          <small
-            *ngIf="isSkillAlreadyAdded()"
-            class="p-error"
-          >
-            This skill is already in the list
+            {{getValidationMessage("skill")}}
           </small>
         </div>
         <label class="skill-level-label">Skill level</label>
@@ -54,7 +48,7 @@
             *ngIf="isInvalid('skillLevel')"
             class="p-error"
           >
-            Skill level is required
+            {{getValidationMessage("skillLevel")}}
           </small>
         </div>
       </div>

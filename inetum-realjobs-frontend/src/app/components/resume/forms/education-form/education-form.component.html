@@ -33,7 +33,7 @@
             *ngIf="isInvalid('degree')"
             class="p-error"
           >
-            Degree is required
+            {{getValidationMessage("degree")}}
           </small>
         </div>
         <label class="edu-prog-label">Program</label>
@@ -49,7 +49,7 @@
             *ngIf="isInvalid('program')"
             class="p-error"
           >
-            Program is required
+            {{getValidationMessage("program")}}
           </small>
         </div>
         <label class="edu-school-label">School</label>
@@ -65,7 +65,7 @@
             *ngIf="isInvalid('school')"
             class="p-error"
           >
-            School is required
+            {{getValidationMessage("school")}}
           </small>
         </div>
         <label class="edu-sd-label">Start date</label>
@@ -73,23 +73,17 @@
           [showIcon]="true"
           formControlName="startDate"
           dateFormat="dd-mm-yy"
-          [maxDate]="maxStartDate"
+          [maxDate]="today"
           [ngClass]="{'edu-sd-input': true, 'ng-invalid ng-dirty' : isInvalid('startDate')}">
         </p-calendar>
         <div
           class="edu-sd-error"
         >
           <small
-            *ngIf="isInvalidBasic('startDate')"
+            *ngIf="isInvalid('startDate')"
             class="p-error"
           >
-            Start date is required
-          </small>
-          <small
-            *ngIf="!isDateInPast(educationForm.controls['startDate'].value)"
-            class="p-error"
-          >
-            Start date must be before today
+            {{getValidationMessage("startDate")}}
           </small>
         </div>
         <label class="edu-ed-label">(Expected) End date</label>
@@ -104,16 +98,10 @@
           class="edu-ed-error"
         >
           <small
-            *ngIf="isInvalidBasic('endDate')"
+            *ngIf="isInvalid('endDate')"
             class="p-error"
           >
-            End is required
-          </small>
-          <small
-            *ngIf="isDateBefore(educationForm.controls['endDate'].value, educationForm.controls['startDate'].value)"
-            class="p-error"
-          >
-            End date must be before start date
+            {{getValidationMessage("endDate")}}
           </small>
         </div>
         <label class="edu-desc-label">Description</label>
