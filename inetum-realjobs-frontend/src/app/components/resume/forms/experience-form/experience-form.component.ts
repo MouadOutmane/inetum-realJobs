@@ -112,35 +112,6 @@ export class ExperienceFormComponent implements OnInit {
     return "Invalid input!";
   }
 
-  // isEndDateNotInPast(): boolean {
-  //   const endDate = this.experienceForm.controls["endDate"].value;
-  //   const currentJob = this.experienceForm.controls["currentJob"].value;
-  //
-  //   if (currentJob) {
-  //     return false;
-  //   }
-  //   if (!endDate) {
-  //     return false;
-  //   }
-  //
-  //   return !this.isDateInPast(endDate);
-  // }
-  //
-  // isEndDateBeforeStartDate(): boolean {
-  //   const endDate = this.experienceForm.controls["endDate"].value;
-  //   const startDate = this.experienceForm.controls["startDate"].value;
-  //   const currentJob = this.experienceForm.controls["currentJob"].value;
-  //
-  //   if (currentJob) {
-  //     return false;
-  //   }
-  //   if (!startDate || !endDate) {
-  //     return false;
-  //   }
-  //
-  //   return this.isDateBefore(endDate, startDate);
-  // }
-
   isDateInPast(date: Date): boolean {
     return this.isDateBefore(date, new Date());
   }
