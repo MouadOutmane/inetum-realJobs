@@ -1,0 +1,81 @@
+<p-card>
+  <ng-template pTemplate="header">
+    <div class="lang-form-header">
+      <span
+        class="lang-form-header-text"
+      >
+        Languages
+      </span>
+      <div>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-times"
+          class="p-button-rounded p-button-text">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <form (ngSubmit)="submitForm()" [formGroup]="languageForm" class="languageForm">
+    <div class="form-group">
+      <div class="form-inputs">
+        <label class="lang-lang-label">Language</label>
+        <input
+          formControlName="language"
+          pInputText
+          [ngClass]="{'lang-lang-input': true, 'ng-invalid ng-dirty' : isInvalid('language')}"
+        >
+        <div class="lang-lang-error">
+          <small
+            *ngIf="isInvalid('language')"
+            class="p-error"
+          >
+            {{getValidationMessage("language")}}
+          </small>
+        </div>
+        <label class="lang-level-label">Skill level</label>
+        <p-dropdown
+          [options]="skillLevelOptions"
+          formControlName="skillLevel"
+          placeholder="Select a skill level"
+          [ngClass]="{'lang-level-input': true, 'ng-invalid ng-dirty' : isInvalid('skillLevel')}"
+        >
+        </p-dropdown>
+        <div class="lang-level-error">
+          <small
+            *ngIf="isInvalid('skillLevel')"
+            class="p-error"
+          >
+            {{getValidationMessage("skillLevel")}}
+          </small>
+        </div>
+      </div>
+
+      <div class="center-content">
+        <button
+          type="submit"
+          [disabled]="languageForm.invalid"
+          class="p-button p-mb-2"
+          pButton
+        >
+          Add language
+        </button>
+      </div>
+    </div>
+  </form>
+  <div>
+    <h3>Your languages</h3>
+    <span *ngIf="languages.length === 0; else languagesComponent">
+      No language(s) added
+    </span>
+  </div>
+</p-card>
+
+<ng-template #languagesComponent>
+  <app-language-list
+    [languages]="languages"
+    [deleteButton]="true"
+    (deleteEvent)="deleteLanguage($event)">
+  </app-language-list>
+</ng-template>

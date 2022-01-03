@@ -105,7 +105,7 @@ public abstract class BaseRepositoryTest {
 
     protected static String asJsonString(final Object object) {
         try {
-            return new ObjectMapper().writeValueAsString(object);
+            return mapper.writeValueAsString(object);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

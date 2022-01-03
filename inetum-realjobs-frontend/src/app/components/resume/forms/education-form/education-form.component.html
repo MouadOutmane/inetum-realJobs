@@ -1,0 +1,144 @@
+<p-card>
+  <ng-template pTemplate="header">
+    <div class="education-form-header">
+      <span
+        class="education-form-header-text"
+      >
+        Education
+      </span>
+      <div>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-times"
+          class="p-button-rounded p-button-text">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <form (ngSubmit)="submitForm()" [formGroup]="educationForm" class="educationForm">
+    <div class="form-group">
+      <div class="form-inputs">
+        <label class="edu-deg-label">Degree</label>
+        <input
+          formControlName="degree"
+          pInputText
+          [ngClass]="{'edu-deg-input': true, 'ng-invalid ng-dirty' : isInvalid('degree')}"
+        >
+        <div
+          class="edu-deg-error"
+        >
+          <small
+            *ngIf="isInvalid('degree')"
+            class="p-error"
+          >
+            {{getValidationMessage("degree")}}
+          </small>
+        </div>
+        <label class="edu-prog-label">Program</label>
+        <input
+          formControlName="program"
+          pInputText
+          [ngClass]="{'edu-prog-input': true, 'ng-invalid ng-dirty' : isInvalid('program')}"
+        >
+        <div
+          class="edu-prog-error"
+        >
+          <small
+            *ngIf="isInvalid('program')"
+            class="p-error"
+          >
+            {{getValidationMessage("program")}}
+          </small>
+        </div>
+        <label class="edu-school-label">School</label>
+        <input
+          formControlName="school"
+          pInputText
+          [ngClass]="{'edu-school-input': true, 'ng-invalid ng-dirty' : isInvalid('school')}"
+        >
+        <div
+          class="edu-school-error"
+        >
+          <small
+            *ngIf="isInvalid('school')"
+            class="p-error"
+          >
+            {{getValidationMessage("school")}}
+          </small>
+        </div>
+        <label class="edu-sd-label">Start date</label>
+        <p-calendar
+          [showIcon]="true"
+          formControlName="startDate"
+          dateFormat="dd-mm-yy"
+          [maxDate]="today"
+          [ngClass]="{'edu-sd-input': true, 'ng-invalid ng-dirty' : isInvalid('startDate')}">
+        </p-calendar>
+        <div
+          class="edu-sd-error"
+        >
+          <small
+            *ngIf="isInvalid('startDate')"
+            class="p-error"
+          >
+            {{getValidationMessage("startDate")}}
+          </small>
+        </div>
+        <label class="edu-ed-label">(Expected) End date</label>
+        <p-calendar
+          [showIcon]="true"
+          formControlName="endDate"
+          dateFormat="dd-mm-yy"
+          [minDate]="startDate"
+          [ngClass]="{'edu-ed-input': true, 'ng-invalid ng-dirty' : isInvalid('endDate')}">
+        </p-calendar>
+        <div
+          class="edu-ed-error"
+        >
+          <small
+            *ngIf="isInvalid('endDate')"
+            class="p-error"
+          >
+            {{getValidationMessage("endDate")}}
+          </small>
+        </div>
+        <label class="edu-desc-label">Description</label>
+        <textarea
+          formControlName="description"
+          pInputTextarea
+          [autoResize]="true"
+          [ngClass]="{'edu-desc-input': true, 'ng-invalid ng-dirty' : isInvalid('description')}">
+        </textarea>
+      </div>
+
+      <div class="center-content">
+        <button
+          type="submit"
+          [disabled]="educationForm.invalid"
+          class="p-button p-mb-2"
+          pButton
+        >
+          Add education
+        </button>
+      </div>
+    </div>
+  </form>
+  <div>
+    <h3>Your education</h3>
+    <div class="education-list">
+      <span *ngIf="educationList.length === 0; else educationListComponent">
+        No education(s) added
+      </span>
+    </div>
+  </div>
+</p-card>
+
+<ng-template #educationListComponent>
+  <app-education-list
+    [educationList]="educationList"
+    [deleteButton]="true"
+    (deleteEvent)="deleteEducation($event)">
+  </app-education-list>
+</ng-template>

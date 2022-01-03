@@ -23,7 +23,7 @@ export class VacancyService {
     params = params.append("requiredYearsOfExperience", filter.requiredYearsOfExperience);
 
     return this.httpClient
-      .get<Vacancy[]>("http://localhost:8080/api/vacancies/",
+      .get<Vacancy[]>("vacancies/",
         {observe: "body", responseType: "json", params: params});
   }
 

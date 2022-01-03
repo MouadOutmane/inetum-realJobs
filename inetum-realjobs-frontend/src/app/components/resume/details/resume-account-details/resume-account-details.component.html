@@ -1,0 +1,19 @@
+<div class="resume-account" *ngIf="!loading; else loadingIcon">
+  <span class="name">{{data.firstName}} {{data.lastName}}</span>
+  <!--  TODO <img src="{{data.profilePicture}}"></img>-->
+  <img src="https://dummyimage.com/600x400/000/fff">
+  <span>
+    <i class="pi pi-envelope"></i>
+    {{data.email}}
+  </span>
+  <span>
+    <i class="pi pi-phone"></i>
+    {{data.mobilePhone}}
+  </span>
+</div>
+
+<ng-template #loadingIcon>
+  <div class="resume-account-loading">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>

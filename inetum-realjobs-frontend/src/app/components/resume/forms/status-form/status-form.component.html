@@ -1,0 +1,22 @@
+<p-card class="statusCard">
+  <app-resume-account-details></app-resume-account-details>
+  <form [formGroup]="statusForm" class="statusForm">
+    <p-dropdown
+      [options]="resumeStatusOptions"
+      formControlName="status"
+      placeholder="Select a status"
+      (onChange)="confirm($event)"
+      [ngClass]="{'status-input': true, 'ng-invalid ng-dirty' : isInvalid('status')}">
+    </p-dropdown>
+    <div class="status-error">
+      <small
+        *ngIf="isInvalid('status')"
+        class="p-error"
+      >
+        Status is required
+      </small>
+    </div>
+  </form>
+</p-card>
+
+<p-confirmDialog></p-confirmDialog>

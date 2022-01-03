@@ -488,14 +488,69 @@ INSERT INTO country (name)
 VALUES ('Zambia');
 INSERT INTO country (name)
 VALUES ('Zimbabwe');
+
+-- Account
 INSERT INTO account (id, changed_by, changed_on, created_by, created_on, version, box, city, house_number, postal_code,
                      street_name, birth_date, email, first_name, gender, last_name, mobile_phone, password,
                      profile_picture, country_id)
 VALUES (1, null, null, null, null, 0, null, 'Brussels', '7', '1000', 'Road', '2021-12-01', 'user@user.user', 'User',
         'MALE', 'User', null, '$2a$10$wrvu9zLKCX7zFtaLBFNVKeBh8Y..TLZCuvnzkUcL7N7/OjTD.ximq', '-_-', 1);
+
+-- Resume
+INSERT INTO resume (id, changed_by, changed_on, created_by, created_on, version, status, summary)
+VALUES (1, null, null, null, null, 0, 'NEUTRAL', 'Hi there! This is my resume.');
+ALTER SEQUENCE resume_id_seq RESTART WITH 2;
+-- Link resume to user
 INSERT INTO job_seeker (id, resume_id)
-VALUES (1, null);
+VALUES (1, 1);
 ALTER SEQUENCE account_id_seq RESTART WITH 2;
+-- Experience
+INSERT INTO experience (id, changed_by, changed_on, created_by, created_on, version, company, current_job, description,
+                        end_date, function_category, industry, job_title, start_date, resume_id)
+VALUES (4, 'user@user.user', '2021-12-28 09:10:40.864333', 'user@user.user', '2021-12-28 09:10:40.864333', 0, 'VDAB',
+        false,
+        'I trained at Inetum-Realdolmen in their acADDemICTs program with an IBO contract. I believe this made me a better developer.',
+        '2021-11-30', 'Consultancy', 'IT', 'Trainee', '2021-08-31', 1);
+INSERT INTO experience (id, changed_by, changed_on, created_by, created_on, version, company, current_job, description,
+                        end_date, function_category, industry, job_title, start_date, resume_id)
+VALUES (5, 'user@user.user', '2021-12-28 09:11:53.535877', 'user@user.user', '2021-12-28 09:11:53.535877', 0,
+        'Inetum-Realdolmen', true, null, null, 'Consultancy', 'IT', 'Junior Java consultant', '2021-11-30', 1);
+ALTER SEQUENCE experience_id_seq RESTART WITH 3;
+-- Education
+INSERT INTO education (id, changed_by, changed_on, created_by, created_on, version, degree, description,
+                       end_date, program, school, start_date, resume_id)
+VALUES (1, 'user@user.user', '2021-12-28 09:13:53.160629', 'user@user.user', '2021-12-28 09:13:53.160629', 0,
+        'Bachelors', '', '2020-06-29', 'Applied Engineering', 'UA', '2017-09-24', 1);
+INSERT INTO education (id, changed_by, changed_on, created_by, created_on, version, degree, description,
+                       end_date, program, school, start_date, resume_id)
+VALUES (2, 'user@user.user', '2021-12-28 09:14:25.524694', 'user@user.user', '2021-12-28 09:14:25.524694', 0, 'Masters',
+        null, '2021-06-29', 'Applied Engineering', 'UA', '2020-09-20', 1);
+ALTER SEQUENCE education_id_seq RESTART WITH 3;
+-- Skills
+INSERT INTO skill (id, changed_by, changed_on, created_by, created_on, version, skill, skill_level, resume_id)
+VALUES (1, 'user@user.user', '2021-12-28 09:18:36.698064', 'user@user.user', '2021-12-28 09:18:36.698064', 0, 'Java',
+        'INTERMEDIATE', 1);
+INSERT INTO skill (id, changed_by, changed_on, created_by, created_on, version, skill, skill_level, resume_id)
+VALUES (2, 'user@user.user', '2021-12-28 09:18:41.118455', 'user@user.user', '2021-12-28 09:18:41.118455', 0, 'Spring',
+        'INTERMEDIATE', 1);
+INSERT INTO skill (id, changed_by, changed_on, created_by, created_on, version, skill, skill_level, resume_id)
+VALUES (3, 'user@user.user', '2021-12-28 09:18:50.040339', 'user@user.user', '2021-12-28 09:18:50.040339', 0,
+        'Leadership', 'BASIC', 1);
+INSERT INTO skill (id, changed_by, changed_on, created_by, created_on, version, skill, skill_level, resume_id)
+VALUES (4, 'user@user.user', '2021-12-28 09:18:57.051805', 'user@user.user', '2021-12-28 09:18:57.051805', 0,
+        'Learning', 'EXPERT', 1);
+ALTER SEQUENCE skill_id_seq RESTART WITH 5;
+-- Languages
+INSERT INTO language (id, changed_by, changed_on, created_by, created_on, version, language, skill_level, resume_id)
+VALUES (1, 'user@user.user', '2021-12-28 09:19:14.483113', 'user@user.user', '2021-12-28 09:19:14.483113', 0, 'French',
+        'BASIC', 1);
+INSERT INTO language (id, changed_by, changed_on, created_by, created_on, version, language, skill_level, resume_id)
+VALUES (2, 'user@user.user', '2021-12-28 09:19:20.717007', 'user@user.user', '2021-12-28 09:19:20.717007', 0, 'Dutch',
+        'EXPERT', 1);
+INSERT INTO language (id, changed_by, changed_on, created_by, created_on, version, language, skill_level, resume_id)
+VALUES (3, 'user@user.user', '2021-12-28 09:19:25.292984', 'user@user.user', '2021-12-28 09:19:25.292984', 0, 'English',
+        'EXPERT', 1);
+ALTER SEQUENCE language_id_seq RESTART WITH 4;
 
 INSERT INTO public.company (id, changed_by, changed_on, created_by, created_on, version, city, industry, logo, name,
                             country_id)
