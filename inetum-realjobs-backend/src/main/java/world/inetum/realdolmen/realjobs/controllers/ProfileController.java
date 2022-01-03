@@ -31,12 +31,8 @@ public class ProfileController {
     @GetMapping("/")
     @RecruiterAndSeekerAllowed
     public AccountReadDto getPersonalInfo() {
-        Account account = accountService
-                .getPersonalInfo(securityService
-                        .getCurrentUser()
-                        .getEmail())
-                .orElseThrow(() -> new EndpointException(ProfileExceptionMessage.PROFILE_NOT_FOUND));
-        return profileMapper.toDto(account);
+        return profileMapper.toDto(securityService
+                .getCurrentUser());
     }
 
 

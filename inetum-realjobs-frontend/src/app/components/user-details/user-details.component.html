@@ -9,7 +9,6 @@
     <ng-template  pTemplate="header">Personal Information</ng-template>
     <form (ngSubmit)="save()" [formGroup]="profileForm" class="gridForm">
       <div class="p-inputgroup mb-2">
-        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
         <input type="text" formControlName="firstName" pInputText placeholder="First name">
         <input type="text" formControlName="lastName" pInputText placeholder="Last name">
       </div>
