@@ -1,0 +1,31 @@
+<h1>{{title}}</h1>
+<div class="container">
+  <div class="content-section implementation">
+    <div class="card">
+      <p-table [value]="vacancies" [columns]="columns">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let column of columns">
+              {{column.header}}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body">
+          <div *ngIf="vacancies.length == 0">
+            <span>{{defaultMessage}}</span>
+          </div>
+          <div *ngFor="let vacancy of vacancies">
+            <tr>
+              <td>
+                <!--                TODO: add routerLink to vacancy/{id} when implemented user story 'modify and delete vacancy'-->
+                <a>{{vacancy.functionTitle}}</a></td>
+              <td>posted</td>
+              <td>by</td>
+              <td>Applicants</td>
+            </tr>
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, of, catchError} from "rxjs";
 import {VacancyFilterFields} from "../models/vacancy-filter-fields.model";
 import {Vacancy} from "../models/vacancy";
 
@@ -10,6 +10,8 @@ import {Vacancy} from "../models/vacancy";
 export class VacancyService {
 
   vacancies: Vacancy[] = [];
+  allVacanciesUrl: string = "http://localhost:8080/api/vacancies/all";
+
 
   constructor(private httpClient: HttpClient) {
   }
@@ -32,6 +34,20 @@ export class VacancyService {
       `http://localhost:8080/api/vacancies/${id}`,
       {observe: "body", responseType: "json"},
     );
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);
+    };
+  }
+
+  getAllVacancies(): Observable<Vacancy[]> {
+    return this.httpClient.get<Vacancy[]>(this.allVacanciesUrl)
+      .pipe(
+        catchError(this.handleError<Vacancy[]>('getAllVacancies', []))
+      );
   }
 
 }

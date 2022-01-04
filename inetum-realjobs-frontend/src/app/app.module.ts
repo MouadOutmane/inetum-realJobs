@@ -35,6 +35,8 @@ import {
 import {ConfirmationService} from 'primeng/api';
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
+import { RecruiterOverviewComponent } from './components/recruiter-overview/recruiter-overview.component';
+import {TableModule} from "primeng/table";
 
 @NgModule({
   declarations: [
@@ -62,16 +64,18 @@ import {ResetPasswordComponent} from "./components/reset-password/reset-password
     StatusFormComponent,
     SummaryFormComponent,
     ResumeAccountDetailsComponent,
+    RecruiterOverviewComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    routing,
-    PrimengImportsModule,
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        routing,
+        PrimengImportsModule,
+        TableModule,
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: UniversalAppInterceptor, multi: true},

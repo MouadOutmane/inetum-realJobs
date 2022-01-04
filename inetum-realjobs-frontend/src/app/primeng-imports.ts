@@ -22,6 +22,7 @@ import {InputTextareaModule} from "primeng/inputtextarea";
 import {ConfirmPopupModule} from "primeng/confirmpopup";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {TableModule} from "primeng/table";
 
 
 const modules = [
@@ -48,6 +49,7 @@ const modules = [
   ConfirmPopupModule,
   ConfirmDialogModule,
   ProgressSpinnerModule,
+  TableModule
 ];
 
 @NgModule({

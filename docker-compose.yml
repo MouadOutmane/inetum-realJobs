@@ -7,9 +7,9 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_APP_DATABASE: ${POSTGRES_APP_DATABASE}
-      POSTGRES_APP_USER: ${POSTGRES_APP_USER}
-      POSTGRES_APP_PASSWORD: ${POSTGRES_APP_PASSWORD}
+      POSTGRES_APP_DATABASE: "realjobs"
+      POSTGRES_APP_USER: "realjobs"
+      POSTGRES_APP_PASSWORD: "realjobs"
       INCLUDE_TEST_DATABASE: ${INCLUDE_TEST_DATABASE}
     volumes:
       - ./docker/pg-init-scripts:/docker-entrypoint-initdb.d
