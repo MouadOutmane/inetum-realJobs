@@ -20,11 +20,6 @@ import java.time.LocalDate;
 @SuppressWarnings({"UnusedReturnValue", "SameParameterValue", "unused"})
 public abstract class BaseIntegrationTest extends BaseRepositoryTest {
 
-    @RegisterExtension
-    protected static GreenMailExtension greenMail = new GreenMailExtension(ServerSetupTest.SMTP)
-            .withConfiguration(GreenMailConfiguration.aConfig().withUser("mail", "test"))
-            .withPerMethodLifecycle(false);
-
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -48,7 +43,7 @@ public abstract class BaseIntegrationTest extends BaseRepositoryTest {
     }
 
     protected JobSeeker persistJobSeeker(String email, String password) {
-        return persistJobSeeker(email, password, null);
+        return persistJobSeeker(email, password, new Resume());
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

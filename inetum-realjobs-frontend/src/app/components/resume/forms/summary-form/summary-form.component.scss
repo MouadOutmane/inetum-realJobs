@@ -1,0 +1,35 @@
+.summary-form-card ::ng-deep .p-card {
+  height: 100%;
+}
+
+.summaryForm .form-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 0.5rem;
+  column-gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.summary-form-header {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  font-size: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-form-header-text {
+  margin: 1rem;
+}
+
+.summaryForm .center-content {
+  display: flex;
+  justify-content: center;
+}
+
+.summaryForm .summary-input {
+  width: 100%;
+}

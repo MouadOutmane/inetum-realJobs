@@ -1,0 +1,20 @@
+.statusForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  column-gap: 1rem;
+}
+
+.statusForm > label {
+  display: flex;
+  align-items: center;
+}
+
+.statusForm ::ng-deep .p-dropdown {
+  width: 100%;
+}
+
+.statusForm .center-content {
+  display: flex;
+  justify-content: center;
+}

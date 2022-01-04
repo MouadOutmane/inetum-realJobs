@@ -1,0 +1,40 @@
+<p-card class="summary-form-card">
+  <ng-template pTemplate="header">
+    <div class="summary-form-header">
+      <span
+        class="summary-form-header-text"
+      >
+        Summary
+      </span>
+    </div>
+  </ng-template>
+  <form (ngSubmit)="submitForm()" [formGroup]="summaryForm" class="summaryForm">
+    <div class="form-group">
+        <textarea
+          formControlName="summary"
+          pInputTextarea
+          [autoResize]="true"
+          [ngClass]="{'summary-input': true, 'ng-invalid ng-dirty' : isInvalid('summary')}"
+        ></textarea>
+      <div class="summary-error">
+        <small
+          *ngIf="isInvalid('summary')"
+          class="p-error"
+        >
+          Summary is required
+        </small>
+      </div>
+    </div>
+
+    <div class="center-content">
+      <button
+        type="submit"
+        [disabled]="summaryForm.invalid"
+        class="p-button p-mb-2"
+        pButton
+      >
+        Update summary
+      </button>
+    </div>
+  </form>
+</p-card>

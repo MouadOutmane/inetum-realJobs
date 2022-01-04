@@ -1,0 +1,122 @@
+.educationForm .form-inputs {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 3fr;
+  row-gap: 0.5rem;
+  column-gap: 1rem;
+  grid-template-areas:
+    "edu-deg-label edu-deg-input edu-prog-label edu-prog-input"
+    ". edu-deg-error . edu-prog-error"
+    "edu-school-label edu-school-input . ."
+    ". edu-school-error . ."
+    "edu-sd-label edu-sd-input edu-ed-label edu-ed-input"
+    ". edu-sd-error . edu-ed-error"
+    "edu-desc-label edu-desc-input edu-desc-input edu-desc-input";
+  margin-bottom: 1rem;
+}
+
+.education-form-header {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  font-size: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.education-form-header-text {
+  margin: 1rem;
+}
+
+.education-list {
+  margin-top: 1rem;
+}
+
+
+.educationForm .form-inputs > label {
+  display: flex;
+  align-items: center;
+}
+
+.educationForm .form-inputs input {
+  width: 100%;
+}
+
+.educationForm ::ng-deep .p-calendar {
+  width: 100%;
+}
+
+.educationForm .center-content {
+  display: flex;
+  justify-content: center;
+}
+
+.educationForm .edu-deg-label {
+  grid-area: edu-deg-label;
+}
+
+.educationForm .edu-deg-input {
+  grid-area: edu-deg-input;
+}
+
+.educationForm .edu-deg-error {
+  grid-area: edu-deg-error;
+}
+
+.educationForm .edu-prog-label {
+  grid-area: edu-prog-label;
+}
+
+.educationForm .edu-prog-input {
+  grid-area: edu-prog-input;
+}
+
+.educationForm .edu-prog-error {
+  grid-area: edu-prog-error;
+}
+
+.educationForm .edu-school-label {
+  grid-area: edu-school-label;
+}
+
+.educationForm .edu-school-input {
+  grid-area: edu-school-input;
+}
+
+.educationForm .edu-school-error {
+  grid-area: edu-school-error;
+}
+
+.educationForm .edu-sd-label {
+  grid-area: edu-sd-label;
+}
+
+.educationForm .edu-sd-input {
+  grid-area: edu-sd-input;
+}
+
+.educationForm .edu-sd-error {
+  grid-area: edu-sd-error;
+}
+
+.educationForm .edu-ed-label {
+  grid-area: edu-ed-label;
+}
+
+.educationForm .edu-ed-input {
+  grid-area: edu-ed-input;
+}
+
+.educationForm .edu-ed-error {
+  grid-area: edu-ed-error;
+}
+
+.educationForm .edu-desc-label {
+  grid-area: edu-desc-label;
+}
+
+.educationForm .edu-desc-input {
+  grid-area: edu-desc-input;
+  grid-column: 2 / span 3;
+}

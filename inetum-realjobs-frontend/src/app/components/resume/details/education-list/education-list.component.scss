@@ -1,0 +1,9 @@
+.education-list-comp {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.education-list-comp ::ng-deep .p-card {
+  height: 100%;
+}

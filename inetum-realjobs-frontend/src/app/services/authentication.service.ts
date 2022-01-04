@@ -5,7 +5,7 @@ import {User} from "../models/user.model";
 import * as moment from "moment";
 import {ValidationErrors, Validators} from "@angular/forms";
 
-const baseUrl = "http://localhost:8080/api/authentication/";
+const baseUrl = "authentication/";
 
 @Injectable({
   providedIn: "root",
@@ -60,6 +60,23 @@ export class AuthenticationService {
 
   getJWTToken() {
     return localStorage.getItem("id_token");
+  }
+
+  parseJwt() {
+    if (!this.getJWTToken()) {
+      return null;
+    }
+    const base64Token = this.getJWTToken().split('.')[1];
+    const base64 = base64Token.replace(/-/g, '+').replace(/_/g, '/');
+    return JSON.parse(window.atob(base64));
+  }
+
+  getCurrentRoles(): string[] {
+    const parsedJwt = this.parseJwt();
+    if (parsedJwt) {
+      return parsedJwt["roles"];
+    }
+    return null;
   }
 
   private setSession(authResult: any) {

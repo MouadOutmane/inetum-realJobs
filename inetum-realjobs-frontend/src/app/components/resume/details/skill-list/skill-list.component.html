@@ -1,0 +1,41 @@
+<div class="skill-list-comp">
+  <p-card header="Basic">
+    <div class="skill-card">
+      <div
+        *ngFor="let skill of basicSkills"
+      >
+        <p-chip
+          label="{{skill.skill}}"
+          [removable]="true"
+          (onRemove)="deleteItem(skill.id)">
+        </p-chip>
+      </div>
+    </div>
+  </p-card>
+  <p-card header="Intermediate">
+    <div class="skill-card">
+      <div
+        *ngFor="let skill of intermediateSkills"
+      >
+        <p-chip
+          label="{{skill.skill}}"
+          [removable]="true"
+          (onRemove)="deleteItem(skill.id)">
+        </p-chip>
+      </div>
+    </div>
+  </p-card>
+  <p-card header="Expert">
+    <div class="skill-card">
+      <div
+        *ngFor="let skill of expertSkills"
+      >
+        <p-chip
+          label="{{skill.skill}}"
+          [removable]="true"
+          (onRemove)="deleteItem(skill.id)">
+        </p-chip>
+      </div>
+    </div>
+  </p-card>
+</div>

@@ -1,0 +1,29 @@
+<p-card class="experience-card">
+  <ng-template pTemplate="header">
+    <div [ngClass]="'experience-header'">
+      <span
+        class="experience-header-text"
+      >
+        {{experience.jobTitle}}
+      </span>
+      <div *ngIf="deleteButton">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-times"
+          class="p-button-rounded p-button-text"
+          (click)="deleteItem()">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <div
+    class="experience-content"
+  >
+    <span class="experience-company bold">{{experience.company}}</span>
+    <span class="bold">{{experience.startDate}} - {{getEndDate()}}</span>
+    <span>{{experience.description}}</span>
+    <span class="experience-industry">{{experience.functionCategory}} - {{experience.industry}}</span>
+  </div>
+</p-card>
