@@ -55,17 +55,24 @@ public class VacancyController {
     }
 
     @GetMapping("/all")
-    public List<VacancyReadDto> findAllVacancies() {
-        return vacancyService.findAll()
+    public ResponseEntity<List<VacancyReadDto>> findAllVacancies() {
+        List<Vacancy> allVacancies = vacancyService.findAll();
+        if (allVacancies == null || allVacancies.isEmpty()) {
+            return new ResponseEntity<>(Collections.emptyList(), HttpStatus.NO_CONTENT);
+        }
+        List<VacancyReadDto> dtos = allVacancies
                 .stream()
-                .map((vacancy) -> {
-                    // TODO - Implement proper mapping.
+                .map(
+                        (vacancy) -> {
                     VacancyReadDto dto = new VacancyReadDto();
                     dto.setFunctionTitle(vacancy.getFunctionTitle());
-
+                    dto.setPostedOn(vacancy.getCreatedOn());
+                    dto.setRecruiterId(vacancy.getRecruiter().getId());
+//                    TODO - add number of applicants
                     return dto;
-                })
-                .toList();
+                }
+                ).toList();
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
     @PostMapping("/create")

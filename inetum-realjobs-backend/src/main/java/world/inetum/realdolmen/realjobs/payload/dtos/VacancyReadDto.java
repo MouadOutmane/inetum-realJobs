@@ -32,7 +32,15 @@ public class VacancyReadDto {
     private String companyLogo;
 
     // Recruiter
+    private Long recruiterId;
 
+    public Long getRecruiterId() {
+        return recruiterId;
+    }
+
+    public void setRecruiterId(Long recruiterId) {
+        this.recruiterId = recruiterId;
+    }
 
     public long getId() {
         return id;
