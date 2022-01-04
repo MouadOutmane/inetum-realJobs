@@ -22,7 +22,7 @@ export class RecruiterOverviewComponent implements OnInit {
     this.columns = [
       {field: 'functionTitle', header: 'Function title'},
       {field: 'createdOn', header: 'Date posted'},
-      {field: 'createdBy', header: 'Vacancy manager'},
+      {field: 'recruiterId', header: 'Vacancy manager'},
       {field: 'applicants', header: 'Applicants'}
     ];
   }

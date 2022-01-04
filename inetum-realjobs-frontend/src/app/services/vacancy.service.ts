@@ -10,7 +10,7 @@ import {Vacancy} from "../models/vacancy";
 export class VacancyService {
 
   vacancies: Vacancy[] = [];
-  allVacanciesUrl: string = "http://localhost:8080/api/vacancies/all";
+  allVacanciesUrl: string = "vacancies/all";
 
 
   constructor(private httpClient: HttpClient) {
@@ -44,7 +44,7 @@ export class VacancyService {
   }
 
   getAllVacancies(): Observable<Vacancy[]> {
-    return this.httpClient.get<Vacancy[]>(this.allVacanciesUrl)
+    return this.httpClient.get<Vacancy[]>(this.allVacanciesUrl, {observe: "body", responseType: "json"})
       .pipe(
         catchError(this.handleError<Vacancy[]>('getAllVacancies', []))
       );

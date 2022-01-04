@@ -14,6 +14,7 @@ export interface Vacancy {
   requirements: string;
   offer: string;
   postedOn: string;
+  recruiterId: number;
 
   streetName: string;
   houseNumber: string;
