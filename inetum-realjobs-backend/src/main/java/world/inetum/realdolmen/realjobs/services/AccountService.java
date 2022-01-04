@@ -22,6 +22,7 @@ import world.inetum.realdolmen.realjobs.repositories.ResetCodeRepository;
 import javax.mail.MessagingException;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -131,5 +132,4 @@ public class AccountService {
         account.setMobilePhone(signUpRequest.getMobilePhone());
         account.setProfilePicture(signUpRequest.getProfilePicture());
     }
-
 }

@@ -14,13 +14,15 @@ import {InputMaskModule} from "primeng/inputmask";
 import {PasswordModule} from "primeng/password";
 import {DividerModule} from "primeng/divider";
 import {ScrollPanelModule} from "primeng/scrollpanel";
+import {FieldsetModule} from 'primeng/fieldset';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {CheckboxModule} from "primeng/checkbox";
 import {RippleModule} from "primeng/ripple";
 import {StyleClassModule} from "primeng/styleclass";
 import {ChipModule} from "primeng/chip";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {ConfirmPopupModule} from "primeng/confirmpopup";
-import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 
@@ -48,6 +50,8 @@ const modules = [
   ConfirmPopupModule,
   ConfirmDialogModule,
   ProgressSpinnerModule,
+  FieldsetModule,
+  InputNumberModule,
 ];
 
 @NgModule({

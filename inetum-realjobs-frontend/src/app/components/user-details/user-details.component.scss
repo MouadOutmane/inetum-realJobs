@@ -1,0 +1,51 @@
+.center-div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.gridForm {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 0.5em;
+  max-width: 25em;
+  width: 100%;
+}
+
+.p-inputgroup{
+    grid-column:  1 / -1;
+    column-gap: 5px;
+}
+
+.full-column{
+    grid-column:  1 / -1;
+}
+
+button {
+  grid-column: span 3;
+  margin-top: 0.5em;
+  border-radius: 0.4em;
+}
+
+.profile_pic{
+  float:right;
+  border-radius: 50%;
+  height:60px;
+  width:60px;
+  padding-top:0.2em;
+  padding-right:0.2em;
+}
+
+.wrapper {
+  background: #f8f9fa;
+  border: 2px solid #dee2e6;
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
+
+.text_manageAccount{
+  padding: 1rem;
+  color: #495057;
+}

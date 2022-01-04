@@ -13,7 +13,7 @@ import {ResetPasswordComponent} from "./components/reset-password/reset-password
 
 const appRoutes: Routes = [
   {path: "", redirectTo: "/vacancy/search", pathMatch: "full"},
-  {path: "users/:username", component: UserDetailsComponent, canActivate: [AuthGuardService]},
+  {path: "profile", component: UserDetailsComponent, canActivate: [AuthGuardService]},
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
   {path: "vacancy/search", component: FilterFormComponent},

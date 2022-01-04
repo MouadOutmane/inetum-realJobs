@@ -1,36 +1,17 @@
-package world.inetum.realdolmen.realjobs.payload.security;
+package world.inetum.realdolmen.realjobs.payload.dtos;
 
 import world.inetum.realdolmen.realjobs.entities.enums.Gender;
-import world.inetum.realdolmen.realjobs.entities.enums.Role;
-import world.inetum.realdolmen.realjobs.payload.dtos.AddressCreateDto;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
-public class SignupRequest {
-    @Email
-    @NotNull
+public class AccountReadDto {
+
     private String email;
-    @NotNull
-    private Role role;
-    @NotNull
-    private String password;
-    @NotNull
     private Gender gender;
-    @NotBlank
     private String firstName;
-    @NotBlank
     private String lastName;
-    @NotNull
-    @Past
-    private LocalDate birthDate;
-    @Valid
-    @NotNull
-    private AddressCreateDto address;
+    private LocalDate dateOfBirth;
+    private AddressReadDto address;
     private String mobilePhone;
     private String profilePicture;
 
@@ -40,22 +21,6 @@ public class SignupRequest {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Gender getGender() {
@@ -82,19 +47,19 @@ public class SignupRequest {
         this.lastName = lastName;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public AddressCreateDto getAddress() {
+    public AddressReadDto getAddress() {
         return address;
     }
 
-    public void setAddress(AddressCreateDto address) {
+    public void setAddress(AddressReadDto address) {
         this.address = address;
     }
 
