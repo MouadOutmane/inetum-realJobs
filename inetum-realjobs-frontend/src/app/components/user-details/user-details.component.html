@@ -5,6 +5,15 @@
 </div>
 
 <div class="p-fluid" *ngIf="(!loading && !error)">
+
+  <div class="wrapper">
+    <div>
+      <h4 class="text_manageAccount">Manage Account</h4>
+    </div>
+    <div>
+      <img class="profile_pic" src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar">
+    </div>
+  </div>
   <p-fieldset >
     <ng-template  pTemplate="header">Personal Information</ng-template>
     <form (ngSubmit)="save()" [formGroup]="profileForm" class="gridForm">
