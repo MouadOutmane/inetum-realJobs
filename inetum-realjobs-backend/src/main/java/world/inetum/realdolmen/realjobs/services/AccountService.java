@@ -132,9 +132,4 @@ public class AccountService {
         account.setMobilePhone(signUpRequest.getMobilePhone());
         account.setProfilePicture(signUpRequest.getProfilePicture());
     }
-
-    public Optional<Account> getPersonalInfo(String email) {
-
-        return this.accountRepository.getPersonalInformationByEmail(email);
-    }
 }

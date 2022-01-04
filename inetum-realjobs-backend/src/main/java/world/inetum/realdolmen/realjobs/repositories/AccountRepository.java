@@ -13,8 +13,4 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     Optional<Account> findByEmail(String email);
 
     boolean existsByEmail(String email);
-
-    @Query("SELECT A FROM Account A JOIN FETCH A.address as AD JOIN FETCH AD.country WHERE A.email  =?1")
-    Optional<Account> getPersonalInformationByEmail(String email);
-
 }
