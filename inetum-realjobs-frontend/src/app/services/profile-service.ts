@@ -15,7 +15,7 @@ export class ProfileService {
   }
 
   getUserProfile(): Observable<Profile> {
-    return this.http.get<Profile>("http://localhost:8080/api/profile/",
+    return this.http.get<Profile>("profile/",
       {responseType: 'json'});
   }
 }

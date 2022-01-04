@@ -23,7 +23,6 @@ import {StyleClassModule} from "primeng/styleclass";
 import {ChipModule} from "primeng/chip";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {ConfirmPopupModule} from "primeng/confirmpopup";
-import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 
@@ -53,7 +52,6 @@ const modules = [
   ProgressSpinnerModule,
   FieldsetModule,
   InputNumberModule,
-  ConfirmDialogModule,
 ];
 
 @NgModule({

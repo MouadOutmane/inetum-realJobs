@@ -32,7 +32,6 @@ import {SummaryFormComponent} from './components/resume/forms/summary-form/summa
 import {
   ResumeAccountDetailsComponent
 } from './components/resume/details/resume-account-details/resume-account-details.component';
-import {ConfirmationService} from 'primeng/api';
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
 import {ConfirmationService} from 'primeng/api';
