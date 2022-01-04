@@ -13,9 +13,11 @@
         </ng-template>
         <ng-template pTemplate="body" let-vacancy>
           <tr>
+            <td>{{vacancy.vacancyId}}</td>
             <td>
               <!--                TODO: add routerLink to vacancy/{id} when implemented user story 'modify and delete vacancy'-->
-              <a>{{vacancy.functionTitle}}</a></td>
+              <a>{{vacancy.functionTitle}}</a>
+            </td>
             <td>{{vacancy.postedOn | date: 'dd/MM/yy'}}</td>
             <td>{{vacancy.recruiterId}}</td>
             <td>0</td>

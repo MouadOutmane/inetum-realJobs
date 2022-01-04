@@ -65,6 +65,7 @@ public class VacancyController {
                 .map(
                         (vacancy) -> {
                     VacancyReadDto dto = new VacancyReadDto();
+                    dto.setId(vacancy.getId());
                     dto.setFunctionTitle(vacancy.getFunctionTitle());
                     dto.setPostedOn(vacancy.getCreatedOn());
                     dto.setRecruiterId(vacancy.getRecruiter().getId());
