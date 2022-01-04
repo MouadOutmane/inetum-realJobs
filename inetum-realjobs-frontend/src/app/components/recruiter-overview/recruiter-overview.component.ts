@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {VacancyService} from "../../services/vacancy.service";
 import {Vacancy} from "../../models/vacancy";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-recruiter-overview',
@@ -8,7 +9,7 @@ import {Vacancy} from "../../models/vacancy";
   styleUrls: ['./recruiter-overview.component.scss']
 })
 export class RecruiterOverviewComponent implements OnInit {
-  vacancies: Vacancy[] = [];
+  vacancies$: Observable<Vacancy[]>;
   title: string = "Overview: My vacancies";
   columns: any[];
   defaultMessage: string = "Your vacancies will appear here." +
@@ -27,9 +28,8 @@ export class RecruiterOverviewComponent implements OnInit {
     ];
   }
 
-  getAllVacancies(): void {
-    this.vacancyService.getAllVacancies()
-      .subscribe(vacancies => this.vacancies = vacancies);
+  getAllVacancies(): Observable<Vacancy[]>{
+    return this.vacancies$ = this.vacancyService.getAllVacancies();
   }
 
 }

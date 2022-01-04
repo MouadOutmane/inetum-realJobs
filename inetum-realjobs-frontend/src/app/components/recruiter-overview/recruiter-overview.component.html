@@ -2,28 +2,24 @@
 <div class="container">
   <div class="content-section implementation">
     <div class="card">
-      <p-table [value]="vacancies" [columns]="columns">
-        <ng-template pTemplate="header" let-columns>
+      <div *ngIf="!vacancies$">{{defaultMessage}}</div>
+      <p-table [value]="vacancies$ | async" [columns]="columns">
+        <ng-template pTemplate="header">
           <tr>
             <th *ngFor="let column of columns">
               {{column.header}}
             </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body">
-          <div *ngIf="vacancies.length == 0">
-            <span>{{defaultMessage}}</span>
-          </div>
-          <div *ngFor="let vacancy of vacancies">
-            <tr>
-              <td>
-                <!--                TODO: add routerLink to vacancy/{id} when implemented user story 'modify and delete vacancy'-->
-                <a>{{vacancy.functionTitle}}</a></td>
-              <td>{{vacancy.postedOn}}</td>
-              <td>{{vacancy.recruiterId}}</td>
-              <td>0</td>
-            </tr>
-          </div>
+        <ng-template pTemplate="body" let-vacancy>
+          <tr>
+            <td>
+              <!--                TODO: add routerLink to vacancy/{id} when implemented user story 'modify and delete vacancy'-->
+              <a>{{vacancy.functionTitle}}</a></td>
+            <td>{{vacancy.postedOn | date: 'dd/MM/yy'}}</td>
+            <td>{{vacancy.recruiterId}}</td>
+            <td>0</td>
+          </tr>
         </ng-template>
       </p-table>
     </div>
