@@ -1,0 +1,26 @@
+<p-card>
+  <ng-template pTemplate="header">
+    <div class="education-view-header">
+      <span
+        class="education-view-header-text"
+      >
+        Education
+      </span>
+      <div>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-pencil"
+          (click)="toForm()"
+          class="p-button-rounded p-button-text">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <app-education-list
+    [educationList]="educationList"
+    [deleteButton]="false"
+  >
+  </app-education-list>
+</p-card>

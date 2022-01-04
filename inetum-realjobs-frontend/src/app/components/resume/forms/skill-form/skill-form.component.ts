@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SkillLevel} from "../../../../models/skillLevel.enum";
 import {Skill} from "../../../../models/skill";
@@ -15,9 +15,12 @@ import CustomValidators from "../../../../validators/CustomValidators";
 })
 export class SkillFormComponent implements OnInit {
 
+  @Input() skills: Skill[];
+  @Output() formCloseEvent = new EventEmitter<null>();
+  @Output() skillsUpdatedEvent = new EventEmitter<Skill[]>();
+
   skillForm: FormGroup;
   skillLevelOptions: SkillLevel[];
-  skills: Skill[];
 
   constructor(private resumeService: ResumeService,
               private messageService: MessageService,
@@ -31,12 +34,6 @@ export class SkillFormComponent implements OnInit {
       skill: ["", [Validators.required, CustomValidators.uniqueItemValidator(this.skills.map(s => s.skill))]],
       skillLevel: [undefined, [Validators.required]],
     });
-    this.resumeService
-      .getSkills()
-      .pipe(catchError((err) => this.onError(err)))
-      .subscribe(skills => {
-        this.skills = skills;
-      });
     this.skillForm.get("skill").valueChanges.subscribe(val => {
       this.skillForm
         .controls["skill"]
@@ -55,7 +52,7 @@ export class SkillFormComponent implements OnInit {
         .addSkill(this.getFormData())
         .pipe(catchError((err) => this.onError(err)))
         .subscribe(skills => {
-          this.skills = skills;
+          this.skillsUpdatedEvent.emit(skills);
           this.skillForm.reset();
         });
     }
@@ -66,12 +63,16 @@ export class SkillFormComponent implements OnInit {
     return throwError(() => error.message);
   }
 
+  closeForm() {
+    this.formCloseEvent.emit();
+  }
+
   deleteSkill(id: number) {
     this.resumeService
       .removeSkill(id)
       .pipe(catchError((err) => this.onError(err)))
       .subscribe(skills => {
-        this.skills = skills;
+        this.skillsUpdatedEvent.emit(skills);
       });
   }
 

@@ -1,0 +1,50 @@
+<div class="create-resume" *ngIf="!isLoading; else loading">
+  <div class="resume-status">
+    <app-status-form></app-status-form>
+  </div>
+
+  <div class="resume-summary">
+    <app-summary-controller
+      [summary]="resume.summary"
+      (summaryUpdatedEvent)="updateSummary($event)"
+    >
+    </app-summary-controller>
+  </div>
+
+  <div class="resume-experience">
+    <app-experience-controller
+      [experienceList]="resume.experienceList"
+      (experienceUpdatedEvent)="updateExperience($event)"
+    >
+    </app-experience-controller>
+  </div>
+
+  <div class="resume-education">
+    <app-education-controller
+      [educationList]="resume.educationList"
+      (educationUpdatedEvent)="updateEducation($event)"
+    >
+    </app-education-controller>
+  </div>
+
+  <div class="resume-skill">
+    <app-skill-controller
+      [skills]="resume.skills"
+      (skillUpdatedEvent)="updateSkills($event)"
+    >
+    </app-skill-controller>
+  </div>
+
+  <div class="resume-language">
+    <app-language-controller
+      [languages]="resume.languages"
+      (languageUpdatedEvent)="updateLanguage($event)"
+    >
+    </app-language-controller>
+  </div>
+</div>
+<p-toast key="tl" position="top-left"></p-toast>
+
+<ng-template #loading>
+  <p-progressSpinner></p-progressSpinner>
+</ng-template>

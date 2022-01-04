@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Language} from "../../../../models/language";
 import {SkillLevel} from "../../../../models/skillLevel.enum";
@@ -15,15 +15,17 @@ import CustomValidators from "../../../../validators/CustomValidators";
 })
 export class LanguageFormComponent implements OnInit {
 
+  @Input() languages: Language[];
+  @Output() formCloseEvent = new EventEmitter<null>();
+  @Output() languageUpdatedEvent = new EventEmitter<Language[]>();
+
   languageForm: FormGroup;
   skillLevelOptions: SkillLevel[];
-  languages: Language[];
 
   constructor(private resumeService: ResumeService,
               private messageService: MessageService,
               private formBuilder: FormBuilder) {
     this.skillLevelOptions = Object.keys(SkillLevel) as SkillLevel[];
-    this.languages = [];
   }
 
   ngOnInit(): void {
@@ -31,12 +33,6 @@ export class LanguageFormComponent implements OnInit {
       language: ["", [Validators.required, CustomValidators.uniqueItemValidator(this.languages.map(l => l.language))]],
       skillLevel: [undefined, [Validators.required]],
     });
-    this.resumeService
-      .getLanguages()
-      .pipe(catchError((err) => this.onError(err)))
-      .subscribe(languages => {
-        this.languages = languages;
-      });
     this.languageForm.get("language").valueChanges.subscribe(val => {
       this.languageForm
         .controls["language"]
@@ -55,7 +51,7 @@ export class LanguageFormComponent implements OnInit {
         .addLanguage(this.getFormData())
         .pipe(catchError((err) => this.onError(err)))
         .subscribe(languages => {
-          this.languages = languages;
+          this.languageUpdatedEvent.emit(languages);
           this.languageForm.reset();
         });
     }
@@ -66,12 +62,16 @@ export class LanguageFormComponent implements OnInit {
     return throwError(() => error.message);
   }
 
+  closeForm() {
+    this.formCloseEvent.emit();
+  }
+
   deleteLanguage(index: number) {
     this.resumeService
       .removeLanguage(index)
       .pipe(catchError((err) => this.onError(err)))
       .subscribe(languages => {
-        this.languages = languages;
+        this.languageUpdatedEvent.emit(languages);
       });
   }
 

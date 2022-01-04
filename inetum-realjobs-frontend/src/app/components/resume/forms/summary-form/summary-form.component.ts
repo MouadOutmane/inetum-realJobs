@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {ResumeService} from "../../../../services/resume.service";
 import {MessageService} from "primeng/api";
@@ -12,6 +12,10 @@ import {HttpErrorResponse} from "@angular/common/http";
 })
 export class SummaryFormComponent implements OnInit {
 
+  @Input() summary: string;
+  @Output() formCloseEvent = new EventEmitter<null>();
+  @Output() summaryUpdatedEvent = new EventEmitter<string>();
+
   summaryForm: FormGroup;
 
   constructor(private resumeService: ResumeService,
@@ -20,14 +24,8 @@ export class SummaryFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.resumeService
-      .getSummary()
-      .pipe(catchError((err) => this.onError(err)))
-      .subscribe((summary) => {
-        this.summaryForm.controls["summary"].setValue(summary);
-      });
     this.summaryForm = this.formBuilder.group({
-      summary: [undefined, [Validators.required]],
+      summary: [this.summary, [Validators.required]],
     });
   }
 
@@ -37,7 +35,9 @@ export class SummaryFormComponent implements OnInit {
         .setSummary(this.getFormData())
         .pipe(catchError((err) => this.onError(err)))
         .subscribe(summary => {
+          this.summaryUpdatedEvent.emit(summary);
           this.summaryForm.controls["summary"].setValue(summary);
+          this.formCloseEvent.emit();
         });
     }
   }

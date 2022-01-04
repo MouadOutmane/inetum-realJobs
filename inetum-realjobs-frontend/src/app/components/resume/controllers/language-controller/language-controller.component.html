@@ -1,0 +1,16 @@
+<div *ngIf="isFormOpen; else languageDetails">
+  <app-language-form
+    [languages]="languages"
+    (formCloseEvent)="closeForm()"
+    (languageUpdatedEvent)="updateLanguage($event)"
+  >
+  </app-language-form>
+</div>
+
+<ng-template #languageDetails>
+  <app-language-view
+    [languages]="languages"
+    (toFormEvent)="openForm()"
+  >
+  </app-language-view>
+</ng-template>

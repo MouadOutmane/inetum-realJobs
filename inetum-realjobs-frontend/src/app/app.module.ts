@@ -16,7 +16,6 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {VacancyDetailsComponent} from "./components/vacancy-details/vacancy-details.component";
 import {ErrorHandlerComponent} from "./components/error-handler/error-handler.component";
 import {PrimengImportsModule} from "./primeng-imports";
-import {ResumeCreateComponent} from "./components/resume/resume-create/resume-create.component";
 import {LanguageFormComponent} from "./components/resume/forms/language-form/language-form.component";
 import {SkillFormComponent} from "./components/resume/forms/skill-form/skill-form.component";
 import {ExperienceFormComponent} from "./components/resume/forms/experience-form/experience-form.component";
@@ -35,6 +34,17 @@ import {
 import {ConfirmationService} from 'primeng/api';
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
+import {ResumeComponent} from './components/resume/resume/resume.component';
+import { EducationControllerComponent } from './components/resume/controllers/education-controller/education-controller.component';
+import { EducationViewComponent } from './components/resume/details/education-view/education-view.component';
+import { ExperienceViewComponent } from './components/resume/details/experience-view/experience-view.component';
+import { ExperienceControllerComponent } from './components/resume/controllers/experience-controller/experience-controller.component';
+import { SkillViewComponent } from './components/resume/details/skill-view/skill-view.component';
+import { SkillControllerComponent } from './components/resume/controllers/skill-controller/skill-controller.component';
+import { LanguageControllerComponent } from './components/resume/controllers/language-controller/language-controller.component';
+import { LanguageViewComponent } from './components/resume/details/language-view/language-view.component';
+import { SummaryControllerComponent } from './components/resume/controllers/summary-controller/summary-controller.component';
+import { SummaryViewComponent } from './components/resume/details/summary-view/summary-view.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +58,6 @@ import {ResetPasswordComponent} from "./components/reset-password/reset-password
     ResetPasswordComponent,
     VacancyDetailsComponent,
     ErrorHandlerComponent,
-    ResumeCreateComponent,
     ExperienceFormComponent,
     SkillFormComponent,
     LanguageFormComponent,
@@ -62,6 +71,17 @@ import {ResetPasswordComponent} from "./components/reset-password/reset-password
     StatusFormComponent,
     SummaryFormComponent,
     ResumeAccountDetailsComponent,
+    ResumeComponent,
+    EducationControllerComponent,
+    EducationViewComponent,
+    ExperienceViewComponent,
+    ExperienceControllerComponent,
+    SkillViewComponent,
+    SkillControllerComponent,
+    LanguageControllerComponent,
+    LanguageViewComponent,
+    SummaryControllerComponent,
+    SummaryViewComponent,
   ],
   imports: [
     BrowserModule,

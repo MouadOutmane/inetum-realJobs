@@ -24,6 +24,10 @@ public class ResumeService {
         this.accountRepository = accountRepository;
     }
 
+    public Resume getResume() {
+        return securityService.getJobSeeker().getResume();
+    }
+
     public List<Skill> addSkill(Skill newSkill) {
         JobSeeker currentUserJs = securityService.getJobSeeker();
         Resume resume = currentUserJs.getResume();
