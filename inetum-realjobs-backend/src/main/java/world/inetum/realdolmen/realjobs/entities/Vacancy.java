@@ -62,6 +62,17 @@ public class Vacancy extends BaseModel {
     @ManyToOne(fetch = FetchType.LAZY)
     private Recruiter recruiter;
 
+    @Column(nullable = false)
+    private String vacancyId;
+
+    public String getVacancyId() {
+        return vacancyId;
+    }
+
+    public void setVacancyId(String vacancyId) {
+        this.vacancyId = vacancyId;
+    }
+
     public String getFunctionTitle() {
         return functionTitle;
     }
