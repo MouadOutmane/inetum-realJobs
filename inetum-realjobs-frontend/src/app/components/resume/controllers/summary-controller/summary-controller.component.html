@@ -1,4 +1,4 @@
-<div *ngIf="isFormOpen; else educationDetails" class="summary-controller">
+<div *ngIf="isFormOpen; else summaryDetails" class="summary-controller">
   <app-summary-form
     [summary]="summary"
     (formCloseEvent)="closeForm()"
@@ -7,7 +7,7 @@
   </app-summary-form>
 </div>
 
-<ng-template #educationDetails>
+<ng-template #summaryDetails>
   <app-summary-view
     [summary]="summary"
     (toFormEvent)="openForm()"

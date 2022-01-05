@@ -16,6 +16,7 @@ export class StatusFormComponent implements OnInit {
 
   @Input() accountInfo: AccountResume;
   @Input() status: ResumeStatus;
+  @Output() formCloseEvent = new EventEmitter<null>();
   @Output() statusUpdatedEvent = new EventEmitter<ResumeStatus>();
 
   statusForm: FormGroup;
@@ -57,6 +58,7 @@ export class StatusFormComponent implements OnInit {
         .subscribe(status => {
           this.prevStatus = status;
           this.statusUpdatedEvent.emit(status);
+          this.formCloseEvent.emit();
         });
     }
   }

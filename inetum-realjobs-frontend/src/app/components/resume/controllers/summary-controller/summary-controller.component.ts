@@ -18,8 +18,8 @@ export class SummaryControllerComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  updateSummary(summaryList: string) {
-    this.summaryUpdatedEvent.emit(summaryList);
+  updateSummary(summary: string) {
+    this.summaryUpdatedEvent.emit(summary);
   }
 
   closeForm() {

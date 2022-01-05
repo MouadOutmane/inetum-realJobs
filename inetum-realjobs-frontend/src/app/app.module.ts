@@ -50,6 +50,8 @@ import {
   SummaryControllerComponent
 } from './components/resume/controllers/summary-controller/summary-controller.component';
 import {SummaryViewComponent} from './components/resume/details/summary-view/summary-view.component';
+import { StatusControllerComponent } from './components/resume/controllers/status-controller/status-controller.component';
+import { StatusViewComponent } from './components/resume/details/status-view/status-view.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,8 @@ import {SummaryViewComponent} from './components/resume/details/summary-view/sum
     LanguageViewComponent,
     SummaryControllerComponent,
     SummaryViewComponent,
+    StatusControllerComponent,
+    StatusViewComponent,
   ],
   imports: [
     BrowserModule,
