@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {ResumeStatus} from "../../../../models/resumeStatus.enum";
 import {ResumeService} from "../../../../services/resume.service";
 import {MessageService, ConfirmationService} from "primeng/api";
 import {HttpErrorResponse} from "@angular/common/http";
 import {throwError, catchError} from "rxjs";
+import {AccountResume} from "../../../../models/accountResume";
 
 @Component({
   selector: 'app-status-form',
@@ -12,6 +13,10 @@ import {throwError, catchError} from "rxjs";
   styleUrls: ['./status-form.component.scss']
 })
 export class StatusFormComponent implements OnInit {
+
+  @Input() accountInfo: AccountResume;
+  @Input() status: ResumeStatus;
+  @Output() statusUpdatedEvent = new EventEmitter<ResumeStatus>();
 
   statusForm: FormGroup;
   resumeStatusOptions: ResumeStatus[];
@@ -25,20 +30,10 @@ export class StatusFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.resumeService
-      .getResumeStatus()
-      .pipe(catchError((err) => this.onError(err)))
-      .subscribe(status => {
-        this.setStatus(status);
-      });
+    this.prevStatus = this.status;
     this.statusForm = this.formBuilder.group({
-      status: [undefined, [Validators.required]],
+      status: [this.status, [Validators.required]],
     });
-  }
-
-  private setStatus(status: ResumeStatus) {
-    this.prevStatus = status;
-    this.statusForm.controls["status"].setValue(status);
   }
 
   confirm(event: Event) {
@@ -50,7 +45,7 @@ export class StatusFormComponent implements OnInit {
         : "By changing your status to: Excited about new opportunities/Open to discussing new opportunities, your personal contact information will be visible for recruiters on the platform.",
       icon: "pi pi-info-circle",
       accept: () => this.submitForm(),
-      reject: () => this.setStatus(this.prevStatus)
+      reject: () => this.statusForm.controls["status"].setValue(this.prevStatus)
     });
   }
 
@@ -60,7 +55,8 @@ export class StatusFormComponent implements OnInit {
         .setResumeStatus(this.getFormData())
         .pipe(catchError((err) => this.onError(err)))
         .subscribe(status => {
-          this.setStatus(status);
+          this.prevStatus = status;
+          this.statusUpdatedEvent.emit(status);
         });
     }
   }

@@ -8,6 +8,7 @@ import {Education} from "../../../models/education";
 import {Experience} from "../../../models/experience";
 import {Language} from "../../../models/language";
 import {Skill} from "../../../models/skill";
+import {ResumeStatus} from "../../../models/resumeStatus.enum";
 
 @Component({
   selector: 'app-resume',
@@ -57,5 +58,9 @@ export class ResumeComponent implements OnInit {
 
   updateSkills(skills: Skill[]) {
     this.resume.skills = skills;
+  }
+
+  updateStatus(status: ResumeStatus) {
+    this.resume.status = status;
   }
 }

@@ -1,6 +1,11 @@
 <div class="create-resume" *ngIf="!isLoading; else loading">
   <div class="resume-status">
-    <app-status-form></app-status-form>
+    <app-status-form
+      [accountInfo]="resume.accountInfo"
+      [status]="resume.status"
+      (statusUpdatedEvent)="updateStatus($event)"
+    >
+    </app-status-form>
   </div>
 
   <div class="resume-summary">

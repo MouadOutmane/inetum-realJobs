@@ -18,3 +18,34 @@
     justify-content: center;
   }
 }
+
+.resume-account {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .name {
+    align-self: center;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+.status-form-header {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.status-form-header-text {
+  margin: 1rem;
+}
