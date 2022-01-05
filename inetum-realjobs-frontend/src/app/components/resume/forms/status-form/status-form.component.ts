@@ -44,7 +44,11 @@ export class StatusFormComponent implements OnInit {
   confirm(event: Event) {
     this.confirmationService.confirm({
       target: event.target,
-      message: "You are about to change your status",
+      header: "You are about to change your status",
+      message: (this.statusForm.controls["status"].value === ResumeStatus.NEGATIVE)
+        ? "By changing your status to: Not interested in any new opportunities, your personal contact information won't be visible for recruiters on the platform."
+        : "By changing your status to: Excited about new opportunities/Open to discussing new opportunities, your personal contact information will be visible for recruiters on the platform.",
+      icon: "pi pi-info-circle",
       accept: () => this.submitForm(),
       reject: () => this.setStatus(this.prevStatus)
     });
