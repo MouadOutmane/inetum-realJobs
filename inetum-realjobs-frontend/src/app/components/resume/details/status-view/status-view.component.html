@@ -23,15 +23,15 @@
     <img src="https://dummyimage.com/600x400/000/fff">
     <span *ngIf="accountInfo.email">
       <i class="pi pi-envelope"></i>
-      {{accountInfo.email}}
+      <span>{{accountInfo.email}}</span>
     </span>
     <span *ngIf="accountInfo.mobilePhone">
       <i class="pi pi-phone"></i>
-      {{accountInfo.mobilePhone}}
+      <span>{{accountInfo.mobilePhone}}</span>
     </span>
     <span>
       <i [class]="getClass()"></i>
-      {{getStatusText()}}
+      <span>{{getStatusText()}}</span>
     </span>
   </div>
 </p-card>
