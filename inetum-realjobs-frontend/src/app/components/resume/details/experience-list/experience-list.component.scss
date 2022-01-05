@@ -1,0 +1,9 @@
+.experience-list-comp {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.experience-list-comp ::ng-deep .p-card {
+  height: 100%;
+}

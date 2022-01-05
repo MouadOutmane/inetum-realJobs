@@ -34,4 +34,11 @@ public class Language extends BaseModel {
     public void setSkillLevel(SkillLevel skillLevel) {
         this.skillLevel = skillLevel;
     }
+
+    @Override
+    public String toString() {
+        return """
+                Language{id=%d, language='%s', skillLevel=%s}
+                """.formatted(getId(), language, skillLevel);
+    }
 }

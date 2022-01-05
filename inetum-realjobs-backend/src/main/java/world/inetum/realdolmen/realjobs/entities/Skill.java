@@ -19,6 +19,14 @@ public class Skill extends BaseModel {
     @Column(name = "skill_level", nullable = false)
     private SkillLevel skillLevel;
 
+    public Skill() {
+    }
+
+    public Skill(String skill, SkillLevel skillLevel) {
+        this.skill = skill;
+        this.skillLevel = skillLevel;
+    }
+
     public String getSkill() {
         return skill;
     }
@@ -33,5 +41,12 @@ public class Skill extends BaseModel {
 
     public void setSkillLevel(SkillLevel skillLevel) {
         this.skillLevel = skillLevel;
+    }
+
+    @Override
+    public String toString() {
+        return """
+                Skill{id=%d, skill='%s', skillLevel=%s}
+                """.formatted(getId(), skill, skillLevel);
     }
 }

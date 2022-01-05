@@ -1,0 +1,28 @@
+<p-card class="education-card">
+  <ng-template pTemplate="header">
+    <div [ngClass]="'education-header'">
+      <span
+        class="education-header-text"
+      >
+        {{education.school}}
+      </span>
+      <div *ngIf="deleteButton">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-times"
+          class="p-button-rounded p-button-text"
+          (click)="deleteItem()">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <div
+    class="education-content"
+  >
+    <span class="education-degree bold">{{education.degree}} {{education.program}}</span>
+    <span class="bold">{{education.startDate}} - {{education.endDate}}</span>
+    <span>{{education.description}}</span>
+  </div>
+</p-card>

@@ -1,0 +1,17 @@
+.language-list-comp {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.language-list-comp .language-card {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+.language-list-comp ::ng-deep .p-card {
+  height: 100%;
+}
