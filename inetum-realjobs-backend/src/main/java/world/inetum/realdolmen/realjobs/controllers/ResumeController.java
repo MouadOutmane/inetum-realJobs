@@ -33,6 +33,8 @@ public class ResumeController {
         this.securityService = securityService;
     }
 
+    // TODO all getters, except for getResume() are unused
+
     @GetMapping
     @RolesAllowed("JOBSEEKER")
     public ResumeReadDto getResume() {
