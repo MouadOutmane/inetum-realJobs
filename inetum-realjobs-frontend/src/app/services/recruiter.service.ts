@@ -7,7 +7,7 @@ import {RecruiterOverviewModel} from "../models/recruiter-overview.model";
   providedIn: 'root'
 })
 export class RecruiterService {
-  allVacanciesUrl: string = "vacancies/all";
+  allVacanciesUrl: string = "recruiters";
 
   constructor(private http: HttpClient) {
   }

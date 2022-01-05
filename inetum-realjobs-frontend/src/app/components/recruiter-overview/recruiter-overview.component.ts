@@ -30,7 +30,13 @@ export class RecruiterOverviewComponent implements OnInit {
   }
 
   getAllVacancies(): Observable<RecruiterOverviewModel[]> {
-    return this.vacancies$ = this.recruiterService.getAllVacancies();
+    this.vacancies$ = this.recruiterService.getAllVacancies();
+    this.vacancies$.subscribe({
+      next(x) {console.log(x)},
+      error(error) {console.log(error)},
+      complete() {console.log("getAllVacancies is done")}
+    });
+    return this.vacancies$;
   }
 
 }

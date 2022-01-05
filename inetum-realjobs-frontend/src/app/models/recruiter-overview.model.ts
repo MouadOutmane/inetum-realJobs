@@ -1,5 +1,5 @@
 export interface RecruiterOverviewModel {
-  vacancyId: number;
+  vacancyId: string;
   functionTitle: string;
   postedOn: string;
   recruiterId: number;

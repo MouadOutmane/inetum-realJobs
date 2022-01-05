@@ -1,19 +1,19 @@
 package world.inetum.realdolmen.realjobs.payload.dtos;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class RecruiterOverviewDto {
-    private Long id;
+    private String vacancyId;
     private String functionTitle;
-    private LocalDate postedOn;
+    private LocalDateTime postedOn;
     private Long recruiterId;
 
-    public Long getId() {
-        return id;
+    public String getVacancyId() {
+        return vacancyId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setVacancyId(String vacancyId) {
+        this.vacancyId = vacancyId;
     }
 
     public String getFunctionTitle() {
@@ -24,11 +24,11 @@ public class RecruiterOverviewDto {
         this.functionTitle = functionTitle;
     }
 
-    public LocalDate getPostedOn() {
+    public LocalDateTime getPostedOn() {
         return postedOn;
     }
 
-    public void setPostedOn(LocalDate postedOn) {
+    public void setPostedOn(LocalDateTime postedOn) {
         this.postedOn = postedOn;
     }
 
