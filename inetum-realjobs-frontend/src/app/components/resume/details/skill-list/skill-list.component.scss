@@ -15,3 +15,9 @@
     height: 100%;
   }
 }
+
+@media screen and (max-width: 75rem) {
+  .skill-list-comp {
+    grid-template-columns: 1fr;
+  }
+}

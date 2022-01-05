@@ -42,3 +42,16 @@
     grid-area: resume-language;
   }
 }
+
+@media screen and (max-width: 75rem) {
+  .create-resume {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+    "resume-status"
+    "resume-summary"
+    "resume-experience"
+    "resume-education"
+    "resume-skill"
+    "resume-language";
+  }
+}
