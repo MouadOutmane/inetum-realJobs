@@ -14,6 +14,11 @@ export class RecruiterOverviewComponent implements OnInit {
   columns: any[];
   defaultMessage: string = "Your vacancies will appear here." +
     " Get started and post your first vacancy by clicking 'Post new vacancy'";
+  first: number = 0;
+  rows: number = 10;
+  vacancies: RecruiterOverviewModel[] = [];
+  length: number = this.getArrayLength();
+
 
   constructor(private recruiterService: RecruiterService) {
   }
@@ -39,4 +44,29 @@ export class RecruiterOverviewComponent implements OnInit {
     return this.vacancies$;
   }
 
+  next(): number {
+    return this.first = this.first + this.rows;
+  }
+
+  previous(): number {
+    return this.first = this.first - this.rows;
+  }
+
+  reset():void {
+    this.first = 0;
+  }
+
+  isLastPage(): boolean {
+    return this.vacancies ? this.first === (length - this.rows) : true;
+  }
+
+  isFirstPage(): boolean {
+    return this.vacancies ? this.first === 0 : true;
+  }
+
+  getArrayLength():number {
+    this.recruiterService.getAllVacancies().subscribe(nuts => this.vacancies = nuts);
+    console.log('length = ' + this.vacancies.length);
+    return this.vacancies.length;
+  }
 }
