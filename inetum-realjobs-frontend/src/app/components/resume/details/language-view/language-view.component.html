@@ -19,7 +19,7 @@
     </div>
   </ng-template>
   <div>
-    <div *ngFor="let lang of languages">
+    <div *ngFor="let lang of languages" class="language-entry">
       <span>{{lang.language}}</span>
       <p-progressBar
         [value]="getProgress(lang)"
