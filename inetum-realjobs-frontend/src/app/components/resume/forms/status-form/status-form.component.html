@@ -23,6 +23,8 @@
   <form (ngSubmit)="confirm($event)" [formGroup]="statusForm" class="statusForm">
     <p-dropdown
       [options]="resumeStatusOptions"
+      optionLabel="name"
+      optionValue="value"
       formControlName="status"
       placeholder="Select a status"
       [ngClass]="{'status-input': true, 'ng-invalid ng-dirty' : isInvalid('status')}">

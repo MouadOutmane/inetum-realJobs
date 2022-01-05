@@ -20,14 +20,18 @@ export class StatusFormComponent implements OnInit {
   @Output() statusUpdatedEvent = new EventEmitter<ResumeStatus>();
 
   statusForm: FormGroup;
-  resumeStatusOptions: ResumeStatus[];
+  resumeStatusOptions: { name: string, value: ResumeStatus }[];
   prevStatus: ResumeStatus;
 
   constructor(private resumeService: ResumeService,
               private messageService: MessageService,
               private confirmationService: ConfirmationService,
               private formBuilder: FormBuilder) {
-    this.resumeStatusOptions = Object.keys(ResumeStatus) as ResumeStatus[];
+    this.resumeStatusOptions = [
+      {name: "Excited about new opportunities ", value: ResumeStatus.POSITIVE},
+      {name: "Open to discussing new opportunities", value: ResumeStatus.NEUTRAL},
+      {name: "Not interested in any new opportunities", value: ResumeStatus.NEGATIVE},
+    ];
   }
 
   ngOnInit(): void {

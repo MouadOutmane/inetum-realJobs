@@ -30,7 +30,8 @@
       {{accountInfo.mobilePhone}}
     </span>
     <span>
-      {{status}}
+      <i [class]="getClass()"></i>
+      {{getStatusText()}}
     </span>
   </div>
 </p-card>

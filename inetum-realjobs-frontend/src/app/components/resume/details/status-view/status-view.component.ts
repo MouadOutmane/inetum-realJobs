@@ -22,4 +22,26 @@ export class StatusViewComponent implements OnInit {
   toForm() {
     this.toFormEvent.emit();
   }
+
+  getClass(): string {
+    switch (this.status) {
+      case ResumeStatus.NEGATIVE:
+        return "pi pi-times-circle";
+      case ResumeStatus.NEUTRAL:
+        return "pi pi-circle-off";
+      case ResumeStatus.POSITIVE:
+        return "pi pi-check-circle";
+    }
+  }
+
+  getStatusText(): string {
+    switch (this.status) {
+      case ResumeStatus.NEGATIVE:
+        return "Not interested in any new opportunities";
+      case ResumeStatus.NEUTRAL:
+        return "Open to discussing new opportunities";
+      case ResumeStatus.POSITIVE:
+        return "Excited about new opportunities ";
+    }
+  }
 }
