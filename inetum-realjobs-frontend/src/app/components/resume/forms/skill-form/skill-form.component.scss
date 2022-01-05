@@ -12,12 +12,12 @@
     margin-top: 1rem;
   }
 
-  .form-inputs > label {
+  > label {
     display: flex;
     align-items: center;
   }
 
-  .form-inputs input {
+  input {
     width: 100%;
   }
 
@@ -27,11 +27,6 @@
 
   ::ng-deep .p-dropdown {
     width: 100%;
-  }
-
-  .center-content {
-    display: flex;
-    justify-content: center;
   }
 
   .skill-skill-label {
@@ -76,4 +71,9 @@
 
 .skills-form-header-text {
   margin: 1rem;
+}
+
+.skillForm .center-content {
+  display: flex;
+  justify-content: center;
 }
