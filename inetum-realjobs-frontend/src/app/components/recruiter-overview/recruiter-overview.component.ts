@@ -34,7 +34,7 @@ export class RecruiterOverviewComponent implements OnInit {
     this.vacancies$.subscribe({
       next(x) {console.log(x)},
       error(error) {console.log(error)},
-      complete() {console.log("getAllVacancies is done")}
+      complete() {console.log("getAllVacancies has finished")}
     });
     return this.vacancies$;
   }

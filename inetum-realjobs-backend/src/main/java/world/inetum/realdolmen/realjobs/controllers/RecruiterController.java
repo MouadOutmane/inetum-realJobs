@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import world.inetum.realdolmen.realjobs.entities.Vacancy;
 import world.inetum.realdolmen.realjobs.payload.dtos.RecruiterOverviewDto;
-import world.inetum.realdolmen.realjobs.payload.dtos.VacancyReadDto;
 import world.inetum.realdolmen.realjobs.repositories.RecruiterRepository;
 import world.inetum.realdolmen.realjobs.services.VacancyService;
 
@@ -28,6 +27,7 @@ public class RecruiterController {
         this.vacancyService = vacancyService;
         this.recruiterRepository = recruiterRepository;
     }
+
     @GetMapping
     public ResponseEntity<List<RecruiterOverviewDto>> findAllVacancies() {
         List<Vacancy> allVacancies = vacancyService.findAll();
