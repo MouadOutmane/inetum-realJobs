@@ -22,6 +22,8 @@ import {MessageModule} from "primeng/message";
 import {ToastModule} from "primeng/toast";
 import {InputMaskModule} from "primeng/inputmask";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
+import {StepsModule} from "primeng/steps";
+import {RegisterMultiFormComponent} from "./components/multi-step-form/register.multi.form.component";
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
     UserDetailsComponent,
     RegisterComponent,
     NotFoundComponent,
+    RegisterMultiFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,7 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
     ToastModule,
     InputMaskModule,
     routing,
+    StepsModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: UniversalAppInterceptor, multi: true},

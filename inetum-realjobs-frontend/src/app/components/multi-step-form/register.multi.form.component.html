@@ -1,0 +1,103 @@
+<div>
+
+  <p-steps [model]="stepItems" [activeIndex]=activeStepIndex></p-steps>
+  <ng-container
+    *ngFor="let form of masterForm; let i = index; trackBy: trackByFn"
+  >
+    <form
+      action=""
+      [formGroup]="masterForm[i]"
+      *ngIf="i === activeStepIndex || masterForm.length === 1"
+    >
+      <div class="">
+        <div class="fields-container">
+          <div
+            *ngFor="let field of formFields[i]; trackBy: trackByFn"
+            [ngSwitch]="currentFormContent[i][field].type"
+          >
+            <div class="full-width">
+              <label class="field-label text-bold" [for]="field">{{ currentFormContent[i][field].name }}</label>
+
+              <ng-container *ngSwitchCase="'selectGender'">
+                <p-dropdown [options]="genders" [showClear]="true" formControlName="gender"
+                            placeholder="Select your gender">
+                </p-dropdown>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'selectCountry'">
+                <p-dropdown [options]="countries$|async" [showClear]="true" formControlName="country"
+                            optionLabel="name" optionValue="id" placeholder="Select your country">
+                </p-dropdown>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'radioButton'">
+                <div *ngFor="let role of roles" class="p-field-checkbox">
+                  <p-radioButton [value]="role" aria-required="true" formControlName="role" name="role"></p-radioButton>
+                  <label [for]="role">{{role}}</label>
+                </div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'radioButtonResume'">
+                <div *ngFor="let resume of currentFormContent[i][field].options" class="p-field-checkbox">
+                  <p-radioButton [value]="resume.value" aria-required="true" name="resume" formControlName="resume"
+                  ></p-radioButton>
+                  <label [for]="resume">{{resume.name}}</label>
+                </div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'password'">
+                <p-password [toggleMask]="true" formControlName="password">
+                </p-password>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'calender'">
+                <p-calendar formControlName="dateOfBirth" inputId="basic" dateFormat="dd/mm/yy"></p-calendar>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'text'">
+                <input
+                  [type]="currentFormContent[i][field].type"
+                  [formControlName]="field"
+                  [name]="currentFormContent[i][field].name "
+                />
+              </ng-container>
+            </div>
+
+            <p
+              class="validation-error"
+              *ngIf="
+                (masterForm[i].get(field).dirty ||
+                  masterForm[i].get(field).touched) &&
+                masterForm[i].get(field).invalid &&
+                masterForm[i].get(field).errors
+              "
+            >
+              {{ getValidationMessage(i, field) }}
+            </p>
+          </div>
+        </div>
+
+        <div class="button-container">
+          <button
+            type="button"
+            [disabled]="!activeStepIndex"
+            (click)="goToStep('prev')"
+          >Previous
+          </button>
+          <button
+            *ngIf="activeStepIndex === stepItems.length - 1"
+            type="button"
+            (click)="onFormSubmit()"
+          >Submit
+          </button>
+          <button
+            type="button"
+            [disabled]="activeStepIndex === stepItems.length - 1 || masterForm[i].invalid"
+            (click)="goToStep('next')"
+          >Next
+          </button>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</div>
