@@ -2,11 +2,11 @@
   <span class="name">{{data.firstName}} {{data.lastName}}</span>
   <!--  TODO <img src="{{data.profilePicture}}"></img>-->
   <img src="https://dummyimage.com/600x400/000/fff">
-  <span>
+  <span *ngIf="data.email">
     <i class="pi pi-envelope"></i>
     {{data.email}}
   </span>
-  <span>
+  <span *ngIf="data.mobilePhone">
     <i class="pi pi-phone"></i>
     {{data.mobilePhone}}
   </span>
