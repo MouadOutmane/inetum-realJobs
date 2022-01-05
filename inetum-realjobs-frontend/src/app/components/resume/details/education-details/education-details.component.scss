@@ -1,35 +1,37 @@
-.education-card .education-header {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-  line-height: 1.2;
-  font-size: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+.education-card {
+  .education-header {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-.education-card .education-header-text {
-  margin: 0 1rem;
-}
+  .education-header-text {
+    margin: 0 1rem;
+  }
 
-.education-card ::ng-deep .p-card-content {
-  padding: 0 !important;
-}
+  ::ng-deep .p-card-content {
+    padding: 0 !important;
+  }
 
-.education-card ::ng-deep .p-card-body {
-  padding-top: 0 !important;
-}
+  ::ng-deep .p-card-body {
+    padding-top: 0 !important;
+  }
 
-.education-card .education-content {
-  display: flex;
-  flex-direction: column;
-}
+  .education-content {
+    display: flex;
+    flex-direction: column;
+  }
 
-.education-card .education-degree {
-  font-size: 16px;
-}
+  .education-degree {
+    font-size: 16px;
+  }
 
-.education-card .bold {
-  font-weight: 500;
+  .bold {
+    font-weight: 500;
+  }
 }

@@ -7,8 +7,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  .card-button {
+    padding-right: 0.75rem;
+  }
 }
 
 .education-view-header-text {
   margin: 1rem;
 }
+
