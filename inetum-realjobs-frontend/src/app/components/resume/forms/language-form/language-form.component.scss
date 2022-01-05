@@ -77,3 +77,15 @@
   display: flex;
   justify-content: center;
 }
+
+@media screen and (max-width: 75rem) {
+  .form-inputs {
+    grid-template-columns: 1fr 3fr;
+    grid-template-areas:
+    "lang-lang-label lang-lang-input"
+    ". lang-lang-error"
+    "lang-level-label lang-level-input"
+    ". lang-level-error";
+  }
+}
+

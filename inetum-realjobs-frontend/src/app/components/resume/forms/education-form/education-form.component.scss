@@ -92,7 +92,6 @@
 
   .edu-desc-input {
     grid-area: edu-desc-input;
-    grid-column: 2 / span 3;
   }
 }
 
@@ -123,3 +122,22 @@
   display: flex;
   justify-content: center;
 }
+
+@media screen and (max-width: 75rem) {
+  .form-inputs {
+    grid-template-columns: 1fr 3fr;
+    grid-template-areas:
+    "edu-deg-label edu-deg-input"
+    ". edu-deg-error"
+    "edu-prog-label edu-prog-input"
+    ". edu-prog-error"
+    "edu-school-label edu-school-input"
+    ". edu-school-error"
+    "edu-sd-label edu-sd-input"
+    ". edu-sd-error"
+    "edu-ed-label edu-ed-input"
+    ". edu-ed-error"
+    "edu-desc-label edu-desc-input";
+  }
+}
+

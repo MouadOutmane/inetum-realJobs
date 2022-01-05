@@ -81,7 +81,6 @@
 
   .exp-cj-input {
     grid-area: cj;
-    grid-column: 2 / span 3;
   }
 
   .exp-i-label {
@@ -114,7 +113,6 @@
 
   .exp-desc-input {
     grid-area: desc-input;
-    grid-column: 2 / span 3;
   }
 }
 
@@ -140,4 +138,25 @@
 .experienceForm .center-content {
   display: flex;
   justify-content: center;
+}
+
+@media screen and (max-width: 75rem) {
+  .form-inputs {
+    grid-template-columns: 1fr 3fr;
+    grid-template-areas:
+    "jt-label jt-input"
+    ". jt-error"
+    "cm-label cm-input"
+    ". cm-error"
+    "sd-label sd-input"
+    ". sd-error"
+    "ed-label ed-input"
+    ". ed-error"
+    ". cj"
+    "i-label i-input"
+    ". i-error"
+    "cat-label cat-input"
+    ". cat-error"
+    "desc-label desc-input";
+  }
 }
