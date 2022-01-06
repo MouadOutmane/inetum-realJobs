@@ -7,13 +7,13 @@ import java.util.Random;
 
 @Component
 public class GenerateID {
-    private final String CHARACTERS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private final Random RANDOM = new SecureRandom();
+    private final String characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private final Random random = new SecureRandom();
 
     private String generateRandomString(int length) {
         StringBuilder randomString = new StringBuilder(length);
         for (int i = 0; i <= length; i++) {
-            randomString.append(CHARACTERS.charAt(RANDOM.nextInt(CHARACTERS.length())));
+            randomString.append(characters.charAt(random.nextInt(characters.length())));
         }
         return new String(randomString);
     }
