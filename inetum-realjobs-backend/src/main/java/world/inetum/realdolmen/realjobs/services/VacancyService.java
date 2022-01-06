@@ -1,12 +1,19 @@
 package world.inetum.realdolmen.realjobs.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import world.inetum.realdolmen.realjobs.entities.Account;
+import world.inetum.realdolmen.realjobs.entities.Application;
 import world.inetum.realdolmen.realjobs.entities.Recruiter;
 import world.inetum.realdolmen.realjobs.entities.Vacancy;
 import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
+import world.inetum.realdolmen.realjobs.exceptions.EndpointException;
+import world.inetum.realdolmen.realjobs.exceptions.messages.GlobalExceptionMessage;
+import world.inetum.realdolmen.realjobs.repositories.ApplicationRepository;
 import world.inetum.realdolmen.realjobs.repositories.VacancyRepository;
+import world.inetum.realdolmen.realjobs.security.SecurityService;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,11 +26,15 @@ public class VacancyService {
 
     private final AccountService accountService;
     private final VacancyRepository vacancyRepository;
+    private final SecurityService securityService;
+    private final ApplicationRepository applicationRepository;
 
     @Autowired
-    public VacancyService(AccountService accountService, VacancyRepository vacancyRepository) {
+    public VacancyService(AccountService accountService, VacancyRepository vacancyRepository, SecurityService securityService, ApplicationRepository applicationRepository) {
         this.accountService = accountService;
         this.vacancyRepository = vacancyRepository;
+        this.securityService = securityService;
+        this.applicationRepository = applicationRepository;
     }
 
     public Vacancy addVacancy(Vacancy vacancy) {
@@ -65,4 +76,14 @@ public class VacancyService {
         return hasAccess;
     }
 
+    public List<Application> getApplicationsByVacancyId(long vacancyId) {
+        Vacancy vacancy = findVacancyById(vacancyId)
+                .orElseThrow(() -> new EndpointException(HttpStatus.NOT_FOUND, GlobalExceptionMessage.NOT_FOUND));
+
+        if (!checkVacancyAccess(vacancy, securityService.getCurrentEmail())) {
+            throw new AccessDeniedException("You can't access this vacancy's applications.");
+        }
+
+        return applicationRepository.findAllByVacancyId(vacancyId);
+    }
 }

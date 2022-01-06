@@ -30,14 +30,14 @@ export class VacancyService {
 
   getVacancy(id: number): Observable<Vacancy> {
     return this.httpClient.get<Vacancy>(
-      `http://localhost:8080/api/vacancies/${id}`,
+      `vacancies/${id}`,
       {observe: "body", responseType: "json"},
     );
   }
 
   getApplications(vacancyId: number): Observable<Application[]> {
     return this.httpClient
-      .get<Application[]>(`http://localhost:8080/api/vacancies/${vacancyId}/applications`,
+      .get<Application[]>(`vacancies/${vacancyId}/applications`,
         {observe: "body", responseType: "json"});
   }
 

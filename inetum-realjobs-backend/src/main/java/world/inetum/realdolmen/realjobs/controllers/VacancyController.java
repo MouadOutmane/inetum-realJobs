@@ -3,17 +3,13 @@ package world.inetum.realdolmen.realjobs.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 import world.inetum.realdolmen.realjobs.entities.Vacancy;
 import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
-import world.inetum.realdolmen.realjobs.exceptions.EndpointException;
-import world.inetum.realdolmen.realjobs.exceptions.messages.GlobalExceptionMessage;
 import world.inetum.realdolmen.realjobs.payload.dtos.ApplicationReadDto;
 import world.inetum.realdolmen.realjobs.payload.dtos.VacancyReadDto;
 import world.inetum.realdolmen.realjobs.payload.mappers.ApplicationMapper;
 import world.inetum.realdolmen.realjobs.payload.mappers.VacancyMapper;
-import world.inetum.realdolmen.realjobs.services.ApplicationService;
 import world.inetum.realdolmen.realjobs.services.VacancyService;
 
 import javax.annotation.security.RolesAllowed;
@@ -24,18 +20,16 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/vacancies")
-public class VacancyController extends BaseController {
+public class VacancyController {
 
     private final VacancyService vacancyService;
     private final VacancyMapper vacancyMapper;
-    private final ApplicationService applicationService;
     private final ApplicationMapper applicationMapper;
 
     @Autowired
-    public VacancyController(VacancyService vacancyService, VacancyMapper vacancyMapper, ApplicationService applicationService, ApplicationMapper applicationMapper) {
+    public VacancyController(VacancyService vacancyService, VacancyMapper vacancyMapper, ApplicationMapper applicationMapper) {
         this.vacancyService = vacancyService;
         this.vacancyMapper = vacancyMapper;
-        this.applicationService = applicationService;
         this.applicationMapper = applicationMapper;
     }
 
@@ -95,17 +89,10 @@ public class VacancyController extends BaseController {
     @GetMapping("{id}/applications")
     @RolesAllowed("RECRUITER")
     public List<ApplicationReadDto> getApplications(@PathVariable("id") long id) {
-        Vacancy vacancy = vacancyService.findVacancyById(id)
-                .orElseThrow(() -> new EndpointException(HttpStatus.NOT_FOUND, GlobalExceptionMessage.NOT_FOUND));
-
-        if (!vacancyService.checkVacancyAccess(vacancy, getCurrentEmail())) {
-            throw new AccessDeniedException("You can't access this vacancy's applications.");
-        }
-
-        return applicationService.findAllByVacancyId(id)
+        return vacancyService
+                .getApplicationsByVacancyId(id)
                 .stream()
                 .map(applicationMapper::toDto)
                 .toList();
     }
-
 }

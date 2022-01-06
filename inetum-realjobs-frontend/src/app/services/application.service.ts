@@ -13,7 +13,6 @@ export class ApplicationService {
   }
 
   updateApplication(id: number, status: ApplicationStatus): Observable<Application> {
-    return this.httpClient.put<Application>(`http://localhost:8080/api/applications/${id}/status`, {id, status});
+    return this.httpClient.put<Application>(`applications/${id}/status`, {status});
   }
-
 }
