@@ -1,0 +1,37 @@
+<p-card class="status-view-card">
+  <ng-template pTemplate="header">
+    <div class="status-view-header">
+      <span
+        class="status-view-header-text"
+      >
+        {{accountInfo.firstName}} {{accountInfo.lastName}}
+      </span>
+      <div class="card-button">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-pencil"
+          (click)="toForm()"
+          class="p-button-rounded p-button-text">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <div class="resume-account">
+    <!--  TODO <img src="{{data.profilePicture}}"></img>-->
+    <img src="https://dummyimage.com/600x400/000/fff" alt="dummy-profile-image">
+    <span *ngIf="accountInfo.email">
+      <i class="pi pi-envelope"></i>
+      <span>{{accountInfo.email}}</span>
+    </span>
+    <span *ngIf="accountInfo.mobilePhone">
+      <i class="pi pi-phone"></i>
+      <span>{{accountInfo.mobilePhone}}</span>
+    </span>
+    <span>
+      <i [class]="getClass()"></i>
+      <span>{{getStatusText()}}</span>
+    </span>
+  </div>
+</p-card>

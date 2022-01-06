@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Experience} from "../../../../models/experience";
 import {MessageService} from "primeng/api";
@@ -14,8 +14,11 @@ import CustomValidators from "../../../../validators/CustomValidators";
 })
 export class ExperienceFormComponent implements OnInit {
 
+  @Input() experienceList: Experience[];
+  @Output() formCloseEvent = new EventEmitter<null>();
+  @Output() experienceUpdatedEvent = new EventEmitter<Experience[]>();
+
   experienceForm: FormGroup;
-  experienceList: Experience[] = [];
   today: Date = new Date();
 
   constructor(private resumeService: ResumeService,
@@ -44,12 +47,6 @@ export class ExperienceFormComponent implements OnInit {
         this.experienceForm.get("endDate").enable();
       }
     });
-    this.resumeService
-      .getExperienceList()
-      .pipe(catchError((err) => this.onError(err)))
-      .subscribe(experienceList => {
-        this.experienceList = experienceList;
-      });
   }
 
   submitForm() {
@@ -58,7 +55,7 @@ export class ExperienceFormComponent implements OnInit {
         .addExperience(this.getFormData())
         .pipe(catchError((err) => this.onError(err)))
         .subscribe(experienceList => {
-          this.experienceList = experienceList;
+          this.experienceUpdatedEvent.emit(experienceList);
           this.experienceForm.reset();
         });
     }
@@ -69,12 +66,16 @@ export class ExperienceFormComponent implements OnInit {
     return throwError(() => error.message);
   }
 
+  closeForm() {
+    this.formCloseEvent.emit();
+  }
+
   deleteExperience(index: number) {
     this.resumeService
       .removeExperience(index)
       .pipe(catchError((err) => this.onError(err)))
       .subscribe(experienceList => {
-        this.experienceList = experienceList;
+        this.experienceUpdatedEvent.emit(experienceList);
       });
   }
 

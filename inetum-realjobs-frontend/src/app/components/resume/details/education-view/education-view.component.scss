@@ -1,0 +1,19 @@
+.education-view-header {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  font-size: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .card-button {
+    padding-right: 0.75rem;
+  }
+}
+
+.education-view-header-text {
+  margin: 1rem;
+}
+

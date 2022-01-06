@@ -1,0 +1,19 @@
+<div class="status-controller">
+  <app-status-form
+    *ngIf="isFormOpen; else statusDetails"
+    [status]="status"
+    [accountInfo]="accountInfo"
+    (formCloseEvent)="closeForm()"
+    (statusUpdatedEvent)="updateStatus($event)"
+  >
+  </app-status-form>
+</div>
+
+<ng-template #statusDetails>
+  <app-status-view
+    [accountInfo]="accountInfo"
+    [status]="status"
+    (toFormEvent)="openForm()"
+  >
+  </app-status-view>
+</ng-template>

@@ -22,6 +22,7 @@ import {InputTextareaModule} from "primeng/inputtextarea";
 import {ConfirmPopupModule} from "primeng/confirmpopup";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {TabViewModule} from "primeng/tabview";
 import {TableModule} from "primeng/table";
 import {AutoCompleteModule} from "primeng/autocomplete";
 
@@ -50,6 +51,7 @@ const modules = [
   ConfirmPopupModule,
   ConfirmDialogModule,
   ProgressSpinnerModule,
+  TabViewModule,
   TableModule,
   AutoCompleteModule
 ];

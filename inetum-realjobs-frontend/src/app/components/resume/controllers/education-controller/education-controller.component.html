@@ -1,0 +1,16 @@
+<div *ngIf="isFormOpen; else educationDetails">
+  <app-education-form
+    [educationList]="educationList"
+    (formCloseEvent)="closeForm()"
+    (educationUpdatedEvent)="updateEducation($event)"
+  >
+  </app-education-form>
+</div>
+
+<ng-template #educationDetails>
+  <app-education-view
+    [educationList]="educationList"
+    (toFormEvent)="openForm()"
+  >
+  </app-education-view>
+</ng-template>

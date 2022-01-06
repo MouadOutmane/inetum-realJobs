@@ -1,0 +1,16 @@
+<div *ngIf="isFormOpen; else summaryDetails" class="summary-controller">
+  <app-summary-form
+    [summary]="summary"
+    (formCloseEvent)="closeForm()"
+    (summaryUpdatedEvent)="updateSummary($event)"
+  >
+  </app-summary-form>
+</div>
+
+<ng-template #summaryDetails>
+  <app-summary-view
+    [summary]="summary"
+    (toFormEvent)="openForm()"
+  >
+  </app-summary-view>
+</ng-template>

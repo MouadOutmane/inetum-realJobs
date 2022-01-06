@@ -1,10 +1,8 @@
 package world.inetum.realdolmen.realjobs.payload.mappers;
 
 import org.mapstruct.Mapper;
-import world.inetum.realdolmen.realjobs.entities.Education;
-import world.inetum.realdolmen.realjobs.entities.Experience;
-import world.inetum.realdolmen.realjobs.entities.Language;
-import world.inetum.realdolmen.realjobs.entities.Skill;
+import org.mapstruct.Mapping;
+import world.inetum.realdolmen.realjobs.entities.*;
 import world.inetum.realdolmen.realjobs.payload.dtos.*;
 
 @Mapper(config = MapperConfiguration.class)
@@ -25,4 +23,7 @@ public interface ResumeMapper {
     ExperienceReadDto toDto(Experience experience);
 
     Experience toEntity(ExperienceCreateDto experienceCreateDto);
+
+    @Mapping(source = "account", target = "accountInfo")
+    ResumeReadDto toDto(Resume resume, Account account);
 }

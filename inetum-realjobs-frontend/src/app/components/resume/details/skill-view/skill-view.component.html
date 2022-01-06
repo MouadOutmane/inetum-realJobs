@@ -1,0 +1,26 @@
+<p-card>
+  <ng-template pTemplate="header">
+    <div class="skill-view-header">
+      <span
+        class="skill-view-header-text"
+      >
+        Skills
+      </span>
+      <div class="card-button">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-pencil"
+          (click)="toForm()"
+          class="p-button-rounded p-button-text">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <app-skill-list
+    [skills]="skills"
+    [deleteButton]="false"
+  >
+  </app-skill-list>
+</p-card>

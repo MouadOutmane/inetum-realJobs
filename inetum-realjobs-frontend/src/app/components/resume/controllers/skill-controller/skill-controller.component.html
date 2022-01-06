@@ -1,0 +1,16 @@
+<div *ngIf="isFormOpen; else skillDetails">
+  <app-skill-form
+    [skills]="skills"
+    (formCloseEvent)="closeForm()"
+    (skillsUpdatedEvent)="updateSkill($event)"
+  >
+  </app-skill-form>
+</div>
+
+<ng-template #skillDetails>
+  <app-skill-view
+    [skills]="skills"
+    (toFormEvent)="openForm()"
+  >
+  </app-skill-view>
+</ng-template>

@@ -22,4 +22,8 @@ export class AppComponent {
   hasRoleRecruiter(): boolean {
     return this.authService.getCurrentRoles().includes("ROLE_RECRUITER");
   }
+
+  isJobseeker(): boolean {
+    return this.authService.getCurrentRoles().includes("ROLE_JOBSEEKER");
+  }
 }

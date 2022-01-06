@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {Education} from "../../../../models/education";
 import {ResumeService} from "../../../../services/resume.service";
@@ -14,14 +14,16 @@ import CustomValidators from "../../../../validators/CustomValidators";
 })
 export class EducationFormComponent implements OnInit {
 
+  @Input() educationList: Education[];
+  @Output() formCloseEvent = new EventEmitter<null>();
+  @Output() educationUpdatedEvent = new EventEmitter<Education[]>();
+
   educationForm: FormGroup;
-  educationList: Education[];
   today: Date = new Date();
 
   constructor(private resumeService: ResumeService,
               private messageService: MessageService,
               private formBuilder: FormBuilder) {
-    this.educationList = [];
   }
 
   ngOnInit(): void {
@@ -35,12 +37,6 @@ export class EducationFormComponent implements OnInit {
     }, {
       validators: CustomValidators.date1AfterDate2Validator("endDate", "startDate")
     });
-    this.resumeService
-      .getEducationList()
-      .pipe(catchError((err) => this.onError(err)))
-      .subscribe(educationList => {
-        this.educationList = educationList;
-      });
   }
 
   submitForm() {
@@ -49,7 +45,7 @@ export class EducationFormComponent implements OnInit {
         .addEducation(this.getFormData())
         .pipe(catchError((err) => this.onError(err)))
         .subscribe(educationList => {
-          this.educationList = educationList;
+          this.educationUpdatedEvent.emit(educationList);
           this.educationForm.reset();
         });
     }
@@ -60,12 +56,16 @@ export class EducationFormComponent implements OnInit {
     return throwError(() => error.message);
   }
 
+  closeForm() {
+    this.formCloseEvent.emit();
+  }
+
   deleteEducation(index: number) {
     this.resumeService
       .removeEducation(index)
       .pipe(catchError((err) => this.onError(err)))
       .subscribe(educationList => {
-        this.educationList = educationList;
+        this.educationUpdatedEvent.emit(educationList);
       });
   }
 

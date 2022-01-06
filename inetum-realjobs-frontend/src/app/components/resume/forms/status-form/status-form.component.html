@@ -1,11 +1,32 @@
 <p-card class="statusCard">
-  <app-resume-account-details></app-resume-account-details>
-  <form [formGroup]="statusForm" class="statusForm">
+  <ng-template pTemplate="header">
+    <div class="status-form-header">
+      <span
+        class="status-form-header-text"
+      >
+        {{accountInfo.firstName}} {{accountInfo.lastName}}
+      </span>
+    </div>
+  </ng-template>
+  <div class="resume-account">
+    <!--  TODO <img src="{{data.profilePicture}}"></img>-->
+    <img src="https://dummyimage.com/600x400/000/fff" alt="dummy-profile-image">
+    <span *ngIf="accountInfo.email">
+      <i class="pi pi-envelope"></i>
+      {{accountInfo.email}}
+    </span>
+    <span *ngIf="accountInfo.mobilePhone">
+      <i class="pi pi-phone"></i>
+      {{accountInfo.mobilePhone}}
+    </span>
+  </div>
+  <form (ngSubmit)="confirm($event)" [formGroup]="statusForm" class="statusForm">
     <p-dropdown
       [options]="resumeStatusOptions"
+      optionLabel="name"
+      optionValue="value"
       formControlName="status"
       placeholder="Select a status"
-      (onChange)="confirm($event)"
       [ngClass]="{'status-input': true, 'ng-invalid ng-dirty' : isInvalid('status')}">
     </p-dropdown>
     <div class="status-error">
@@ -15,6 +36,16 @@
       >
         Status is required
       </small>
+    </div>
+    <div class="center-content">
+      <button
+        type="submit"
+        [disabled]="statusForm.invalid"
+        class="p-button p-mb-2"
+        pButton
+      >
+        Set status
+      </button>
     </div>
   </form>
 </p-card>

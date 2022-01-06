@@ -1,0 +1,24 @@
+<p-card class="summary-view-card">
+  <ng-template pTemplate="header">
+    <div class="summary-view-header">
+      <span
+        class="summary-view-header-text"
+      >
+        Summary
+      </span>
+      <div class="card-button">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-pencil"
+          (click)="toForm()"
+          class="p-button-rounded p-button-text">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <div>
+    <p>{{summary}}</p>
+  </div>
+</p-card>

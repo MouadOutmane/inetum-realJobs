@@ -1,0 +1,50 @@
+.status-view-card {
+  ::ng-deep .p-card {
+    height: 100%;
+  }
+
+  .resume-account {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .name {
+      align-self: center;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    > span {
+      display: grid;
+      grid-template-columns: 2rem 1fr;
+      align-items: center;
+    }
+  }
+}
+
+.status-view-header {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  font-size: 30px;
+  display: grid;
+  grid-template-columns: 3rem 1fr 3rem;
+  grid-template-areas: ". name button";
+  align-items: center;
+
+  .card-button {
+    padding-right: 0.75rem;
+    grid-area: button;
+  }
+}
+
+.status-view-header-text {
+  margin: 1rem;
+  grid-area: name;
+  text-align: center;
+}

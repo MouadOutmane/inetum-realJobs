@@ -1,0 +1,31 @@
+<p-card>
+  <ng-template pTemplate="header">
+    <div class="language-view-header">
+      <span
+        class="language-view-header-text"
+      >
+        Languages
+      </span>
+      <div class="card-button">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-pencil"
+          (click)="toForm()"
+          class="p-button-rounded p-button-text">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <div>
+    <div *ngFor="let lang of languages" class="language-entry">
+      <span>{{lang.language}}</span>
+      <p-progressBar
+        [value]="getProgress(lang)"
+        [showValue]="false"
+      >
+      </p-progressBar>
+    </div>
+  </div>
+</p-card>

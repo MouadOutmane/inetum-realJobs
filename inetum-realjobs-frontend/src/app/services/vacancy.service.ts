@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable, of, catchError} from "rxjs";
 import {VacancyFilterFields} from "../models/vacancy-filter-fields.model";
 import {Vacancy} from "../models/vacancy";
+import {Application} from "../models/application";
 
 @Injectable({
   providedIn: "root",
@@ -31,9 +32,15 @@ export class VacancyService {
 
   getVacancy(id: number): Observable<Vacancy> {
     return this.httpClient.get<Vacancy>(
-      `http://localhost:8080/api/vacancies/${id}`,
+      `vacancies/${id}`,
       {observe: "body", responseType: "json"},
     );
+  }
+
+  getApplications(vacancyId: number): Observable<Application[]> {
+    return this.httpClient
+      .get<Application[]>(`vacancies/${vacancyId}/applications`,
+        {observe: "body", responseType: "json"});
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

@@ -1,0 +1,26 @@
+<p-card>
+  <ng-template pTemplate="header">
+    <div class="experience-view-header">
+      <span
+        class="experience-view-header-text"
+      >
+        Experience
+      </span>
+      <div class="card-button">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-pencil"
+          (click)="toForm()"
+          class="p-button-rounded p-button-text">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <app-experience-list
+    [experienceList]="experienceList"
+    [deleteButton]="false"
+  >
+  </app-experience-list>
+</p-card>

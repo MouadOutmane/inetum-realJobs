@@ -11,9 +11,10 @@ export class JobseekerGuard implements CanActivate {
   }
 
   canActivate(): boolean {
-    if (!this.auth.getCurrentRoles().includes("ROLE_JOBSEEKER")) {
-      this.router.navigate(["not-found"]);
+    if (this.auth.getCurrentRoles() && this.auth.getCurrentRoles().includes("ROLE_JOBSEEKER")) {
+      return true;
     }
-    return true;
+    this.router.navigate(["not-found"]);
+    return false;
   }
 }

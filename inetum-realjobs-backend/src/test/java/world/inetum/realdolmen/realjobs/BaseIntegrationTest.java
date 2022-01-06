@@ -1,10 +1,6 @@
 package world.inetum.realdolmen.realjobs;
 
-import com.icegreen.greenmail.configuration.GreenMailConfiguration;
-import com.icegreen.greenmail.junit5.GreenMailExtension;
-import com.icegreen.greenmail.util.ServerSetupTest;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,7 +21,7 @@ public abstract class BaseIntegrationTest extends BaseRepositoryTest {
     @Autowired
     private WebApplicationContext context;
 
-    protected MockMvc mockMvc;
+    protected static MockMvc mockMvc;
 
     @BeforeEach
     void buildMockMvc() {
