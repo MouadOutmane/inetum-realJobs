@@ -55,7 +55,7 @@
       <td>{{ vacancy.city}}</td>
       <td>{{ vacancy.offer}}</td>
       <td>{{ vacancy.companyName}}</td>
-      <td>{{ vacancy.postedOn}}</td>
+      <td>{{ vacancy.postedOn | date: 'dd/MM/yy'}}</td>
     </tr>
     </tbody>
   </table>

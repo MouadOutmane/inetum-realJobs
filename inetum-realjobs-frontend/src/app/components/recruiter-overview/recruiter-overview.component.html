@@ -1,6 +1,12 @@
 <h1>{{title}}</h1>
-<p-autoComplete></p-autoComplete>
-<p-button label="Post new vacancy"></p-button>
+
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <p-autoComplete class="p-toolbar-separator"></p-autoComplete>
+    <p-button label="Post new vacancy" class="p-toolbar-separator"></p-button>
+  </div>
+</p-toolbar>
+
 <div class="container">
   <div class="content-section implementation">
     <div class="card">
@@ -8,14 +14,23 @@
       <p-table [value]="vacancies$ | async" [columns]="columns" [scrollable]="true" scrollHeight="500px" styleClass="p-datatable-lg">
         <ng-template pTemplate="header">
           <tr>
-<!--            <th *ngFor="let column of columns" style="min-width: 250px;">-->
-<!--              {{column.header}}-->
-<!--            </th>-->
-            <th style="min-width: 250px;">Vacancy ID</th>
-            <th style="min-width: 250px;">Function title</th>
-            <th style="min-width: 250px;" pSortableColumn="datePosted">Date posted <p-sortIcon field="datePosted"></p-sortIcon></th>
-            <th style="min-width: 250px;" pSortableColumn="vacancyManager">Vacancy manager <p-sortIcon field="vacancyManager"></p-sortIcon></th>
-            <th style="min-width: 250px;">Applicants</th>
+            <th style="min-width: 250px;">
+              Vacancy ID
+            </th>
+            <th style="min-width: 250px;">
+              Function title
+            </th>
+            <th style="min-width: 250px;" pSortableColumn="datePosted">
+              Date posted
+              <p-sortIcon field="datePosted"></p-sortIcon>
+            </th>
+            <th style="min-width: 250px;" pSortableColumn="vacancyManager">
+              Vacancy manager
+              <p-sortIcon field="vacancyManager"></p-sortIcon>
+            </th>
+            <th style="min-width: 250px;">
+              Applicants
+            </th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-vacancy>

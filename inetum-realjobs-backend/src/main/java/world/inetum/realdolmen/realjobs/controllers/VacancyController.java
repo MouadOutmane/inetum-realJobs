@@ -48,10 +48,13 @@ public class VacancyController {
         List<VacancyReadDto> dtos = results
                 .stream()
                 .map((vacancy) -> {
-                    // TODO - Implement proper mapping.
                     VacancyReadDto dto = new VacancyReadDto();
                     dto.setFunctionTitle(vacancy.getFunctionTitle());
-
+                    dto.setContractType(vacancy.getContractType());
+                    dto.setCity(vacancy.getAddress().getCity());
+                    dto.setOffer(vacancy.getOffer());
+                    dto.setCompanyName(vacancy.getCompany().getName());
+                    dto.setPostedOn(vacancy.getCreatedOn());
                     return dto;
                 })
                 .toList();
@@ -69,13 +72,13 @@ public class VacancyController {
                 .stream()
                 .map(
                         (vacancy) -> {
-                    VacancyReadDto dto = new VacancyReadDto();
-                    dto.setId(vacancy.getId());
-                    dto.setFunctionTitle(vacancy.getFunctionTitle());
-                    dto.setPostedOn(vacancy.getCreatedOn());
-                    dto.setRecruiterId(vacancy.getRecruiter().getId());
-                    return dto;
-                }
+                            VacancyReadDto dto = new VacancyReadDto();
+                            dto.setId(vacancy.getId());
+                            dto.setFunctionTitle(vacancy.getFunctionTitle());
+                            dto.setPostedOn(vacancy.getCreatedOn());
+                            dto.setRecruiterId(vacancy.getRecruiter().getId());
+                            return dto;
+                        }
                 ).toList();
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }

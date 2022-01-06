@@ -25,6 +25,7 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
 import {TabViewModule} from "primeng/tabview";
 import {TableModule} from "primeng/table";
 import {AutoCompleteModule} from "primeng/autocomplete";
+import {ToolbarModule} from "primeng/toolbar";
 
 
 const modules = [
@@ -53,7 +54,8 @@ const modules = [
   ProgressSpinnerModule,
   TabViewModule,
   TableModule,
-  AutoCompleteModule
+  AutoCompleteModule,
+  ToolbarModule
 ];
 
 @NgModule({
