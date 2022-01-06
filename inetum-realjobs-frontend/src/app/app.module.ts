@@ -50,8 +50,14 @@ import {
   SummaryControllerComponent
 } from './components/resume/controllers/summary-controller/summary-controller.component';
 import {SummaryViewComponent} from './components/resume/details/summary-view/summary-view.component';
-import { StatusControllerComponent } from './components/resume/controllers/status-controller/status-controller.component';
-import { StatusViewComponent } from './components/resume/details/status-view/status-view.component';
+import {StatusControllerComponent} from './components/resume/controllers/status-controller/status-controller.component';
+import {StatusViewComponent} from './components/resume/details/status-view/status-view.component';
+import {
+  VacancyApplicationsComponent,
+} from "./components/applications/vacancy-applications/vacancy-applications.component";
+import {
+  VacancyApplicationsTableComponent,
+} from "./components/applications/vacancy-applications-table/vacancy-applications-table.component";
 
 @NgModule({
   declarations: [
@@ -65,6 +71,9 @@ import { StatusViewComponent } from './components/resume/details/status-view/sta
     ResetPasswordComponent,
     VacancyDetailsComponent,
     ErrorHandlerComponent,
+    VacancyApplicationsComponent,
+    VacancyApplicationsTableComponent,
+    ResumeCreateComponent,
     ExperienceFormComponent,
     SkillFormComponent,
     LanguageFormComponent,

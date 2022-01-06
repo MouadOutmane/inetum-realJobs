@@ -23,6 +23,8 @@ import javax.mail.MessagingException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import java.util.Optional;
+
 @Service
 public class AccountService {
 
@@ -87,6 +89,10 @@ public class AccountService {
         resetCodeRepository.deleteAllByAccountId(account.getId());
 
         LOGGER.debug("Reset password with for {} with the code {}", account.getEmail(), resetRequest.getCode().toString());
+    }
+
+    public Optional<Account> findByEmail(String email) {
+        return accountRepository.findByEmail(email);
     }
 
     public void saveAccount(SignupRequest signUpRequest) {

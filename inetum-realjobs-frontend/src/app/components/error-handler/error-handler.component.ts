@@ -11,6 +11,8 @@ export class ErrorHandlerComponent {
   error: any;
 
   get message(): string {
+    if (this.code === 403) return "You don't have access to this page!";
+
     return this.error?.message || "Something went wrong.";
   }
 
