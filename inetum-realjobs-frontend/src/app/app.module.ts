@@ -73,7 +73,6 @@ import {
     ErrorHandlerComponent,
     VacancyApplicationsComponent,
     VacancyApplicationsTableComponent,
-    ResumeCreateComponent,
     ExperienceFormComponent,
     SkillFormComponent,
     LanguageFormComponent,
