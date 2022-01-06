@@ -12,6 +12,7 @@ import world.inetum.realdolmen.realjobs.payload.dtos.RecruiterOverviewDto;
 import world.inetum.realdolmen.realjobs.repositories.RecruiterRepository;
 import world.inetum.realdolmen.realjobs.services.VacancyService;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class RecruiterController {
     }
 
     @GetMapping
+    @RolesAllowed("RECRUITER")
     public ResponseEntity<List<RecruiterOverviewDto>> findAllVacancies() {
         List<Vacancy> allVacancies = vacancyService.findAll();
         if (allVacancies == null || allVacancies.isEmpty()) {

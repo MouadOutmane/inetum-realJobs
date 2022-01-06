@@ -74,7 +74,6 @@ public class VacancyController {
                     dto.setFunctionTitle(vacancy.getFunctionTitle());
                     dto.setPostedOn(vacancy.getCreatedOn());
                     dto.setRecruiterId(vacancy.getRecruiter().getId());
-//                    TODO - add number of applicants
                     return dto;
                 }
                 ).toList();

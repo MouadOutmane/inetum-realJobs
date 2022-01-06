@@ -15,9 +15,8 @@
         Log out
       </button>
     </li>
-    <li class="nav-item">
-<!--    TODO - add *ngIf="isLoggedIn() and is recruiter"-->
-     <a class="nav-link" routerLink="recruiter/overview" routerLinkActive="acitve">My vacancies</a>
+    <li class="nav-item" *ngIf="isLoggedIn() && hasRoleRecruiter()">
+      <a class="nav-link" routerLink="recruiter/overview" routerLinkActive="active">My vacancies</a>
     </li>
   </div>
 </nav>
