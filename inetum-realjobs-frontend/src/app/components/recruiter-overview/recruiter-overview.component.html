@@ -2,7 +2,7 @@
 
 <p-toolbar>
   <div class="p-toolbar-group-left">
-    <p-autoComplete class="p-toolbar-separator"></p-autoComplete>
+    <p-autoComplete class="p-toolbar-separator" placeholder="Search on function title"></p-autoComplete>
     <p-button label="Post new vacancy" class="p-toolbar-separator"></p-button>
   </div>
 </p-toolbar>
@@ -11,7 +11,8 @@
   <div class="content-section implementation">
     <div class="card">
       <div *ngIf="!vacancies$">{{defaultMessage}}</div>
-      <p-table [value]="vacancies$ | async" [columns]="columns" [scrollable]="true" scrollHeight="500px" styleClass="p-datatable-lg">
+      <p-table [value]="vacancies$ | async" [columns]="columns" [scrollable]="true" scrollHeight="500px"
+               styleClass="p-datatable-lg">
         <ng-template pTemplate="header">
           <tr>
             <th style="min-width: 250px;">
