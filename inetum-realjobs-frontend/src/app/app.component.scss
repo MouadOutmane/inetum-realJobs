@@ -1,9 +1,5 @@
-#logo {
+.container {
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-.container {
   height: calc(100vh - 56px);
 }
