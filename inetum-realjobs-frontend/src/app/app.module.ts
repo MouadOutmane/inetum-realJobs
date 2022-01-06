@@ -35,6 +35,12 @@ import {
 import {ConfirmationService} from 'primeng/api';
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
+import {
+  VacancyApplicationsComponent,
+} from "./components/applications/vacancy-applications/vacancy-applications.component";
+import {
+  VacancyApplicationsTableComponent,
+} from "./components/applications/vacancy-applications-table/vacancy-applications-table.component";
 
 @NgModule({
   declarations: [
@@ -48,6 +54,8 @@ import {ResetPasswordComponent} from "./components/reset-password/reset-password
     ResetPasswordComponent,
     VacancyDetailsComponent,
     ErrorHandlerComponent,
+    VacancyApplicationsComponent,
+    VacancyApplicationsTableComponent,
     ResumeCreateComponent,
     ExperienceFormComponent,
     SkillFormComponent,

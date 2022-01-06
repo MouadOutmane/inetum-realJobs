@@ -27,6 +27,12 @@ public class SecurityService {
         this.recruiterRepository = recruiterRepository;
     }
 
+    public String getCurrentEmail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        return authentication == null ? null : authentication.getName();
+    }
+
     public Account getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {

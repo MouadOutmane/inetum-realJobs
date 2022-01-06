@@ -1,0 +1,44 @@
+<div *ngFor="let application of applications; let i = index;" class="entry">
+  <span class="number">{{i + 1}}.</span>
+
+  <div class="application">
+    <div class="information">
+      <div class="name">
+        <span>{{application.jobSeeker.firstName}}</span>
+        <span>{{application.jobSeeker.lastName}}</span>
+      </div>
+      <p-button icon="pi pi-user"
+                label="Show resume"
+                routerLink="/resume/{{application.jobSeeker.resumeId}}"
+                styleClass="p-button-sm">
+      </p-button>
+      <p-button icon="pi pi-file"
+                label="Show motivation"
+                routerLink="/motivation/{{application.id}}"
+                styleClass="p-button-sm">
+      </p-button>
+    </div>
+    <div class="actions">
+      <p-button (onClick)="updateApplication(application, status.ACCEPTED)"
+                [disabled]="application.status === status.ACCEPTED || application.loading"
+                styleClass="p-button-sm">
+        Accept
+      </p-button>
+      <p-button (onClick)="updateApplication(application, status.DENIED)"
+                [disabled]="application.status === status.DENIED || application.loading"
+                styleClass="p-button-sm">
+        Decline
+      </p-button>
+    </div>
+    <div class="details-wrapper">
+      <i class="pi pi-info-circle"></i>
+
+      <div class="details">
+        <a href="mailto:{{application.jobSeeker.email}}">{{application.jobSeeker.email}}</a>
+        <!-- TODO 29-dec-2021 Format phone number. -->
+        <span *ngIf="application.jobSeeker.mobilePhone">{{application.jobSeeker.mobilePhone}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast key="tl" position="top-left"></p-toast>

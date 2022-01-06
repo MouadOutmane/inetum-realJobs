@@ -10,6 +10,9 @@ import {VacancyDetailsComponent} from "./components/vacancy-details/vacancy-deta
 import {JobseekerGuard} from "./guard/jobseeker.guard";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
+import {
+  VacancyApplicationsComponent,
+} from "./components/applications/vacancy-applications/vacancy-applications.component";
 
 const appRoutes: Routes = [
   {path: "", redirectTo: "/vacancy/search", pathMatch: "full"},
@@ -18,6 +21,7 @@ const appRoutes: Routes = [
   {path: "register", component: RegisterComponent},
   {path: "vacancy/search", component: FilterFormComponent},
   {path: "vacancy/:id", component: VacancyDetailsComponent},
+  {path: "vacancy/:id/applications", component: VacancyApplicationsComponent},
   {path: "resume/create", component: ResumeCreateComponent, canActivate: [JobseekerGuard]},
   {path: "not-found", component: NotFoundComponent},
   {path: "forgot-password", component: ForgotPasswordComponent},

@@ -6,10 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import world.inetum.realdolmen.realjobs.entities.Vacancy;
 import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
+import world.inetum.realdolmen.realjobs.payload.dtos.ApplicationReadDto;
 import world.inetum.realdolmen.realjobs.payload.dtos.VacancyReadDto;
+import world.inetum.realdolmen.realjobs.payload.mappers.ApplicationMapper;
 import world.inetum.realdolmen.realjobs.payload.mappers.VacancyMapper;
 import world.inetum.realdolmen.realjobs.services.VacancyService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
@@ -21,11 +24,13 @@ public class VacancyController {
 
     private final VacancyService vacancyService;
     private final VacancyMapper vacancyMapper;
+    private final ApplicationMapper applicationMapper;
 
     @Autowired
-    public VacancyController(VacancyService vacancyService, VacancyMapper vacancyMapper) {
+    public VacancyController(VacancyService vacancyService, VacancyMapper vacancyMapper, ApplicationMapper applicationMapper) {
         this.vacancyService = vacancyService;
         this.vacancyMapper = vacancyMapper;
+        this.applicationMapper = applicationMapper;
     }
 
     @GetMapping
@@ -81,4 +86,13 @@ public class VacancyController {
         );
     }
 
+    @GetMapping("{id}/applications")
+    @RolesAllowed("RECRUITER")
+    public List<ApplicationReadDto> getApplications(@PathVariable("id") long id) {
+        return vacancyService
+                .getApplicationsByVacancyId(id)
+                .stream()
+                .map(applicationMapper::toDto)
+                .toList();
+    }
 }

@@ -1,0 +1,71 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.entry {
+  display: flex;
+}
+
+.number {
+  display: flex;
+  align-items: center;
+  padding: 1em;
+}
+
+.application {
+  display: flex;
+  border: 2px solid black;
+
+  & > * {
+    padding: 0.25em 0.5em;
+
+    &:not(:last-child) {
+      border-right: 2px solid black;
+      padding-right: 0.25em;
+    }
+  }
+}
+
+.information {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+
+  .name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  button {
+    align-self: center;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+
+  button {
+    align-self: center;
+  }
+}
+
+.details-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+
+  i {
+    font-size: 1.5rem;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
