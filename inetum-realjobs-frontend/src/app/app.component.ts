@@ -18,4 +18,8 @@ export class AppComponent {
   logout() {
     this.authService.logout();
   }
+
+  hasRoleRecruiter(): boolean {
+    return this.authService.getCurrentRoles().includes("ROLE_RECRUITER");
+  }
 }
