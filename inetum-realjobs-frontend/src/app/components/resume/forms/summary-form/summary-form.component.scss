@@ -2,12 +2,23 @@
   height: 100%;
 }
 
-.summaryForm .form-group {
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 0.5rem;
-  column-gap: 1rem;
-  margin-bottom: 1rem;
+.summaryForm {
+  .form-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 0.5rem;
+    column-gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .center-content {
+    display: flex;
+    justify-content: center;
+  }
+
+  .summary-input {
+    width: 100%;
+  }
 }
 
 .summary-form-header {
@@ -23,13 +34,4 @@
 
 .summary-form-header-text {
   margin: 1rem;
-}
-
-.summaryForm .center-content {
-  display: flex;
-  justify-content: center;
-}
-
-.summaryForm .summary-input {
-  width: 100%;
 }

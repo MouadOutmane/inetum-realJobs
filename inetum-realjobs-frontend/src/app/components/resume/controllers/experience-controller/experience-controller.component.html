@@ -1,0 +1,16 @@
+<div *ngIf="isFormOpen; else experienceDetails">
+  <app-experience-form
+    [experienceList]="experienceList"
+    (formCloseEvent)="closeForm()"
+    (experienceUpdatedEvent)="updateExperience($event)"
+  >
+  </app-experience-form>
+</div>
+
+<ng-template #experienceDetails>
+  <app-experience-view
+    [experienceList]="experienceList"
+    (toFormEvent)="openForm()"
+  >
+  </app-experience-view>
+</ng-template>

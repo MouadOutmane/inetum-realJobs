@@ -1,0 +1,65 @@
+:host {
+  align-self: flex-start;
+}
+
+.create-resume {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+  grid-template-areas:
+    "resume-status resume-summary"
+    "resume-experience resume-experience"
+    "resume-education resume-education"
+    "resume-skill resume-skill"
+    "resume-language resume-language";
+  margin: 1rem 0;
+
+  > .resume-status {
+    grid-area: resume-status;
+  }
+
+  > .resume-status ::ng-deep .p-card {
+    height: 100%;
+  }
+
+  > .resume-summary {
+    grid-area: resume-summary;
+  }
+
+  > .resume-experience {
+    grid-area: resume-experience;
+  }
+
+  > .resume-education {
+    grid-area: resume-education;
+  }
+
+  > .resume-skill {
+    grid-area: resume-skill;
+  }
+
+  > .resume-language {
+    grid-area: resume-language;
+  }
+
+  ::ng-deep .p-card-body {
+    padding-top: 0 !important;
+  }
+
+  ::ng-deep .p-card-content {
+    padding-top: 0 !important;
+  }
+}
+
+@media screen and (max-width: 75rem) {
+  .create-resume {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+    "resume-status"
+    "resume-summary"
+    "resume-experience"
+    "resume-education"
+    "resume-skill"
+    "resume-language";
+  }
+}

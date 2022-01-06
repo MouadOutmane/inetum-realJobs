@@ -8,6 +8,7 @@ import {Experience} from "../models/experience";
 import {ResumeStatus} from "../models/resumeStatus.enum";
 import {SingleResult} from "../models/singleResult";
 import {AccountResume} from "../models/accountResume";
+import {Resume} from "../models/resume";
 
 const baseUrl = "resume/";
 
@@ -19,16 +20,16 @@ export class ResumeService {
   constructor(private http: HttpClient) {
   }
 
+  getResume(): Observable<Resume> {
+    return this.http.get<Resume>(baseUrl);
+  }
+
   addSkill(skill: Skill): Observable<Skill[]> {
     return this.http.post<Skill[]>(baseUrl + "skill", skill);
   }
 
   removeSkill(id: number): Observable<Skill[]> {
     return this.http.delete<Skill[]>(baseUrl + "skill/" + id);
-  }
-
-  getSkills(): Observable<Skill[]> {
-    return this.http.get<Skill[]>(baseUrl + "skill/");
   }
 
   addLanguage(language: Language): Observable<Language[]> {
@@ -39,20 +40,12 @@ export class ResumeService {
     return this.http.delete<Language[]>(baseUrl + "language/" + id);
   }
 
-  getLanguages(): Observable<Language[]> {
-    return this.http.get<Language[]>(baseUrl + "language/");
-  }
-
   addEducation(education: Education): Observable<Education[]> {
     return this.http.post<Education[]>(baseUrl + "education", education);
   }
 
   removeEducation(id: number): Observable<Education[]> {
     return this.http.delete<Education[]>(baseUrl + "education/" + id);
-  }
-
-  getEducationList(): Observable<Education[]> {
-    return this.http.get<Education[]>(baseUrl + "education/");
   }
 
   addExperience(experience: Experience): Observable<Experience[]> {
@@ -63,16 +56,8 @@ export class ResumeService {
     return this.http.delete<Experience[]>(baseUrl + "experience/" + id);
   }
 
-  getExperienceList(): Observable<Experience[]> {
-    return this.http.get<Experience[]>(baseUrl + "experience/");
-  }
-
   setSummary(summary: string): Observable<string> {
     return this.http.post<SingleResult<string>>(baseUrl + "summary/", {value: summary}).pipe(ResumeService.getValue());
-  }
-
-  getSummary(): Observable<string> {
-    return this.http.get<SingleResult<string>>(baseUrl + "summary/").pipe(ResumeService.getValue());
   }
 
   setResumeStatus(status: ResumeStatus): Observable<ResumeStatus> {

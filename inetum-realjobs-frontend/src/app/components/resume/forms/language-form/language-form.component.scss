@@ -1,4 +1,4 @@
-.languageForm .form-inputs {
+.form-inputs {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 3fr;
   row-gap: 0.5rem;
@@ -7,6 +7,51 @@
     "lang-lang-label lang-lang-input lang-level-label lang-level-input"
     ". lang-lang-error . lang-level-error";
   margin-bottom: 1rem;
+
+  .lang-list {
+    margin-top: 1rem;
+  }
+
+  > label {
+    display: flex;
+    align-items: center;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  ::ng-deep .p-calendar {
+    width: 100%;
+  }
+
+  ::ng-deep .p-dropdown {
+    width: 100%;
+  }
+
+  .lang-lang-label {
+    grid-area: lang-lang-label;
+  }
+
+  .lang-lang-input {
+    grid-area: lang-lang-input;
+  }
+
+  .lang-lang-error {
+    grid-area: lang-lang-error;
+  }
+
+  .lang-level-label {
+    grid-area: lang-level-label;
+  }
+
+  .lang-level-input {
+    grid-area: lang-level-input;
+  }
+
+  .lang-level-error {
+    grid-area: lang-level-error;
+  }
 }
 
 .lang-form-header {
@@ -18,31 +63,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  .card-button {
+    padding-right: 0.75rem;
+  }
 }
 
 .lang-form-header-text {
   margin: 1rem;
-}
-
-.languageForm .lang-list {
-  margin-top: 1rem;
-}
-
-.languageForm .form-inputs > label {
-  display: flex;
-  align-items: center;
-}
-
-.languageForm .form-inputs input {
-  width: 100%;
-}
-
-.languageForm ::ng-deep .p-calendar {
-  width: 100%;
-}
-
-.languageForm ::ng-deep .p-dropdown {
-  width: 100%;
 }
 
 .languageForm .center-content {
@@ -50,26 +78,14 @@
   justify-content: center;
 }
 
-.languageForm .lang-lang-label {
-  grid-area: lang-lang-label;
+@media screen and (max-width: 75rem) {
+  .form-inputs {
+    grid-template-columns: 1fr 3fr;
+    grid-template-areas:
+    "lang-lang-label lang-lang-input"
+    ". lang-lang-error"
+    "lang-level-label lang-level-input"
+    ". lang-level-error";
+  }
 }
 
-.languageForm .lang-lang-input {
-  grid-area: lang-lang-input;
-}
-
-.languageForm .lang-lang-error {
-  grid-area: lang-lang-error;
-}
-
-.languageForm .lang-level-label {
-  grid-area: lang-level-label;
-}
-
-.languageForm .lang-level-input {
-  grid-area: lang-level-input;
-}
-
-.languageForm .lang-level-error {
-  grid-area: lang-level-error;
-}

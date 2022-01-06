@@ -25,7 +25,6 @@ export default class CustomValidators {
 
   static uniqueItemValidator(list: string[]): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      console.log(control.value, list);
       if (list.map(i => i.toLowerCase()).includes(control.value.toLowerCase())) {
         return {uniqueItem: true}
       } else {

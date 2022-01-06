@@ -5,7 +5,6 @@ import {FilterFormComponent} from "./components/filter-form/filter-form.componen
 import {AuthGuardService} from "./guard/authGuard.service";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {RegisterComponent} from "./components/register/register.component";
-import {ResumeCreateComponent} from "./components/resume/resume-create/resume-create.component";
 import {VacancyDetailsComponent} from "./components/vacancy-details/vacancy-details.component";
 import {JobseekerGuard} from "./guard/jobseeker.guard";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
@@ -13,6 +12,7 @@ import {ResetPasswordComponent} from "./components/reset-password/reset-password
 import {
   VacancyApplicationsComponent,
 } from "./components/applications/vacancy-applications/vacancy-applications.component";
+import {ResumeComponent} from "./components/resume/resume/resume.component";
 
 const appRoutes: Routes = [
   {path: "", redirectTo: "/vacancy/search", pathMatch: "full"},
@@ -21,8 +21,8 @@ const appRoutes: Routes = [
   {path: "register", component: RegisterComponent},
   {path: "vacancy/search", component: FilterFormComponent},
   {path: "vacancy/:id", component: VacancyDetailsComponent},
+  {path: "resume", component: ResumeComponent, canActivate: [JobseekerGuard]},
   {path: "vacancy/:id/applications", component: VacancyApplicationsComponent},
-  {path: "resume/create", component: ResumeCreateComponent, canActivate: [JobseekerGuard]},
   {path: "not-found", component: NotFoundComponent},
   {path: "forgot-password", component: ForgotPasswordComponent},
   {path: "reset-password", component: ResetPasswordComponent},

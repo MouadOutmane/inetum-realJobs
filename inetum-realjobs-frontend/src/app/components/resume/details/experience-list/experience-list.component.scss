@@ -2,8 +2,14 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+
+  ::ng-deep .p-card {
+    height: 100%;
+  }
 }
 
-.experience-list-comp ::ng-deep .p-card {
-  height: 100%;
+@media screen and (max-width: 75rem) {
+  .experience-list-comp {
+    grid-template-columns: 1fr;
+  }
 }

@@ -57,10 +57,81 @@ class ResumeControllerIT extends BaseIntegrationTest {
         return account;
     }
 
+    @Test
+    void getResume() throws Exception {
+        createJobSeekerAndLogin();
+
+        SkillTests.persistSkill("Test 1", SkillLevel.EXPERT);
+        SkillTests.persistSkill("Test 2", SkillLevel.BASIC);
+        SkillTests.persistSkill("Test 3", SkillLevel.INTERMEDIATE);
+        SkillTests.persistSkill("Test 4", SkillLevel.BASIC);
+
+        LanguageTests.persistLanguage("Test 1", SkillLevel.EXPERT);
+        LanguageTests.persistLanguage("Test 2", SkillLevel.BASIC);
+        LanguageTests.persistLanguage("Test 3", SkillLevel.INTERMEDIATE);
+        LanguageTests.persistLanguage("Test 4", SkillLevel.BASIC);
+
+        EducationTests.persistEducation(EducationTests.createEducationCreateDtoList().get(0));
+        EducationTests.persistEducation(EducationTests.createEducationCreateDtoList().get(1));
+
+        ExperienceTests.persistExperience(ExperienceTests.createExperienceDtoList().get(0));
+        ExperienceTests.persistExperience(ExperienceTests.createExperienceDtoList().get(1));
+
+        SummaryTests.persistSummary("Test 1");
+
+        StatusTests.persistStatus(ResumeStatus.NEUTRAL);
+
+        mockMvc.perform(
+                        get("/api/resume/")
+                )
+                .andExpect(status().isOk())
+                .andExpectAll(
+                        jsonPath("$.skills").isArray(),
+                        jsonPath("$.skills").isNotEmpty(),
+                        jsonPath("$.skills.length()", is(4)),
+                        jsonPath("$.skills[*].skill", containsInAnyOrder("Test 1", "Test 2", "Test 3", "Test 4")),
+                        jsonPath("$.skills[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString(), SkillLevel.BASIC.toString(), SkillLevel.INTERMEDIATE.toString(), SkillLevel.BASIC.toString())),
+                        jsonPath("$.languages").isArray(),
+                        jsonPath("$.languages").isNotEmpty(),
+                        jsonPath("$.languages.length()", is(4)),
+                        jsonPath("$.languages[*].language", containsInAnyOrder("Test 1", "Test 2", "Test 3", "Test 4")),
+                        jsonPath("$.languages[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString(), SkillLevel.BASIC.toString(), SkillLevel.INTERMEDIATE.toString(), SkillLevel.BASIC.toString())),
+                        jsonPath("$.educationList").isArray(),
+                        jsonPath("$.educationList").isNotEmpty(),
+                        jsonPath("$.educationList.length()", is(2)),
+                        jsonPath("$.educationList[*].degree", containsInAnyOrder("Masters", "Bachelors")),
+                        jsonPath("$.educationList[*].program", containsInAnyOrder("Applied Engineering", "Applied Engineering")),
+                        jsonPath("$.educationList[*].school", containsInAnyOrder("UA", "UA")),
+                        jsonPath("$.educationList[*].startDate", containsInAnyOrder("2020-09-21", "2017-09-21")),
+                        jsonPath("$.educationList[*].endDate", containsInAnyOrder("2021-06-30", "2020-06-30")),
+                        jsonPath("$.educationList[*].description", containsInAnyOrder("Desc1", "Desc2")),
+                        jsonPath("$.experienceList").isArray(),
+                        jsonPath("$.experienceList").isNotEmpty(),
+                        jsonPath("$.experienceList.length()", is(2)),
+                        jsonPath("$.experienceList[*].jobTitle", containsInAnyOrder("Junior Java consultant", "Junior Java consultant")),
+                        jsonPath("$.experienceList[*].functionCategory", containsInAnyOrder("Software consultant", "Trainee")),
+                        jsonPath("$.experienceList[*].company", containsInAnyOrder("Inetum-Realdolmen", "VDAB")),
+                        jsonPath("$.experienceList[*].industry", containsInAnyOrder("IT", "IT")),
+                        jsonPath("$.experienceList[*].startDate", containsInAnyOrder("2021-12-01", "2021-09-01")),
+                        jsonPath("$.experienceList[*].endDate", containsInAnyOrder(null, "2021-12-01")),
+                        jsonPath("$.experienceList[*].currentJob", containsInAnyOrder(true, false)),
+                        jsonPath("$.experienceList[*].description", containsInAnyOrder("Desc1", "Desc2")),
+                        jsonPath("$.summary").isString(),
+                        jsonPath("$.summary", is("Test 1")),
+                        jsonPath("$.status").isString(),
+                        jsonPath("$.status", is(ResumeStatus.NEUTRAL.toString())),
+                        jsonPath("$.accountInfo.email", is("test@inetum-realdolmen.world")),
+                        jsonPath("$.accountInfo.firstName", is("first name")),
+                        jsonPath("$.accountInfo.lastName", is("last name")),
+                        jsonPath("$.accountInfo.mobilePhone", is(nullValue())),
+                        jsonPath("$.accountInfo.profilePicture", is("picture"))
+                );
+    }
+
     @Nested
     class SkillTests {
 
-        private ResultActions persistSkill(String name, SkillLevel level) throws Exception {
+        static ResultActions persistSkill(String name, SkillLevel level) throws Exception {
             SkillCreateDto skillCreateDto = new SkillCreateDto();
             skillCreateDto.setSkill(name);
             skillCreateDto.setSkillLevel(level);
@@ -179,7 +250,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
     @Nested
     class LanguageTests {
 
-        private ResultActions persistLanguage(String language, SkillLevel level) throws Exception {
+        static ResultActions persistLanguage(String language, SkillLevel level) throws Exception {
             LanguageCreateDto languageCreateDto = new LanguageCreateDto();
             languageCreateDto.setLanguage(language);
             languageCreateDto.setSkillLevel(level);
@@ -298,7 +369,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
     @Nested
     class EducationTests {
 
-        private ResultActions persistEducation(EducationCreateDto educationCreateDto) throws Exception {
+        static ResultActions persistEducation(EducationCreateDto educationCreateDto) throws Exception {
             return mockMvc.perform(
                             post("/api/resume/education")
                                     .contentType(MediaType.APPLICATION_JSON)
@@ -307,7 +378,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
                     .andExpect(status().isOk());
         }
 
-        private List<EducationCreateDto> createEducationCreateDtoList() {
+        static List<EducationCreateDto> createEducationCreateDtoList() {
             List<EducationCreateDto> educationDtoList = new ArrayList<>();
 
             EducationCreateDto educationDto1 = new EducationCreateDto();
@@ -447,7 +518,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
     @Nested
     class ExperienceTests {
 
-        private ResultActions persistExperience(ExperienceCreateDto experienceCreateDto) throws Exception {
+        static ResultActions persistExperience(ExperienceCreateDto experienceCreateDto) throws Exception {
             return mockMvc.perform(
                             post("/api/resume/experience")
                                     .contentType(MediaType.APPLICATION_JSON)
@@ -456,7 +527,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
                     .andExpect(status().isOk());
         }
 
-        private List<ExperienceCreateDto> createExperienceDtoList() {
+        static List<ExperienceCreateDto> createExperienceDtoList() {
             List<ExperienceCreateDto> experienceDtoList = new ArrayList<>();
 
             ExperienceCreateDto experienceDto1 = new ExperienceCreateDto();
@@ -607,7 +678,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
     @Nested
     class SummaryTests {
 
-        private ResultActions persistSummary(String summary) throws Exception {
+        static ResultActions persistSummary(String summary) throws Exception {
             SingleValueDto<String> summaryDto = new SingleValueDto<>();
             summaryDto.setValue(summary);
 
@@ -661,7 +732,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
     @Nested
     class StatusTests {
 
-        private ResultActions persistStatus(ResumeStatus status) throws Exception {
+        static ResultActions persistStatus(ResumeStatus status) throws Exception {
             SingleValueDto<ResumeStatus> statusDto = new SingleValueDto<>();
             statusDto.setValue(status);
 
