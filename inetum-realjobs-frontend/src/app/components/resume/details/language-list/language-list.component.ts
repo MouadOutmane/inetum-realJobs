@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Language} from "../../../../models/language";
-import {SkillLevel} from "../../../../models/skillLevel.enum";
+import {LanguageLevel} from "../../../../models/languageLevel.enum";
 
 @Component({
   selector: 'app-language-list',
@@ -19,16 +19,16 @@ export class LanguageListComponent {
 
   get basicLanguages(): Language[] {
     return this.languages
-      .filter(language => language.skillLevel === SkillLevel.BASIC);
+      .filter(language => language.languageLevel === LanguageLevel.BASIC);
   }
 
   get intermediateLanguages(): Language[] {
     return this.languages
-      .filter(language => language.skillLevel === SkillLevel.INTERMEDIATE);
+      .filter(language => language.languageLevel === LanguageLevel.MEDIUM);
   }
 
   get expertLanguages(): Language[] {
     return this.languages
-      .filter(language => language.skillLevel === SkillLevel.EXPERT);
+      .filter(language => language.languageLevel === LanguageLevel.GOOD);
   }
 }

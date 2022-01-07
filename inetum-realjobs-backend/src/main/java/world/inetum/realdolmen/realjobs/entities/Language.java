@@ -1,6 +1,6 @@
 package world.inetum.realdolmen.realjobs.entities;
 
-import world.inetum.realdolmen.realjobs.entities.enums.SkillLevel;
+import world.inetum.realdolmen.realjobs.entities.enums.LanguageLevel;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -16,8 +16,8 @@ public class Language extends BaseModel {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "skill_level", nullable = false)
-    private SkillLevel skillLevel;
+    @Column(name = "language_level", nullable = false)
+    private LanguageLevel languageLevel;
 
     public String getLanguage() {
         return language;
@@ -27,18 +27,18 @@ public class Language extends BaseModel {
         this.language = language;
     }
 
-    public SkillLevel getSkillLevel() {
-        return skillLevel;
+    public LanguageLevel getLanguageLevel() {
+        return languageLevel;
     }
 
-    public void setSkillLevel(SkillLevel skillLevel) {
-        this.skillLevel = skillLevel;
+    public void setLanguageLevel(LanguageLevel languageLevel) {
+        this.languageLevel = languageLevel;
     }
 
     @Override
     public String toString() {
         return """
                 Language{id=%d, language='%s', skillLevel=%s}
-                """.formatted(getId(), language, skillLevel);
+                """.formatted(getId(), language, languageLevel);
     }
 }

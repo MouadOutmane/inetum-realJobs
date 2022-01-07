@@ -566,15 +566,15 @@ VALUES (4, 'user@user.user', '2021-12-28 09:18:57.051805', 'user@user.user', '20
         'Learning', 'EXPERT', 1);
 ALTER SEQUENCE skill_id_seq RESTART WITH 5;
 -- Languages
-INSERT INTO public.language (id, changed_by, changed_on, created_by, created_on, version, language, skill_level,
+INSERT INTO public.language (id, changed_by, changed_on, created_by, created_on, version, language, language_level,
                              resume_id)
 VALUES (1, 'user@user.user', '2021-12-28 09:19:14.483113', 'user@user.user', '2021-12-28 09:19:14.483113', 0, 'French',
         'BASIC', 1);
-INSERT INTO public.language (id, changed_by, changed_on, created_by, created_on, version, language, skill_level,
+INSERT INTO public.language (id, changed_by, changed_on, created_by, created_on, version, language, language_level,
                              resume_id)
 VALUES (2, 'user@user.user', '2021-12-28 09:19:20.717007', 'user@user.user', '2021-12-28 09:19:20.717007', 0, 'Dutch',
-        'EXPERT', 1);
-INSERT INTO public.language (id, changed_by, changed_on, created_by, created_on, version, language, skill_level,
+        'MOTHER_TONGUE', 1);
+INSERT INTO public.language (id, changed_by, changed_on, created_by, created_on, version, language, language_level,
                              resume_id)
 VALUES (3, 'user@user.user', '2021-12-28 09:19:25.292984', 'user@user.user', '2021-12-28 09:19:25.292984', 0, 'English',
         'EXPERT', 1);

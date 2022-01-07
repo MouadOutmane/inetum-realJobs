@@ -65,10 +65,10 @@ class ResumeControllerIT extends BaseIntegrationTest {
         SkillTests.persistSkill("Test 3", SkillLevel.INTERMEDIATE);
         SkillTests.persistSkill("Test 4", SkillLevel.BASIC);
 
-        LanguageTests.persistLanguage("Test 1", SkillLevel.EXPERT);
-        LanguageTests.persistLanguage("Test 2", SkillLevel.BASIC);
-        LanguageTests.persistLanguage("Test 3", SkillLevel.INTERMEDIATE);
-        LanguageTests.persistLanguage("Test 4", SkillLevel.BASIC);
+        LanguageTests.persistLanguage("Test 1", LanguageLevel.EXPERT);
+        LanguageTests.persistLanguage("Test 2", LanguageLevel.BASIC);
+        LanguageTests.persistLanguage("Test 3", LanguageLevel.MOTHER_TONGUE);
+        LanguageTests.persistLanguage("Test 4", LanguageLevel.BASIC);
 
         EducationTests.persistEducation(EducationTests.createEducationCreateDtoList().get(0));
         EducationTests.persistEducation(EducationTests.createEducationCreateDtoList().get(1));
@@ -94,7 +94,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
                         jsonPath("$.languages").isNotEmpty(),
                         jsonPath("$.languages.length()", is(4)),
                         jsonPath("$.languages[*].language", containsInAnyOrder("Test 1", "Test 2", "Test 3", "Test 4")),
-                        jsonPath("$.languages[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString(), SkillLevel.BASIC.toString(), SkillLevel.INTERMEDIATE.toString(), SkillLevel.BASIC.toString())),
+                        jsonPath("$.languages[*].languageLevel", containsInAnyOrder(LanguageLevel.EXPERT.toString(), LanguageLevel.BASIC.toString(), LanguageLevel.MOTHER_TONGUE.toString(), LanguageLevel.BASIC.toString())),
                         jsonPath("$.educationList").isArray(),
                         jsonPath("$.educationList").isNotEmpty(),
                         jsonPath("$.educationList.length()", is(2)),
@@ -249,10 +249,10 @@ class ResumeControllerIT extends BaseIntegrationTest {
     @Nested
     class LanguageTests {
 
-        static ResultActions persistLanguage(String language, SkillLevel level) throws Exception {
+        static ResultActions persistLanguage(String language, LanguageLevel level) throws Exception {
             LanguageCreateDto languageCreateDto = new LanguageCreateDto();
             languageCreateDto.setLanguage(language);
-            languageCreateDto.setSkillLevel(level);
+            languageCreateDto.setLanguageLevel(level);
 
             return mockMvc.perform(
                             post("/api/resume/language")
@@ -267,21 +267,21 @@ class ResumeControllerIT extends BaseIntegrationTest {
         void addLanguage() throws Exception {
             Account account = createJobSeekerAndLogin();
 
-            persistLanguage("Test 1", SkillLevel.EXPERT)
+            persistLanguage("Test 1", LanguageLevel.EXPERT)
                     .andExpectAll(
                             jsonPath("$").isArray(),
                             jsonPath("$").isNotEmpty(),
                             jsonPath("$.length()", is(1)),
                             jsonPath("$[*].language", containsInAnyOrder("Test 1")),
-                            jsonPath("$[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString()))
+                            jsonPath("$[*].languageLevel", containsInAnyOrder(LanguageLevel.EXPERT.toString()))
                     );
-            persistLanguage("Test 2", SkillLevel.BASIC)
+            persistLanguage("Test 2", LanguageLevel.BASIC)
                     .andExpectAll(
                             jsonPath("$").isArray(),
                             jsonPath("$").isNotEmpty(),
                             jsonPath("$.length()", is(2)),
                             jsonPath("$[*].language", containsInAnyOrder("Test 1", "Test 2")),
-                            jsonPath("$[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString(), SkillLevel.BASIC.toString()))
+                            jsonPath("$[*].languageLevel", containsInAnyOrder(LanguageLevel.EXPERT.toString(), LanguageLevel.BASIC.toString()))
                     );
 
             JobSeeker jobSeeker = em
@@ -299,10 +299,10 @@ class ResumeControllerIT extends BaseIntegrationTest {
         @Transactional
         void removeLanguage() throws Exception {
             Account account = createJobSeekerAndLogin();
-            persistLanguage("Test 1", SkillLevel.EXPERT);
-            persistLanguage("Test 2", SkillLevel.BASIC);
-            persistLanguage("Test 3", SkillLevel.INTERMEDIATE);
-            String languages = persistLanguage("Test 4", SkillLevel.BASIC)
+            persistLanguage("Test 1", LanguageLevel.EXPERT);
+            persistLanguage("Test 2", LanguageLevel.BASIC);
+            persistLanguage("Test 3", LanguageLevel.MOTHER_TONGUE);
+            String languages = persistLanguage("Test 4", LanguageLevel.BASIC)
                     .andReturn()
                     .getResponse()
                     .getContentAsString();
@@ -327,8 +327,8 @@ class ResumeControllerIT extends BaseIntegrationTest {
                             jsonPath("$.length()", is(3)),
                             jsonPath("$[*].language", containsInAnyOrder("Test 1", "Test 2", "Test 4")),
                             jsonPath("$[*].language", not(contains("Test 3"))),
-                            jsonPath("$[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString(), SkillLevel.BASIC.toString(), SkillLevel.BASIC.toString())),
-                            jsonPath("$[*].skillLevel", not(contains(SkillLevel.INTERMEDIATE.toString())))
+                            jsonPath("$[*].languageLevel", containsInAnyOrder(LanguageLevel.EXPERT.toString(), LanguageLevel.BASIC.toString(), LanguageLevel.BASIC.toString())),
+                            jsonPath("$[*].languageLevel", not(contains(LanguageLevel.MOTHER_TONGUE.toString())))
                     );
 
             JobSeeker jobSeeker = em
@@ -346,10 +346,10 @@ class ResumeControllerIT extends BaseIntegrationTest {
         @Transactional
         void getLanguages() throws Exception {
             Account account = createJobSeekerAndLogin();
-            persistLanguage("Test 1", SkillLevel.EXPERT);
-            persistLanguage("Test 2", SkillLevel.BASIC);
-            persistLanguage("Test 3", SkillLevel.INTERMEDIATE);
-            persistLanguage("Test 4", SkillLevel.BASIC);
+            persistLanguage("Test 1", LanguageLevel.EXPERT);
+            persistLanguage("Test 2", LanguageLevel.BASIC);
+            persistLanguage("Test 3", LanguageLevel.MOTHER_TONGUE);
+            persistLanguage("Test 4", LanguageLevel.BASIC);
 
             mockMvc.perform(
                             get("/api/resume/language/")
@@ -360,7 +360,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
                             jsonPath("$").isNotEmpty(),
                             jsonPath("$.length()", is(4)),
                             jsonPath("$[*].language", containsInAnyOrder("Test 1", "Test 2", "Test 3", "Test 4")),
-                            jsonPath("$[*].skillLevel", containsInAnyOrder(SkillLevel.EXPERT.toString(), SkillLevel.BASIC.toString(), SkillLevel.INTERMEDIATE.toString(), SkillLevel.BASIC.toString()))
+                            jsonPath("$[*].languageLevel", containsInAnyOrder(LanguageLevel.EXPERT.toString(), LanguageLevel.BASIC.toString(), LanguageLevel.MOTHER_TONGUE.toString(), LanguageLevel.BASIC.toString()))
                     );
         }
     }
