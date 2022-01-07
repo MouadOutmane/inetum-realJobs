@@ -59,9 +59,7 @@ class RecruiterServiceTest {
         when(vacancyService.findAll()).thenReturn(null);
         sut = recruiterService.findAll();
         assertNull(sut);
-        assertDoesNotThrow(
-                () -> recruiterService.findAll()
-        );
+        assertDoesNotThrow(() -> recruiterService.findAll());
     }
 
     @Test
@@ -70,8 +68,6 @@ class RecruiterServiceTest {
         when(vacancyService.findAll()).thenReturn(null);
         sut = recruiterService.findAll();
         assertNull(sut);
-        assertThrows(NullPointerException.class,
-                () -> recruiterService.findAll().size()
-        );
+        assertThrows(NullPointerException.class, () -> recruiterService.findAll().size());
     }
 }

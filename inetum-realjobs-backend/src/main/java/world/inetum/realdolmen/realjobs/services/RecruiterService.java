@@ -37,8 +37,7 @@ public class RecruiterService {
     }
 
     public String getFullRecruiterName(Vacancy vacancy) {
-        String fullRecruiterName = vacancy.getRecruiter().getFirstName() + " " + vacancy.getRecruiter().getLastName();
-        return fullRecruiterName;
+        return vacancy.getRecruiter().getFirstName() + " " + vacancy.getRecruiter().getLastName();
     }
 
 }

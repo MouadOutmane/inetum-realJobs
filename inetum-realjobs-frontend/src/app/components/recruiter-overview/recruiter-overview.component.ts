@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {RecruiterOverviewModel} from "../../models/recruiter-overview.model";
 import {RecruiterService} from "../../services/recruiter.service";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-recruiter-overview',
@@ -18,9 +19,9 @@ export class RecruiterOverviewComponent implements OnInit {
   rows: number = 10;
   vacancies: RecruiterOverviewModel[] = [];
   length: number = this.getArrayLength();
+  username: string;
 
-
-  constructor(private recruiterService: RecruiterService) {
+  constructor(private recruiterService: RecruiterService, private auth: AuthenticationService) {
   }
 
   ngOnInit(): void {
@@ -32,14 +33,21 @@ export class RecruiterOverviewComponent implements OnInit {
       {field: 'recruiterId', header: 'Vacancy manager'},
       {field: 'applicants', header: 'Applicants'}
     ];
+    this.username = this.auth.getLoggedInUserEmail();
   }
 
   getAllVacancies(): Observable<RecruiterOverviewModel[]> {
     this.vacancies$ = this.recruiterService.getAllVacancies();
     this.vacancies$.subscribe({
-      next(x) {console.log(x)},
-      error(error) {console.log(error)},
-      complete() {console.log("getAllVacancies has finished")}
+      next(x) {
+        console.log(x)
+      },
+      error(error) {
+        console.log(error)
+      },
+      complete() {
+        console.log("getAllVacancies has finished")
+      }
     });
     return this.vacancies$;
   }
@@ -52,7 +60,7 @@ export class RecruiterOverviewComponent implements OnInit {
     return this.first = this.first - this.rows;
   }
 
-  reset():void {
+  reset(): void {
     this.first = 0;
   }
 
@@ -64,7 +72,7 @@ export class RecruiterOverviewComponent implements OnInit {
     return this.vacancies ? this.first === 0 : true;
   }
 
-  getArrayLength():number {
+  getArrayLength(): number {
     this.recruiterService.getAllVacancies().subscribe(nuts => this.vacancies = nuts);
     console.log('length = ' + this.vacancies.length);
     return this.vacancies.length;

@@ -79,6 +79,13 @@ export class AuthenticationService {
     return null;
   }
 
+  getLoggedInUserEmail() {
+    const parsedJwt = this.parseJwt();
+    if (parsedJwt) {
+      return this.parseJwt()["sub"];
+    }
+  }
+
   private setSession(authResult: any) {
     const expiresAt = moment().add(authResult.expiresIn, "second");
 
