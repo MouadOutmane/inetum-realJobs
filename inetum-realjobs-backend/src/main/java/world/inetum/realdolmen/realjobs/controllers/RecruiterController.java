@@ -41,11 +41,13 @@ public class RecruiterController {
                 .map(
                         (vacancy) -> {
                             RecruiterOverviewDto dto = new RecruiterOverviewDto();
-                            dto.setVacancyId(vacancy.getVacancyId());
+                            dto.setVacancyId(vacancy.getId());
                             dto.setFunctionTitle(vacancy.getFunctionTitle());
                             dto.setPostedOn(vacancy.getCreatedOn());
                             dto.setRecruiterId(vacancy.getRecruiter().getId());
-//                    TODO - add number of applicants
+//                    TODO - update using method calls
+                            dto.setRecruiterFullName("Replace This");
+                            dto.setAmountOfApplicants(0);
                             return dto;
                         }
                 ).toList();
