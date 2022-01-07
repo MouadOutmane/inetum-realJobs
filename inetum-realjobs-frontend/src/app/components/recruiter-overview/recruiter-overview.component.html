@@ -13,8 +13,8 @@
       <div *ngIf="!vacancies$">{{defaultMessage}}</div>
       <p-table [value]="vacancies$ | async" [columns]="columns" [scrollable]="true" scrollHeight="450px"
                styleClass="p-datatable-lg" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 30]"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
-<!--        TODO update page report-->
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+        <!--        TODO update page report-->
         <ng-template pTemplate="header">
           <tr>
             <th style="min-width: 250px;">
@@ -38,6 +38,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-vacancy>
           <tr>
+            <!--            TODO: remove from display when done-->
             <td>{{vacancy["vacancyId"]}}</td>
             <td>
               <!--                TODO: add routerLink to vacancy/{id} when implemented user story 'modify and delete vacancy'-->
@@ -45,6 +46,7 @@
             </td>
             <td>{{vacancy["postedOn"] | date: 'dd/MM/yy'}}</td>
             <td>{{vacancy["recruiterFullName"]}}</td>
+            <!--            TODO: add routerLink to list of applicants-->
             <td>{{vacancy["amountOfApplicants"]}}</td>
           </tr>
         </ng-template>

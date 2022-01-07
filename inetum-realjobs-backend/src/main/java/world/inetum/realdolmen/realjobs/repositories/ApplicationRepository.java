@@ -13,6 +13,5 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     @Query("SELECT a FROM Application a JOIN FETCH a.vacancy v WHERE v.id = :id")
     List<Application> findAllByVacancyId(long id);
 
-//    @Query("select count (vacancy_id) from Application a where a.vacancy.id = :id")
     Integer countApplicationsByVacancy_Id(Long id);
 }
