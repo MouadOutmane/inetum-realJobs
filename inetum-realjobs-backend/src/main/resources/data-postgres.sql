@@ -545,10 +545,10 @@ ALTER SEQUENCE experience_id_seq RESTART WITH 3;
 INSERT INTO public.education (id, changed_by, changed_on, created_by, created_on, version, degree, description,
                               end_date, program, school, start_date, resume_id)
 VALUES (1, 'user@user.user', '2021-12-28 09:13:53.160629', 'user@user.user', '2021-12-28 09:13:53.160629', 0,
-        'Bachelors', '', '2020-06-29', 'Applied Engineering', 'UA', '2017-09-24', 1);
+        'BACHELOR', '', '2020-06-29', 'Applied Engineering', 'UA', '2017-09-24', 1);
 INSERT INTO public.education (id, changed_by, changed_on, created_by, created_on, version, degree, description,
                               end_date, program, school, start_date, resume_id)
-VALUES (2, 'user@user.user', '2021-12-28 09:14:25.524694', 'user@user.user', '2021-12-28 09:14:25.524694', 0, 'Masters',
+VALUES (2, 'user@user.user', '2021-12-28 09:14:25.524694', 'user@user.user', '2021-12-28 09:14:25.524694', 0, 'MASTER',
         null, '2021-06-29', 'Applied Engineering', 'UA', '2020-09-20', 1);
 ALTER SEQUENCE education_id_seq RESTART WITH 3;
 -- Skills

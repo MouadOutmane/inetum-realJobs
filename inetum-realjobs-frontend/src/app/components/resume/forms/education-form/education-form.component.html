@@ -22,11 +22,15 @@
     <div class="form-group">
       <div class="form-inputs">
         <label class="edu-deg-label">Degree</label>
-        <input
+        <p-dropdown
+          [options]="degreeOptions"
+          optionLabel="name"
+          optionValue="value"
           formControlName="degree"
-          pInputText
+          placeholder="Select a degree"
           [ngClass]="{'edu-deg-input': true, 'ng-invalid ng-dirty' : isInvalid('degree')}"
         >
+        </p-dropdown>
         <div
           class="edu-deg-error"
         >

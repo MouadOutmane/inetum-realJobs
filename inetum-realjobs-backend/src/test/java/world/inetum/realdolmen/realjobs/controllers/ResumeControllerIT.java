@@ -13,10 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import world.inetum.realdolmen.realjobs.BaseIntegrationTest;
 import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
 import world.inetum.realdolmen.realjobs.entities.*;
-import world.inetum.realdolmen.realjobs.entities.enums.FunctionCategory;
-import world.inetum.realdolmen.realjobs.entities.enums.Industry;
-import world.inetum.realdolmen.realjobs.entities.enums.ResumeStatus;
-import world.inetum.realdolmen.realjobs.entities.enums.SkillLevel;
+import world.inetum.realdolmen.realjobs.entities.enums.*;
 import world.inetum.realdolmen.realjobs.payload.dtos.*;
 import world.inetum.realdolmen.realjobs.payload.security.LoginRequest;
 
@@ -101,7 +98,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
                         jsonPath("$.educationList").isArray(),
                         jsonPath("$.educationList").isNotEmpty(),
                         jsonPath("$.educationList.length()", is(2)),
-                        jsonPath("$.educationList[*].degree", containsInAnyOrder("Masters", "Bachelors")),
+                        jsonPath("$.educationList[*].degree", containsInAnyOrder(Degree.MASTER.toString(), Degree.BACHELOR.toString())),
                         jsonPath("$.educationList[*].program", containsInAnyOrder("Applied Engineering", "Applied Engineering")),
                         jsonPath("$.educationList[*].school", containsInAnyOrder("UA", "UA")),
                         jsonPath("$.educationList[*].startDate", containsInAnyOrder("2020-09-21", "2017-09-21")),
@@ -384,7 +381,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
             List<EducationCreateDto> educationDtoList = new ArrayList<>();
 
             EducationCreateDto educationDto1 = new EducationCreateDto();
-            educationDto1.setDegree("Masters");
+            educationDto1.setDegree(Degree.MASTER);
             educationDto1.setDescription("Desc1");
             educationDto1.setProgram("Applied Engineering");
             educationDto1.setSchool("UA");
@@ -393,7 +390,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
             educationDtoList.add(educationDto1);
 
             EducationCreateDto educationDto2 = new EducationCreateDto();
-            educationDto2.setDegree("Bachelors");
+            educationDto2.setDegree(Degree.BACHELOR);
             educationDto2.setDescription("Desc2");
             educationDto2.setProgram("Applied Engineering");
             educationDto2.setSchool("UA");
@@ -414,7 +411,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
                             jsonPath("$").isArray(),
                             jsonPath("$").isNotEmpty(),
                             jsonPath("$.length()", is(1)),
-                            jsonPath("$[*].degree", containsInAnyOrder("Masters")),
+                            jsonPath("$[*].degree", containsInAnyOrder(Degree.MASTER.toString())),
                             jsonPath("$[*].program", containsInAnyOrder("Applied Engineering")),
                             jsonPath("$[*].school", containsInAnyOrder("UA")),
                             jsonPath("$[*].startDate", containsInAnyOrder("2020-09-21")),
@@ -426,7 +423,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
                             jsonPath("$").isArray(),
                             jsonPath("$").isNotEmpty(),
                             jsonPath("$.length()", is(2)),
-                            jsonPath("$[*].degree", containsInAnyOrder("Masters", "Bachelors")),
+                            jsonPath("$[*].degree", containsInAnyOrder(Degree.MASTER.toString(), Degree.BACHELOR.toString())),
                             jsonPath("$[*].program", containsInAnyOrder("Applied Engineering", "Applied Engineering")),
                             jsonPath("$[*].school", containsInAnyOrder("UA", "UA")),
                             jsonPath("$[*].startDate", containsInAnyOrder("2020-09-21", "2017-09-21")),
@@ -460,7 +457,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
 
             Long toRemove = educationList
                     .stream()
-                    .filter(i -> i.getDegree().equals("Bachelors"))
+                    .filter(i -> i.getDegree().equals(Degree.BACHELOR))
                     .toList()
                     .get(0)
                     .getId();
@@ -473,7 +470,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
                             jsonPath("$").isArray(),
                             jsonPath("$").isNotEmpty(),
                             jsonPath("$.length()", is(1)),
-                            jsonPath("$[*].degree", containsInAnyOrder("Masters")),
+                            jsonPath("$[*].degree", containsInAnyOrder(Degree.MASTER.toString())),
                             jsonPath("$[*].program", containsInAnyOrder("Applied Engineering")),
                             jsonPath("$[*].school", containsInAnyOrder("UA")),
                             jsonPath("$[*].startDate", containsInAnyOrder("2020-09-21")),
@@ -507,7 +504,7 @@ class ResumeControllerIT extends BaseIntegrationTest {
                             jsonPath("$").isArray(),
                             jsonPath("$").isNotEmpty(),
                             jsonPath("$.length()", is(2)),
-                            jsonPath("$[*].degree", containsInAnyOrder("Masters", "Bachelors")),
+                            jsonPath("$[*].degree", containsInAnyOrder(Degree.MASTER.toString(), Degree.BACHELOR.toString())),
                             jsonPath("$[*].program", containsInAnyOrder("Applied Engineering", "Applied Engineering")),
                             jsonPath("$[*].school", containsInAnyOrder("UA", "UA")),
                             jsonPath("$[*].startDate", containsInAnyOrder("2020-09-21", "2017-09-21")),

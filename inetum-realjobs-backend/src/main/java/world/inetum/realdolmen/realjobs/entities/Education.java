@@ -1,8 +1,8 @@
 package world.inetum.realdolmen.realjobs.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import world.inetum.realdolmen.realjobs.entities.enums.Degree;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -12,9 +12,10 @@ import java.time.LocalDate;
 @Table(name = "Education")
 public class Education extends BaseModel {
 
-    @NotBlank
+    @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "degree", nullable = false)
-    private String degree;
+    private Degree degree;
 
     @Column(name = "program")
     private String program;
@@ -35,11 +36,11 @@ public class Education extends BaseModel {
     @Column(name = "description")
     private String description;
 
-    public String getDegree() {
+    public Degree getDegree() {
         return degree;
     }
 
-    public void setDegree(String degree) {
+    public void setDegree(Degree degree) {
         this.degree = degree;
     }
 

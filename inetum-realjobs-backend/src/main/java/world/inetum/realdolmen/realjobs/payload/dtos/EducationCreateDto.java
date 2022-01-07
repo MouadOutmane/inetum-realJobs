@@ -1,5 +1,7 @@
 package world.inetum.realdolmen.realjobs.payload.dtos;
 
+import world.inetum.realdolmen.realjobs.entities.enums.Degree;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -7,9 +9,10 @@ import java.time.LocalDate;
 
 public class EducationCreateDto {
 
-    @NotBlank
-    private String degree;
+    @NotNull
+    private Degree degree;
 
+    @NotBlank
     private String program;
 
     @NotBlank
@@ -26,11 +29,11 @@ public class EducationCreateDto {
 
     private String description;
 
-    public String getDegree() {
+    public Degree getDegree() {
         return degree;
     }
 
-    public void setDegree(String degree) {
+    public void setDegree(Degree degree) {
         this.degree = degree;
     }
 

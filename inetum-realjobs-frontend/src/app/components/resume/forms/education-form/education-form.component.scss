@@ -26,6 +26,10 @@
     width: 100%;
   }
 
+  ::ng-deep .p-dropdown {
+    width: 100%;
+  }
+
   .edu-deg-label {
     grid-area: edu-deg-label;
   }

@@ -6,6 +6,7 @@ import {MessageService} from "primeng/api";
 import {catchError, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import CustomValidators from "../../../../validators/CustomValidators";
+import {DEGREE_OPTIONS} from "../../../../models/degree.enum";
 
 @Component({
   selector: 'app-education-form',
@@ -18,6 +19,7 @@ export class EducationFormComponent implements OnInit {
   @Output() formCloseEvent = new EventEmitter<null>();
   @Output() educationUpdatedEvent = new EventEmitter<Education[]>();
 
+  degreeOptions = DEGREE_OPTIONS;
   educationForm: FormGroup;
   today: Date = new Date();
 
@@ -28,7 +30,7 @@ export class EducationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.educationForm = this.formBuilder.group({
-      degree: ["", [Validators.required]],
+      degree: [undefined, [Validators.required]],
       program: ["", [Validators.required]],
       school: ["", [Validators.required]],
       startDate: [undefined, [Validators.required, CustomValidators.dateInPastValidator()]],

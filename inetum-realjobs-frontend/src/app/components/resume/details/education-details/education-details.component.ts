@@ -1,5 +1,6 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Education} from "../../../../models/education";
+import {DEGREE_OPTIONS} from "../../../../models/degree.enum";
 
 @Component({
   selector: 'app-education-details',
@@ -15,5 +16,9 @@ export class EducationDetailsComponent {
 
   deleteItem() {
     this.deleteEvent.emit(this.education.id);
+  }
+
+  get degree(): string {
+    return DEGREE_OPTIONS.filter(i => i.value === this.education.degree)[0].name;
   }
 }
