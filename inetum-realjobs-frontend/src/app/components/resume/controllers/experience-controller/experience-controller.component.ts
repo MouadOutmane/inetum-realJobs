@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Experience} from "../../../../models/experience";
 
 @Component({
@@ -6,28 +6,22 @@ import {Experience} from "../../../../models/experience";
   templateUrl: './experience-controller.component.html',
   styleUrls: ['./experience-controller.component.scss']
 })
-export class ExperienceControllerComponent implements OnInit {
+export class ExperienceControllerComponent {
 
+  @Input() isFormOpen: boolean;
   @Input() experienceList: Experience[];
   @Output() experienceUpdatedEvent = new EventEmitter<Experience[]>();
-
-  isFormOpen: boolean = false;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
+  @Output() formChangeEvent = new EventEmitter<boolean>();
 
   updateExperience(experienceList: Experience[]) {
     this.experienceUpdatedEvent.emit(experienceList);
   }
 
   closeForm() {
-    this.isFormOpen = false;
+    this.formChangeEvent.emit(false);
   }
 
   openForm() {
-    this.isFormOpen = true;
+    this.formChangeEvent.emit(true);
   }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Skill} from "../../../../models/skill";
 
 @Component({
@@ -6,28 +6,22 @@ import {Skill} from "../../../../models/skill";
   templateUrl: './skill-controller.component.html',
   styleUrls: ['./skill-controller.component.scss']
 })
-export class SkillControllerComponent implements OnInit {
+export class SkillControllerComponent {
 
+  @Input() isFormOpen: boolean;
   @Input() skills: Skill[];
   @Output() skillUpdatedEvent = new EventEmitter<Skill[]>();
-
-  isFormOpen: boolean = false;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
+  @Output() formChangeEvent = new EventEmitter<boolean>();
 
   updateSkill(skillList: Skill[]) {
     this.skillUpdatedEvent.emit(skillList);
   }
 
   closeForm() {
-    this.isFormOpen = false;
+    this.formChangeEvent.emit(false);
   }
 
   openForm() {
-    this.isFormOpen = true;
+    this.formChangeEvent.emit(true);
   }
 }

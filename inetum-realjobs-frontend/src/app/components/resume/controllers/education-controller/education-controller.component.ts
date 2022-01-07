@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Education} from "../../../../models/education";
 
 @Component({
@@ -6,28 +6,22 @@ import {Education} from "../../../../models/education";
   templateUrl: './education-controller.component.html',
   styleUrls: ['./education-controller.component.scss']
 })
-export class EducationControllerComponent implements OnInit {
+export class EducationControllerComponent {
 
+  @Input() isFormOpen: boolean;
   @Input() educationList: Education[];
   @Output() educationUpdatedEvent = new EventEmitter<Education[]>();
-
-  isFormOpen: boolean = false;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
+  @Output() formChangeEvent = new EventEmitter<boolean>();
 
   updateEducation(educationList: Education[]) {
     this.educationUpdatedEvent.emit(educationList);
   }
 
   closeForm() {
-    this.isFormOpen = false;
+    this.formChangeEvent.emit(false);
   }
 
   openForm() {
-    this.isFormOpen = true;
+    this.formChangeEvent.emit(true);
   }
 }

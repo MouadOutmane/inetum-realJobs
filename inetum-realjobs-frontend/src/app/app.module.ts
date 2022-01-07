@@ -58,6 +58,7 @@ import {
 import {
   VacancyApplicationsTableComponent,
 } from "./components/applications/vacancy-applications-table/vacancy-applications-table.component";
+import {DialogModule} from "primeng/dialog";
 
 @NgModule({
   declarations: [
@@ -107,6 +108,7 @@ import {
     BrowserAnimationsModule,
     routing,
     PrimengImportsModule,
+    DialogModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},

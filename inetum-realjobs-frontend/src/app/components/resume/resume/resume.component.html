@@ -4,6 +4,8 @@
       [accountInfo]="resume.accountInfo"
       [status]="resume.status"
       (statusUpdatedEvent)="updateStatus($event)"
+      [isFormOpen]="openForms.experience"
+      (formChangeEvent)="$event ? openForm('status') : closeForm('status')"
     >
     </app-status-controller>
   </div>
@@ -12,6 +14,8 @@
     <app-summary-controller
       [summary]="resume.summary"
       (summaryUpdatedEvent)="updateSummary($event)"
+      [isFormOpen]="openForms.summary"
+      (formChangeEvent)="$event ? openForm('summary') : closeForm('summary')"
     >
     </app-summary-controller>
   </div>
@@ -20,6 +24,8 @@
     <app-experience-controller
       [experienceList]="resume.experienceList"
       (experienceUpdatedEvent)="updateExperience($event)"
+      [isFormOpen]="openForms.experience"
+      (formChangeEvent)="$event ? openForm('experience') : closeForm('experience')"
     >
     </app-experience-controller>
   </div>
@@ -28,6 +34,8 @@
     <app-education-controller
       [educationList]="resume.educationList"
       (educationUpdatedEvent)="updateEducation($event)"
+      [isFormOpen]="openForms.education"
+      (formChangeEvent)="$event ? openForm('education') : closeForm('education')"
     >
     </app-education-controller>
   </div>
@@ -36,6 +44,8 @@
     <app-skill-controller
       [skills]="resume.skills"
       (skillUpdatedEvent)="updateSkills($event)"
+      [isFormOpen]="openForms.skill"
+      (formChangeEvent)="$event ? openForm('skill') : closeForm('skill')"
     >
     </app-skill-controller>
   </div>
@@ -44,6 +54,8 @@
     <app-language-controller
       [languages]="resume.languages"
       (languageUpdatedEvent)="updateLanguage($event)"
+      [isFormOpen]="openForms.language"
+      (formChangeEvent)="$event ? openForm('language') : closeForm('language')"
     >
     </app-language-controller>
   </div>
@@ -55,3 +67,9 @@
 </ng-template>
 
 <p-confirmDialog></p-confirmDialog>
+<p-dialog header="Open another form" [(visible)]="openFormMessage">
+  <p>Please close the {{getOpenedFormName()}} form before opening another.</p>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="openFormMessage=false" label="Ok" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>
