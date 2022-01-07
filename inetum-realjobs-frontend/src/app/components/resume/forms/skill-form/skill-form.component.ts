@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {SkillLevel} from "../../../../models/skillLevel.enum";
+import {SKILL_LEVEL_OPTIONS} from "../../../../models/skillLevel.enum";
 import {Skill} from "../../../../models/skill";
 import {ResumeService} from "../../../../services/resume.service";
 import {MessageService} from "primeng/api";
@@ -20,13 +20,11 @@ export class SkillFormComponent implements OnInit {
   @Output() skillsUpdatedEvent = new EventEmitter<Skill[]>();
 
   skillForm: FormGroup;
-  skillLevelOptions: SkillLevel[];
+  skillLevelOptions = SKILL_LEVEL_OPTIONS;
 
   constructor(private resumeService: ResumeService,
               private messageService: MessageService,
               private formBuilder: FormBuilder) {
-    this.skillLevelOptions = Object.keys(SkillLevel) as SkillLevel[];
-    this.skills = [];
   }
 
   ngOnInit(): void {
