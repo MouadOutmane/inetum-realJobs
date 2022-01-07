@@ -1,14 +1,17 @@
 package world.inetum.realdolmen.realjobs.payload.dtos;
 
+import world.inetum.realdolmen.realjobs.entities.enums.FunctionCategory;
+import world.inetum.realdolmen.realjobs.entities.enums.Industry;
+
 import java.time.LocalDate;
 
 public class ExperienceReadDto {
 
     private Long id;
     private String jobTitle;
-    private String functionCategory;
+    private FunctionCategory functionCategory;
     private String company;
-    private String industry;
+    private Industry industry;
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean currentJob;
@@ -30,11 +33,11 @@ public class ExperienceReadDto {
         this.jobTitle = jobTitle;
     }
 
-    public String getFunctionCategory() {
+    public FunctionCategory getFunctionCategory() {
         return functionCategory;
     }
 
-    public void setFunctionCategory(String functionCategory) {
+    public void setFunctionCategory(FunctionCategory functionCategory) {
         this.functionCategory = functionCategory;
     }
 
@@ -46,11 +49,11 @@ public class ExperienceReadDto {
         this.company = company;
     }
 
-    public String getIndustry() {
+    public Industry getIndustry() {
         return industry;
     }
 
-    public void setIndustry(String industry) {
+    public void setIndustry(Industry industry) {
         this.industry = industry;
     }
 

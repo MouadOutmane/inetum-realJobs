@@ -98,12 +98,15 @@
         >
         </p-checkbox>
         <label class="exp-i-label">Industry</label>
-        <input
-          class="exp-i-input"
+        <p-dropdown
+          [options]="industryOptions"
+          optionLabel="name"
+          optionValue="value"
           formControlName="industry"
-          pInputText
+          placeholder="Select an industry"
           [ngClass]="{'exp-i-input': true, 'ng-invalid ng-dirty' : isInvalid('industry')}"
         >
+        </p-dropdown>
         <div
           class="exp-i-error"
         >
@@ -115,11 +118,15 @@
           </small>
         </div>
         <label class="exp-cat-label">Category</label>
-        <input
+        <p-dropdown
+          [options]="functionCategoryOptions"
+          optionLabel="name"
+          optionValue="value"
           formControlName="functionCategory"
-          pInputText
+          placeholder="Select a category"
           [ngClass]="{'exp-cat-input': true, 'ng-invalid ng-dirty' : isInvalid('functionCategory')}"
         >
+        </p-dropdown>
         <div
           class="exp-cat-error"
         >

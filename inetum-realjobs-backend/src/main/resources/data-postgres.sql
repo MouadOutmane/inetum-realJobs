@@ -532,12 +532,14 @@ INSERT INTO public.experience (id, changed_by, changed_on, created_by, created_o
 VALUES (4, 'user@user.user', '2021-12-28 09:10:40.864333', 'user@user.user', '2021-12-28 09:10:40.864333', 0, 'VDAB',
         false,
         'I trained at Inetum-Realdolmen in their acADDemICTs program with an IBO contract. I believe this made me a better developer.',
-        '2021-11-30', 'Consultancy', 'IT', 'Trainee', '2021-08-31', 1);
+        '2021-11-30', 'EDUCATION_AND_TRAINING', 'COMPUTER', 'Trainee', '2021-08-31', 1);
 INSERT INTO public.experience (id, changed_by, changed_on, created_by, created_on, version, company, current_job,
                                description,
                                end_date, function_category, industry, job_title, start_date, resume_id)
 VALUES (5, 'user@user.user', '2021-12-28 09:11:53.535877', 'user@user.user', '2021-12-28 09:11:53.535877', 0,
-        'Inetum-Realdolmen', true, null, null, 'Consultancy', 'IT', 'Junior Java consultant', '2021-11-30', 1);
+        'Inetum-Realdolmen', true, 'This was my first job.', null, 'IT_AND_TELECOMMUNICATIONS', 'COMPUTER',
+        'Junior Java consultant',
+        '2021-11-30', 1);
 ALTER SEQUENCE experience_id_seq RESTART WITH 3;
 -- Education
 INSERT INTO public.education (id, changed_by, changed_on, created_by, created_on, version, degree, description,

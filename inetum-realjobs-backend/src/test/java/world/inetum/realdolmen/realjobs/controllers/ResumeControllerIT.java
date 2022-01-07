@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import world.inetum.realdolmen.realjobs.BaseIntegrationTest;
 import world.inetum.realdolmen.realjobs.InetumRealJobsApplication;
 import world.inetum.realdolmen.realjobs.entities.*;
+import world.inetum.realdolmen.realjobs.entities.enums.FunctionCategory;
+import world.inetum.realdolmen.realjobs.entities.enums.Industry;
 import world.inetum.realdolmen.realjobs.entities.enums.ResumeStatus;
 import world.inetum.realdolmen.realjobs.entities.enums.SkillLevel;
 import world.inetum.realdolmen.realjobs.payload.dtos.*;
@@ -109,9 +111,9 @@ class ResumeControllerIT extends BaseIntegrationTest {
                         jsonPath("$.experienceList").isNotEmpty(),
                         jsonPath("$.experienceList.length()", is(2)),
                         jsonPath("$.experienceList[*].jobTitle", containsInAnyOrder("Junior Java consultant", "Junior Java consultant")),
-                        jsonPath("$.experienceList[*].functionCategory", containsInAnyOrder("Software consultant", "Trainee")),
+                        jsonPath("$.experienceList[*].functionCategory", containsInAnyOrder(FunctionCategory.IT_AND_TELECOMMUNICATIONS.toString(), FunctionCategory.EDUCATION_AND_TRAINING.toString())),
                         jsonPath("$.experienceList[*].company", containsInAnyOrder("Inetum-Realdolmen", "VDAB")),
-                        jsonPath("$.experienceList[*].industry", containsInAnyOrder("IT", "IT")),
+                        jsonPath("$.experienceList[*].industry", containsInAnyOrder(Industry.COMPUTER.toString(), Industry.COMPUTER.toString())),
                         jsonPath("$.experienceList[*].startDate", containsInAnyOrder("2021-12-01", "2021-09-01")),
                         jsonPath("$.experienceList[*].endDate", containsInAnyOrder(null, "2021-12-01")),
                         jsonPath("$.experienceList[*].currentJob", containsInAnyOrder(true, false)),
@@ -535,8 +537,8 @@ class ResumeControllerIT extends BaseIntegrationTest {
             experienceDto1.setDescription("Desc1");
             experienceDto1.setCurrentJob(true);
             experienceDto1.setStartDate(LocalDate.of(2021, 12, 1));
-            experienceDto1.setFunctionCategory("Software consultant");
-            experienceDto1.setIndustry("IT");
+            experienceDto1.setFunctionCategory(FunctionCategory.IT_AND_TELECOMMUNICATIONS);
+            experienceDto1.setIndustry(Industry.COMPUTER);
             experienceDto1.setJobTitle("Junior Java consultant");
             experienceDtoList.add(experienceDto1);
 
@@ -546,8 +548,8 @@ class ResumeControllerIT extends BaseIntegrationTest {
             experienceDto2.setCurrentJob(false);
             experienceDto2.setStartDate(LocalDate.of(2021, 9, 1));
             experienceDto2.setEndDate(LocalDate.of(2021, 12, 1));
-            experienceDto2.setFunctionCategory("Trainee");
-            experienceDto2.setIndustry("IT");
+            experienceDto2.setFunctionCategory(FunctionCategory.EDUCATION_AND_TRAINING);
+            experienceDto2.setIndustry(Industry.COMPUTER);
             experienceDto2.setJobTitle("Junior Java consultant");
             experienceDtoList.add(experienceDto2);
 
@@ -565,9 +567,9 @@ class ResumeControllerIT extends BaseIntegrationTest {
                             jsonPath("$").isNotEmpty(),
                             jsonPath("$.length()", is(1)),
                             jsonPath("$[0].jobTitle", is("Junior Java consultant")),
-                            jsonPath("$[0].functionCategory", is("Software consultant")),
+                            jsonPath("$[0].functionCategory", is(FunctionCategory.IT_AND_TELECOMMUNICATIONS.toString())),
                             jsonPath("$[0].company", is("Inetum-Realdolmen")),
-                            jsonPath("$[0].industry", is("IT")),
+                            jsonPath("$[0].industry", is(Industry.COMPUTER.toString())),
                             jsonPath("$[0].startDate", is("2021-12-01")),
                             jsonPath("$[0].endDate", nullValue()),
                             jsonPath("$[0].currentJob", is(true)),
@@ -579,9 +581,9 @@ class ResumeControllerIT extends BaseIntegrationTest {
                             jsonPath("$").isNotEmpty(),
                             jsonPath("$.length()", is(2)),
                             jsonPath("$[*].jobTitle", containsInAnyOrder("Junior Java consultant", "Junior Java consultant")),
-                            jsonPath("$[*].functionCategory", containsInAnyOrder("Software consultant", "Trainee")),
+                            jsonPath("$[*].functionCategory", containsInAnyOrder(FunctionCategory.IT_AND_TELECOMMUNICATIONS.toString(), FunctionCategory.EDUCATION_AND_TRAINING.toString())),
                             jsonPath("$[*].company", containsInAnyOrder("Inetum-Realdolmen", "VDAB")),
-                            jsonPath("$[*].industry", containsInAnyOrder("IT", "IT")),
+                            jsonPath("$[*].industry", containsInAnyOrder(Industry.COMPUTER.toString(), Industry.COMPUTER.toString())),
                             jsonPath("$[*].startDate", containsInAnyOrder("2021-12-01", "2021-09-01")),
                             jsonPath("$[*].endDate", containsInAnyOrder(null, "2021-12-01")),
                             jsonPath("$[*].currentJob", containsInAnyOrder(true, false)),
@@ -628,9 +630,9 @@ class ResumeControllerIT extends BaseIntegrationTest {
                             jsonPath("$").isNotEmpty(),
                             jsonPath("$.length()", is(1)),
                             jsonPath("$[0].jobTitle", is("Junior Java consultant")),
-                            jsonPath("$[0].functionCategory", is("Software consultant")),
+                            jsonPath("$[0].functionCategory", is(FunctionCategory.IT_AND_TELECOMMUNICATIONS.toString())),
                             jsonPath("$[0].company", is("Inetum-Realdolmen")),
-                            jsonPath("$[0].industry", is("IT")),
+                            jsonPath("$[0].industry", is(Industry.COMPUTER.toString())),
                             jsonPath("$[0].startDate", is("2021-12-01")),
                             jsonPath("$[0].endDate", nullValue()),
                             jsonPath("$[0].currentJob", is(true)),
@@ -664,9 +666,9 @@ class ResumeControllerIT extends BaseIntegrationTest {
                             jsonPath("$").isNotEmpty(),
                             jsonPath("$.length()", is(2)),
                             jsonPath("$[*].jobTitle", containsInAnyOrder("Junior Java consultant", "Junior Java consultant")),
-                            jsonPath("$[*].functionCategory", containsInAnyOrder("Software consultant", "Trainee")),
+                            jsonPath("$[*].functionCategory", containsInAnyOrder(FunctionCategory.IT_AND_TELECOMMUNICATIONS.toString(), FunctionCategory.EDUCATION_AND_TRAINING.toString())),
                             jsonPath("$[*].company", containsInAnyOrder("Inetum-Realdolmen", "VDAB")),
-                            jsonPath("$[*].industry", containsInAnyOrder("IT", "IT")),
+                            jsonPath("$[*].industry", containsInAnyOrder(Industry.COMPUTER.toString(), Industry.COMPUTER.toString())),
                             jsonPath("$[*].startDate", containsInAnyOrder("2021-12-01", "2021-09-01")),
                             jsonPath("$[*].endDate", containsInAnyOrder(null, "2021-12-01")),
                             jsonPath("$[*].currentJob", containsInAnyOrder(true, false)),

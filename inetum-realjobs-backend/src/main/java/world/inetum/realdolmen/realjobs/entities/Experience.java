@@ -1,8 +1,9 @@
 package world.inetum.realdolmen.realjobs.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import world.inetum.realdolmen.realjobs.entities.enums.FunctionCategory;
+import world.inetum.realdolmen.realjobs.entities.enums.Industry;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -16,15 +17,19 @@ public class Experience extends BaseModel {
     @Column(name = "job_title", nullable = false)
     private String jobTitle;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "function_category")
-    private String functionCategory;
+    private FunctionCategory functionCategory;
 
     @NotBlank
     @Column(name = "company", nullable = false)
     private String company;
 
-    @Column(name = "industry")
-    private String industry;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "industry", nullable = false)
+    private Industry industry;
 
     @NotNull
     @Past
@@ -37,6 +42,7 @@ public class Experience extends BaseModel {
     @Column(name = "current_job")
     private boolean currentJob;
 
+    @NotBlank
     @Column(name = "description")
     private String description;
 
@@ -48,11 +54,11 @@ public class Experience extends BaseModel {
         this.jobTitle = jobTitle;
     }
 
-    public String getFunctionCategory() {
+    public FunctionCategory getFunctionCategory() {
         return functionCategory;
     }
 
-    public void setFunctionCategory(String functionCategory) {
+    public void setFunctionCategory(FunctionCategory functionCategory) {
         this.functionCategory = functionCategory;
     }
 
@@ -64,11 +70,11 @@ public class Experience extends BaseModel {
         this.company = company;
     }
 
-    public String getIndustry() {
+    public Industry getIndustry() {
         return industry;
     }
 
-    public void setIndustry(String industry) {
+    public void setIndustry(Industry industry) {
         this.industry = industry;
     }
 
@@ -106,16 +112,6 @@ public class Experience extends BaseModel {
 
     @Override
     public String toString() {
-        return "Experience{" +
-                "id=" + getId() +
-                ", jobTitle='" + jobTitle + '\'' +
-                ", functionCategory='" + functionCategory + '\'' +
-                ", company='" + company + '\'' +
-                ", industry='" + industry + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", currentJob=" + currentJob +
-                ", description='" + description + '\'' +
-                '}';
+        return "Experience{" + "id=" + getId() + ", jobTitle='" + jobTitle + '\'' + ", functionCategory='" + functionCategory + '\'' + ", company='" + company + '\'' + ", industry='" + industry + '\'' + ", startDate=" + startDate + ", endDate=" + endDate + ", currentJob=" + currentJob + ", description='" + description + '\'' + '}';
     }
 }

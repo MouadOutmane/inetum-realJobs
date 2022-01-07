@@ -31,6 +31,10 @@
     width: 100%;
   }
 
+  ::ng-deep .p-dropdown {
+    width: 100%;
+  }
+
   .exp-jt-label {
     grid-area: jt-label;
   }

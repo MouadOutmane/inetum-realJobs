@@ -6,6 +6,8 @@ import {ResumeService} from "../../../../services/resume.service";
 import {catchError, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import CustomValidators from "../../../../validators/CustomValidators";
+import {INDUSTRY_OPTIONS} from "../../../../models/industry.enum";
+import {FUNCTION_CATEGORY_OPTIONS} from "../../../../models/functionCategory.enum";
 
 @Component({
   selector: "app-experience-form",
@@ -20,6 +22,8 @@ export class ExperienceFormComponent implements OnInit {
 
   experienceForm: FormGroup;
   today: Date = new Date();
+  industryOptions = INDUSTRY_OPTIONS;
+  functionCategoryOptions = FUNCTION_CATEGORY_OPTIONS;
 
   constructor(private resumeService: ResumeService,
               private messageService: MessageService,
@@ -35,7 +39,7 @@ export class ExperienceFormComponent implements OnInit {
       startDate: [undefined, [Validators.required, CustomValidators.dateInPastValidator()]],
       endDate: [undefined, [CustomValidators.dateInPastValidator()]],
       currentJob: [false],
-      description: [""],
+      description: ["", [Validators.required]],
     }, {
       validators: CustomValidators.date1AfterDate2Validator("endDate", "startDate")
     });
