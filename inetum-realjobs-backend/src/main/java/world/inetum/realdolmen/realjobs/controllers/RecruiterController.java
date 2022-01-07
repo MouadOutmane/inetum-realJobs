@@ -23,6 +23,7 @@ public class RecruiterController {
     private final VacancyService vacancyService;
     private final RecruiterService recruiterService;
     private Integer amountOfApplicants;
+    private String fullRecruiterName;
 
     @Autowired
     public RecruiterController(VacancyService vacancyService, RecruiterService recruiterService) {
@@ -30,6 +31,7 @@ public class RecruiterController {
         this.recruiterService = recruiterService;
     }
 
+    // TODO: add test for controller
     @GetMapping
     @RolesAllowed("RECRUITER")
     public ResponseEntity<List<RecruiterOverviewDto>> findAllVacancies() {
@@ -46,8 +48,8 @@ public class RecruiterController {
                             dto.setFunctionTitle(vacancy.getFunctionTitle());
                             dto.setPostedOn(vacancy.getCreatedOn());
                             dto.setRecruiterId(vacancy.getRecruiter().getId());
-//                    TODO - update using method calls
-                            dto.setRecruiterFullName("Replace This");
+                            fullRecruiterName = recruiterService.getFullRecruiterName(vacancy);
+                            dto.setRecruiterFullName(fullRecruiterName);
                             amountOfApplicants = recruiterService.getAmountOfApplicants(vacancy.getId());
                             dto.setAmountOfApplicants(amountOfApplicants);
                             return dto;

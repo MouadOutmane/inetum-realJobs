@@ -30,4 +30,15 @@ public class RecruiterService {
         return applicationService.getAmountOfApplicants(vacancyId);
     }
 
+    public String getFullUserName() {
+        String fullUserName = securityService.getCurrentUser().getFirstName() + " "
+                + securityService.getCurrentUser().getLastName();
+        return fullUserName;
+    }
+
+    public String getFullRecruiterName(Vacancy vacancy) {
+        String fullRecruiterName = vacancy.getRecruiter().getFirstName() + " " + vacancy.getRecruiter().getLastName();
+        return fullRecruiterName;
+    }
+
 }
