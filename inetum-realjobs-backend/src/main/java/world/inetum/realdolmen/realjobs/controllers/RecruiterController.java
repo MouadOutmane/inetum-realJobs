@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import world.inetum.realdolmen.realjobs.entities.Vacancy;
 import world.inetum.realdolmen.realjobs.payload.dtos.RecruiterOverviewDto;
-import world.inetum.realdolmen.realjobs.repositories.RecruiterRepository;
+import world.inetum.realdolmen.realjobs.services.RecruiterService;
 import world.inetum.realdolmen.realjobs.services.VacancyService;
 
 import javax.annotation.security.RolesAllowed;
@@ -21,18 +21,19 @@ import java.util.List;
 @RequestMapping("/api/recruiters")
 public class RecruiterController {
     private final VacancyService vacancyService;
-    private final RecruiterRepository recruiterRepository;
+    private final RecruiterService recruiterService;
+    private Integer amountOfApplicants;
 
     @Autowired
-    public RecruiterController(VacancyService vacancyService, RecruiterRepository recruiterRepository) {
+    public RecruiterController(VacancyService vacancyService, RecruiterService recruiterService) {
         this.vacancyService = vacancyService;
-        this.recruiterRepository = recruiterRepository;
+        this.recruiterService = recruiterService;
     }
 
     @GetMapping
     @RolesAllowed("RECRUITER")
     public ResponseEntity<List<RecruiterOverviewDto>> findAllVacancies() {
-        List<Vacancy> allVacancies = vacancyService.findAll();
+        List<Vacancy> allVacancies = recruiterService.findAll();
         if (allVacancies == null || allVacancies.isEmpty()) {
             return new ResponseEntity<>(Collections.emptyList(), HttpStatus.NO_CONTENT);
         }
@@ -47,7 +48,8 @@ public class RecruiterController {
                             dto.setRecruiterId(vacancy.getRecruiter().getId());
 //                    TODO - update using method calls
                             dto.setRecruiterFullName("Replace This");
-                            dto.setAmountOfApplicants(0);
+                            amountOfApplicants = recruiterService.getAmountOfApplicants(vacancy.getId());
+                            dto.setAmountOfApplicants(amountOfApplicants);
                             return dto;
                         }
                 ).toList();

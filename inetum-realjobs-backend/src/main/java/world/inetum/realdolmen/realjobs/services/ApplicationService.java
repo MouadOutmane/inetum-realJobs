@@ -44,4 +44,8 @@ public class ApplicationService {
         return applicationRepository.save(application);
     }
 
+    public Integer getAmountOfApplicants(Long vacancyId) {
+        return applicationRepository.countApplicationsByVacancy_Id(vacancyId);
+    }
+
 }
