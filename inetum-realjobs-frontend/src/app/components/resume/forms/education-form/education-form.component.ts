@@ -15,6 +15,7 @@ import {DEGREE_OPTIONS} from "../../../../models/degree.enum";
 })
 export class EducationFormComponent implements OnInit {
 
+  @Input() dob: Date;
   @Input() educationList: Education[];
   @Output() formCloseEvent = new EventEmitter<null>();
   @Output() educationUpdatedEvent = new EventEmitter<Education[]>();
@@ -22,6 +23,7 @@ export class EducationFormComponent implements OnInit {
   degreeOptions = DEGREE_OPTIONS;
   educationForm: FormGroup;
   today: Date = new Date();
+  birthDate: Date = undefined;
 
   constructor(private resumeService: ResumeService,
               private messageService: MessageService,
@@ -39,6 +41,9 @@ export class EducationFormComponent implements OnInit {
     }, {
       validators: CustomValidators.date1AfterDate2Validator("endDate", "startDate")
     });
+    if (this.dob !== undefined) {
+      this.birthDate = new Date(this.dob);
+    }
   }
 
   submitForm() {
@@ -128,6 +133,14 @@ export class EducationFormComponent implements OnInit {
   }
 
   get maxStartDate() {
-    return this.today > this.endDate ? this.today : this.endDate;
+    return this.today;
+  }
+
+  get minStartDate() {
+    return this.birthDate;
+  }
+
+  get minEndDate() {
+    return this.startDate > this.birthDate ? this.startDate : this.birthDate;
   }
 }

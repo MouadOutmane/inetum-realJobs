@@ -1,5 +1,6 @@
 <div *ngIf="isFormOpen; else experienceDetails">
   <app-experience-form
+    [dob]="dob"
     [experienceList]="experienceList"
     (formCloseEvent)="closeForm()"
     (experienceUpdatedEvent)="updateExperience($event)"

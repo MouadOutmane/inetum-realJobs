@@ -9,6 +9,7 @@ import {Education} from "../../../../models/education";
 export class EducationControllerComponent {
 
   @Input() isFormOpen: boolean;
+  @Input() dob: Date;
   @Input() educationList: Education[];
   @Output() educationUpdatedEvent = new EventEmitter<Education[]>();
   @Output() formChangeEvent = new EventEmitter<boolean>();

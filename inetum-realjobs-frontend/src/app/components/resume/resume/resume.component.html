@@ -22,6 +22,7 @@
 
   <div class="resume-experience">
     <app-experience-controller
+      [dob]="resume.accountInfo.dateOfBirth"
       [experienceList]="resume.experienceList"
       (experienceUpdatedEvent)="updateExperience($event)"
       [isFormOpen]="openForms.experience"
@@ -32,6 +33,7 @@
 
   <div class="resume-education">
     <app-education-controller
+      [dob]="resume.accountInfo.dateOfBirth"
       [educationList]="resume.educationList"
       (educationUpdatedEvent)="updateEducation($event)"
       [isFormOpen]="openForms.education"

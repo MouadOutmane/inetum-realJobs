@@ -78,7 +78,8 @@
           [showIcon]="true"
           formControlName="startDate"
           dateFormat="dd-mm-yy"
-          [maxDate]="today"
+          [minDate]="minStartDate"
+          [maxDate]="maxStartDate"
           [ngClass]="{'edu-sd-input': true, 'ng-invalid ng-dirty' : isInvalid('startDate')}">
         </p-calendar>
         <div
@@ -96,7 +97,7 @@
           [showIcon]="true"
           formControlName="endDate"
           dateFormat="dd-mm-yy"
-          [minDate]="startDate"
+          [minDate]="minEndDate"
           [ngClass]="{'edu-ed-input': true, 'ng-invalid ng-dirty' : isInvalid('endDate')}">
         </p-calendar>
         <div

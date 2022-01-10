@@ -9,6 +9,7 @@ import {Experience} from "../../../../models/experience";
 export class ExperienceControllerComponent {
 
   @Input() isFormOpen: boolean;
+  @Input() dob: Date;
   @Input() experienceList: Experience[];
   @Output() experienceUpdatedEvent = new EventEmitter<Experience[]>();
   @Output() formChangeEvent = new EventEmitter<boolean>();

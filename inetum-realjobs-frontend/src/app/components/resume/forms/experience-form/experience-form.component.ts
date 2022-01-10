@@ -16,12 +16,14 @@ import {FUNCTION_CATEGORY_OPTIONS} from "../../../../models/functionCategory.enu
 })
 export class ExperienceFormComponent implements OnInit {
 
+  @Input() dob: Date;
   @Input() experienceList: Experience[];
   @Output() formCloseEvent = new EventEmitter<null>();
   @Output() experienceUpdatedEvent = new EventEmitter<Experience[]>();
 
   experienceForm: FormGroup;
   today: Date = new Date();
+  birthDate: Date = undefined;
   industryOptions = INDUSTRY_OPTIONS;
   functionCategoryOptions = FUNCTION_CATEGORY_OPTIONS;
 
@@ -51,6 +53,9 @@ export class ExperienceFormComponent implements OnInit {
         this.experienceForm.get("endDate").enable();
       }
     });
+    if (this.dob !== undefined) {
+      this.birthDate = new Date(this.dob);
+    }
   }
 
   submitForm() {
@@ -117,14 +122,6 @@ export class ExperienceFormComponent implements OnInit {
     return "Invalid input!";
   }
 
-  isDateInPast(date: Date): boolean {
-    return this.isDateBefore(date, new Date());
-  }
-
-  isDateBefore(date1: Date, date2: Date): boolean {
-    return date1 < date2;
-  }
-
   get jobTitle() {
     return this.experienceForm.controls["jobTitle"].value;
   }
@@ -158,6 +155,14 @@ export class ExperienceFormComponent implements OnInit {
   }
 
   get maxStartDate() {
-    return this.today > this.endDate ? this.today : this.endDate;
+    return this.today;
+  }
+
+  get minStartDate() {
+    return this.birthDate;
+  }
+
+  get minEndDate() {
+    return this.startDate > this.birthDate ? this.startDate : this.birthDate;
   }
 }

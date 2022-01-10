@@ -1,5 +1,7 @@
 package world.inetum.realdolmen.realjobs.payload.dtos;
 
+import java.time.LocalDate;
+
 public class AccountResumeReadDto {
 
     private String email;
@@ -7,6 +9,7 @@ public class AccountResumeReadDto {
     private String lastName;
     private String mobilePhone;
     private String profilePicture;
+    private LocalDate dateOfBirth;
 
     public String getEmail() {
         return email;
@@ -46,5 +49,13 @@ public class AccountResumeReadDto {
 
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
