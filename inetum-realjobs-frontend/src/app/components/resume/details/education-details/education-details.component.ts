@@ -11,11 +11,18 @@ export class EducationDetailsComponent {
 
   @Input() education: Education;
 
-  @Input() deleteButton: boolean;
+  @Input() formMode: boolean;
   @Output() deleteEvent = new EventEmitter<number>();
+  @Output() editEvent = new EventEmitter<Education>();
 
   deleteItem() {
     this.deleteEvent.emit(this.education.id);
+  }
+
+  editItem() {
+    if (this.formMode) {
+      this.editEvent.emit(this.education);
+    }
   }
 
   get degree(): string {

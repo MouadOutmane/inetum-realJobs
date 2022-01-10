@@ -2,7 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {Education} from "../../../../models/education";
 import {ResumeService} from "../../../../services/resume.service";
-import {MessageService} from "primeng/api";
+import {MessageService, ConfirmationService} from "primeng/api";
 import {catchError, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import CustomValidators from "../../../../validators/CustomValidators";
@@ -24,9 +24,16 @@ export class EducationFormComponent implements OnInit {
   educationForm: FormGroup;
   today: Date = new Date();
   birthDate: Date = undefined;
+  editingData: { isEditing: boolean, id: number, version: number } = {
+    isEditing: false,
+    id: undefined,
+    version: undefined
+  };
+  openFormMessage = false;
 
   constructor(private resumeService: ResumeService,
               private messageService: MessageService,
+              private confirmationService: ConfirmationService,
               private formBuilder: FormBuilder) {
   }
 
@@ -46,15 +53,52 @@ export class EducationFormComponent implements OnInit {
     }
   }
 
+  editItem(education: Education) {
+    this.educationForm.get("degree").setValue(education.degree);
+    this.educationForm.get("program").setValue(education.program);
+    this.educationForm.get("school").setValue(education.school);
+    this.educationForm.get("startDate").setValue(new Date(education.startDate));
+    this.educationForm.get("endDate").setValue(new Date(education.endDate));
+    this.educationForm.get("description").setValue(education.description);
+    this.editingData = {
+      isEditing: true,
+      id: education.id,
+      version: education.version
+    }
+  }
+
+  cancelEdit() {
+    this.editingData = {
+      isEditing: false,
+      id: undefined,
+      version: undefined
+    }
+    this.educationForm.reset();
+  }
+
   submitForm() {
     if (this.educationForm.valid) {
-      this.resumeService
-        .addEducation(this.getFormData())
-        .pipe(catchError((err) => this.onError(err)))
-        .subscribe(educationList => {
-          this.educationUpdatedEvent.emit(educationList);
-          this.educationForm.reset();
-        });
+      if (this.editingData.isEditing) {
+        this.resumeService
+          .editEducation({
+            id: this.editingData.id,
+            version: this.editingData.version,
+            ...this.getFormData()
+          })
+          .pipe(catchError((err) => this.onError(err)))
+          .subscribe(educationList => {
+            this.educationUpdatedEvent.emit(educationList);
+            this.educationForm.reset();
+          });
+      } else {
+        this.resumeService
+          .addEducation(this.getFormData())
+          .pipe(catchError((err) => this.onError(err)))
+          .subscribe(educationList => {
+            this.educationUpdatedEvent.emit(educationList);
+            this.educationForm.reset();
+          });
+      }
     }
   }
 
@@ -65,6 +109,19 @@ export class EducationFormComponent implements OnInit {
 
   closeForm() {
     this.formCloseEvent.emit();
+  }
+
+  showDialog() {
+    this.openFormMessage = true;
+  }
+
+  confirm(index: number) {
+    this.confirmationService.confirm({
+      header: "You are about to delete an education",
+      message: "Are you sure you want to delete this education?",
+      icon: "pi pi-exclamation-triangle",
+      accept: () => this.deleteEducation(index)
+    });
   }
 
   deleteEducation(index: number) {

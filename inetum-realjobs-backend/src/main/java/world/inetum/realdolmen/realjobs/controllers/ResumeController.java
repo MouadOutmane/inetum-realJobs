@@ -83,6 +83,12 @@ public class ResumeController {
         return resumeService.addEducation(resumeMapper.toEntity(newEducation)).stream().map(resumeMapper::toDto).toList();
     }
 
+    @PostMapping("/education/edit")
+    @RolesAllowed("JOBSEEKER")
+    public List<EducationReadDto> editEducation(@Valid @RequestBody EducationEditDto educationEditDto) {
+        return resumeService.editEducation(resumeMapper.toEntity(educationEditDto)).stream().map(resumeMapper::toDto).toList();
+    }
+
     @DeleteMapping("/education/{id}")
     @RolesAllowed("JOBSEEKER")
     public List<EducationReadDto> removeEducation(@Valid @PathVariable("id") long id) {

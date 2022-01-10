@@ -2,17 +2,36 @@ package world.inetum.realdolmen.realjobs.payload.dtos;
 
 import world.inetum.realdolmen.realjobs.entities.enums.Degree;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
-public class EducationReadDto {
+public class EducationEditDto {
 
+    @NotNull
     private Long id;
+
     private int version;
+
+    @NotNull
     private Degree degree;
+
+    @NotBlank
     private String program;
+
+    @NotBlank
     private String school;
+
+    @NotNull
+    @Past
     private LocalDate startDate;
+
+    @NotNull
     private LocalDate endDate;
+
+    // TODO - add start before end validation
+
     private String description;
 
     public Long getId() {

@@ -443,15 +443,87 @@ class ResumeControllerIT extends BaseIntegrationTest {
 
         @Test
         @Transactional
-        void removeEducation() throws Exception {
+        void editEducation() throws Exception {
             Account account = createJobSeekerAndLogin();
             persistEducation(createEducationCreateDtoList().get(0));
-            String languages = persistEducation(createEducationCreateDtoList().get(1))
+            String educationString = persistEducation(createEducationCreateDtoList().get(1))
                     .andReturn()
                     .getResponse()
                     .getContentAsString();
 
-            List<Education> educationList = mapper.readValue(languages, new TypeReference<>() {
+            List<Education> educationList = mapper.readValue(educationString, new TypeReference<>() {
+            });
+
+            Long toEdit = educationList
+                    .stream()
+                    .filter(i -> i.getDegree().equals(Degree.MASTER))
+                    .toList()
+                    .get(0)
+                    .getId();
+
+            EducationEditDto editDto = new EducationEditDto();
+            editDto.setId(toEdit);
+            editDto.setDegree(Degree.PHD);
+            editDto.setDescription("Desc1 - edit");
+            editDto.setProgram("Applied Engineering 2");
+            editDto.setSchool("UA (NL)");
+            editDto.setStartDate(LocalDate.of(2020, 9, 22));
+            editDto.setEndDate(LocalDate.of(2021, 6, 29));
+
+            mockMvc.perform(
+                            post("/api/resume/education/edit")
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .content(asJsonString(editDto))
+                    )
+                    .andExpect(status().isOk())
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(2)),
+                            jsonPath("$[*].degree", containsInAnyOrder(Degree.PHD.toString(), Degree.BACHELOR.toString())),
+                            jsonPath("$[*].program", containsInAnyOrder("Applied Engineering 2", "Applied Engineering")),
+                            jsonPath("$[*].school", containsInAnyOrder("UA (NL)", "UA")),
+                            jsonPath("$[*].startDate", containsInAnyOrder("2020-09-22", "2017-09-21")),
+                            jsonPath("$[*].endDate", containsInAnyOrder("2021-06-29", "2020-06-30")),
+                            jsonPath("$[*].description", containsInAnyOrder("Desc1 - edit", "Desc2"))
+                    );
+
+            JobSeeker jobSeeker = em
+                    .createQuery("select j from JobSeeker j where j.id = :id", JobSeeker.class)
+                    .setParameter("id", account.getId())
+                    .getSingleResult();
+
+            Resume resume = jobSeeker.getResume();
+
+            assertNotNull(resume, "No resume found in the database");
+            assertEquals(2, resume.getEducationList().size(), "The amount of experience entries isn't the expected amount");
+
+            Education education = em
+                    .createQuery("select e from Education e where e.id = :id", Education.class)
+                    .setParameter("id", toEdit)
+                    .getSingleResult();
+
+            assertAll(
+                    () -> assertEquals("Applied Engineering 2", education.getProgram(), "The program wasn't edited"),
+                    () -> assertEquals("Desc1 - edit", education.getDescription(), "The description wasn't edited"),
+                    () -> assertEquals(LocalDate.of(2020, 9, 22), education.getStartDate(), "The start date wasn't edited"),
+                    () -> assertEquals(LocalDate.of(2021, 6, 29), education.getEndDate(), "The end date wasn't edited"),
+                    () -> assertEquals(Degree.PHD, education.getDegree(), "The degree category wasn't edited"),
+                    () -> assertEquals("UA (NL)", education.getSchool(), "The school wasn't edited")
+            );
+        }
+
+        @Test
+        @Transactional
+        void removeEducation() throws Exception {
+            Account account = createJobSeekerAndLogin();
+            persistEducation(createEducationCreateDtoList().get(0));
+            String educationString = persistEducation(createEducationCreateDtoList().get(1))
+                    .andReturn()
+                    .getResponse()
+                    .getContentAsString();
+
+            List<Education> educationList = mapper.readValue(educationString, new TypeReference<>() {
             });
 
             Long toRemove = educationList
@@ -508,7 +580,8 @@ class ResumeControllerIT extends BaseIntegrationTest {
                             jsonPath("$[*].school", containsInAnyOrder("UA", "UA")),
                             jsonPath("$[*].startDate", containsInAnyOrder("2020-09-21", "2017-09-21")),
                             jsonPath("$[*].endDate", containsInAnyOrder("2021-06-30", "2020-06-30")),
-                            jsonPath("$[*].description", containsInAnyOrder("Desc1", "Desc2"))
+                            jsonPath("$[*].description", containsInAnyOrder("Desc1", "Desc2")),
+                            jsonPath("$[*].version", containsInAnyOrder(0, 0))
                     );
         }
     }
@@ -597,18 +670,17 @@ class ResumeControllerIT extends BaseIntegrationTest {
             assertEquals(2, resume.getExperienceList().size(), "The amount of experience entries isn't the expected amount");
         }
 
-
         @Test
         @Transactional
         void editExperience() throws Exception {
             Account account = createJobSeekerAndLogin();
             persistExperience(createExperienceDtoList().get(0));
-            String languages = persistExperience(createExperienceDtoList().get(1))
+            String experienceString = persistExperience(createExperienceDtoList().get(1))
                     .andReturn()
                     .getResponse()
                     .getContentAsString();
 
-            List<Experience> experienceList = mapper.readValue(languages, new TypeReference<>() {
+            List<Experience> experienceList = mapper.readValue(experienceString, new TypeReference<>() {
             });
 
             Long toEdit = experienceList

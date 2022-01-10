@@ -126,7 +126,16 @@
           class="p-button p-mb-2"
           pButton
         >
-          Add education
+          <span *ngIf="!editingData.isEditing">Add education</span>
+          <span *ngIf="editingData.isEditing">Edit education</span>
+        </button>
+        <button
+          class="p-button p-mb-2"
+          pButton
+          *ngIf="editingData.isEditing"
+          (click)="cancelEdit()"
+        >
+          Cancel editing
         </button>
       </div>
     </div>
@@ -141,10 +150,18 @@
   </div>
 </p-card>
 
+<p-dialog header="Stop editing before deleting" [(visible)]="openFormMessage">
+  <p>Please stop editing before deleting this education.</p>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="openFormMessage=false" label="Ok" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>
+
 <ng-template #educationListComponent>
   <app-education-list
     [educationList]="educationList"
     [formMode]="true"
-    (deleteEvent)="deleteEducation($event)">
+    (deleteEvent)="confirm($event)"
+    (editEvent)="editItem($event)">
   </app-education-list>
 </ng-template>

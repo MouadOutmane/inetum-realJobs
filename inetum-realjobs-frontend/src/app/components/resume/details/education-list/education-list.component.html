@@ -3,8 +3,9 @@
     *ngFor="let edu of expanded ? (educationList | reverseArraySort:'startDate') : (educationList | reverseArraySort:'startDate' | slice:0:2)">
     <app-education-details
       [education]="edu"
-      [deleteButton]="formMode"
-      (deleteEvent)="confirm($event)">
+      [formMode]="formMode"
+      (deleteEvent)="deleteItem($event)"
+      (editEvent)="editItem($event)">
     </app-education-details>
   </div>
   <p-card *ngIf="!expanded && educationList.length > 2" class="expand-card">

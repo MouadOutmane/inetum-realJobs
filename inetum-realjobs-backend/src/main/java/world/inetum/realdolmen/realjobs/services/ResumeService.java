@@ -90,6 +90,23 @@ public class ResumeService {
         return resume.getEducationList();
     }
 
+    public List<Education> editEducation(Education editEducation) {
+        JobSeeker currentUserJs = securityService.getJobSeeker();
+        Resume resume = currentUserJs.getResume();
+        List<Education> educationList = resume.getEducationList();
+
+        for (int i = 0; i < educationList.size(); i++) {
+            if (educationList.get(i).getId().equals(editEducation.getId())) {
+                educationList.set(i, editEducation);
+                break;
+            }
+        }
+
+        accountRepository.save(currentUserJs);
+        logger.info("User {} edited education {}", currentUserJs.getId(), editEducation);
+        return resume.getEducationList();
+    }
+
     public List<Education> removeEducation(long id) {
         JobSeeker currentUserJs = securityService.getJobSeeker();
         Resume resume = currentUserJs.getResume();
@@ -127,7 +144,7 @@ public class ResumeService {
                 break;
             }
         }
-        
+
         accountRepository.save(currentUserJs);
         logger.info("User {} edited experience {}", currentUserJs.getId(), editExperience);
         return resume.getExperienceList();

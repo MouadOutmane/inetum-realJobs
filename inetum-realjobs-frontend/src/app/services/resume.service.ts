@@ -44,6 +44,10 @@ export class ResumeService {
     return this.http.post<Education[]>(baseUrl + "education", education);
   }
 
+  editEducation(education: Education): Observable<Education[]> {
+    return this.http.post<Education[]>(baseUrl + "education/edit", education);
+  }
+
   removeEducation(id: number): Observable<Education[]> {
     return this.http.delete<Education[]>(baseUrl + "education/" + id);
   }

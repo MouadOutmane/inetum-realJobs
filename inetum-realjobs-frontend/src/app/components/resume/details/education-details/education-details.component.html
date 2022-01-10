@@ -6,7 +6,7 @@
       >
         {{education.school}}
       </span>
-      <div *ngIf="deleteButton">
+      <div *ngIf="formMode">
         <button
           pButton
           pRipple
@@ -20,6 +20,7 @@
   </ng-template>
   <div
     class="education-content"
+    (click)="editItem()"
   >
     <span class="education-degree bold">{{degree}} {{education.program}}</span>
     <span class="bold">{{education.startDate}} - {{education.endDate}}</span>
