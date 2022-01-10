@@ -14,7 +14,8 @@
       <div *ngIf="!vacancies$">{{defaultMessage}}</div>
       <p-table [value]="vacancies$ | async" [columns]="columns" [scrollable]="true" scrollHeight="450px"
                styleClass="p-datatable-lg" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 30]"
-               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                selectionMode="single">
         <!--        TODO update page report-->
         <ng-template pTemplate="header">
           <tr>
@@ -42,14 +43,14 @@
             <!--            TODO: remove from display when done-->
             <td>{{vacancy["vacancyId"]}}</td>
             <td>
-              <a (click)="navigateToVacancy(vacancy['vacancyId'])" style="cursor: pointer">
+              <a (click)="navigateToVacancy(vacancy['vacancyId'])" class="custom">
                 {{vacancy["functionTitle"]}}
               </a>
             </td>
             <td>{{vacancy["postedOn"] | date: 'dd/MM/yy'}}</td>
             <td>{{vacancy["recruiterFullName"]}}</td>
             <td>
-              <a (click)="navigateToApplicants(vacancy['vacancyId'])" style="cursor: pointer">
+              <a (click)="navigateToApplicants(vacancy['vacancyId'])" class="custom">
                 {{vacancy["amountOfApplicants"]}}
               </a>
             </td>
