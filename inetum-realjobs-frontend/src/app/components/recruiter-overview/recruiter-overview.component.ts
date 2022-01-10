@@ -5,6 +5,7 @@ import {RecruiterService} from "../../services/recruiter.service";
 import {AuthenticationService} from "../../services/authentication.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {VacancyService} from "../../services/vacancy.service";
+import {SortEvent} from "primeng/api";
 
 @Component({
   selector: 'app-recruiter-overview',
@@ -18,9 +19,8 @@ export class RecruiterOverviewComponent implements OnInit {
   defaultMessage: string = "Your vacancies will appear here." +
     " Get started and post your first vacancy by clicking 'Post new vacancy'";
   first: number = 0;
-  rows: number = 10;
+  rows: number = 5;
   vacancies: RecruiterOverviewModel[] = [];
-  length: number = this.getArrayLength();
   username: string;
 
   constructor(private recruiterService: RecruiterService,
@@ -80,9 +80,25 @@ export class RecruiterOverviewComponent implements OnInit {
     return this.vacancies ? this.first === 0 : true;
   }
 
-  getArrayLength(): number {
-    this.recruiterService.getAllVacancies().subscribe(nuts => this.vacancies = nuts);
-    console.log('length = ' + this.vacancies.length);
-    return this.vacancies.length;
+  customSort(event: SortEvent) {
+    event.data.sort(
+      (data1, data2) => {
+        let value1 = data1[event.field];
+        let value2 = data2[event.field];
+        let result;
+        if (value1 == null && value2 != null) {
+          result = -1;
+        } else if (value1 != null && value2 == null) {
+          result = 1;
+        } else if (value1 == null && value2 == null) {
+          result = 0;
+        } else if (typeof value1 === 'string' && typeof  value2 === 'string') {
+          result = value1.localeCompare(value2);
+        } else {
+          result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+        }
+        return (event.order * result);
+      }
+    );
   }
 }

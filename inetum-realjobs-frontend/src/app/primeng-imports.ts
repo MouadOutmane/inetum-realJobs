@@ -28,6 +28,7 @@ import {AutoCompleteModule} from "primeng/autocomplete";
 import {ToolbarModule} from "primeng/toolbar";
 import {AvatarModule} from "primeng/avatar";
 import {BadgeModule} from "primeng/badge";
+import {PaginatorModule} from "primeng/paginator";
 
 const modules = [
   ButtonModule,
@@ -58,7 +59,8 @@ const modules = [
   AutoCompleteModule,
   ToolbarModule,
   AvatarModule,
-  BadgeModule
+  BadgeModule,
+  PaginatorModule
 ];
 
 @NgModule({
