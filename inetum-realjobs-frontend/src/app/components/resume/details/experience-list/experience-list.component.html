@@ -1,5 +1,6 @@
 <div class="experience-list-comp">
-  <div *ngFor="let exp of experienceList | reverseArraySort:'startDate'">
+  <div
+    *ngFor="let exp of expanded ? (experienceList | reverseArraySort:'startDate') : (experienceList | reverseArraySort:'startDate' | slice:0:2)">
     <app-experience-details
       [experience]="exp"
       [formMode]="formMode"
@@ -7,4 +8,16 @@
       (editEvent)="editItem($event)">
     </app-experience-details>
   </div>
+  <p-card *ngIf="!expanded && experienceList.length > 2" class="expand-card">
+    <div class="expand-button">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-plus-circle"
+        class="p-button-rounded p-button-text"
+        (click)="loadMore()">
+      </button>
+    </div>
+  </p-card>
 </div>

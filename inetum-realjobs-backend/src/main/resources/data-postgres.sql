@@ -529,18 +529,23 @@ ALTER SEQUENCE account_id_seq RESTART WITH 2;
 INSERT INTO public.experience (id, changed_by, changed_on, created_by, created_on, version, company, current_job,
                                description,
                                end_date, function_category, industry, job_title, start_date, resume_id)
-VALUES (4, 'user@user.user', '2021-12-28 09:10:40.864333', 'user@user.user', '2021-12-28 09:10:40.864333', 0, 'VDAB',
+VALUES (1, 'user@user.user', '2021-12-28 09:10:40.864333', 'user@user.user', '2021-12-28 09:10:40.864333', 0, 'VDAB',
         false,
         'I trained at Inetum-Realdolmen in their acADDemICTs program with an IBO contract. I believe this made me a better developer.',
         '2021-11-30', 'EDUCATION_AND_TRAINING', 'COMPUTER', 'Trainee', '2021-08-31', 1);
 INSERT INTO public.experience (id, changed_by, changed_on, created_by, created_on, version, company, current_job,
                                description,
                                end_date, function_category, industry, job_title, start_date, resume_id)
-VALUES (5, 'user@user.user', '2021-12-28 09:11:53.535877', 'user@user.user', '2021-12-28 09:11:53.535877', 0,
+VALUES (2, 'user@user.user', '2021-12-28 09:11:53.535877', 'user@user.user', '2021-12-28 09:11:53.535877', 0,
         'Inetum-Realdolmen', true, 'This was my first job.', null, 'IT_AND_TELECOMMUNICATIONS', 'COMPUTER',
-        'Junior Java consultant',
-        '2021-11-30', 1);
-ALTER SEQUENCE experience_id_seq RESTART WITH 3;
+        'Junior Java consultant', '2021-11-30', 1);
+INSERT INTO public.experience (id, changed_by, changed_on, created_by, created_on, version, company, current_job,
+                               description,
+                               end_date, function_category, industry, job_title, start_date, resume_id)
+VALUES (3, 'user@user.user', '2021-12-28 09:11:53.535877', 'user@user.user', '2021-12-28 09:11:53.535877', 0,
+        'BNPPF', false, 'This was my summer job.', '2018-08-31', 'BANKING_FINANCE_SERVICES_AND_INSURANCE',
+        'WORLD_WIDE_WEB', 'Summer job', '2018-08-01', 1);
+ALTER SEQUENCE experience_id_seq RESTART WITH 4;
 -- Education
 INSERT INTO public.education (id, changed_by, changed_on, created_by, created_on, version, degree, description,
                               end_date, program, school, start_date, resume_id)
