@@ -116,6 +116,10 @@ export class EducationFormComponent implements OnInit {
   }
 
   confirm(index: number) {
+    if (this.editingData.isEditing && this.editingData.id === index) {
+      this.showDialog();
+      return;
+    }
     this.confirmationService.confirm({
       header: "You are about to delete an education",
       message: "Are you sure you want to delete this education?",
