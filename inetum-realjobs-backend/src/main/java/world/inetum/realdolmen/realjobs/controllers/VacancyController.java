@@ -49,6 +49,7 @@ public class VacancyController {
                 .stream()
                 .map((vacancy) -> {
                     VacancyReadDto dto = new VacancyReadDto();
+                    dto.setId(vacancy.getId());
                     dto.setFunctionTitle(vacancy.getFunctionTitle());
                     dto.setContractType(vacancy.getContractType());
                     dto.setCity(vacancy.getAddress().getCity());

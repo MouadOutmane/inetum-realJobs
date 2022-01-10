@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {VacancyFilterFields} from "../../models/vacancy-filter-fields.model";
 import {VacancyService} from "../../services/vacancy.service";
 import {Vacancy} from "../../models/vacancy";
+import {Router} from "@angular/router";
 
 @Component({
   selector: "app-filter-form",
@@ -20,7 +21,7 @@ export class FilterFormComponent implements OnInit {
   };
   vacancies$: Observable<Vacancy[]>;
 
-  constructor(private vacancyService: VacancyService) {
+  constructor(private vacancyService: VacancyService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -32,6 +33,10 @@ export class FilterFormComponent implements OnInit {
 
   onSubmit() {
     this.getFilteredVacancies();
+  }
+
+  navigateToVacancy(id: number) {
+    this.router.navigate(['vacancy', id]);
   }
 
 }

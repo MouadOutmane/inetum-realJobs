@@ -50,7 +50,11 @@
     </thead>
     <tbody>
     <tr *ngFor="let vacancy of vacancies$|async">
-      <td>{{ vacancy.functionTitle}}</td>
+      <td>
+        <a (click)="navigateToVacancy(vacancy.id)">
+          {{ vacancy.functionTitle}}
+        </a>
+      </td>
       <td>{{ vacancy.contractType}}</td>
       <td>{{ vacancy.city}}</td>
       <td>{{ vacancy.offer}}</td>

@@ -3,6 +3,8 @@ import {Observable} from "rxjs";
 import {RecruiterOverviewModel} from "../../models/recruiter-overview.model";
 import {RecruiterService} from "../../services/recruiter.service";
 import {AuthenticationService} from "../../services/authentication.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {VacancyService} from "../../services/vacancy.service";
 
 @Component({
   selector: 'app-recruiter-overview',
@@ -21,7 +23,11 @@ export class RecruiterOverviewComponent implements OnInit {
   length: number = this.getArrayLength();
   username: string;
 
-  constructor(private recruiterService: RecruiterService, private auth: AuthenticationService) {
+  constructor(private recruiterService: RecruiterService,
+              private auth: AuthenticationService,
+              private activatedRoute: ActivatedRoute,
+              private vacancyService: VacancyService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -39,17 +45,19 @@ export class RecruiterOverviewComponent implements OnInit {
   getAllVacancies(): Observable<RecruiterOverviewModel[]> {
     this.vacancies$ = this.recruiterService.getAllVacancies();
     this.vacancies$.subscribe({
-      next(x) {
-        console.log(x)
-      },
-      error(error) {
-        console.log(error)
-      },
-      complete() {
-        console.log("getAllVacancies has finished")
-      }
+      next(x) {console.log(x)},
+      error(error) {console.log(error)},
+      complete() {console.log("getAllVacancies has finished")}
     });
     return this.vacancies$;
+  }
+
+  navigateToVacancy(id: number) {
+    this.router.navigate(['vacancy', id]);
+  }
+
+  navigateToApplicants(id: number) {
+    this.router.navigate(['vacancy', id, 'applications']);
   }
 
   next(): number {

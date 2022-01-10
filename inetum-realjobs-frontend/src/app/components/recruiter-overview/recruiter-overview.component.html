@@ -4,7 +4,7 @@
   <div class="p-toolbar-group-left">
     <p-autoComplete class="p-toolbar-separator" placeholder="Search on function title"></p-autoComplete>
     <p-button label="Post new vacancy" class="p-toolbar-separator"></p-button>
-    <button pButton type="button" class="p-button-warning">Logged in as {{username}}</button>
+    <button pButton type="button" class="p-button-warning">Logged in as: {{username}}</button>
   </div>
 </p-toolbar>
 
@@ -42,16 +42,21 @@
             <!--            TODO: remove from display when done-->
             <td>{{vacancy["vacancyId"]}}</td>
             <td>
-              <!--                TODO: add routerLink to vacancy/{id} when implemented user story 'modify and delete vacancy'-->
-              <a>{{vacancy["functionTitle"]}}</a>
+              <a (click)="navigateToVacancy(vacancy['vacancyId'])" style="cursor: pointer">
+                {{vacancy["functionTitle"]}}
+              </a>
             </td>
             <td>{{vacancy["postedOn"] | date: 'dd/MM/yy'}}</td>
             <td>{{vacancy["recruiterFullName"]}}</td>
-            <!--            TODO: add routerLink to list of applicants-->
-            <td>{{vacancy["amountOfApplicants"]}}</td>
+            <td>
+              <a (click)="navigateToApplicants(vacancy['vacancyId'])" style="cursor: pointer">
+                {{vacancy["amountOfApplicants"]}}
+              </a>
+            </td>
           </tr>
         </ng-template>
       </p-table>
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>
