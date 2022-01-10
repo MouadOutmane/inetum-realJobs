@@ -26,7 +26,8 @@ import {TabViewModule} from "primeng/tabview";
 import {TableModule} from "primeng/table";
 import {AutoCompleteModule} from "primeng/autocomplete";
 import {ToolbarModule} from "primeng/toolbar";
-
+import {AvatarModule} from "primeng/avatar";
+import {BadgeModule} from "primeng/badge";
 
 const modules = [
   ButtonModule,
@@ -55,7 +56,9 @@ const modules = [
   TabViewModule,
   TableModule,
   AutoCompleteModule,
-  ToolbarModule
+  ToolbarModule,
+  AvatarModule,
+  BadgeModule
 ];
 
 @NgModule({

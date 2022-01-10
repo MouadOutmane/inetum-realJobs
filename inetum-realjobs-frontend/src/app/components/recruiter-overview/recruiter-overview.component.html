@@ -4,7 +4,12 @@
   <div class="p-toolbar-group-left">
     <p-autoComplete class="p-toolbar-separator" placeholder="Search on function title"></p-autoComplete>
     <p-button label="Post new vacancy" class="p-toolbar-separator"></p-button>
-    <button pButton type="button" class="p-button-warning">Logged in as: {{username}}</button>
+    <button pButton type="button" class="p-button-warning p-toolbar-separator">Logged in as: {{username}}</button>
+    <i class="pi pi-bell p-mr-4 p-text-secondary p-toolbar-separator" pBadge style="font-size: 2rem" value="3"
+    severity="success"></i>
+    <p-avatar label="RT" size="large" shape="circle" class="p-toolbar-separator"
+              [style]="{'background-color': '#2196F3', 'color': '#ffffff'}">
+    </p-avatar>
   </div>
 </p-toolbar>
 
@@ -15,7 +20,7 @@
       <p-table [value]="vacancies$ | async" [columns]="columns" [scrollable]="true" scrollHeight="450px"
                styleClass="p-datatable-lg" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 30]"
                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                selectionMode="single">
+               selectionMode="single">
         <!--        TODO update page report-->
         <ng-template pTemplate="header">
           <tr>
@@ -60,4 +65,3 @@
     </div>
   </div>
 </div>
-<router-outlet></router-outlet>
