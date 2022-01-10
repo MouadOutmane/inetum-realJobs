@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Experience} from "../../../../models/experience";
-import {MessageService} from "primeng/api";
+import {MessageService, ConfirmationService} from "primeng/api";
 import {ResumeService} from "../../../../services/resume.service";
 import {catchError, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -26,9 +26,16 @@ export class ExperienceFormComponent implements OnInit {
   birthDate: Date = undefined;
   industryOptions = INDUSTRY_OPTIONS;
   functionCategoryOptions = FUNCTION_CATEGORY_OPTIONS;
+  editingData: { isEditing: boolean, id: number, version: number } = {
+    isEditing: false,
+    id: undefined,
+    version: undefined
+  };
+  openFormMessage = false;
 
   constructor(private resumeService: ResumeService,
               private messageService: MessageService,
+              private confirmationService: ConfirmationService,
               private formBuilder: FormBuilder) {
   }
 
@@ -58,15 +65,54 @@ export class ExperienceFormComponent implements OnInit {
     }
   }
 
+  editItem(experience: Experience) {
+    this.experienceForm.get("jobTitle").setValue(experience.jobTitle);
+    this.experienceForm.get("functionCategory").setValue(experience.functionCategory);
+    this.experienceForm.get("company").setValue(experience.company);
+    this.experienceForm.get("industry").setValue(experience.industry);
+    this.experienceForm.get("startDate").setValue(new Date(experience.startDate));
+    this.experienceForm.get("endDate").setValue(new Date(experience.endDate));
+    this.experienceForm.get("currentJob").setValue(experience.currentJob);
+    this.experienceForm.get("description").setValue(experience.description);
+    this.editingData = {
+      isEditing: true,
+      id: experience.id,
+      version: experience.version
+    }
+  }
+
+  cancelEdit() {
+    this.editingData = {
+      isEditing: false,
+      id: undefined,
+      version: undefined
+    }
+    this.experienceForm.reset();
+  }
+
   submitForm() {
     if (this.experienceForm.valid) {
-      this.resumeService
-        .addExperience(this.getFormData())
-        .pipe(catchError((err) => this.onError(err)))
-        .subscribe(experienceList => {
-          this.experienceUpdatedEvent.emit(experienceList);
-          this.experienceForm.reset();
-        });
+      if (this.editingData.isEditing) {
+        this.resumeService
+          .editExperience({
+            id: this.editingData.id,
+            version: this.editingData.version,
+            ...this.getFormData()
+          })
+          .pipe(catchError((err) => this.onError(err)))
+          .subscribe(experienceList => {
+            this.experienceUpdatedEvent.emit(experienceList);
+            this.experienceForm.reset();
+          });
+      } else {
+        this.resumeService
+          .addExperience(this.getFormData())
+          .pipe(catchError((err) => this.onError(err)))
+          .subscribe(experienceList => {
+            this.experienceUpdatedEvent.emit(experienceList);
+            this.experienceForm.reset();
+          });
+      }
     }
   }
 
@@ -77,6 +123,23 @@ export class ExperienceFormComponent implements OnInit {
 
   closeForm() {
     this.formCloseEvent.emit();
+  }
+
+  showDialog() {
+    this.openFormMessage = true;
+  }
+
+  confirm(index: number) {
+    if (this.editingData.isEditing && this.editingData.id === index) {
+      this.showDialog();
+      return;
+    }
+    this.confirmationService.confirm({
+      header: "You are about to delete an experience",
+      message: "Are you sure you want to delete this experience?",
+      icon: "pi pi-exclamation-triangle",
+      accept: () => this.deleteExperience(index)
+    });
   }
 
   deleteExperience(index: number) {

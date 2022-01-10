@@ -24,6 +24,8 @@ public interface ResumeMapper {
 
     Experience toEntity(ExperienceCreateDto experienceCreateDto);
 
+    Experience toEntity(ExperienceEditDto experienceEditDto);
+
     @Mapping(source = "account", target = "accountInfo")
     ResumeReadDto toDto(Resume resume, Account account);
 }

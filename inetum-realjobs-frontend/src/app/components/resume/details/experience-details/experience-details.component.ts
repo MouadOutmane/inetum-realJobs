@@ -12,11 +12,18 @@ export class ExperienceDetailsComponent {
 
   @Input() experience: Experience;
 
-  @Input() deleteButton: boolean;
+  @Input() formMode: boolean;
   @Output() deleteEvent = new EventEmitter<number>();
+  @Output() editEvent = new EventEmitter<Experience>();
 
   deleteItem() {
     this.deleteEvent.emit(this.experience.id);
+  }
+
+  editItem() {
+    if (this.formMode) {
+      this.editEvent.emit(this.experience);
+    }
   }
 
   getEndDate(): string {

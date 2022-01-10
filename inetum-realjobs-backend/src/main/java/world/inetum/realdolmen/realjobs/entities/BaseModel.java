@@ -49,6 +49,10 @@ public abstract class BaseModel {
         return version;
     }
 
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
     public String getCreatedBy() {
         return createdBy;
     }

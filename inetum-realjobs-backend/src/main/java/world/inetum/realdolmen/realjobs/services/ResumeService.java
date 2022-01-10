@@ -116,6 +116,23 @@ public class ResumeService {
         return resume.getExperienceList();
     }
 
+    public List<Experience> editExperience(Experience editExperience) {
+        JobSeeker currentUserJs = securityService.getJobSeeker();
+        Resume resume = currentUserJs.getResume();
+        List<Experience> experienceList = resume.getExperienceList();
+
+        for (int i = 0; i < experienceList.size(); i++) {
+            if (experienceList.get(i).getId().equals(editExperience.getId())) {
+                experienceList.set(i, editExperience);
+                break;
+            }
+        }
+        
+        accountRepository.save(currentUserJs);
+        logger.info("User {} edited experience {}", currentUserJs.getId(), editExperience);
+        return resume.getExperienceList();
+    }
+
     public List<Experience> removeExperience(long id) {
         JobSeeker currentUserJs = securityService.getJobSeeker();
         Resume resume = currentUserJs.getResume();

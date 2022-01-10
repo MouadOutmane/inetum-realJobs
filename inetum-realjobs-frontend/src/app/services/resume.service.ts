@@ -52,6 +52,10 @@ export class ResumeService {
     return this.http.post<Experience[]>(baseUrl + "experience", experience);
   }
 
+  editExperience(experience: Experience): Observable<Experience[]> {
+    return this.http.post<Experience[]>(baseUrl + "experience/edit", experience);
+  }
+
   removeExperience(id: number): Observable<Experience[]> {
     return this.http.delete<Experience[]>(baseUrl + "experience/" + id);
   }

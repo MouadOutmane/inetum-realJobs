@@ -101,6 +101,12 @@ public class ResumeController {
         return resumeService.addExperience(resumeMapper.toEntity(newExperience)).stream().map(resumeMapper::toDto).toList();
     }
 
+    @PostMapping("/experience/edit")
+    @RolesAllowed("JOBSEEKER")
+    public List<ExperienceReadDto> editExperience(@Valid @RequestBody ExperienceEditDto experienceEditDto) {
+        return resumeService.editExperience(resumeMapper.toEntity(experienceEditDto)).stream().map(resumeMapper::toDto).toList();
+    }
+
     @DeleteMapping("/experience/{id}")
     @RolesAllowed("JOBSEEKER")
     public List<ExperienceReadDto> removeExperience(@Valid @PathVariable("id") long id) {

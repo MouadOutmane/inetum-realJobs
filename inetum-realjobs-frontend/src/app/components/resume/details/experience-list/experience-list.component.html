@@ -2,8 +2,9 @@
   <div *ngFor="let exp of experienceList | reverseArraySort:'startDate'">
     <app-experience-details
       [experience]="exp"
-      [deleteButton]="deleteButton"
-      (deleteEvent)="confirm($event)">
+      [formMode]="formMode"
+      (deleteEvent)="deleteItem($event)"
+      (editEvent)="editItem($event)">
     </app-experience-details>
   </div>
 </div>

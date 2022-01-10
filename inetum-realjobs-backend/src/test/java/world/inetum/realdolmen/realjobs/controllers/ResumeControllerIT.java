@@ -23,8 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -598,6 +597,85 @@ class ResumeControllerIT extends BaseIntegrationTest {
             assertEquals(2, resume.getExperienceList().size(), "The amount of experience entries isn't the expected amount");
         }
 
+
+        @Test
+        @Transactional
+        void editExperience() throws Exception {
+            Account account = createJobSeekerAndLogin();
+            persistExperience(createExperienceDtoList().get(0));
+            String languages = persistExperience(createExperienceDtoList().get(1))
+                    .andReturn()
+                    .getResponse()
+                    .getContentAsString();
+
+            List<Experience> experienceList = mapper.readValue(languages, new TypeReference<>() {
+            });
+
+            Long toEdit = experienceList
+                    .stream()
+                    .filter(i -> i.getCompany().equals("Inetum-Realdolmen"))
+                    .toList()
+                    .get(0)
+                    .getId();
+
+            ExperienceEditDto editDto = new ExperienceEditDto();
+            editDto.setId(toEdit);
+            editDto.setCompany("Inetum-Realdolmen-test");
+            editDto.setDescription("Desc1 - edited");
+            editDto.setCurrentJob(false);
+            editDto.setStartDate(LocalDate.of(2021, 12, 2));
+            editDto.setEndDate(LocalDate.of(2021, 12, 3));
+            editDto.setFunctionCategory(FunctionCategory.GENERAL_MANAGEMENT);
+            editDto.setIndustry(Industry.AEROSPACE);
+            editDto.setJobTitle("Aerospace manager");
+
+            mockMvc.perform(
+                            post("/api/resume/experience/edit")
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .content(asJsonString(editDto))
+                    )
+                    .andExpect(status().isOk())
+                    .andExpectAll(
+                            jsonPath("$").isArray(),
+                            jsonPath("$").isNotEmpty(),
+                            jsonPath("$.length()", is(2)),
+                            jsonPath("$[*].jobTitle", containsInAnyOrder("Aerospace manager", "Junior Java consultant")),
+                            jsonPath("$[*].functionCategory", containsInAnyOrder(FunctionCategory.GENERAL_MANAGEMENT.toString(), FunctionCategory.EDUCATION_AND_TRAINING.toString())),
+                            jsonPath("$[*].company", containsInAnyOrder("Inetum-Realdolmen-test", "VDAB")),
+                            jsonPath("$[*].industry", containsInAnyOrder(Industry.AEROSPACE.toString(), Industry.COMPUTER.toString())),
+                            jsonPath("$[*].startDate", containsInAnyOrder("2021-12-02", "2021-09-01")),
+                            jsonPath("$[*].endDate", containsInAnyOrder("2021-12-03", "2021-12-01")),
+                            jsonPath("$[*].currentJob", containsInAnyOrder(false, false)),
+                            jsonPath("$[*].description", containsInAnyOrder("Desc1 - edited", "Desc2"))
+                    );
+
+            JobSeeker jobSeeker = em
+                    .createQuery("select j from JobSeeker j where j.id = :id", JobSeeker.class)
+                    .setParameter("id", account.getId())
+                    .getSingleResult();
+
+            Resume resume = jobSeeker.getResume();
+
+            assertNotNull(resume, "No resume found in the database");
+            assertEquals(2, resume.getExperienceList().size(), "The amount of experience entries isn't the expected amount");
+
+            Experience experience = em
+                    .createQuery("select e from Experience e where e.id = :id", Experience.class)
+                    .setParameter("id", toEdit)
+                    .getSingleResult();
+
+            assertAll(
+                    () -> assertEquals("Inetum-Realdolmen-test", experience.getCompany(), "The company wasn't edited"),
+                    () -> assertEquals("Desc1 - edited", experience.getDescription(), "The description wasn't edited"),
+                    () -> assertFalse(experience.isCurrentJob(), "Current job wasn't edited"),
+                    () -> assertEquals(LocalDate.of(2021, 12, 2), experience.getStartDate(), "The start date wasn't edited"),
+                    () -> assertEquals(LocalDate.of(2021, 12, 3), experience.getEndDate(), "The end date wasn't edited"),
+                    () -> assertEquals(FunctionCategory.GENERAL_MANAGEMENT, experience.getFunctionCategory(), "The function category wasn't edited"),
+                    () -> assertEquals(Industry.AEROSPACE, experience.getIndustry(), "The industry wasn't edited"),
+                    () -> assertEquals("Aerospace manager", experience.getJobTitle(), "The job title wasn't edited")
+            );
+        }
+
         @Test
         @Transactional
         void removeExperience() throws Exception {
@@ -608,10 +686,10 @@ class ResumeControllerIT extends BaseIntegrationTest {
                     .getResponse()
                     .getContentAsString();
 
-            List<Experience> educationList = mapper.readValue(languages, new TypeReference<>() {
+            List<Experience> experienceList = mapper.readValue(languages, new TypeReference<>() {
             });
 
-            Long toRemove = educationList
+            Long toRemove = experienceList
                     .stream()
                     .filter(i -> i.getCompany().equals("VDAB"))
                     .toList()
@@ -669,7 +747,8 @@ class ResumeControllerIT extends BaseIntegrationTest {
                             jsonPath("$[*].startDate", containsInAnyOrder("2021-12-01", "2021-09-01")),
                             jsonPath("$[*].endDate", containsInAnyOrder(null, "2021-12-01")),
                             jsonPath("$[*].currentJob", containsInAnyOrder(true, false)),
-                            jsonPath("$[*].description", containsInAnyOrder("Desc1", "Desc2"))
+                            jsonPath("$[*].description", containsInAnyOrder("Desc1", "Desc2")),
+                            jsonPath("$[*].version", containsInAnyOrder(0, 0))
                     );
         }
     }
