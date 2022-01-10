@@ -1,5 +1,5 @@
 <div class="experience-list-comp">
-  <div *ngFor="let exp of experienceList">
+  <div *ngFor="let exp of experienceList | reverseArraySort:'startDate'">
     <app-experience-details
       [experience]="exp"
       [deleteButton]="deleteButton"

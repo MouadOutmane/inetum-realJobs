@@ -59,6 +59,7 @@ import {
   VacancyApplicationsTableComponent,
 } from "./components/applications/vacancy-applications-table/vacancy-applications-table.component";
 import {DialogModule} from "primeng/dialog";
+import {ReverseArraySortPipe} from './pipes/reverse-array-sort.pipe';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import {DialogModule} from "primeng/dialog";
     SummaryViewComponent,
     StatusControllerComponent,
     StatusViewComponent,
+    ReverseArraySortPipe,
   ],
   imports: [
     BrowserModule,
