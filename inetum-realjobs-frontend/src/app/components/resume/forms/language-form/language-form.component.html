@@ -37,18 +37,20 @@
         </div>
         <label class="lang-level-label">Skill level</label>
         <p-dropdown
-          [options]="skillLevelOptions"
-          formControlName="skillLevel"
+          [options]="languageLevelOptions"
+          optionLabel="name"
+          optionValue="value"
+          formControlName="languageLevel"
           placeholder="Select a skill level"
-          [ngClass]="{'lang-level-input': true, 'ng-invalid ng-dirty' : isInvalid('skillLevel')}"
+          [ngClass]="{'lang-level-input': true, 'ng-invalid ng-dirty' : isInvalid('languageLevel')}"
         >
         </p-dropdown>
         <div class="lang-level-error">
           <small
-            *ngIf="isInvalid('skillLevel')"
+            *ngIf="isInvalid('languageLevel')"
             class="p-error"
           >
-            {{getValidationMessage("skillLevel")}}
+            {{getValidationMessage("languageLevel")}}
           </small>
         </div>
       </div>

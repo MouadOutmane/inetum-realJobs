@@ -1,12 +1,12 @@
 package world.inetum.realdolmen.realjobs.payload.dtos;
 
-import world.inetum.realdolmen.realjobs.entities.enums.SkillLevel;
+import world.inetum.realdolmen.realjobs.entities.enums.LanguageLevel;
 
 public class LanguageReadDto {
 
     private Long id;
     private String language;
-    private SkillLevel skillLevel;
+    private LanguageLevel languageLevel;
 
     public Long getId() {
         return id;
@@ -24,11 +24,11 @@ public class LanguageReadDto {
         this.language = language;
     }
 
-    public SkillLevel getSkillLevel() {
-        return skillLevel;
+    public LanguageLevel getLanguageLevel() {
+        return languageLevel;
     }
 
-    public void setSkillLevel(SkillLevel skillLevel) {
-        this.skillLevel = skillLevel;
+    public void setLanguageLevel(LanguageLevel languageLevel) {
+        this.languageLevel = languageLevel;
     }
 }

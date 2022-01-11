@@ -6,7 +6,7 @@
       >
         {{experience.jobTitle}}
       </span>
-      <div *ngIf="deleteButton" class="card-button">
+      <div *ngIf="formMode" class="card-button">
         <button
           pButton
           pRipple
@@ -20,10 +20,11 @@
   </ng-template>
   <div
     class="experience-content"
+    (click)="editItem()"
   >
     <span class="experience-company bold">{{experience.company}}</span>
     <span class="bold">{{experience.startDate}} - {{getEndDate()}}</span>
     <span>{{experience.description}}</span>
-    <span class="experience-industry">{{experience.functionCategory}} - {{experience.industry}}</span>
+    <span class="experience-industry">{{industry}}</span>
   </div>
 </p-card>

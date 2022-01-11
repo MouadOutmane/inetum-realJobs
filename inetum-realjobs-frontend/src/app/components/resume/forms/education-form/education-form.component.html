@@ -22,11 +22,15 @@
     <div class="form-group">
       <div class="form-inputs">
         <label class="edu-deg-label">Degree</label>
-        <input
+        <p-dropdown
+          [options]="degreeOptions"
+          optionLabel="name"
+          optionValue="value"
           formControlName="degree"
-          pInputText
+          placeholder="Select a degree"
           [ngClass]="{'edu-deg-input': true, 'ng-invalid ng-dirty' : isInvalid('degree')}"
         >
+        </p-dropdown>
         <div
           class="edu-deg-error"
         >
@@ -74,7 +78,8 @@
           [showIcon]="true"
           formControlName="startDate"
           dateFormat="dd-mm-yy"
-          [maxDate]="today"
+          [minDate]="minStartDate"
+          [maxDate]="maxStartDate"
           [ngClass]="{'edu-sd-input': true, 'ng-invalid ng-dirty' : isInvalid('startDate')}">
         </p-calendar>
         <div
@@ -92,7 +97,7 @@
           [showIcon]="true"
           formControlName="endDate"
           dateFormat="dd-mm-yy"
-          [minDate]="startDate"
+          [minDate]="minEndDate"
           [ngClass]="{'edu-ed-input': true, 'ng-invalid ng-dirty' : isInvalid('endDate')}">
         </p-calendar>
         <div
@@ -121,7 +126,16 @@
           class="p-button p-mb-2"
           pButton
         >
-          Add education
+          <span *ngIf="!editingData.isEditing">Add education</span>
+          <span *ngIf="editingData.isEditing">Edit education</span>
+        </button>
+        <button
+          class="p-button p-mb-2"
+          pButton
+          *ngIf="editingData.isEditing"
+          (click)="cancelEdit()"
+        >
+          Cancel editing
         </button>
       </div>
     </div>
@@ -136,10 +150,18 @@
   </div>
 </p-card>
 
+<p-dialog header="Stop editing before deleting" [(visible)]="openFormMessage">
+  <p>Please stop editing before deleting this education.</p>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="openFormMessage=false" label="Ok" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>
+
 <ng-template #educationListComponent>
   <app-education-list
     [educationList]="educationList"
-    [deleteButton]="true"
-    (deleteEvent)="deleteEducation($event)">
+    [formMode]="true"
+    (deleteEvent)="confirm($event)"
+    (editEvent)="editItem($event)">
   </app-education-list>
 </ng-template>

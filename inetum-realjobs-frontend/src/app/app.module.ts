@@ -61,6 +61,8 @@ import {
 import {RecruiterOverviewComponent} from './components/recruiter-overview/recruiter-overview.component';
 import {TableModule} from "primeng/table";
 import { NavbarComponent } from './components/navbar/navbar.component';
+import {DialogModule} from "primeng/dialog";
+import {ReverseArraySortPipe} from './pipes/reverse-array-sort.pipe';
 
 @NgModule({
   declarations: [
@@ -103,6 +105,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     StatusViewComponent,
     RecruiterOverviewComponent,
     NavbarComponent,
+    ReverseArraySortPipe,
   ],
   imports: [
     BrowserModule,
@@ -113,6 +116,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     routing,
     PrimengImportsModule,
     TableModule,
+    DialogModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},

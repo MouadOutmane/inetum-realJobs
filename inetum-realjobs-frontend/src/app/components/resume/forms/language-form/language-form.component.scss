@@ -78,6 +78,13 @@
   justify-content: center;
 }
 
+:host ::ng-deep app-language-list .language-entry {
+  display: grid;
+  grid-template-columns: 1fr 4fr 2rem;
+  padding: 0.75rem 0;
+  align-items: center;
+}
+
 @media screen and (max-width: 75rem) {
   .form-inputs {
     grid-template-columns: 1fr 3fr;

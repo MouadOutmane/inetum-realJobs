@@ -20,9 +20,13 @@ public interface ResumeMapper {
 
     Education toEntity(EducationCreateDto educationCreateDto);
 
+    Education toEntity(EducationEditDto educationEditDto);
+
     ExperienceReadDto toDto(Experience experience);
 
     Experience toEntity(ExperienceCreateDto experienceCreateDto);
+
+    Experience toEntity(ExperienceEditDto experienceEditDto);
 
     @Mapping(source = "account", target = "accountInfo")
     ResumeReadDto toDto(Resume resume, Account account);

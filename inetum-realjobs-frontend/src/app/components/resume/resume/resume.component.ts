@@ -3,7 +3,7 @@ import {ResumeService} from "../../../services/resume.service";
 import {Resume} from "../../../models/resume";
 import {catchError, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
-import {MessageService} from "primeng/api";
+import {MessageService, ConfirmationService} from "primeng/api";
 import {Education} from "../../../models/education";
 import {Experience} from "../../../models/experience";
 import {Language} from "../../../models/language";
@@ -20,8 +20,18 @@ export class ResumeComponent implements OnInit {
 
   resume: Resume;
   isLoading: boolean = true;
+  openForms = {
+    education: false,
+    experience: false,
+    language: false,
+    skill: false,
+    status: false,
+    summary: false
+  }
+  openFormMessage = false;
 
   constructor(private resumeService: ResumeService,
+              private confirmationService: ConfirmationService,
               private messageService: MessageService) {
   }
 
@@ -38,6 +48,40 @@ export class ResumeComponent implements OnInit {
   onError(error: HttpErrorResponse) {
     this.messageService.add({key: "tl", severity: "error", summary: "Error", detail: error.error.message});
     return throwError(() => error.message);
+  }
+
+  openForm(name: string) {
+    let formOpen = false;
+    Object.keys(this.openForms).forEach(key => {
+      if (this.openForms[key]) {
+        if (key !== name) {
+          this.showDialog();
+        }
+        formOpen = true;
+        return;
+      }
+    });
+    if (!formOpen) {
+      this.openForms[name] = true;
+    }
+  }
+
+  closeForm(name: string) {
+    this.openForms[name] = false;
+  }
+
+  showDialog() {
+    this.openFormMessage = true;
+  }
+
+  getOpenedFormName() {
+    let openFormName = "";
+    Object.keys(this.openForms).forEach(key => {
+      if (this.openForms[key]) {
+        openFormName = key;
+      }
+    });
+    return openFormName;
   }
 
   updateSummary(summary: string) {

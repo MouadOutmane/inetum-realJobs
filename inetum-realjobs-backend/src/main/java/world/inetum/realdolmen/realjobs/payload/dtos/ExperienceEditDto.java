@@ -3,19 +3,41 @@ package world.inetum.realdolmen.realjobs.payload.dtos;
 import world.inetum.realdolmen.realjobs.entities.enums.FunctionCategory;
 import world.inetum.realdolmen.realjobs.entities.enums.Industry;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
-public class ExperienceReadDto {
+public class ExperienceEditDto {
 
+    @NotNull
     private Long id;
+
     private int version;
+
+    @NotBlank
     private String jobTitle;
+
+    @NotNull
     private FunctionCategory functionCategory;
+
+    @NotBlank
     private String company;
+
+    @NotNull
     private Industry industry;
+
+    @NotNull
+    @Past
     private LocalDate startDate;
+
     private LocalDate endDate;
+
     private boolean currentJob;
+
+    // TODO - add start before end validation (unless current job)
+
+    @NotBlank
     private String description;
 
     public Long getId() {

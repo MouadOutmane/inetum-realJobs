@@ -38,6 +38,8 @@
         <label class="skill-level-label">Skill level</label>
         <p-dropdown
           [options]="skillLevelOptions"
+          optionLabel="name"
+          optionValue="value"
           formControlName="skillLevel"
           placeholder="Select a skill level"
           [ngClass]="{'skill-level-input': true, 'ng-invalid ng-dirty' : isInvalid('skillLevel')}">

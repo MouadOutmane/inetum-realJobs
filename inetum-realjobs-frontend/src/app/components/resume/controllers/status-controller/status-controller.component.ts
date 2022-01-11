@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {AccountResume} from "../../../../models/accountResume";
 import {ResumeStatus} from "../../../../models/resumeStatus.enum";
 
@@ -7,29 +7,23 @@ import {ResumeStatus} from "../../../../models/resumeStatus.enum";
   templateUrl: './status-controller.component.html',
   styleUrls: ['./status-controller.component.scss']
 })
-export class StatusControllerComponent implements OnInit {
+export class StatusControllerComponent {
 
+  @Input() isFormOpen: boolean;
   @Input() accountInfo: AccountResume;
   @Input() status: ResumeStatus;
   @Output() statusUpdatedEvent = new EventEmitter<ResumeStatus>();
-
-  isFormOpen: boolean = false;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
+  @Output() formChangeEvent = new EventEmitter<boolean>();
 
   updateStatus(status: ResumeStatus) {
     this.statusUpdatedEvent.emit(status);
   }
 
   closeForm() {
-    this.isFormOpen = false;
+    this.formChangeEvent.emit(false);
   }
 
   openForm() {
-    this.isFormOpen = true;
+    this.formChangeEvent.emit(true);
   }
 }

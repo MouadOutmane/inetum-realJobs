@@ -90,6 +90,23 @@ public class ResumeService {
         return resume.getEducationList();
     }
 
+    public List<Education> editEducation(Education editEducation) {
+        JobSeeker currentUserJs = securityService.getJobSeeker();
+        Resume resume = currentUserJs.getResume();
+        List<Education> educationList = resume.getEducationList();
+
+        for (int i = 0; i < educationList.size(); i++) {
+            if (educationList.get(i).getId().equals(editEducation.getId())) {
+                educationList.set(i, editEducation);
+                break;
+            }
+        }
+
+        accountRepository.save(currentUserJs);
+        logger.info("User {} edited education {}", currentUserJs.getId(), editEducation);
+        return resume.getEducationList();
+    }
+
     public List<Education> removeEducation(long id) {
         JobSeeker currentUserJs = securityService.getJobSeeker();
         Resume resume = currentUserJs.getResume();
@@ -113,6 +130,23 @@ public class ResumeService {
         currentUserJs.setResume(resume);
         accountRepository.save(currentUserJs);
         logger.info("User {} added an experience {}", currentUserJs.getId(), newExperience);
+        return resume.getExperienceList();
+    }
+
+    public List<Experience> editExperience(Experience editExperience) {
+        JobSeeker currentUserJs = securityService.getJobSeeker();
+        Resume resume = currentUserJs.getResume();
+        List<Experience> experienceList = resume.getExperienceList();
+
+        for (int i = 0; i < experienceList.size(); i++) {
+            if (experienceList.get(i).getId().equals(editExperience.getId())) {
+                experienceList.set(i, editExperience);
+                break;
+            }
+        }
+
+        accountRepository.save(currentUserJs);
+        logger.info("User {} edited experience {}", currentUserJs.getId(), editExperience);
         return resume.getExperienceList();
     }
 

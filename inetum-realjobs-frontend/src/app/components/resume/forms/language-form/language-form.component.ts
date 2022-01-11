@@ -1,12 +1,12 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Language} from "../../../../models/language";
-import {SkillLevel} from "../../../../models/skillLevel.enum";
 import {ResumeService} from "../../../../services/resume.service";
 import {MessageService} from "primeng/api";
 import {catchError, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import CustomValidators from "../../../../validators/CustomValidators";
+import {LANGUAGE_LEVEL_OPTIONS} from "../../../../models/languageLevel.enum";
 
 @Component({
   selector: "app-language-form",
@@ -20,18 +20,17 @@ export class LanguageFormComponent implements OnInit {
   @Output() languageUpdatedEvent = new EventEmitter<Language[]>();
 
   languageForm: FormGroup;
-  skillLevelOptions: SkillLevel[];
+  languageLevelOptions = LANGUAGE_LEVEL_OPTIONS;
 
   constructor(private resumeService: ResumeService,
               private messageService: MessageService,
               private formBuilder: FormBuilder) {
-    this.skillLevelOptions = Object.keys(SkillLevel) as SkillLevel[];
   }
 
   ngOnInit(): void {
     this.languageForm = this.formBuilder.group({
       language: ["", [Validators.required, CustomValidators.uniqueItemValidator(this.languages.map(l => l.language))]],
-      skillLevel: [undefined, [Validators.required]],
+      languageLevel: [undefined, [Validators.required]],
     });
     this.languageForm.get("language").valueChanges.subscribe(val => {
       this.languageForm
@@ -78,7 +77,7 @@ export class LanguageFormComponent implements OnInit {
   getFormData(): Language {
     return {
       language: this.languageForm.controls["language"].value,
-      skillLevel: this.languageForm.controls["skillLevel"].value,
+      languageLevel: this.languageForm.controls["languageLevel"].value,
     }
   }
 

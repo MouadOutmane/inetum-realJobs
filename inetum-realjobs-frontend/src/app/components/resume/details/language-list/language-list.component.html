@@ -1,41 +1,19 @@
-<div class="language-list-comp">
-  <p-card header="Basic">
-    <div class="language-card">
-      <div
-        *ngFor="let lang of basicLanguages"
-      >
-        <p-chip
-          label="{{lang.language}}"
-          [removable]="deleteButton"
-          (onRemove)="deleteItem(lang.id)">
-        </p-chip>
-      </div>
-    </div>
-  </p-card>
-  <p-card header="Intermediate">
-    <div class="language-card">
-      <div
-        *ngFor="let lang of intermediateLanguages"
-      >
-        <p-chip
-          label="{{lang.language}}"
-          [removable]="deleteButton"
-          (onRemove)="deleteItem(lang.id)">
-        </p-chip>
-      </div>
-    </div>
-  </p-card>
-  <p-card header="Expert">
-    <div class="language-card">
-      <div
-        *ngFor="let lang of expertLanguages"
-      >
-        <p-chip
-          label="{{lang.language}}"
-          [removable]="deleteButton"
-          (onRemove)="deleteItem(lang.id)">
-        </p-chip>
-      </div>
-    </div>
-  </p-card>
+<div>
+  <div *ngFor="let lang of languages" class="language-entry">
+    <span>{{lang.language}}</span>
+    <p-progressBar
+      [value]="getProgress(lang)"
+      [showValue]="false"
+    >
+    </p-progressBar>
+    <button
+      *ngIf="deleteButton"
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-times"
+      (click)="confirm(lang.id)"
+      class="p-button-rounded p-button-text">
+    </button>
+  </div>
 </div>

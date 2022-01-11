@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Language} from "../../../../models/language";
 
 @Component({
@@ -6,28 +6,22 @@ import {Language} from "../../../../models/language";
   templateUrl: './language-controller.component.html',
   styleUrls: ['./language-controller.component.scss']
 })
-export class LanguageControllerComponent implements OnInit {
+export class LanguageControllerComponent {
 
+  @Input() isFormOpen: boolean;
   @Input() languages: Language[];
   @Output() languageUpdatedEvent = new EventEmitter<Language[]>();
-
-  isFormOpen: boolean = false;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
+  @Output() formChangeEvent = new EventEmitter<boolean>();
 
   updateLanguage(languageList: Language[]) {
     this.languageUpdatedEvent.emit(languageList);
   }
 
   closeForm() {
-    this.isFormOpen = false;
+    this.formChangeEvent.emit(false);
   }
 
   openForm() {
-    this.isFormOpen = true;
+    this.formChangeEvent.emit(true);
   }
 }
