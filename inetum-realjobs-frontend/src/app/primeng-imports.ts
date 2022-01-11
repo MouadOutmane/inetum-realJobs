@@ -29,6 +29,7 @@ import {ToolbarModule} from "primeng/toolbar";
 import {AvatarModule} from "primeng/avatar";
 import {BadgeModule} from "primeng/badge";
 import {PaginatorModule} from "primeng/paginator";
+import {MenuModule} from "primeng/menu";
 
 const modules = [
   ButtonModule,
@@ -60,7 +61,8 @@ const modules = [
   ToolbarModule,
   AvatarModule,
   BadgeModule,
-  PaginatorModule
+  PaginatorModule,
+  MenuModule
 ];
 
 @NgModule({

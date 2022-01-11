@@ -5,7 +5,7 @@ import {RecruiterService} from "../../services/recruiter.service";
 import {AuthenticationService} from "../../services/authentication.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {VacancyService} from "../../services/vacancy.service";
-import {SortEvent} from "primeng/api";
+import {SortEvent, MenuItem} from "primeng/api";
 
 @Component({
   selector: 'app-recruiter-overview',
@@ -16,12 +16,15 @@ export class RecruiterOverviewComponent implements OnInit {
   vacancies$: Observable<RecruiterOverviewModel[]>;
   title: string = "Overview: My vacancies";
   columns: any[];
+  //TODO set as response entity for empty list or null
   defaultMessage: string = "Your vacancies will appear here." +
     " Get started and post your first vacancy by clicking 'Post new vacancy'";
   first: number = 0;
   rows: number = 5;
   vacancies: RecruiterOverviewModel[] = [];
   username: string;
+  avatarItems: MenuItem[];
+  notificationItems: MenuItem[];
 
   constructor(private recruiterService: RecruiterService,
               private auth: AuthenticationService,
@@ -40,6 +43,17 @@ export class RecruiterOverviewComponent implements OnInit {
       {field: 'applicants', header: 'Applicants'}
     ];
     this.username = this.auth.getLoggedInUserEmail();
+    this.avatarItems = [
+      {label: 'Account', icon: 'pi pi-user', routerLink: '../../users/' + this.username},
+      {label: 'Log out', icon: 'pi pi-sign-out', command: () => {
+          this.auth.logout()
+        }, routerLink: '../../vacancy/search'
+      }
+    ];
+    //TODO add method to create notifications - add counter
+    this.notificationItems = [
+      {label: 'Notifications', items: []}
+    ];
   }
 
   getAllVacancies(): Observable<RecruiterOverviewModel[]> {
@@ -92,7 +106,7 @@ export class RecruiterOverviewComponent implements OnInit {
           result = 1;
         } else if (value1 == null && value2 == null) {
           result = 0;
-        } else if (typeof value1 === 'string' && typeof  value2 === 'string') {
+        } else if (typeof value1 === 'string' && typeof value2 === 'string') {
           result = value1.localeCompare(value2);
         } else {
           result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;

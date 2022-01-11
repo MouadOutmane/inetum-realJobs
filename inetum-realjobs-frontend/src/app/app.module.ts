@@ -60,6 +60,7 @@ import {
 } from "./components/applications/vacancy-applications-table/vacancy-applications-table.component";
 import {RecruiterOverviewComponent} from './components/recruiter-overview/recruiter-overview.component';
 import {TableModule} from "primeng/table";
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import {TableModule} from "primeng/table";
     StatusControllerComponent,
     StatusViewComponent,
     RecruiterOverviewComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

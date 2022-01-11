@@ -3,16 +3,49 @@
 <p-toolbar>
   <div class="p-toolbar-group-left">
 <!--    TODO implement filter function-->
-    <p-autoComplete class="p-toolbar-separator" placeholder="Search on function title"></p-autoComplete>
+    <p-autoComplete
+      class="p-toolbar-separator"
+      placeholder="Filter on function title">
+    </p-autoComplete>
 <!--    TODO add link to new vacancy form-->
-    <p-button label="Post new vacancy" class="p-toolbar-separator"></p-button>
+    <p-button
+      label="Post new vacancy"
+      class="p-toolbar-separator">
+    </p-button>
 <!--    TODO move to avatar-->
-    <button pButton type="button" class="p-button-warning p-toolbar-separator">Logged in as: {{username}}</button>
-    <i class="pi pi-bell p-mr-4 p-text-secondary p-toolbar-separator" pBadge style="font-size: 2rem" value="3"
-    severity="success"></i>
-    <p-avatar label="RT" size="large" shape="circle" class="p-toolbar-separator"
-              [style]="{'background-color': '#2196F3', 'color': '#ffffff'}">
+    <button
+      pButton
+      type="button"
+      class="p-button-warning p-toolbar-separator">
+      Logged in as: {{username}}
+    </button>
+<!--    TODO set value via counter-->
+    <i
+      class="pi pi-bell p-mr-4 p-text-secondary p-toolbar-separator"
+      pBadge
+      style="font-size: 2rem"
+      value="3"
+      severity="success"
+      (click)="bellMenu.toggle($event)">
+    </i>
+    <p-menu
+      #bellMenu
+      [popup]="true"
+      [model]="notificationItems">
+    </p-menu>
+    <p-avatar
+      icon="pi pi-user"
+      size="large"
+      shape="circle"
+      class="p-toolbar-separator"
+      (click)="avatarMenu.toggle($event)"
+      [style]="{'background-color': '#2196F3', 'color': '#ffffff'}">
     </p-avatar>
+    <p-menu
+      #avatarMenu
+      [popup]="true"
+      [model]="avatarItems">
+    </p-menu>
   </div>
 </p-toolbar>
 
@@ -25,7 +58,6 @@
                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} vacancies"
                 [totalRecords]="20" [pageLinks]="3" [alwaysShowPaginator]="true" [showCurrentPageReport]="true"
                selectionMode="single" [customSort]="true" (sortFunction)="customSort($event)">
-        <!--        TODO update page report-->
         <ng-template pTemplate="header">
           <tr>
             <th style="min-width: 250px;">
@@ -34,6 +66,7 @@
             <th style="min-width: 250px;">
               Function title
             </th>
+<!--            TODO update sorting method-->
             <th style="min-width: 250px;" pSortableColumn="datePosted">
               Date posted
               <p-sortIcon field="datePosted"></p-sortIcon>
