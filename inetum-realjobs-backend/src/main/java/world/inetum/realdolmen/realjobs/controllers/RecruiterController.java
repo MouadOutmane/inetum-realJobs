@@ -32,10 +32,22 @@ public class RecruiterController {
     }
 
     // TODO: add test for controller
-    @GetMapping
+    @GetMapping("/all")
     @RolesAllowed("RECRUITER")
     public ResponseEntity<List<RecruiterOverviewDto>> findAllVacancies() {
         List<Vacancy> allVacancies = recruiterService.findAll();
+        return getListOfResponseEntity(allVacancies);
+    }
+
+    @GetMapping
+    @RolesAllowed("RECRUITER")
+    public ResponseEntity<List<RecruiterOverviewDto>> findAllVacanciesForCurrentUser() {
+        Long recruiterId = recruiterService.getIdOfCurrentUser();
+        List<Vacancy> allVacancies = recruiterService.findAllVacanciesByRecruiterId(recruiterId);
+        return getListOfResponseEntity(allVacancies);
+    }
+
+    private ResponseEntity<List<RecruiterOverviewDto>> getListOfResponseEntity(List<Vacancy> allVacancies) {
         if (allVacancies == null || allVacancies.isEmpty()) {
             return new ResponseEntity<>(Collections.emptyList(), HttpStatus.NO_CONTENT);
         }
@@ -54,7 +66,8 @@ public class RecruiterController {
                             dto.setAmountOfApplicants(amountOfApplicants);
                             return dto;
                         }
-                ).toList();
+                )
+                .toList();
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 }

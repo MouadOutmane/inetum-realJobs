@@ -2,8 +2,11 @@
 
 <p-toolbar>
   <div class="p-toolbar-group-left">
+<!--    TODO implement filter function-->
     <p-autoComplete class="p-toolbar-separator" placeholder="Search on function title"></p-autoComplete>
+<!--    TODO add link to new vacancy form-->
     <p-button label="Post new vacancy" class="p-toolbar-separator"></p-button>
+<!--    TODO move to avatar-->
     <button pButton type="button" class="p-button-warning p-toolbar-separator">Logged in as: {{username}}</button>
     <i class="pi pi-bell p-mr-4 p-text-secondary p-toolbar-separator" pBadge style="font-size: 2rem" value="3"
     severity="success"></i>
@@ -19,7 +22,7 @@
       <div *ngIf="!vacancies$">{{defaultMessage}}</div>
       <p-table [value]="vacancies$ | async" [columns]="columns" [scrollable]="true" scrollHeight="450px"
                styleClass="p-datatable-lg" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 30]"
-               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} vacancies"
                 [totalRecords]="20" [pageLinks]="3" [alwaysShowPaginator]="true" [showCurrentPageReport]="true"
                selectionMode="single" [customSort]="true" (sortFunction)="customSort($event)">
         <!--        TODO update page report-->

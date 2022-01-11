@@ -40,4 +40,12 @@ public class RecruiterService {
         return vacancy.getRecruiter().getFirstName() + " " + vacancy.getRecruiter().getLastName();
     }
 
+    public List<Vacancy> findAllVacanciesByRecruiterId(Long recruiterId) {
+        return vacancyService.getVacanciesByRecruiterId(recruiterId);
+    }
+
+    public Long getIdOfCurrentUser() {
+        return securityService.getCurrentUser().getId();
+    }
+
 }

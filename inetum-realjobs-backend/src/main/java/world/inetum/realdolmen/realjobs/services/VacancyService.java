@@ -86,4 +86,8 @@ public class VacancyService {
 
         return applicationRepository.findAllByVacancyId(vacancyId);
     }
+
+    public List<Vacancy> getVacanciesByRecruiterId(Long recruiterId) {
+        return vacancyRepository.findVacanciesByRecruiter_Id(recruiterId);
+    }
 }
