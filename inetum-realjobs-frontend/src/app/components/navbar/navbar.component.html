@@ -1,31 +1,43 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-  <div class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" routerLink="" routerLinkActive="active">Inetum-RealJobs</a>
-    </li>
-    <li class="nav-item" *ngIf="isLoggedIn() && isJobseeker()">
-      <a class="nav-link" routerLink="resume" routerLinkActive="active">Resume</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="vacancy/search" routerLinkActive="active">Search</a>
-    </li>
-    <li class="nav-item">
-      <a *ngIf="!isLoggedIn()" class="nav-link" routerLink="login" routerLinkActive="active">Log in now</a>
-      <button (click)="logout()" *ngIf="isLoggedIn()" class="nav-link" routerLink="" routerLinkActive="active">
-        Log out
-      </button>
-    </li>
-    <li class="nav-item" *ngIf="isLoggedIn() && hasRoleRecruiter()">
-      <a class="nav-link" routerLink="recruiter/overview" routerLinkActive="active">My company</a>
-    </li>
-    <li class="nav-item" *ngIf="isLoggedIn() && hasRoleRecruiter()">
-      <a class="nav-link" routerLink="recruiter/overview" routerLinkActive="active">Search vacancies</a>
-    </li>
-    <li class="nav-item" *ngIf="isLoggedIn() && hasRoleRecruiter()">
-      <a class="nav-link" routerLink="recruiter/overview" routerLinkActive="active">My vacancies</a>
-    </li>
-    <li class="nav-item" *ngIf="isLoggedIn() && hasRoleRecruiter()">
-      <a class="nav-link" routerLink="recruiter/overview" routerLinkActive="active">Search candidates</a>
-    </li>
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <div class="container-fluid">
+    <span class="navbar-brand">Inetum-RealJobs</span>
+    <p-button *ngIf="!isLoggedIn()" label="Log in now" icon="pi pi-users"
+              routerLink="login"></p-button>
+
+    <div *ngIf="isLoggedIn() && hasRoleRecruiter()" class="navbar-nav d-flex flex-row">
+      <a class="nav-link" routerLink="" routerLinkActive="active-link">My Company</a>
+      <a class="nav-link" routerLink="" routerLinkActive="active-link">Search vacancies</a>
+      <a class="nav-link" routerLink="../../recruiter/overview" routerLinkActive="active-link">My vacancies</a>
+      <a class="nav-link" routerLink="" routerLinkActive="active-link">Search candidates</a>
+        <div>
+          <i
+          class="pi pi-bell p-mr-4 p-text-secondary"
+          pBadge
+          style="font-size: 2rem"
+          value="3"
+          severity="success"
+          (click)="bellMenu.toggle($event)">
+        </i>
+          <p-menu
+            #bellMenu
+            [popup]="true"
+            [model]="notificationItems">
+          </p-menu>
+        </div>
+        <div>
+          <p-avatar
+            icon="pi pi-user"
+            size="large"
+            shape="circle"
+            (click)="avatarMenu.toggle($event)"
+            [style]="{'background-color': '#2196F3', 'color': '#ffffff'}">
+          </p-avatar>
+          <p-menu
+            #avatarMenu
+            [popup]="true"
+            [model]="avatarItems">
+          </p-menu>
+        </div>
+    </div>
   </div>
 </nav>
