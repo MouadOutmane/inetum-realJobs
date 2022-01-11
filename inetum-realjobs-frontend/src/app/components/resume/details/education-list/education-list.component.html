@@ -1,9 +1,23 @@
 <div class="education-list-comp">
-  <div *ngFor="let edu of educationList">
+  <div
+    *ngFor="let edu of expanded ? (educationList | reverseArraySort:'startDate') : (educationList | reverseArraySort:'startDate' | slice:0:2)">
     <app-education-details
       [education]="edu"
-      [deleteButton]="deleteButton"
-      (deleteEvent)="deleteItem($event)">
+      [formMode]="formMode"
+      (deleteEvent)="deleteItem($event)"
+      (editEvent)="editItem($event)">
     </app-education-details>
   </div>
+  <p-card *ngIf="!expanded && educationList.length > 2" class="expand-card">
+    <div class="expand-button">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-plus-circle"
+        class="p-button-rounded p-button-text"
+        (click)="loadMore()">
+      </button>
+    </div>
+  </p-card>
 </div>

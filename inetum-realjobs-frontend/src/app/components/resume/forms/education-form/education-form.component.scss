@@ -26,6 +26,10 @@
     width: 100%;
   }
 
+  ::ng-deep .p-dropdown {
+    width: 100%;
+  }
+
   .edu-deg-label {
     grid-area: edu-deg-label;
   }
@@ -121,6 +125,7 @@
 .educationForm .center-content {
   display: flex;
   justify-content: center;
+  gap: 1rem;
 }
 
 @media screen and (max-width: 75rem) {

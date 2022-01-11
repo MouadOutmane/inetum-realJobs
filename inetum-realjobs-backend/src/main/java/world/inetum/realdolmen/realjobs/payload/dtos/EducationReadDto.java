@@ -1,11 +1,14 @@
 package world.inetum.realdolmen.realjobs.payload.dtos;
 
+import world.inetum.realdolmen.realjobs.entities.enums.Degree;
+
 import java.time.LocalDate;
 
 public class EducationReadDto {
 
     private Long id;
-    private String degree;
+    private int version;
+    private Degree degree;
     private String program;
     private String school;
     private LocalDate startDate;
@@ -20,11 +23,19 @@ public class EducationReadDto {
         this.id = id;
     }
 
-    public String getDegree() {
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public Degree getDegree() {
         return degree;
     }
 
-    public void setDegree(String degree) {
+    public void setDegree(Degree degree) {
         this.degree = degree;
     }
 

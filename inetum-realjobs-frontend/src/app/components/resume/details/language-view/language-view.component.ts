@@ -1,6 +1,6 @@
 import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {Language} from "../../../../models/language";
-import {SkillLevel} from "../../../../models/skillLevel.enum";
+import {LanguageLevel} from "../../../../models/languageLevel.enum";
 
 @Component({
   selector: 'app-language-view',
@@ -16,12 +16,16 @@ export class LanguageViewComponent implements OnInit {
   }
 
   getProgress(language: Language): number {
-    switch (language.skillLevel) {
-      case SkillLevel.BASIC:
-        return 33;
-      case SkillLevel.INTERMEDIATE:
-        return 66;
-      case SkillLevel.EXPERT:
+    switch (language.languageLevel) {
+      case LanguageLevel.BASIC:
+        return 20;
+      case LanguageLevel.MEDIUM:
+        return 40;
+      case LanguageLevel.GOOD:
+        return 60;
+      case LanguageLevel.EXPERT:
+        return 80;
+      case LanguageLevel.MOTHER_TONGUE:
         return 100;
     }
   }

@@ -1,9 +1,13 @@
+import {Industry} from "./industry.enum";
+import {FunctionCategory} from "./functionCategory.enum";
+
 export interface Experience {
   id?: number;
+  version?: number;
   jobTitle: string;
-  functionCategory: string;
+  functionCategory: FunctionCategory;
   company: string;
-  industry: string;
+  industry: Industry;
   startDate: Date;
   endDate: Date;
   currentJob: boolean;

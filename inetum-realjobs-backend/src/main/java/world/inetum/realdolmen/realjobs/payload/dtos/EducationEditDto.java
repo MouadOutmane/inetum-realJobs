@@ -7,7 +7,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
-public class EducationCreateDto {
+public class EducationEditDto {
+
+    @NotNull
+    private Long id;
+
+    private int version;
 
     @NotNull
     private Degree degree;
@@ -28,6 +33,22 @@ public class EducationCreateDto {
     // TODO - add start before end validation
 
     private String description;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
     public Degree getDegree() {
         return degree;

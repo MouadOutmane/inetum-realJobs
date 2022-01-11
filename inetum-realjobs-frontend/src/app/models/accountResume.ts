@@ -4,4 +4,5 @@ export interface AccountResume {
   lastName: string;
   mobilePhone: string;
   profilePicture: string;
+  dateOfBirth: Date;
 }

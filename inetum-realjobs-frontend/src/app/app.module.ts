@@ -58,6 +58,8 @@ import {
 import {
   VacancyApplicationsTableComponent,
 } from "./components/applications/vacancy-applications-table/vacancy-applications-table.component";
+import {DialogModule} from "primeng/dialog";
+import {ReverseArraySortPipe} from './pipes/reverse-array-sort.pipe';
 
 @NgModule({
   declarations: [
@@ -98,6 +100,7 @@ import {
     SummaryViewComponent,
     StatusControllerComponent,
     StatusViewComponent,
+    ReverseArraySortPipe,
   ],
   imports: [
     BrowserModule,
@@ -107,6 +110,7 @@ import {
     BrowserAnimationsModule,
     routing,
     PrimengImportsModule,
+    DialogModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},

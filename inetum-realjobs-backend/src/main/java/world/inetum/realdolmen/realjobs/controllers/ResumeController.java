@@ -83,6 +83,12 @@ public class ResumeController {
         return resumeService.addEducation(resumeMapper.toEntity(newEducation)).stream().map(resumeMapper::toDto).toList();
     }
 
+    @PostMapping("/education/edit")
+    @RolesAllowed("JOBSEEKER")
+    public List<EducationReadDto> editEducation(@Valid @RequestBody EducationEditDto educationEditDto) {
+        return resumeService.editEducation(resumeMapper.toEntity(educationEditDto)).stream().map(resumeMapper::toDto).toList();
+    }
+
     @DeleteMapping("/education/{id}")
     @RolesAllowed("JOBSEEKER")
     public List<EducationReadDto> removeEducation(@Valid @PathVariable("id") long id) {
@@ -99,6 +105,12 @@ public class ResumeController {
     @RolesAllowed("JOBSEEKER")
     public List<ExperienceReadDto> addExperience(@Valid @RequestBody ExperienceCreateDto newExperience) {
         return resumeService.addExperience(resumeMapper.toEntity(newExperience)).stream().map(resumeMapper::toDto).toList();
+    }
+
+    @PostMapping("/experience/edit")
+    @RolesAllowed("JOBSEEKER")
+    public List<ExperienceReadDto> editExperience(@Valid @RequestBody ExperienceEditDto experienceEditDto) {
+        return resumeService.editExperience(resumeMapper.toEntity(experienceEditDto)).stream().map(resumeMapper::toDto).toList();
     }
 
     @DeleteMapping("/experience/{id}")

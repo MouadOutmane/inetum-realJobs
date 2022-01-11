@@ -6,6 +6,34 @@
   ::ng-deep .p-card {
     height: 100%;
   }
+
+  .expand-card {
+    ::ng-deep .p-card-body {
+      height: 100%;
+      padding-bottom: 0;
+    }
+
+    ::ng-deep .p-card-content {
+      height: 100%;
+      padding-bottom: 0;
+    }
+
+    .expand-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    ::ng-deep .p-button-icon {
+      font-size: 3rem;
+    }
+
+    ::ng-deep .p-button {
+      height: 4rem;
+      width: 4rem;
+    }
+  }
 }
 
 @media screen and (max-width: 75rem) {

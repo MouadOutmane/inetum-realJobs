@@ -58,6 +58,7 @@
           [showIcon]="true"
           formControlName="startDate"
           dateFormat="dd-mm-yy"
+          [minDate]="minStartDate"
           [maxDate]="maxStartDate"
           [ngClass]="{'exp-sd-input': true, 'ng-invalid ng-dirty' : isInvalid('startDate')}">
         </p-calendar>
@@ -76,7 +77,7 @@
           [showIcon]="true"
           formControlName="endDate"
           dateFormat="dd-mm-yy"
-          [minDate]="startDate"
+          [minDate]="minEndDate"
           [maxDate]="today"
           [ngClass]="{'exp-ed-input': true, 'ng-invalid ng-dirty' : isInvalid('endDate')}">
         </p-calendar>
@@ -98,12 +99,15 @@
         >
         </p-checkbox>
         <label class="exp-i-label">Industry</label>
-        <input
-          class="exp-i-input"
+        <p-dropdown
+          [options]="industryOptions"
+          optionLabel="name"
+          optionValue="value"
           formControlName="industry"
-          pInputText
+          placeholder="Select an industry"
           [ngClass]="{'exp-i-input': true, 'ng-invalid ng-dirty' : isInvalid('industry')}"
         >
+        </p-dropdown>
         <div
           class="exp-i-error"
         >
@@ -115,11 +119,15 @@
           </small>
         </div>
         <label class="exp-cat-label">Category</label>
-        <input
+        <p-dropdown
+          [options]="functionCategoryOptions"
+          optionLabel="name"
+          optionValue="value"
           formControlName="functionCategory"
-          pInputText
+          placeholder="Select a category"
           [ngClass]="{'exp-cat-input': true, 'ng-invalid ng-dirty' : isInvalid('functionCategory')}"
         >
+        </p-dropdown>
         <div
           class="exp-cat-error"
         >
@@ -146,7 +154,16 @@
           class="p-button p-mb-2"
           pButton
         >
-          Add experience
+          <span *ngIf="!editingData.isEditing">Add experience</span>
+          <span *ngIf="editingData.isEditing">Edit experience</span>
+        </button>
+        <button
+          class="p-button p-mb-2"
+          pButton
+          *ngIf="editingData.isEditing"
+          (click)="cancelEdit()"
+        >
+          Cancel editing
         </button>
       </div>
     </div>
@@ -161,10 +178,18 @@
   </div>
 </p-card>
 
+<p-dialog header="Stop editing before deleting" [(visible)]="openFormMessage">
+  <p>Please stop editing before deleting this experience.</p>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="openFormMessage=false" label="Ok" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>
+
 <ng-template #experienceListComponent>
   <app-experience-list
     [experienceList]="experienceList"
-    [deleteButton]="true"
-    (deleteEvent)="deleteExperience($event)">
+    [formMode]="true"
+    (deleteEvent)="confirm($event)"
+    (editEvent)="editItem($event)">
   </app-experience-list>
 </ng-template>

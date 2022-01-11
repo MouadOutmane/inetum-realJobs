@@ -1,5 +1,8 @@
 package world.inetum.realdolmen.realjobs.payload.dtos;
 
+import world.inetum.realdolmen.realjobs.entities.enums.FunctionCategory;
+import world.inetum.realdolmen.realjobs.entities.enums.Industry;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -10,12 +13,14 @@ public class ExperienceCreateDto {
     @NotBlank
     private String jobTitle;
 
-    private String functionCategory;
+    @NotNull
+    private FunctionCategory functionCategory;
 
     @NotBlank
     private String company;
 
-    private String industry;
+    @NotNull
+    private Industry industry;
 
     @NotNull
     @Past
@@ -27,6 +32,7 @@ public class ExperienceCreateDto {
 
     // TODO - add start before end validation (unless current job)
 
+    @NotBlank
     private String description;
 
     public String getJobTitle() {
@@ -37,11 +43,11 @@ public class ExperienceCreateDto {
         this.jobTitle = jobTitle;
     }
 
-    public String getFunctionCategory() {
+    public FunctionCategory getFunctionCategory() {
         return functionCategory;
     }
 
-    public void setFunctionCategory(String functionCategory) {
+    public void setFunctionCategory(FunctionCategory functionCategory) {
         this.functionCategory = functionCategory;
     }
 
@@ -53,11 +59,11 @@ public class ExperienceCreateDto {
         this.company = company;
     }
 
-    public String getIndustry() {
+    public Industry getIndustry() {
         return industry;
     }
 
-    public void setIndustry(String industry) {
+    public void setIndustry(Industry industry) {
         this.industry = industry;
     }
 

@@ -9,6 +9,8 @@ import {SkillLevel} from "../../../../models/skillLevel.enum";
 })
 export class SkillListComponent {
 
+  // TODO: popup before deletion
+
   @Input() skills: Skill[];
   @Input() deleteButton: boolean;
   @Output() deleteEvent = new EventEmitter<number>();

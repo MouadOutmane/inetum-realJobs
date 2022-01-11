@@ -18,14 +18,9 @@
       </div>
     </div>
   </ng-template>
-  <div>
-    <div *ngFor="let lang of languages" class="language-entry">
-      <span>{{lang.language}}</span>
-      <p-progressBar
-        [value]="getProgress(lang)"
-        [showValue]="false"
-      >
-      </p-progressBar>
-    </div>
-  </div>
+  <app-language-list
+    [languages]="languages"
+    [deleteButton]="false"
+  >
+  </app-language-list>
 </p-card>

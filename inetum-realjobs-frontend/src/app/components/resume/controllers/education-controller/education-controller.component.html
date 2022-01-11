@@ -1,5 +1,6 @@
 <div *ngIf="isFormOpen; else educationDetails">
   <app-education-form
+    [dob]="dob"
     [educationList]="educationList"
     (formCloseEvent)="closeForm()"
     (educationUpdatedEvent)="updateEducation($event)"
