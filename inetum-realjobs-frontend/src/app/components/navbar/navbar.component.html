@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand navbar-light bg-light">
   <div class="container-fluid">
     <span class="navbar-brand">Inetum-RealJobs</span>
-    <p-button *ngIf="!isLoggedIn()" label="Log in now" icon="pi pi-users" routerLink="login"></p-button>
+    <p-button *ngIf="!isLoggedIn()" label="Log in now" icon="pi pi-user" routerLink="login"></p-button>
 
     <div *ngIf="isLoggedIn() && hasRoleRecruiter()" class="navbar-nav d-flex flex-row">
       <a class="nav-link" routerLink="" routerLinkActive="active-link">My Company</a>

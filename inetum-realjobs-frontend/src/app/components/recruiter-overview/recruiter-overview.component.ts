@@ -10,12 +10,12 @@ import {SortEvent, MenuItem} from "primeng/api";
 @Component({
   selector: 'app-recruiter-overview',
   templateUrl: './recruiter-overview.component.html',
-  styleUrls: ['./recruiter-overview.component.scss']
+  styleUrls: ['./recruiter-overview.component.scss'],
+  styles: [`.applicants {font-weight: bold;}`]
 })
 export class RecruiterOverviewComponent implements OnInit {
   vacancies$: Observable<RecruiterOverviewModel[]>;
   title: string = "Overview: My vacancies";
-  columns: any[];
   //TODO set as response entity for empty list or null
   defaultMessage: string = "Your vacancies will appear here." +
     " Get started and post your first vacancy by clicking 'Post new vacancy'";
@@ -35,17 +35,11 @@ export class RecruiterOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllVacancies();
-    this.columns = [
-      {field: 'vacancyId', header: 'Vacancy ID'},
-      {field: 'functionTitle', header: 'Function title'},
-      {field: 'createdOn', header: 'Date posted'},
-      {field: 'recruiterId', header: 'Vacancy manager'},
-      {field: 'applicants', header: 'Applicants'}
-    ];
     this.username = this.auth.getLoggedInUserEmail();
     this.avatarItems = [
       {label: 'Account', icon: 'pi pi-user', routerLink: '../../users/' + this.username},
-      {label: 'Log out', icon: 'pi pi-sign-out', command: () => {
+      {
+        label: 'Log out', icon: 'pi pi-sign-out', command: () => {
           this.auth.logout()
         }, routerLink: '../../vacancy/search'
       }
@@ -59,9 +53,15 @@ export class RecruiterOverviewComponent implements OnInit {
   getAllVacancies(): Observable<RecruiterOverviewModel[]> {
     this.vacancies$ = this.recruiterService.getAllVacancies();
     this.vacancies$.subscribe({
-      next(x) {console.log(x)},
-      error(error) {console.log(error)},
-      complete() {console.log("getAllVacancies has finished")}
+      next(x) {
+        console.log(x)
+      },
+      error(error) {
+        console.log(error)
+      },
+      complete() {
+        console.log("getAllVacancies has finished")
+      }
     });
     return this.vacancies$;
   }

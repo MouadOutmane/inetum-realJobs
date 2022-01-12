@@ -6,8 +6,11 @@
       class="p-toolbar-separator"
       placeholder="Filter on function title">
     </p-autoComplete>
+  </div>
 <!--    TODO add link to new vacancy form-->
+  <div class="p-toolbar-group-right">
     <p-button
+      icon="pi pi-plus"
       label="Post new vacancy"
       class="p-toolbar-separator">
     </p-button>
@@ -18,45 +21,40 @@
   <div class="content-section implementation">
     <div class="card">
       <div *ngIf="!vacancies$">{{defaultMessage}}</div>
-      <p-table [value]="vacancies$ | async" [columns]="columns" [scrollable]="true" scrollHeight="450px"
+      <p-table [value]="vacancies$ | async" [scrollable]="true" scrollHeight="450px"
                styleClass="p-datatable-lg" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 30]"
                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} vacancies"
                 [totalRecords]="20" [pageLinks]="3" [alwaysShowPaginator]="true" [showCurrentPageReport]="true"
                selectionMode="single" [customSort]="true" (sortFunction)="customSort($event)">
         <ng-template pTemplate="header">
           <tr>
-            <th style="min-width: 250px;">
-              Vacancy ID
-            </th>
-            <th style="min-width: 250px;">
+            <th style="min-width: 300px;">
               Function title
             </th>
 <!--            TODO update sorting method-->
-            <th style="min-width: 250px;" pSortableColumn="datePosted">
+            <th style="min-width: 200px;" pSortableColumn="datePosted">
               Date posted
               <p-sortIcon field="datePosted"></p-sortIcon>
             </th>
-            <th style="min-width: 250px;" pSortableColumn="vacancyManager">
+            <th style="min-width: 200px;" pSortableColumn="vacancyManager">
               Vacancy manager
               <p-sortIcon field="vacancyManager"></p-sortIcon>
             </th>
-            <th style="min-width: 250px;">
+            <th style="min-width: 200px;">
               Applicants
             </th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-vacancy>
           <tr>
-            <!--            TODO: remove from display when done-->
-            <td>{{vacancy["vacancyId"]}}</td>
-            <td>
+            <td style="min-width: 300px">
               <a (click)="navigateToVacancy(vacancy['vacancyId'])" class="custom-hyperlink">
                 {{vacancy["functionTitle"]}}
               </a>
             </td>
-            <td>{{vacancy["postedOn"] | date: 'dd/MM/yy'}}</td>
-            <td>{{vacancy["recruiterFullName"]}}</td>
-            <td>
+            <td style="min-width: 200px">{{vacancy["postedOn"] | date: 'dd/MM/yy'}}</td>
+            <td style="min-width: 200px">{{vacancy["recruiterFullName"]}}</td>
+            <td style="min-width: 200px" [ngClass]="{'applicants': vacancy['amountOfApplicants'] > 0}">
               <a (click)="navigateToApplicants(vacancy['vacancyId'])" class="custom-hyperlink">
                 {{vacancy["amountOfApplicants"]}}
               </a>
