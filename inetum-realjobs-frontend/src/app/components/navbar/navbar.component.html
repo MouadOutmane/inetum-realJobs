@@ -1,43 +1,27 @@
 <nav class="navbar navbar-expand navbar-light bg-light">
   <div class="container-fluid">
     <span class="navbar-brand">Inetum-RealJobs</span>
-    <p-button *ngIf="!isLoggedIn()" label="Log in now" icon="pi pi-users"
-              routerLink="login"></p-button>
+    <p-button *ngIf="!isLoggedIn()" label="Log in now" icon="pi pi-users" routerLink="login"></p-button>
 
     <div *ngIf="isLoggedIn() && hasRoleRecruiter()" class="navbar-nav d-flex flex-row">
       <a class="nav-link" routerLink="" routerLinkActive="active-link">My Company</a>
       <a class="nav-link" routerLink="" routerLinkActive="active-link">Search vacancies</a>
       <a class="nav-link" routerLink="../../recruiter/overview" routerLinkActive="active-link">My vacancies</a>
       <a class="nav-link" routerLink="" routerLinkActive="active-link">Search candidates</a>
-        <div>
-          <i
-          class="pi pi-bell p-mr-4 p-text-secondary"
-          pBadge
-          style="font-size: 2rem"
-          value="3"
-          severity="success"
-          (click)="bellMenu.toggle($event)">
-        </i>
-          <p-menu
-            #bellMenu
-            [popup]="true"
-            [model]="notificationItems">
-          </p-menu>
-        </div>
-        <div>
-          <p-avatar
-            icon="pi pi-user"
-            size="large"
-            shape="circle"
-            (click)="avatarMenu.toggle($event)"
-            [style]="{'background-color': '#2196F3', 'color': '#ffffff'}">
-          </p-avatar>
-          <p-menu
-            #avatarMenu
-            [popup]="true"
-            [model]="avatarItems">
-          </p-menu>
-        </div>
+      <p-button label="Notifications" icon="pi pi-bell" badge="3" badgeClass="p-badge-success" style="width: 11rem"
+                (click)="bellMenu.toggle($event)">
+      </p-button>
+      <p-menu #bellMenu [popup]="true" [model]="notificationItems"></p-menu>
+      <p-button icon="pi pi-user" style="width: 5rem" (click)="avatarMenu.toggle($event)"></p-button>
+      <p-menu #avatarMenu [popup]="true" [model]="avatarItems"></p-menu>
+    </div>
+
+    <div *ngIf="isLoggedIn() && isJobseeker()" class="navbar-nav d-flex flex-row">
+      <a class="nav-link" routerLink="" routerLinkActive="active-link">Resume</a>
+      <a class="nav-link" routerLink="" routerLinkActive="active-link">Search vacancies</a>
+      <a class="nav-link" routerLink="" routerLinkActive="active-link">My applications</a>
+      <p-button icon="pi pi-user" style="width: 5rem" (click)="avatarMenu.toggle($event)"></p-button>
+      <p-menu #avatarMenu [popup]="true" [model]="avatarItems"></p-menu>
     </div>
   </div>
 </nav>
