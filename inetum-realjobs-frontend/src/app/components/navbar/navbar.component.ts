@@ -11,10 +11,12 @@ export class NavbarComponent implements OnInit {
   avatarItems: MenuItem[];
   notificationItems: MenuItem[];
   username: string;
+  notifications: string[];
 
   constructor(private auth: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.username = this.auth.getLoggedInUserEmail();
     this.avatarItems = [
       {label: 'Account', icon: 'pi pi-user', routerLink: '../../users/' + this.username},
       {label: 'Log out', icon: 'pi pi-sign-out', command: () => {
@@ -25,7 +27,6 @@ export class NavbarComponent implements OnInit {
     this.notificationItems = [
       {label: 'Notifications', items: []}
     ];
-    this.username = this.auth.getLoggedInUserEmail();
   }
 
   isLoggedIn(): boolean {

@@ -16,15 +16,10 @@ import {SortEvent, MenuItem} from "primeng/api";
 export class RecruiterOverviewComponent implements OnInit {
   vacancies$: Observable<RecruiterOverviewModel[]>;
   title: string = "Overview: My vacancies";
-  //TODO set as response entity for empty list or null
-  defaultMessage: string = "Your vacancies will appear here." +
-    " Get started and post your first vacancy by clicking 'Post new vacancy'";
   first: number = 0;
   rows: number = 5;
   vacancies: RecruiterOverviewModel[] = [];
   username: string;
-  avatarItems: MenuItem[];
-  notificationItems: MenuItem[];
 
   constructor(private recruiterService: RecruiterService,
               private auth: AuthenticationService,
@@ -35,19 +30,6 @@ export class RecruiterOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllVacancies();
-    this.username = this.auth.getLoggedInUserEmail();
-    this.avatarItems = [
-      {label: 'Account', icon: 'pi pi-user', routerLink: '../../users/' + this.username},
-      {
-        label: 'Log out', icon: 'pi pi-sign-out', command: () => {
-          this.auth.logout()
-        }, routerLink: '../../vacancy/search'
-      }
-    ];
-    //TODO add method to create notifications - add counter
-    this.notificationItems = [
-      {label: 'Notifications', items: []}
-    ];
   }
 
   getAllVacancies(): Observable<RecruiterOverviewModel[]> {

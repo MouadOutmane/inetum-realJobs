@@ -20,7 +20,6 @@
 <div class="container">
   <div class="content-section implementation">
     <div class="card">
-      <div *ngIf="!vacancies$">{{defaultMessage}}</div>
       <p-table [value]="vacancies$ | async" [scrollable]="true" scrollHeight="450px"
                styleClass="p-datatable-lg" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 30]"
                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} vacancies"

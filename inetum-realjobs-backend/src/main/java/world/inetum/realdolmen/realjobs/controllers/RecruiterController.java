@@ -49,7 +49,12 @@ public class RecruiterController {
 
     private ResponseEntity<List<RecruiterOverviewDto>> getListOfResponseEntity(List<Vacancy> allVacancies) {
         if (allVacancies == null || allVacancies.isEmpty()) {
-            return new ResponseEntity<>(Collections.emptyList(), HttpStatus.NO_CONTENT);
+            RecruiterOverviewDto message = new RecruiterOverviewDto();
+            message.setFunctionTitle("Your vacancies will appear here");
+            RecruiterOverviewDto advice = new RecruiterOverviewDto();
+            advice.setFunctionTitle("Get started and post your first vacancy by clicking 'Post new vacancy");
+            List<RecruiterOverviewDto> dtos = List.of(message, advice);
+            return new ResponseEntity<>(dtos, HttpStatus.OK);
         }
         List<RecruiterOverviewDto> dtos = allVacancies
                 .stream()
