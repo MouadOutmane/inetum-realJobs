@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from "../../services/authentication.service";
 import {MenuItem} from "primeng/api";
+import {RecruiterService} from "../../services/recruiter.service";
 
 @Component({
   selector: 'app-navbar',
@@ -12,8 +13,10 @@ export class NavbarComponent implements OnInit {
   notificationItems: MenuItem[];
   username: string;
   notifications: string[];
+  amountOfNotifications: number = 1;
 
-  constructor(private auth: AuthenticationService) { }
+  constructor(private auth: AuthenticationService,
+              private recruiterService: RecruiterService) { }
 
   ngOnInit(): void {
     this.username = this.auth.getLoggedInUserEmail();

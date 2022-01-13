@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand navbar-light bg-light">
   <div class="container-fluid">
-    <span class="navbar-brand">Inetum-RealJobs</span>
+    <a class="navbar-brand" routerLink="">Inetum-RealJobs</a>
     <p-button *ngIf="!isLoggedIn()" label="Log in now" icon="pi pi-user" routerLink="login"></p-button>
 <!--Recruiter menu-->
     <div *ngIf="isLoggedIn() && hasRoleRecruiter()" class="navbar-nav d-flex flex-row">
@@ -8,11 +8,15 @@
       <a class="nav-link" routerLink="" routerLinkActive="active">Search vacancies</a>
       <a class="nav-link" routerLink="../../recruiter/overview" routerLinkActive="active">My vacancies</a>
       <a class="nav-link" routerLink="" routerLinkActive="active">Search candidates</a>
-      <p-button label="Notifications" icon="pi pi-bell" badge="3" badgeClass="p-badge-success" style="width: 11rem"
+      <p-button label="Notifications" icon="pi pi-bell"
+                badge="{{amountOfNotifications}}"
+                badgeClass="p-badge-success"
                 (click)="bellMenu.toggle($event)">
       </p-button>
       <p-menu #bellMenu [popup]="true" [model]="notificationItems"></p-menu>
-      <p-button icon="pi pi-user" style="width: 5rem" (click)="avatarMenu.toggle($event)"></p-button>
+      <p-button icon="pi pi-user"
+                (click)="avatarMenu.toggle($event)">
+      </p-button>
       <p-menu #avatarMenu [popup]="true" [model]="avatarItems"></p-menu>
     </div>
 <!--Jobseeker menu-->
@@ -20,7 +24,9 @@
       <a class="nav-link" routerLink="resume" routerLinkActive="active">Resume</a>
       <a class="nav-link" routerLink="" routerLinkActive="active">Search vacancies</a>
       <a class="nav-link" routerLink="" routerLinkActive="active">My applications</a>
-      <p-button icon="pi pi-user" style="width: 5rem" (click)="avatarMenu.toggle($event)"></p-button>
+      <p-button icon="pi pi-user"
+                (click)="avatarMenu.toggle($event)">
+      </p-button>
       <p-menu #avatarMenu [popup]="true" [model]="avatarItems"></p-menu>
     </div>
   </div>

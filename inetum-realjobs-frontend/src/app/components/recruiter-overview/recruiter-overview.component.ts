@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, count} from "rxjs";
 import {RecruiterOverviewModel} from "../../models/recruiter-overview.model";
 import {RecruiterService} from "../../services/recruiter.service";
 import {AuthenticationService} from "../../services/authentication.service";
@@ -23,6 +23,8 @@ export class RecruiterOverviewComponent implements OnInit {
   username: string;
   notifications: Notification[] = [];
   notifications$: Observable<Notification[]>;
+  amountOfNotifications$: Observable<number>;
+  amountOfNotifications: number;
 
   constructor(private recruiterService: RecruiterService,
               private auth: AuthenticationService,
@@ -35,20 +37,16 @@ export class RecruiterOverviewComponent implements OnInit {
     this.getAllVacancies();
     this.username = this.auth.getLoggedInUserEmail();
     this.getApplicationsUpdate();
+    this.amountOfNotifications$ = this.getAmountOfNotifications();
+    this.amountOfNotifications = this.getAmount();
   }
 
   getAllVacancies(): Observable<RecruiterOverviewModel[]> {
     this.vacancies$ = this.recruiterService.getAllVacancies();
     this.vacancies$.subscribe({
-      next(x) {
-        console.log(x)
-      },
-      error(error) {
-        console.log(error)
-      },
-      complete() {
-        console.log("getAllVacancies has finished")
-      }
+      next(x) {console.log(x)},
+      error(error) {console.log(error)},
+      complete() {console.log("getAllVacancies has finished")}
     });
     return this.vacancies$;
   }
@@ -62,6 +60,23 @@ export class RecruiterOverviewComponent implements OnInit {
     });
     return this.notifications$;
   }
+
+  getAmountOfNotifications(): Observable<number> {
+    const test = this.notifications$.pipe(count());
+    // test.subscribe(val => console.log('notifications = ' + val));
+
+    test.subscribe(number => this.amountOfNotifications = number);
+    console.log('test1 = ' + this.amountOfNotifications);
+    return this.amountOfNotifications$ = this.notifications$.pipe(count());
+  }
+
+  getAmount(): number {
+    const test = this.notifications$.pipe(count());
+    test.subscribe(x => this.amountOfNotifications = x);
+    console.log('test2  = ' + this.amountOfNotifications);
+    return this.amountOfNotifications;
+  }
+
 
   navigateToVacancy(id: number) {
     this.router.navigate(['vacancy', id]);
