@@ -64,6 +64,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import {DialogModule} from "primeng/dialog";
 import {ReverseArraySortPipe} from './pipes/reverse-array-sort.pipe';
 import { NotificationComponent } from './components/notification/notification.component';
+import { VacancyCreateComponent } from './components/vacancy-create/vacancy-create.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,7 @@ import { NotificationComponent } from './components/notification/notification.co
     NavbarComponent,
     ReverseArraySortPipe,
     NotificationComponent,
+    VacancyCreateComponent,
   ],
   imports: [
     BrowserModule,

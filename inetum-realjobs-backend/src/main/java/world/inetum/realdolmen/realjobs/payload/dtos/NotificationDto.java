@@ -9,6 +9,7 @@ public class NotificationDto {
     private Long vacancyId;
     private Long recruiterId;
     private Integer amountOfNewApplicants;
+    private Boolean isRead;
 
     public String getNotificationName() {
         return notificationName;
@@ -56,5 +57,13 @@ public class NotificationDto {
 
     public void setAmountOfNewApplicants(Integer amountOfNewApplicants) {
         this.amountOfNewApplicants = amountOfNewApplicants;
+    }
+
+    public Boolean getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(Boolean read) {
+        isRead = read;
     }
 }

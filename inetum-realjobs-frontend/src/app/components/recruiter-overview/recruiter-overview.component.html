@@ -7,12 +7,12 @@
       placeholder="Filter on function title">
     </p-autoComplete>
   </div>
-<!--    TODO add link to new vacancy form-->
   <div class="p-toolbar-group-right">
     <p-button
       icon="pi pi-plus"
       label="Post new vacancy"
-      class="p-toolbar-separator">
+      class="p-toolbar-separator"
+      (click)="navigateToCreateVacancy()">
     </p-button>
   </div>
 </p-toolbar>

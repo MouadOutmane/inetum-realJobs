@@ -11,6 +11,8 @@ import world.inetum.realdolmen.realjobs.payload.dtos.ApplicationUpdateStatusDto;
 import world.inetum.realdolmen.realjobs.repositories.ApplicationRepository;
 import world.inetum.realdolmen.realjobs.security.SecurityService;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,6 +48,10 @@ public class ApplicationService {
 
     public Integer getAmountOfApplicants(Long vacancyId) {
         return applicationRepository.countApplicationsByVacancy_Id(vacancyId);
+    }
+
+    public List<Application> getByVacancyIdAndTimestamp(Long recruiterId, LocalDateTime timestamp) {
+        return applicationRepository.findByVacancyIdAndTimestamp(recruiterId, timestamp);
     }
 
 }

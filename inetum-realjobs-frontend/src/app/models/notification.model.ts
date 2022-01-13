@@ -5,4 +5,5 @@ export interface Notification {
   vacancyId: number;
   recruiterId: number;
   amountOfNewApplicants: number;
+  isRead: boolean;
 }

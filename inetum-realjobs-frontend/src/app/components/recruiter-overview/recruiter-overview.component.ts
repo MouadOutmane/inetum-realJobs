@@ -6,6 +6,7 @@ import {AuthenticationService} from "../../services/authentication.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {VacancyService} from "../../services/vacancy.service";
 import {SortEvent, MenuItem} from "primeng/api";
+import {Notification} from "../../models/notification.model";
 
 @Component({
   selector: 'app-recruiter-overview',
@@ -14,12 +15,14 @@ import {SortEvent, MenuItem} from "primeng/api";
   styles: [`.applicants {font-weight: bold;}`]
 })
 export class RecruiterOverviewComponent implements OnInit {
-  vacancies$: Observable<RecruiterOverviewModel[]>;
   title: string = "Overview: My vacancies";
+  vacancies: RecruiterOverviewModel[] = [];
+  vacancies$: Observable<RecruiterOverviewModel[]>;
   first: number = 0;
   rows: number = 5;
-  vacancies: RecruiterOverviewModel[] = [];
   username: string;
+  notifications: Notification[] = [];
+  notifications$: Observable<Notification[]>;
 
   constructor(private recruiterService: RecruiterService,
               private auth: AuthenticationService,
@@ -30,6 +33,8 @@ export class RecruiterOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllVacancies();
+    this.username = this.auth.getLoggedInUserEmail();
+    this.getApplicationsUpdate();
   }
 
   getAllVacancies(): Observable<RecruiterOverviewModel[]> {
@@ -48,8 +53,22 @@ export class RecruiterOverviewComponent implements OnInit {
     return this.vacancies$;
   }
 
+  getApplicationsUpdate(): Observable<Notification[]> {
+    this.notifications$ = this.recruiterService.getApplicationsUpdate();
+    this.notifications$.subscribe({
+      next(x) {console.log(x)},
+      error(error) {console.log(error)},
+      complete() {console.log("getApplicationsUpdate has finished")}
+    });
+    return this.notifications$;
+  }
+
   navigateToVacancy(id: number) {
     this.router.navigate(['vacancy', id]);
+  }
+
+  navigateToCreateVacancy() {
+    this.router.navigate(['vacancy', 'create']);
   }
 
   navigateToApplicants(id: number) {

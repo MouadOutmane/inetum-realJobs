@@ -2,9 +2,11 @@ package world.inetum.realdolmen.realjobs.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import world.inetum.realdolmen.realjobs.entities.Application;
 import world.inetum.realdolmen.realjobs.entities.Vacancy;
 import world.inetum.realdolmen.realjobs.security.SecurityService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -48,4 +50,7 @@ public class RecruiterService {
         return securityService.getCurrentUser().getId();
     }
 
+    public List<Application> getApplicationsUpdate(Long vacancyId, LocalDateTime timestamp) {
+        return applicationService.getByVacancyIdAndTimestamp(vacancyId, timestamp);
+    }
 }

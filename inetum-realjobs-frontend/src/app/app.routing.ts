@@ -15,6 +15,7 @@ import {
 import {ResumeComponent} from "./components/resume/resume/resume.component";
 import {RecruiterOverviewComponent} from "./components/recruiter-overview/recruiter-overview.component";
 import {RecruiterGuard} from "./guard/recruiter.guard";
+import {VacancyCreateComponent} from "./components/vacancy-create/vacancy-create.component";
 
 const appRoutes: Routes = [
   {path: "", redirectTo: "/vacancy/search", pathMatch: "full"},
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
   {path: "register", component: RegisterComponent},
   {path: "vacancy/search", component: FilterFormComponent},
   {path: "vacancy/:id", component: VacancyDetailsComponent},
+  {path: "vacancy/create", component: VacancyCreateComponent, canActivate: [RecruiterGuard]},
   {path: "resume", component: ResumeComponent, canActivate: [JobseekerGuard]},
   {path: "vacancy/:id/applications", component: VacancyApplicationsComponent},
   {path: "not-found", component: NotFoundComponent},

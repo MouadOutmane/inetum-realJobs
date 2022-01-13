@@ -7,13 +7,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import world.inetum.realdolmen.realjobs.entities.Application;
 import world.inetum.realdolmen.realjobs.entities.Vacancy;
+import world.inetum.realdolmen.realjobs.payload.dtos.NotificationDto;
 import world.inetum.realdolmen.realjobs.payload.dtos.RecruiterOverviewDto;
 import world.inetum.realdolmen.realjobs.services.RecruiterService;
 import world.inetum.realdolmen.realjobs.services.VacancyService;
 
 import javax.annotation.security.RolesAllowed;
-import java.util.Collections;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -45,6 +47,32 @@ public class RecruiterController {
         Long recruiterId = recruiterService.getIdOfCurrentUser();
         List<Vacancy> allVacancies = recruiterService.findAllVacanciesByRecruiterId(recruiterId);
         return getListOfResponseEntity(allVacancies);
+    }
+
+    @GetMapping("/notifications")
+    @RolesAllowed("RECRUITER")
+    public ResponseEntity<List<NotificationDto>> getNotificationsForCurrentUser() {
+        LocalDateTime timestamp = LocalDateTime.now().minusHours(24L);
+//        TODO add current recruiter id as filter
+        List<Application> applications = recruiterService.getApplicationsUpdate(12L, timestamp);
+        List<NotificationDto> notifications = applications
+                .stream()
+                .map(
+                        (application) -> {
+                            NotificationDto dto = new NotificationDto();
+                            dto.setNotificationName("New application");
+                            dto.setTimestamp(application.getChangedOn());
+                            dto.setFunctionTitle(application.getVacancy().getFunctionTitle());
+                            dto.setVacancyId(application.getVacancy().getId());
+                            dto.setRecruiterId(application.getVacancy().getRecruiter().getId());
+                            dto.setAmountOfNewApplicants(1);
+                            dto.setIsRead(false);
+                            return dto;
+                        }
+                )
+                .toList();
+
+        return new ResponseEntity<>(notifications, HttpStatus.OK);
     }
 
     private ResponseEntity<List<RecruiterOverviewDto>> getListOfResponseEntity(List<Vacancy> allVacancies) {
