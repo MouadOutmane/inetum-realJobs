@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import world.inetum.realdolmen.realjobs.entities.Vacancy;
 import world.inetum.realdolmen.realjobs.entities.enums.ContractType;
 import world.inetum.realdolmen.realjobs.payload.dtos.ApplicationReadDto;
+import world.inetum.realdolmen.realjobs.payload.dtos.VacancyCreateDto;
 import world.inetum.realdolmen.realjobs.payload.dtos.VacancyReadDto;
 import world.inetum.realdolmen.realjobs.payload.mappers.ApplicationMapper;
 import world.inetum.realdolmen.realjobs.payload.mappers.VacancyMapper;
@@ -85,9 +86,19 @@ public class VacancyController {
     }
 
     @PostMapping("/create")
-    public Vacancy newVacancy(@Valid @RequestBody Vacancy newVacancy) {
-        // TODO - Implement DTOs.
-        return vacancyService.addVacancy(newVacancy);
+    @RolesAllowed("RECRUITER")
+    public Vacancy newVacancy(@Valid @RequestBody VacancyCreateDto createDto) {
+        Vacancy vacancy = new Vacancy();
+        vacancy.setRecruiter(createDto.getRecruiter());
+        vacancy.setAddress(createDto.getAddress());
+        vacancy.setCompany(createDto.getCompany());
+        vacancy.setContractType(createDto.getContractType());
+        vacancy.setOffer(createDto.getOffer());
+        vacancy.setFunctionTitle(createDto.getFunctionTitle());
+        vacancy.setFunctionDescription(createDto.getFunctionDescription());
+        vacancy.setRequiredYearsOfExperience(createDto.getRequiredYearsOfExperience());
+        vacancy.setRequirements(createDto.getRequirements());
+        return vacancyService.addVacancy(vacancy);
     }
 
     @GetMapping("{id}")

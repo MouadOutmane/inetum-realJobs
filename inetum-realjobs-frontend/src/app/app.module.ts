@@ -66,6 +66,7 @@ import {ReverseArraySortPipe} from './pipes/reverse-array-sort.pipe';
 import { NotificationComponent } from './components/notification/notification.component';
 import { VacancyCreateComponent } from './components/vacancy-create/vacancy-create.component';
 import { CompanyComponent } from './components/company/company.component';
+import { NotificationMenuComponent } from './components/notification-menu/notification-menu.component';
 
 @NgModule({
   declarations: [
@@ -112,6 +113,7 @@ import { CompanyComponent } from './components/company/company.component';
     NotificationComponent,
     VacancyCreateComponent,
     CompanyComponent,
+    NotificationMenuComponent,
   ],
   imports: [
     BrowserModule,
