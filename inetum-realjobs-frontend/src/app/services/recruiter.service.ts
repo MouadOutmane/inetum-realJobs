@@ -35,4 +35,8 @@ export class RecruiterService {
         catchError(this.handleError<Notification[]>('getApplicationsUpdate', []))
       );
   }
+
+  getAmountOfNotifications(): Observable<number> {
+    return this.http.get<number>(this.notificationsUrl, {observe: "body", responseType: "json"});
+  }
 }

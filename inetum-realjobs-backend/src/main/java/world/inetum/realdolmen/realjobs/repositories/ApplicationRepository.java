@@ -18,4 +18,6 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
 
     @Query("select a from Application  a where a.vacancy.id = :id and a.changedOn > :timestamp")
     List<Application> findByVacancyIdAndTimestamp(Long id, LocalDateTime timestamp);
+
+    Integer countAllByChangedOnAfter(LocalDateTime timestamp);
 }

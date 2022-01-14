@@ -54,4 +54,8 @@ public class ApplicationService {
         return applicationRepository.findByVacancyIdAndTimestamp(recruiterId, timestamp);
     }
 
+    public Integer countApplicantsAfterTimestamp(LocalDateTime timestamp) {
+        return applicationRepository.countAllByChangedOnAfter(timestamp);
+    }
+
 }

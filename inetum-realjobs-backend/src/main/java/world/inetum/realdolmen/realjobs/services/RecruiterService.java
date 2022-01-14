@@ -53,4 +53,8 @@ public class RecruiterService {
     public List<Application> getApplicationsUpdate(Long vacancyId, LocalDateTime timestamp) {
         return applicationService.getByVacancyIdAndTimestamp(vacancyId, timestamp);
     }
+
+    public Integer getApplicationsAfterTimestamp(LocalDateTime timestamp) {
+        return applicationService.countApplicantsAfterTimestamp(timestamp);
+    }
 }
