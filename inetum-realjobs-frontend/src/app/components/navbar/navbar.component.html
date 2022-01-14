@@ -11,11 +11,13 @@
       <p-button label="Notifications" icon="pi pi-bell"
                 badge="{{amountOfNotifications}}"
                 badgeClass="p-badge-success"
-                (click)="bellMenu.toggle($event)">
+                (click)="bellMenu.toggle($event)"
+                >
       </p-button>
       <p-menu #bellMenu [popup]="true" [model]="notificationItems"></p-menu>
       <p-button icon="pi pi-user"
-                (click)="avatarMenu.toggle($event)">
+                (click)="avatarMenu.toggle($event)"
+                class="ms-2">
       </p-button>
       <p-menu #avatarMenu [popup]="true" [model]="avatarItems"></p-menu>
     </div>
