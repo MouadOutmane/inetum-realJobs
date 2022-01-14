@@ -1,16 +1,14 @@
 import {Component, OnInit, Output} from "@angular/core";
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Country} from "src/app/models/country";
 import {Gender} from "src/app/models/gender.enum";
 import {Roles} from "src/app/models/roles.enum";
 import {User} from "src/app/models/user";
 import {AuthenticationService} from "src/app/services/authentication.service";
-import {MessageService} from "primeng/api";
+import {MenuItem, MessageService} from "primeng/api";
 import {CountryService} from "src/app/services/country.service";
 import {Observable} from "rxjs";
-
-import {STEP_ITEMS} from "../../constants/register-multi-step-form";
 
 
 @Component({
@@ -40,8 +38,13 @@ export class RegisterComponent implements OnInit {
 
   user: User;
 
+  stepItems: Array<MenuItem>;
+  activeStepIndex: number;
+  stepOneForm: FormGroup;
+  masterForm: Array<FormGroup>;
+
   constructor(private authService: AuthenticationService, private router: Router,
-              private formBuilder: FormBuilder, private messageService: MessageService,
+              private readonly _formBuilder: FormBuilder, private messageService: MessageService,
               private countryService: CountryService) {
   }
 
@@ -49,15 +52,38 @@ export class RegisterComponent implements OnInit {
     this.countries$ = this.countryService.getAllCountries();
     this.genders = Object.keys(Gender).map(key =>
       Gender[key].toString());
-    console.log(this.genders);
     this.roles = Object.keys(Roles).map(key => Roles[key].toString());
-    this.formContent = STEP_ITEMS;
-    console.log(this.genders);
+
+    this.stepItems = [{
+      label: "Step 1"
+    }, {
+      label: "Step 2"
+    }, {
+      label: "Step 3"
+    }];
+
+    this.activeStepIndex = 0;
+
+    this.stepOneForm = this._formBuilder.group(
+      {
+        firstName: ["", [Validators.required, Validators.pattern("^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ ]+$")]],
+        lastName: ["", [Validators.required, Validators.pattern("^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ ]+$")]],
+        gender: ["", Validators.required],
+        email: ["", [Validators.required, Validators.email]],
+        password: ["", [Validators.required, Validators.minLength(4)]],
+        password_repeat: ["", [Validators.required, Validators.minLength(4)]]
+      }
+    );
+    this.masterForm = [];
+    this.masterForm.push(this.stepOneForm);
+
+    //TODO: create stepTwoForm and stepThreeForm and components
+
+    // this.formContent = STEP_ITEMS;
   }
 
   register({data: formData}) {
     this.formData = formData;
-    console.log(this.formData);
   }
 
   //

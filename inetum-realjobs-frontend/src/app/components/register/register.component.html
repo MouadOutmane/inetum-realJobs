@@ -1,7 +1,6 @@
 <div class="main-container">
-  <app-multi-step-form [countries$]="countries$" [genders]="genders" [roles]="roles"
-                       class="multi-step-form"
-                       [formContent]="formContent"
-                       (formSubmit)="register($event)"
-  ></app-multi-step-form>
+  <p-steps [model]="stepItems" [activeIndex]=activeStepIndex [readonly]="false"></p-steps>
+
+  <app-account-information-component *ngIf="activeStepIndex == 0">
+  </app-account-information-component>
 </div>

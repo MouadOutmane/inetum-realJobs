@@ -24,6 +24,7 @@ import {InputMaskModule} from "primeng/inputmask";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {StepsModule} from "primeng/steps";
 import {RegisterMultiFormComponent} from "./components/multi-step-form/register.multi.form.component";
+import {AccountInformationComponent} from "./components/multi-step-form/account.information.component/account-information.component";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {RegisterMultiFormComponent} from "./components/multi-step-form/register.
     RegisterComponent,
     NotFoundComponent,
     RegisterMultiFormComponent,
+    AccountInformationComponent,
   ],
   imports: [
     BrowserModule,
