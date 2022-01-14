@@ -16,6 +16,7 @@ import {ResumeComponent} from "./components/resume/resume/resume.component";
 import {RecruiterOverviewComponent} from "./components/recruiter-overview/recruiter-overview.component";
 import {RecruiterGuard} from "./guard/recruiter.guard";
 import {VacancyCreateComponent} from "./components/vacancy-create/vacancy-create.component";
+import {CompanyComponent} from "./components/company/company.component";
 
 const appRoutes: Routes = [
   {path: "", redirectTo: "/vacancy/search", pathMatch: "full"},
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
   {path: "forgot-password", component: ForgotPasswordComponent},
   {path: "reset-password", component: ResetPasswordComponent},
   {path: 'recruiter/overview', component: RecruiterOverviewComponent, canActivate: [RecruiterGuard]},
+  {path: 'company', component: CompanyComponent, canActivate: [RecruiterGuard]},
   {path: "**", component: NotFoundComponent},
 ];
 

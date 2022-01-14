@@ -13,7 +13,8 @@ export class NavbarComponent implements OnInit {
   avatarItems: MenuItem[];
   notificationItems: MenuItem[];
   username: string;
-  notifications: string[] = ['item1', 'item2'];
+  notifications: string[] = [];
+  notificationData: string[] = ['item1', 'item2'];
   amountOfNotifications: number = 1;
   amountOfNotifications$: Observable<number>;
 
@@ -25,20 +26,28 @@ export class NavbarComponent implements OnInit {
     this.username = this.auth.getLoggedInUserEmail();
     this.avatarItems = [
       {
-        label: this.username,
+        label: `<em>${this.username}</em>`,
+        escape: false,
         items: [
           {label: 'Account', icon: 'pi pi-user', routerLink: '../../users/' + this.username},
           {label: 'Log out', icon: 'pi pi-sign-out', command: () => {
               this.auth.logout()}, routerLink: '../../vacancy/search'}
         ]},
     ];
+    this.notifications = this.fillNotifications();
     this.notificationItems = [
-      {label: 'Notifications',
-        items: [
-          {label: this.notifications[1]}
-        ]}
+      {label: this.notifications[1]},
+      {label: this.notifications[2]}
     ];
   }
+
+  fillNotifications(): string[] {
+    this.notificationData.forEach((x: string) =>
+    this.notifications.push("{label: " + x + "}"));
+    console.log(this.notifications);
+    this.amountOfNotifications = this.notifications.length;
+    return this.notifications;
+}
 
   getAmountOfUpdates(): Observable<number> {
     this.amountOfNotifications$ = this.recruiterService.getAmountOfNotifications();

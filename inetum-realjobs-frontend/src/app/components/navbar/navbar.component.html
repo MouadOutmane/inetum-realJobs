@@ -4,10 +4,10 @@
     <p-button *ngIf="!isLoggedIn()" label="Log in now" icon="pi pi-user" routerLink="login"></p-button>
 <!--Recruiter menu-->
     <div *ngIf="isLoggedIn() && hasRoleRecruiter()" class="navbar-nav d-flex flex-row">
-      <a class="nav-link" routerLink="" routerLinkActive="active">My Company</a>
-      <a class="nav-link" routerLink="" routerLinkActive="active">Search vacancies</a>
+      <a class="nav-link" routerLink="../../company" routerLinkActive="active">My Company</a>
+      <a class="nav-link" routerLink="../../vacancy/search" routerLinkActive="active">Search vacancies</a>
       <a class="nav-link" routerLink="../../recruiter/overview" routerLinkActive="active">My vacancies</a>
-      <a class="nav-link" routerLink="" routerLinkActive="active">Search candidates</a>
+      <a class="nav-link" routerLink="" routerLinkActive="" id="disabled">Search candidates</a>
       <p-button label="Notifications" icon="pi pi-bell"
                 badge="{{amountOfNotifications}}"
                 badgeClass="p-badge-success"
@@ -24,7 +24,7 @@
 <!--Jobseeker menu-->
     <div *ngIf="isLoggedIn() && isJobseeker()" class="navbar-nav d-flex flex-row">
       <a class="nav-link" routerLink="resume" routerLinkActive="active">Resume</a>
-      <a class="nav-link" routerLink="" routerLinkActive="active">Search vacancies</a>
+      <a class="nav-link" routerLink="vacancy/search" routerLinkActive="active">Search vacancies</a>
       <a class="nav-link" routerLink="" routerLinkActive="active">My applications</a>
       <p-button icon="pi pi-user"
                 (click)="avatarMenu.toggle($event)">
