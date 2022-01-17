@@ -5,9 +5,10 @@ import {RecruiterService} from "../../services/recruiter.service";
 import {AuthenticationService} from "../../services/authentication.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {VacancyService} from "../../services/vacancy.service";
-import {SortEvent, MenuItem} from "primeng/api";
-import {Notification} from "../../models/notification.model";
+import {SortEvent} from "primeng/api";
 import {Vacancy} from "../../models/vacancy";
+import {Notification} from "../../models/notification.model";
+import {NotificationComponent} from "../notification/notification.component";
 
 @Component({
   selector: 'app-recruiter-overview',
@@ -22,10 +23,12 @@ export class RecruiterOverviewComponent implements OnInit {
   first: number = 0;
   rows: number = 5;
   username: string;
-  notifications: Notification[] = [];
+  notifications: NotificationComponent[] = [];
   notifications$: Observable<Notification[]>;
   newVacancy$: Observable<Vacancy>;
   newVacancy: Vacancy;
+  showNotifications: boolean;
+
 
   constructor(private recruiterService: RecruiterService,
               private auth: AuthenticationService,
@@ -38,6 +41,11 @@ export class RecruiterOverviewComponent implements OnInit {
     this.getAllVacancies();
     this.username = this.auth.getLoggedInUserEmail();
     this.getApplicationsUpdate();
+    this.showNotifications = false;
+  }
+
+  openNotifications(state: boolean): boolean {
+    return this.showNotifications = state;
   }
 
   getAllVacancies(): Observable<RecruiterOverviewModel[]> {

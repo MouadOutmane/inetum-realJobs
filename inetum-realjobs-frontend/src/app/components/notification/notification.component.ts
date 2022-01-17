@@ -8,11 +8,19 @@ import {Notification} from "../../models/notification.model";
 })
 export class NotificationComponent implements OnInit {
   notifications: Notification[];
+  showNotification: boolean;
 
 
   constructor() { }
 
   ngOnInit(): void {
+      this.showNotification = false;
+  }
+
+  openNotifications(state: boolean): boolean {
+    console.log('openNotfications has been called');
+    console.log(this.showNotification);
+    return this.showNotification = state;
   }
 
 }

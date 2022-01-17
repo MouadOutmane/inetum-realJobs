@@ -11,12 +11,11 @@ import {Observable} from "rxjs";
 })
 export class NavbarComponent implements OnInit {
   avatarItems: MenuItem[];
-  notificationItems: MenuItem[];
   username: string;
   notifications: string[] = [];
-  notificationData: string[] = ['item1', 'item2'];
-  amountOfNotifications: number = 1;
+  amountOfNotifications: number;
   amountOfNotifications$: Observable<number>;
+  showNotifications: boolean;
 
   constructor(private auth: AuthenticationService,
               private recruiterService: RecruiterService) {
@@ -34,20 +33,13 @@ export class NavbarComponent implements OnInit {
               this.auth.logout()}, routerLink: '../../vacancy/search'}
         ]},
     ];
-    this.notifications = this.fillNotifications();
-    this.notificationItems = [
-      {label: this.notifications[1]},
-      {label: this.notifications[2]}
-    ];
+    this.showNotifications = false;
+    this.amountOfNotifications = this.notifications.length;
   }
 
-  fillNotifications(): string[] {
-    this.notificationData.forEach((x: string) =>
-    this.notifications.push("{label: " + x + "}"));
-    console.log(this.notifications);
-    this.amountOfNotifications = this.notifications.length;
-    return this.notifications;
-}
+  openNotifications(state: boolean): boolean {
+    return this.showNotifications = state;
+  }
 
   getAmountOfUpdates(): Observable<number> {
     this.amountOfNotifications$ = this.recruiterService.getAmountOfNotifications();

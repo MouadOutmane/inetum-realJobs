@@ -9,6 +9,10 @@
   </div>
   <div class="p-toolbar-group-right">
     <p-button
+    icon="pi pi-bell"
+    (click)="openNotifications(!showNotifications)">
+    </p-button>
+    <p-button
       icon="pi pi-plus"
       label="Post new vacancy"
       class="p-toolbar-separator"
@@ -16,7 +20,9 @@
     </p-button>
   </div>
 </p-toolbar>
-
+    <div *ngIf="showNotifications">Notifications
+    <app-notification></app-notification>
+    </div>
 <div class="container">
   <div class="content-section implementation">
     <div class="card">

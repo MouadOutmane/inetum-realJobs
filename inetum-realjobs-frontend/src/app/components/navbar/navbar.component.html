@@ -11,10 +11,9 @@
       <p-button label="Notifications" icon="pi pi-bell"
                 badge="{{amountOfNotifications}}"
                 badgeClass="p-badge-success"
-                (click)="bellMenu.toggle($event)"
+                (click)="openNotifications(!showNotifications)"
                 >
       </p-button>
-      <p-menu #bellMenu [popup]="true" [model]="notificationItems"></p-menu>
       <p-button icon="pi pi-user"
                 (click)="avatarMenu.toggle($event)"
                 class="ms-2">
@@ -33,3 +32,6 @@
     </div>
   </div>
 </nav>
+<div *ngIf="showNotifications">
+  <app-notification></app-notification>
+</div>
