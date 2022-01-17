@@ -27,8 +27,6 @@ export class RecruiterOverviewComponent implements OnInit {
   notifications$: Observable<Notification[]>;
   newVacancy$: Observable<Vacancy>;
   newVacancy: Vacancy;
-  showNotifications: boolean;
-
 
   constructor(private recruiterService: RecruiterService,
               private auth: AuthenticationService,
@@ -41,11 +39,6 @@ export class RecruiterOverviewComponent implements OnInit {
     this.getAllVacancies();
     this.username = this.auth.getLoggedInUserEmail();
     this.getApplicationsUpdate();
-    this.showNotifications = false;
-  }
-
-  openNotifications(state: boolean): boolean {
-    return this.showNotifications = state;
   }
 
   getAllVacancies(): Observable<RecruiterOverviewModel[]> {
