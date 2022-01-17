@@ -10,7 +10,8 @@ import {Notification} from "../models/notification.model";
 export class RecruiterService {
   allVacanciesUrl: string = "recruiters";
   notificationsUrl: string = "recruiters/notifications";
-  amountOfNotifications: number
+  amountOfNotifications: number;
+  newVacancyUrl: string = "vacancy/create";
 
   constructor(private http: HttpClient) {
   }

@@ -12,6 +12,7 @@ export class VacancyService {
 
   vacancies: Vacancy[] = [];
   allVacanciesUrl: string = "vacancies/all";
+  newVacancyUrl: string = "vacancies/create";
 
 
   constructor(private httpClient: HttpClient) {
@@ -54,6 +55,13 @@ export class VacancyService {
     return this.httpClient.get<Vacancy[]>(this.allVacanciesUrl, {observe: "body", responseType: "json"})
       .pipe(
         catchError(this.handleError<Vacancy[]>('getAllVacancies', []))
+      );
+  }
+
+  createVacancy(vacancy: Vacancy): Observable<Vacancy> {
+    return this.httpClient.post<Vacancy>(this.newVacancyUrl, vacancy)
+      .pipe(
+        catchError(this.handleError<Vacancy>("createVacancy", vacancy))
       );
   }
 

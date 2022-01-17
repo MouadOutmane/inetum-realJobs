@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {VacancyService} from "../../services/vacancy.service";
 import {SortEvent, MenuItem} from "primeng/api";
 import {Notification} from "../../models/notification.model";
+import {Vacancy} from "../../models/vacancy";
 
 @Component({
   selector: 'app-recruiter-overview',
@@ -23,6 +24,8 @@ export class RecruiterOverviewComponent implements OnInit {
   username: string;
   notifications: Notification[] = [];
   notifications$: Observable<Notification[]>;
+  newVacancy$: Observable<Vacancy>;
+  newVacancy: Vacancy;
 
   constructor(private recruiterService: RecruiterService,
               private auth: AuthenticationService,
@@ -55,6 +58,12 @@ export class RecruiterOverviewComponent implements OnInit {
       complete() {console.log("getApplicationsUpdate has finished")}
     });
     return this.notifications$;
+  }
+
+  createVacancy() {
+    this.navigateToCreateVacancy();
+    this.newVacancy$ = this.vacancyService.createVacancy(this.newVacancy);
+    this.newVacancy$.subscribe((vacancy) => this.newVacancy = vacancy);
   }
 
   navigateToVacancy(id: number) {

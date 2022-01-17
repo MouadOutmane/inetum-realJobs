@@ -15,7 +15,6 @@ import world.inetum.realdolmen.realjobs.services.RecruiterService;
 import world.inetum.realdolmen.realjobs.services.VacancyService;
 
 import javax.annotation.security.RolesAllowed;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -78,7 +77,7 @@ public class RecruiterController {
 
     @GetMapping("/notifications/count")
     @RolesAllowed("RECRUITER")
-    private ResponseEntity<Integer> getAmountOfNotifications() {
+    public ResponseEntity<Integer> getAmountOfNotifications() {
         LocalDateTime timestamp = LocalDateTime.now().minusHours(24L);
         Integer amount = recruiterService.getApplicationsAfterTimestamp(timestamp);
         return new ResponseEntity<>(amount, HttpStatus.OK);
