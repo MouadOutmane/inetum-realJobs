@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 
 @Component({
   selector: 'app-notification-menu',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notification-menu.component.scss']
 })
 export class NotificationMenuComponent implements OnInit {
+  @Input() notificationTemplateRef: any;
 
   constructor() { }
 
